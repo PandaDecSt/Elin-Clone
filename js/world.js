@@ -24,11 +24,13 @@ export class GameMap{
     this.rooms = [];
     this.isTown = false;
     this.isWorld = false;
+    this._visibleZ = [];  // [y][x] = {lo, hi} 可见z范围（含）
     for(let y=0;y<h;y++){
       this.tiles.push(new Array(w).fill('floor'));
       this.blocks.push(new Array(w).fill(null));
       this.explored.push(new Array(w).fill(false));
       this.visible.push(new Array(w).fill(false));
+      this._visibleZ.push(new Array(w).fill(null));
     }
   }
   get(x,y){
@@ -439,6 +441,94 @@ export function generateHome(rng){
   generateDecorations(map, rng);
 
   return map;
+}
+
+// ---------- 3D视野：垂直扩展 ----------
+export function computeVerticalVisibility(map){
+  const w = map.w, h = map.h;
+  for(let y=0;y<h;y++) for(let x=0;x<w;x++) map._visibleZ[y][x] = null;
+
+  const setRange = (x,y,lo,hi)=>{
+    if(x<0||y<0||x>=w||y>=h) return;
+    const cur = map._visibleZ[y][x];
+    if(!cur){ map._visibleZ[y][x] = {lo, hi}; return; }
+    if(lo < cur.lo) cur.lo = lo;
+    if(hi > cur.hi) cur.hi = hi;
+  };
+
+  // 对每个可见地板格子，向上/下扩展可见性
+  for(let y=0;y<h;y++){
+    for(let x=0;x<w;x++){
+      if(!map.visible[y][x]) continue;
+      const b = map.blocks[y][x];
+      const stackH = b ? b.length : 0;
+      if(stackH === 0){
+        // 无方块：地板可见，向上扩展直到遇到实体方块
+        let hi = 0;
+        for(let z=0; z<20; z++){
+          const by = y - z;
+          if(by < 0) break;
+          const sb = map.blocks[by]?.[x];
+          if(sb && sb.some(id=>{ const bt=BLOCK_TYPES[id]; return bt && bt.solid; })) break;
+          hi = z;
+        }
+        // 向下扩展
+        let lo = 0;
+        for(let z=1; z<20; z++){
+          const by = y + z;
+          if(by >= h) break;
+          const sb = map.blocks[by]?.[x];
+          if(sb && sb.some(id=>{ const bt=BLOCK_TYPES[id]; return bt && bt.solid; })) break;
+          lo = -z;
+        }
+        setRange(x, y, lo, hi);
+      } else {
+        // 有方块：从地板开始向上，经过非实体方块，到实体方块截止
+        let lo = 0, hi = 0;
+        // 从底部向上扫描
+        for(let z=0; z<stackH; z++){
+          const bt = BLOCK_TYPES[b[z]];
+          if(!bt) continue;
+          if(bt.solid){
+            hi = z; // 实体方块本身可见（玩家能看到这面墙），但到此截止
+            break;
+          } else {
+            hi = z; // 非实体方块（栅栏等），继续向上
+          }
+        }
+        // 如果所有方块都是非实体，hi = stackH-1
+        // 向上继续扩展（方块上方的空空间）
+        for(let z=stackH; z<20; z++){
+          const by = y - z;
+          if(by < 0) break;
+          const sb = map.blocks[by]?.[x];
+          if(sb && sb.some(id=>{ const bt=BLOCK_TYPES[id]; return bt && bt.solid; })) break;
+          hi = z;
+        }
+        setRange(x, y, lo, hi);
+      }
+    }
+  }
+
+  // 水平扩展平滑层：相邻可见格子的高度信息互相参考
+  // 不传播空间可见性，只帮助确定相邻格子的可见高度
+  for(let y=0;y<h;y++){
+    for(let x=0;x<w;x++){
+      if(!map._visibleZ[y][x]) continue;
+      const cur = map._visibleZ[y][x];
+      const dirs = [[-1,0],[1,0],[0,-1],[0,1]];
+      for(const [dx,dy] of dirs){
+        const nx=x+dx, ny=y+dy;
+        if(nx<0||ny<0||nx>=w||ny>=h) continue;
+        // 只对自身可见的邻居做平滑
+        if(!map.visible[ny][nx]) continue;
+        const nb = map.blocks[ny]?.[nx];
+        const nH = nb ? nb.length : 0;
+        const nHi = nH > 0 ? nH - 1 : cur.hi;
+        setRange(nx, ny, cur.lo, Math.min(cur.hi, nHi));
+      }
+    }
+  }
 }
 
 // ---------- FOV：射线投射 ----------

@@ -2,7 +2,7 @@
 
 import { RNG, rng, rollDice } from './rng.js';
 import { IsoRenderer, gridToScreen, screenToGrid, TILE_W, TILE_H, WALL_H, SPRITE_MAP } from './iso.js?v=43';
-import { GameMap, generateDungeon, generateHome, computeFOV } from './world.js';
+import { GameMap, generateDungeon, generateHome, computeFOV, computeVerticalVisibility } from './world.js';
 import { createPlayer, makeMonster, Entity, equip, unequip } from './entity.js';
 import { makeItem, itemName } from './item.js';
 import { attack, castSpell, applyDamage, tickStatusEffects, regenEntity } from './combat.js';
@@ -133,6 +133,7 @@ class Game{
     this.player.x = gx; this.player.y = gy;
     const range = 6 + Math.floor((this.player.getAttr?this.player.getAttr('感知'):0) * 0.3);
     computeFOV(this.map, gx, gy, Math.max(5, range));
+    computeVerticalVisibility(this.map);
   }
 
   // ========== 主循环：实时更新 ==========
@@ -1809,7 +1810,8 @@ class Game{
         const screenP = gridToScreen(gx, gy);
         if(!inView(screenP.x, screenP.y)) continue;
         const hover = this.hoverTile && this.hoverTile.x===gx && this.hoverTile.y===gy;
-        drawList.push({type:'block', gx, gy, blocks, vis, exp, hover, depth: gx+gy, sortPri: 2});
+        const visibleZ = vis ? (this.map._visibleZ[gy]?.[gx] || null) : null;
+        drawList.push({type:'block', gx, gy, blocks, vis, exp, hover, visibleZ, depth: gx+gy, sortPri: 2});
       }
     }
 
@@ -1861,7 +1863,7 @@ class Game{
         // 实体不隐藏（方便观察）
       }
       if(d.type === 'block'){
-        r.drawBlockStack(d.gx, d.gy, d.blocks, d.vis, d.exp, d.hover);
+        r.drawBlockStack(d.gx, d.gy, d.blocks, d.vis, d.exp, d.hover, d.visibleZ);
       } else if(d.type === 'decor'){
         // 不可见（仅已探索）的装饰物降低透明度
         if(!d.vis){
@@ -1901,7 +1903,7 @@ class Game{
       }
     }
 
-    // ===== 战争迷雾：批量路径填充（覆盖所有元素）=====
+    // ===== 战争迷雾：地板层覆盖（方块由drawBlockStack的per-block dim处理）=====
     {
       const ctx = r.ctx;
       r.applyCam();
@@ -1915,26 +1917,17 @@ class Game{
           const vis = this.map.visible[gy][gx];
           const exp = this.map.explored[gy][gx];
           if(vis || !exp) continue;
+          // 有方块的格子：由drawBlockStack的per-block dim处理，跳过
+          const blocks = this.map.getBlocks(gx, gy);
+          if(blocks && blocks.length > 0) continue;
           const sp = gridToScreen(gx, gy);
           if(!inView(sp.x, sp.y)) continue;
-          const wallH = this.map.blockHeightAt(gx, gy) * WALL_H;
-          if(wallH > 0){
-            // 方块轮廓：从三个面(drawTileWall)推导的六边形
-            ctx.moveTo(sp.x, sp.y - hh - wallH);
-            ctx.lineTo(sp.x + hw, sp.y - wallH);
-            ctx.lineTo(sp.x + hw, sp.y);
-            ctx.lineTo(sp.x, sp.y + hh);
-            ctx.lineTo(sp.x - hw, sp.y);
-            ctx.lineTo(sp.x - hw, sp.y - wallH);
-            ctx.closePath();
-          } else {
-            // 纯地板：菱形
-            ctx.moveTo(sp.x, sp.y - hh);
-            ctx.lineTo(sp.x + hw, sp.y);
-            ctx.lineTo(sp.x, sp.y + hh);
-            ctx.lineTo(sp.x - hw, sp.y);
-            ctx.closePath();
-          }
+          // 纯地板：菱形
+          ctx.moveTo(sp.x, sp.y - hh);
+          ctx.lineTo(sp.x + hw, sp.y);
+          ctx.lineTo(sp.x, sp.y + hh);
+          ctx.lineTo(sp.x - hw, sp.y);
+          ctx.closePath();
         }
       }
       ctx.fill();
