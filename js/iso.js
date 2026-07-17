@@ -3,7 +3,7 @@
 
 export const TILE_W = 64;
 export const TILE_H = 32;
-const WALL_H = 32; // 墙体高度像素
+export const WALL_H = 32; // 墙体高度像素
 
 import { TILES, DECOR_TYPES, BLOCK_TYPES, FLOOR_ATLAS, GRASS_ATLAS } from './data.js?v=43';
 
@@ -769,7 +769,6 @@ export class IsoRenderer{
     if(!blockIds || blockIds.length === 0) return 0;
     const ctx = this.ctx;
     const p = gridToScreen(gx, gy);
-    const dim = !visible && explored;
     if(!visible && !explored) return 0;
 
     const atlas = this.elinAtlases?.['blocks'];
@@ -780,7 +779,6 @@ export class IsoRenderer{
     let accumH = 0; // 累积高度(像素)
 
     ctx.save();
-    if(dim) ctx.globalAlpha = 0.45;
 
     for(let i = 0; i < blockIds.length; i++){
       const bt = BLOCK_TYPES[blockIds[i]];

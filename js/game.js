@@ -1,7 +1,7 @@
 // ===== 主游戏控制器：实时平滑移动 / 输入 / AI / 渲染 =====
 
 import { RNG, rng, rollDice } from './rng.js';
-import { IsoRenderer, gridToScreen, screenToGrid, TILE_W, TILE_H, SPRITE_MAP } from './iso.js?v=43';
+import { IsoRenderer, gridToScreen, screenToGrid, TILE_W, TILE_H, WALL_H, SPRITE_MAP } from './iso.js?v=43';
 import { GameMap, generateDungeon, generateHome, computeFOV } from './world.js';
 import { createPlayer, makeMonster, Entity, equip, unequip } from './entity.js';
 import { makeItem, itemName } from './item.js';
@@ -1774,34 +1774,6 @@ class Game{
       }
     }
 
-    // ===== 战争迷雾：批量路径填充（性能最优）=====
-    {
-      const ctx = r.ctx;
-      r.applyCam();
-      const hw = TILE_W/2, hh = TILE_H/2;
-      ctx.save();
-      ctx.globalAlpha = 0.6;
-      ctx.fillStyle = '#000';
-      ctx.beginPath();
-      for(let gy = Math.max(0, center.y-rad); gy < Math.min(this.map.h, center.y+rad); gy++){
-        for(let gx = Math.max(0, center.x-rad); gx < Math.min(this.map.w, center.x+rad); gx++){
-          const vis = this.map.visible[gy][gx];
-          const exp = this.map.explored[gy][gx];
-          if(vis || !exp) continue;
-          const sp = gridToScreen(gx, gy);
-          if(!inView(sp.x, sp.y)) continue;
-          ctx.moveTo(sp.x, sp.y - hh);
-          ctx.lineTo(sp.x + hw, sp.y);
-          ctx.lineTo(sp.x, sp.y + hh);
-          ctx.lineTo(sp.x - hw, sp.y);
-          ctx.closePath();
-        }
-      }
-      ctx.fill();
-      ctx.restore();
-      r.restore();
-    }
-
     // ===== 回合制移动范围高亮 =====
     if(this.tb.active && this._tbHighlightTiles.length > 0){
       const ctx = this.renderer.ctx;
@@ -1927,6 +1899,47 @@ class Game{
           currentPackage: e.currentPackage || null,
         });
       }
+    }
+
+    // ===== 战争迷雾：批量路径填充（覆盖所有元素）=====
+    {
+      const ctx = r.ctx;
+      r.applyCam();
+      const hw = TILE_W/2, hh = TILE_H/2;
+      ctx.save();
+      ctx.globalAlpha = 0.6;
+      ctx.fillStyle = '#000';
+      ctx.beginPath();
+      for(let gy = Math.max(0, center.y-rad); gy < Math.min(this.map.h, center.y+rad); gy++){
+        for(let gx = Math.max(0, center.x-rad); gx < Math.min(this.map.w, center.x+rad); gx++){
+          const vis = this.map.visible[gy][gx];
+          const exp = this.map.explored[gy][gx];
+          if(vis || !exp) continue;
+          const sp = gridToScreen(gx, gy);
+          if(!inView(sp.x, sp.y)) continue;
+          const wallH = this.map.blockHeightAt(gx, gy) * WALL_H;
+          if(wallH > 0){
+            // 方块轮廓：从三个面(drawTileWall)推导的六边形
+            ctx.moveTo(sp.x, sp.y - hh - wallH);
+            ctx.lineTo(sp.x + hw, sp.y - wallH);
+            ctx.lineTo(sp.x + hw, sp.y);
+            ctx.lineTo(sp.x, sp.y + hh);
+            ctx.lineTo(sp.x - hw, sp.y);
+            ctx.lineTo(sp.x - hw, sp.y - wallH);
+            ctx.closePath();
+          } else {
+            // 纯地板：菱形
+            ctx.moveTo(sp.x, sp.y - hh);
+            ctx.lineTo(sp.x + hw, sp.y);
+            ctx.lineTo(sp.x, sp.y + hh);
+            ctx.lineTo(sp.x - hw, sp.y);
+            ctx.closePath();
+          }
+        }
+      }
+      ctx.fill();
+      ctx.restore();
+      r.restore();
     }
 
     // 浮动伤害数字
@@ -2194,7 +2207,7 @@ class Game{
       if(bm.cat === 'wall' && BLOCK_TYPES[bm.selected]){
         const bt = BLOCK_TYPES[bm.selected];
         const stackH = this.map.blockHeightAt(gx, gy);
-        const previewH = bt.h * 32; // WALL_H
+        const previewH = bt.h * WALL_H;
         const topY = p.y - 48 - stackH - previewH + 16;
         ctx.strokeStyle = color;
         ctx.lineWidth = 1/r.cam.zoom;
