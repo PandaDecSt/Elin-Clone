@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="mobile-web-app-capable" content="yes">
+<title>Elin 风格沙盒 Roguelike RPG — H5</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div id="app">
+  <!-- 主画布：等距瓦片世界 -->
+  <canvas id="game-canvas"></canvas>
+
+  <!-- HUD 覆盖层 -->
+  <div id="hud" class="hidden">
+    <!-- 顶部信息条 -->
+    <div id="topbar">
+      <div id="date-info" class="topbar-item">第 1 天 · 晴</div>
+      <div id="location-info" class="topbar-item">未知地下城 1F</div>
+      <div id="depth-info" class="topbar-item">危险度: --</div>
+    </div>
+
+    <!-- 左下：状态条 -->
+    <div id="stats-panel">
+      <div class="stat-row">
+        <span class="stat-label">HP</span>
+        <div class="bar"><div id="hp-bar" class="bar-fill hp"></div><span id="hp-text" class="bar-text"></span></div>
+      </div>
+      <div class="stat-row">
+        <span class="stat-label">MP</span>
+        <div class="bar"><div id="mp-bar" class="bar-fill mp"></div><span id="mp-text" class="bar-text"></span></div>
+      </div>
+      <div class="stat-row">
+        <span class="stat-label">体力</span>
+        <div class="bar"><div id="st-bar" class="bar-fill st"></div><span id="st-text" class="bar-text"></span></div>
+      </div>
+      <div class="stat-row">
+        <span class="stat-label">饱食</span>
+        <div class="bar"><div id="food-bar" class="bar-fill food"></div><span id="food-text" class="bar-text"></span></div>
+      </div>
+      <div id="status-effects" class="status-effects"></div>
+      <div id="char-brief" class="char-brief"></div>
+    </div>
+
+    <!-- 右下：快捷栏 -->
+    <div id="hotbar"></div>
+
+    <!-- 右上：操作提示 -->
+    <div id="help-tip" class="help-tip">
+      <div>WASD/方向键 移动 · 左键点击自动寻路 · F 攻击</div>
+      <div>Tab 切换实时/回合制 · 空格结束回合 · R冲刺 · Q急救 · G拾取</div>
+      <div>1-9 法术 · Enter 下楼/上楼 · 滚轮缩放 · 右键拖拽视角</div>
+      <div>B 建造模式 · 左键放置 · 右键拆除</div>
+    </div>
+
+    <!-- 浮动信息日志 -->
+    <div id="message-log" class="message-log"></div>
+
+    <!-- 移动端虚拟摇杆（浮动式） -->
+    <div id="mobile-joystick" class="mobile-only">
+      <div id="joystick-base"></div>
+      <div id="joystick-thumb"></div>
+    </div>
+
+    <!-- 回合制战斗UI -->
+    <div id="tb-ui" class="hidden"></div>
+
+    <!-- 移动端动作按钮 -->
+    <div id="mobile-actions" class="mobile-only">
+      <div class="mob-btn" data-action="attack" id="btn-attack">⚔</div>
+      <div class="mob-btn" data-action="tbmode" id="btn-tbmode">⏸</div>
+      <div class="mob-btn" data-action="tbend" id="btn-tbend">⏭</div>
+      <div class="mob-btn" data-action="stairs" id="btn-stairs">🚪</div>
+      <div class="mob-btn" data-action="pickup" id="btn-pickup">🎒</div>
+      <div class="mob-btn" data-action="dash" id="btn-dash">💨</div>
+      <div class="mob-btn" data-action="heal" id="btn-heal">❤</div>
+      <div class="mob-btn" data-action="build" id="btn-build">🔨</div>
+      <div class="mob-btn" data-action="inventory" id="btn-inventory">📜</div>
+      <div class="mob-btn" data-action="character" id="btn-character">👤</div>
+      <div class="mob-btn" data-action="cancel" id="btn-cancel">✖</div>
+    </div>
+
+    <!-- 移动端法术快捷栏 -->
+    <div id="mobile-spells" class="mobile-only"></div>
+
+    <!-- 建造模式面板 -->
+    <div id="build-panel" class="hidden">
+      <div class="build-header">
+        <span class="build-title">🔨 建造模式</span>
+        <div class="build-tool-group">
+          <button class="build-tool-btn active" data-tool="place" title="放置(左键)">放置</button>
+          <button class="build-tool-btn" data-tool="remove" title="拆除(右键)">拆除</button>
+        </div>
+        <button class="build-close-btn" id="build-close">✕ 退出(B)</button>
+      </div>
+      <div class="build-tabs">
+        <div class="build-tab active" data-cat="decor">装饰物</div>
+        <div class="build-tab" data-cat="wall">墙壁</div>
+        <div class="build-tab" data-cat="floor">地板</div>
+      </div>
+      <div class="build-grid" id="build-grid"></div>
+      <div class="build-hint" id="build-hint">左键放置 · 右键拆除 · B退出</div>
+    </div>
+  </div>
+
+  <!-- 角色创建界面 -->
+  <div id="char-create" class="overlay">
+    <div class="cc-panel">
+      <h1>Elin 风格 Roguelike</h1>
+      <p class="subtitle">创建你的角色 — 选择种族与职业</p>
+
+      <div class="cc-section">
+        <h2>种族</h2>
+        <div id="race-list" class="cc-grid"></div>
+      </div>
+
+      <div class="cc-section">
+        <h2>职业</h2>
+        <div id="class-list" class="cc-grid"></div>
+      </div>
+
+      <div class="cc-section">
+        <h2>姓名</h2>
+        <input id="char-name" type="text" maxlength="12" placeholder="输入姓名">
+      </div>
+
+      <div class="cc-section">
+        <h2>预览</h2>
+        <div id="cc-preview" class="cc-preview"></div>
+      </div>
+
+      <button id="start-btn" class="btn-primary" disabled>开始冒险</button>
+    </div>
+  </div>
+
+  <!-- 通用菜单/背包/角色面板覆盖层 -->
+  <div id="panel-overlay" class="overlay hidden">
+    <div id="panel-content"></div>
+  </div>
+
+  <!-- 死亡/通关画面 -->
+  <div id="game-over" class="overlay hidden">
+    <div class="go-panel">
+      <h1 id="go-title">你死了</h1>
+      <p id="go-desc"></p>
+      <div id="go-stats" class="go-stats"></div>
+      <button id="respawn-btn" class="btn-primary">重生（承受惩罚）</button>
+      <button id="restart-btn" class="btn-secondary">重新开始</button>
+    </div>
+  </div>
+</div>
+
+<script type="module" src="js/game.js?v=43"></script>
+</body>
+</html>

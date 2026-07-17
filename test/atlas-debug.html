@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>Atlas Debug - 网格校准工具</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#1a1a2e;color:#e0e0e0;font-family:'Consolas','Courier New',monospace;font-size:13px}
+h1{text-align:center;padding:6px;background:#16213e;color:#7fd1c4;font-size:15px;border-bottom:1px solid #0f3460}
+.tabs{display:flex;background:#0f3460;border-bottom:2px solid #1a1a5e}
+.tab{padding:8px 18px;cursor:pointer;color:#888;border-bottom:2px solid transparent;font-size:13px;user-select:none}
+.tab:hover{color:#ccc}.tab.active{color:#7fd1c4;border-bottom-color:#7fd1c4;background:#16213e}
+.main{display:flex;height:calc(100vh - 72px)}
+.left{flex:0 0 350px;overflow-y:auto;padding:10px;background:#16213e;border-right:1px solid #0f3460}
+.right{flex:1;overflow:auto;padding:10px;display:flex;flex-direction:column;gap:12px;align-items:center}
+.panel{background:#0f3460;border-radius:6px;padding:10px;margin-bottom:10px}
+.panel h3{color:#7fd1c4;margin-bottom:8px;font-size:12px;border-bottom:1px solid #1a1a5e;padding-bottom:4px}
+.row{display:flex;align-items:center;margin-bottom:4px;gap:6px}
+.row label{flex:0 0 95px;text-align:right;color:#aaa;font-size:12px}
+.row input[type=range]{flex:1;accent-color:#7fd1c4}
+.row input[type=number]{width:55px;background:#1a1a2e;border:1px solid #0f3460;color:#fff;padding:2px 4px;border-radius:3px;text-align:center;font-size:12px}
+canvas{border:1px solid #0f3460;background:#111;display:block;margin:0 auto}
+.info{color:#888;font-size:11px;margin-top:3px}
+.btn{background:#0f3460;color:#7fd1c4;border:1px solid #7fd1c4;padding:3px 10px;border-radius:4px;cursor:pointer;font-size:11px;margin:2px}
+.btn:hover{background:#7fd1c4;color:#0f3460}
+.btn.green{border-color:#4caf50;color:#4caf50}.btn.green:hover{background:#4caf50;color:#fff}
+#log{background:#0a0a1a;border:1px solid #0f3460;border-radius:4px;padding:6px;max-height:140px;overflow-y:auto;font-size:11px;color:#888;margin-top:6px;white-space:pre-wrap;line-height:1.4}
+.cs{text-align:center}.cs h3{color:#7fd1c4;margin-bottom:4px;font-size:12px}
+.divider{border:none;border-top:1px solid #1a1a5e;margin:8px 0}
+.export-box{background:#0a0a1a;border:1px solid #0f3460;border-radius:4px;padding:8px;margin-top:6px;max-height:300px;overflow:auto}
+.export-box pre{margin:0;font-size:11px;color:#ccc;white-space:pre-wrap;word-break:break-all}
+</style>
+</head>
+<body>
+<h1>Atlas Debug — 网格校准 + 截取调试工具 (file:// 安全兼容版)</h1>
+<div class="tabs" id="tabBar"></div>
+<div class="main">
+  <div class="left" id="ctrl"></div>
+  <div class="right" id="cvArea"></div>
+</div>
+<script>
+const TF=48,TB=64;
+let imgs={},curTab='floors';
+
+function gid(id){return document.getElementById(id)}
+function gv(id){return +(gid('s_'+id)?.value??0)}
+function sv(id,val){const s=gid('s_'+id),n=gid('n_'+id);if(s)s.value=val;if(n)n.value=val}
+function gc(id){return gid(id)?.checked!==false}
+
+// ===== 绘制工具 =====
+function drawChecker(ctx,x,y,w,h,sz){
+  for(let ry=0;ry<h;ry+=sz)for(let rx=0;rx<w;rx+=sz){
+    ctx.fillStyle=((Math.floor(rx/sz)+Math.floor(ry/sz))%2===0)?'#333':'#222';
+    ctx.fillRect(x+rx,y+ry,sz,sz);
+  }
+}
+function drawDiamond(ctx,cx,cy,hw,hh,col,lw){
+  ctx.strokeStyle=col;ctx.lineWidth=lw;ctx.beginPath();
+  ctx.moveTo(cx,cy-hh);ctx.lineTo(cx+hw,cy);ctx.lineTo(cx,cy+hh);ctx.lineTo(cx-hw,cy);ctx.closePath();ctx.stroke();
+}
+function drawDot(ctx,x,y,r,col){ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);ctx.fillStyle=col;ctx.fill()}
+function drawCross(ctx,x,y,sz,col){ctx.beginPath();ctx.moveTo(x-sz,y);ctx.lineTo(x+sz,y);ctx.moveTo(x,y-sz);ctx.lineTo(x,y+sz);ctx.strokeStyle=col;ctx.lineWidth=1;ctx.stroke()}
+
+// ===== 校准网格计算 =====
+function gridCellPx(col,row,g){return{x:g.ox+col*g.cw,y:g.oy+row*g.ch,w:g.cw,h:g.ch}}
+function extractRegion(col,row,g){const c=gridCellPx(col,row,g);return{sx:c.x+g.ex,sy:c.y+g.ey,sw:g.ew,sh:g.eh}}
+
+function drawCalibGrid(ctx,img,scale,g,showCalib,showOrig,showHilite,row,col){
+  const iw=img.width*scale,ih=img.height*scale;
+  if(showOrig){
+    const ts=(curTab==='blocks')?TB:TF;
+    ctx.strokeStyle='rgba(255,100,100,0.25)';ctx.lineWidth=1;
+    const cols=Math.ceil(img.width/ts),rows=Math.ceil(img.height/ts);
+    for(let c=0;c<=cols;c++){const x=c*ts*scale;ctx.beginPath();ctx.moveTo(x+.5,0);ctx.lineTo(x+.5,ih);ctx.stroke()}
+    for(let r=0;r<=rows;r++){const y=r*ts*scale;ctx.beginPath();ctx.moveTo(0,y+.5);ctx.lineTo(iw,y+.5);ctx.stroke()}
+  }
+  if(showCalib){
+    ctx.strokeStyle='rgba(0,255,136,0.6)';ctx.lineWidth=1.5;
+    const cols=Math.ceil((img.width-g.ox)/g.cw)+1,rows=Math.ceil((img.height-g.oy)/g.ch)+1;
+    for(let c=0;c<=cols;c++){const x=(g.ox+c*g.cw)*scale;ctx.beginPath();ctx.moveTo(x+.5,0);ctx.lineTo(x+.5,ih);ctx.stroke()}
+    for(let r=0;r<=rows;r++){const y=(g.oy+r*g.ch)*scale;ctx.beginPath();ctx.moveTo(0,y+.5);ctx.lineTo(iw,y+.5);ctx.stroke()}
+    ctx.fillStyle='rgba(0,255,136,0.8)';ctx.font=`${Math.max(9,10*scale)}px monospace`;
+    for(let r=0;r<rows;r++)for(let c=0;c<cols;c++){
+      const cx=(g.ox+c*g.cw+2)*scale,cy=(g.oy+r*g.ch+10)*scale;
+      if(cx<iw&&cy<ih)ctx.fillText(`${r},${c}`,cx,cy);
+    }
+    if(showHilite&&row>=0&&col>=0){
+      const er=extractRegion(col,row,g);
+      ctx.strokeStyle='#ff4444';ctx.lineWidth=2;
+      ctx.strokeRect(er.sx*scale,er.sy*scale,er.sw*scale,er.sh*scale);
+      ctx.fillStyle='rgba(255,68,68,0.15)';ctx.fillRect(er.sx*scale,er.sy*scale,er.sw*scale,er.sh*scale);
+      const cp=gridCellPx(col,row,g);
+      ctx.strokeStyle='#ffff00';ctx.lineWidth=1.5;ctx.strokeRect(cp.x*scale,cp.y*scale,cp.w*scale,cp.h*scale);
+    }
+  }
+}
+
+// ===== 导出代码 =====
+function exportCode(tab,g,row,col){
+  const x=g.ox+col*g.cw+g.ex, y=g.oy+row*g.ch+g.ey;
+  return [
+    `// ===== ${tab}.png 校准导出 =====`,
+    `// 格子参数: origin=(${g.ox},${g.oy}) cell=(${g.cw}x${g.ch})`,
+    `// 截取参数: extract=(${g.ex},${g.ey}) size=(${g.ew}x${g.eh})`,
+    `// 格[${row},${col}] → 源像素 [${x}, ${y}] → ${g.ew}x${g.eh}`,
+    ``,
+    `// --- data.js 修改 ---`,
+    `// 当前: { atlas:'${tab}', r:${row}, c:${col} }`,
+    `// 如果网格间距固定为${g.cw}px, 原点(0,0), 保持行列不变`,
+    `// 如果网格有偏移/不等距, 改用像素坐标:`,
+    `//   { atlas:'${tab}', sx:${x}, sy:${y}, sw:${g.ew}, sh:${g.eh} },`,
+    ``,
+    `// --- iso.js drawImage 修改 ---`,
+    `// 当前 (固定${g.cw}px grid):`,
+    `//   ctx.drawImage(atlas, sa.c * ${g.cw}, sa.r * ${g.ch}, srcW, srcH, ...);`,
+    `// 修正后:`,
+    `const srcX = ${g.ox} + col * ${g.cw} + ${g.ex};  // = ${x}`,
+    `const srcY = ${g.oy} + row * ${g.ch} + ${g.ey};  // = ${y}`,
+    `const srcW = ${g.ew};`,
+    `const srcH = ${g.eh};`,
+    `ctx.drawImage(atlas, srcX, srcY, srcW, srcH, drawX, drawY, drawW, drawH);`,
+    ``,
+    `// --- 菱形中心需要重新测量 ---`,
+    `// 在截取的${g.ew}x${g.eh}区域中找到菱形中心像素位置`,
+    `const diamondCenterX = /* 测量值 */;`,
+    `const diamondCenterY = /* 测量值 */;`,
+    `const drawX = p.x - diamondCenterX * scaleX;`,
+    `const drawY = p.y - diamondCenterY * scaleY;`,
+  ].join('\n');
+}
+
+// ===== 校准面板HTML =====
+function gridCalibHTML(id,defCW,defCH,defEW,defEH){
+  return `
+<div class="panel"><h3>网格校准 (Grid Calibration)</h3>
+<div class="info" style="margin-bottom:6px;color:#f9a825">拖动参数使绿色网格线对齐atlas中每个tile的边界</div>
+<div class="row"><label>原点 X (ox)</label><input type="range" id="s_${id}_ox" min="-50" max="200" step="1" value="0" oninput="n_${id}_ox.value=this.value;update()"><input type="number" id="n_${id}_ox" min="-50" max="200" value="0" oninput="s_${id}_ox.value=this.value;update()"></div>
+<div class="row"><label>原点 Y (oy)</label><input type="range" id="s_${id}_oy" min="-50" max="200" step="1" value="0" oninput="n_${id}_oy.value=this.value;update()"><input type="number" id="n_${id}_oy" min="-50" max="200" value="0" oninput="s_${id}_oy.value=this.value;update()"></div>
+<div class="row"><label>格宽 (cw)</label><input type="range" id="s_${id}_cw" min="8" max="128" step="1" value="${defCW}" oninput="n_${id}_cw.value=this.value;update()"><input type="number" id="n_${id}_cw" min="8" max="128" value="${defCW}" oninput="s_${id}_cw.value=this.value;update()"></div>
+<div class="row"><label>格高 (ch)</label><input type="range" id="s_${id}_ch" min="8" max="128" step="1" value="${defCH}" oninput="n_${id}_ch.value=this.value;update()"><input type="number" id="n_${id}_ch" min="8" max="128" value="${defCH}" oninput="s_${id}_ch.value=this.value;update()"></div>
+<hr class="divider">
+<div class="info" style="margin-bottom:6px;color:#81c784">截取: 从每格(ex,ey)处取 ew×eh 像素</div>
+<div class="row"><label>截取偏移 X</label><input type="range" id="s_${id}_ex" min="-50" max="128" step="1" value="0" oninput="n_${id}_ex.value=this.value;update()"><input type="number" id="n_${id}_ex" min="-50" max="128" value="0" oninput="s_${id}_ex.value=this.value;update()"></div>
+<div class="row"><label>截取偏移 Y</label><input type="range" id="s_${id}_ey" min="-50" max="128" step="1" value="0" oninput="n_${id}_ey.value=this.value;update()"><input type="number" id="n_${id}_ey" min="-50" max="128" value="0" oninput="s_${id}_ey.value=this.value;update()"></div>
+<div class="row"><label>截取宽 (ew)</label><input type="range" id="s_${id}_ew" min="8" max="160" step="1" value="${defEW}" oninput="n_${id}_ew.value=this.value;update()"><input type="number" id="n_${id}_ew" min="8" max="160" value="${defEW}" oninput="s_${id}_ew.value=this.value;update()"></div>
+<div class="row"><label>截取高 (eh)</label><input type="range" id="s_${id}_eh" min="8" max="128" step="1" value="${defEH}" oninput="n_${id}_eh.value=this.value;update()"><input type="number" id="n_${id}_eh" min="8" max="128" value="${defEH}" oninput="s_${id}_eh.value=this.value;update()"></div>
+<hr class="divider">
+<div class="row"><label>校准网格</label><input type="checkbox" id="opt_${id}_gridCalib" checked onchange="update()"></div>
+<div class="row"><label>原始网格</label><input type="checkbox" id="opt_${id}_gridOrig" onchange="update()"></div>
+<div class="row"><label>高亮tile</label><input type="checkbox" id="opt_${id}_hilite" checked onchange="update()"></div>
+</div>`;
+}
+function gridCalibVals(id){
+  return{ox:gv(id+'_ox'),oy:gv(id+'_oy'),cw:gv(id+'_cw'),ch:gv(id+'_ch'),ex:gv(id+'_ex'),ey:gv(id+'_ey'),ew:gv(id+'_ew'),eh:gv(id+'_eh')};
+}
+
+// ===== 诊断文本 =====
+function makeDiag(tab,g,row,col,er,sx,sy,alpha){
+  const img=imgs[tab];if(!img)return'';
+  const tw=(tab==='blocks')?TB:TF;
+  const srcX=g.ox+col*g.cw+g.ex,srcY=g.oy+row*g.ch+g.ey;
+  const cols=Math.ceil((img.width-g.ox)/g.cw),rows=Math.ceil((img.height-g.oy)/g.ch);
+  let s=`${img.width}x${img.height}px  格数: ~${cols}x${rows}`;
+  s+=`\n网格: origin=(${g.ox},${g.oy}) cell=(${g.cw}x${g.ch})`;
+  s+=`\n截取: extract=(${g.ex},${g.ey}) size=(${g.ew}x${g.eh})`;
+  s+=`\n格[${row},${col}] → 源像素 [${srcX},${srcY}] → ${g.ew}x${g.eh}`;
+  if(er)s+=`\n实际区域: [${er.sx},${er.sy}] → ${er.sw}x${er.sh}`;
+  if(sx!==undefined)s+=`\nscale: ${sx.toFixed(4)} x ${sy.toFixed(4)}`;
+  if(alpha!==undefined)s+=`\nalpha: ${alpha}`;
+  s+=`\n原始假设: [${col*tw},${row*tw}] → ${tw}x${tw}`;
+  if(g.ox!==0||g.oy!==0||g.cw!==tw||g.ch!==tw)s+=`\n★ 与原始网格有偏差!`;
+  return s;
+}
+
+// ===== 渲染Floors =====
+function renderFloors(){
+  const img=imgs.floors;if(!img)return;
+  const row=gv('row'),col=gv('col'),cx=gv('cx'),cy=gv('cy'),sx=gv('scaleX'),sy=gv('scaleY'),alpha=gv('alpha');
+  const g=gridCalibVals('floors');
+  const sc=2;
+  const doChk=gc('opt_checker'),doCtr=gc('opt_center');
+  const doCalib=gc('opt_floors_gridCalib'),doOrig=gc('opt_floors_gridOrig'),doHil=gc('opt_floors_hilite');
+  const er=extractRegion(row,col,g);
+  const drawW=er.sw*sx,drawH=er.sh*sy;
+  const tw=64,th=32,hw=tw/2,hh=th/2;
+
+  // Atlas
+  const c1=gid('c1'),x1=c1.getContext('2d');
+  c1.width=img.width*sc;c1.height=img.height*sc;
+  if(doChk)drawChecker(x1,0,0,c1.width,c1.height,8*sc);
+  x1.imageSmoothingEnabled=false;x1.drawImage(img,0,0,c1.width,c1.height);
+  drawCalibGrid(x1,img,sc,g,doCalib,doOrig,doHil,row,col);
+  if(doCtr){const mx=(er.sx+cx)*sc,my=(er.sy+cy)*sc;drawDot(x1,mx,my,4,'#ffff00');drawCross(x1,mx,my,10,'#ffff00')}
+
+  // Raw
+  const c2=gid('c2'),x2=c2.getContext('2d');
+  c2.width=er.sw+20;c2.height=er.sh+20;
+  drawChecker(x2,0,0,c2.width,c2.height,6);
+  x2.drawImage(img,er.sx,er.sy,er.sw,er.sh,10,10,er.sw,er.sh);
+  x2.strokeStyle='#ff4444';x2.lineWidth=1;x2.strokeRect(10,10,er.sw,er.sh);
+  drawDot(x2,10+cx,10+cy,3,'#ffff00');
+
+  // Scaled
+  const c3=gid('c3'),x3=c3.getContext('2d');
+  c3.width=(drawW+50)*3;c3.height=Math.max(drawH,th)+40;
+  [{l:'原始截取',a:undefined},{l:'缩放后',a:undefined},{l:'alpha='+alpha,a:alpha}].forEach((o,i)=>{
+    const ox=i*(drawW+50);drawChecker(x3,ox,0,drawW+40,c3.height,6);
+    const cx0=ox+drawW/2+20,cy0=c3.height/2;
+    drawDiamond(x3,cx0,cy0,hw,hh,'rgba(127,209,196,0.4)',1);
+    if(o.a!==undefined)x3.globalAlpha=o.a;
+    x3.drawImage(img,er.sx,er.sy,er.sw,er.sh,cx0-cx*sx,cy0-cy*sy,drawW,drawH);
+    if(o.a!==undefined)x3.globalAlpha=1;
+    x3.fillStyle='#7fd1c4';x3.font='11px monospace';x3.textAlign='center';x3.fillText(o.l,cx0,c3.height-6);
+  });
+
+  // Alpha vis — synthetic checkerboard mask (no getImageData)
+  const c4=gid('c4'),x4=c4.getContext('2d');
+  const aS=3;c4.width=er.sw*aS+20;c4.height=er.sh*aS+20;
+  drawChecker(x4,0,0,c4.width,c4.height,6);
+  // Draw image and overlay a red tint to visualize non-transparent areas
+  x4.drawImage(img,er.sx,er.sy,er.sw,er.sh,10,10,er.sw*aS,er.sh*aS);
+  x4.fillStyle='rgba(255,0,0,0.3)';x4.fillRect(10,10,er.sw*aS,er.sh*aS);
+  // Show text note
+  x4.fillStyle='#fff';x4.font='bold 14px monospace';x4.textAlign='center';
+  x4.fillText('Alpha可视化 (图片+红色叠加)',c4.width/2,10+er.sh*aS/2);
+  x4.font='11px monospace';x4.fillText('不透明区域红色更深',c4.width/2,10+er.sh*aS/2+18);
+  x4.strokeStyle='#ff4444';x4.lineWidth=1;x4.strokeRect(10,10,er.sw*aS,er.sh*aS);
+
+  gid('log_floors').textContent=makeDiag('floors',g,row,col,er,sx,sy,alpha);
+}
+
+// ===== 渲染Blocks =====
+function renderBlocks(){
+  const img=imgs.blocks;if(!img)return;
+  const row=gv('row'),col=gv('col'),cx=gv('cx'),cy=gv('cy');
+  const g=gridCalibVals('blocks');
+  const sc=1.5;
+  const doChk=gc('opt_checker'),doCtr=gc('opt_center');
+  const doCalib=gc('opt_blocks_gridCalib'),doOrig=gc('opt_blocks_gridOrig'),doHil=gc('opt_blocks_hilite');
+  const er=extractRegion(row,col,g);
+
+  const c1=gid('c1'),x1=c1.getContext('2d');
+  c1.width=img.width*sc;c1.height=img.height*sc;
+  if(doChk)drawChecker(x1,0,0,c1.width,c1.height,8*sc);
+  x1.imageSmoothingEnabled=false;x1.drawImage(img,0,0,c1.width,c1.height);
+  drawCalibGrid(x1,img,sc,g,doCalib,doOrig,doHil,row,col);
+  if(doCtr){const mx=(er.sx+cx)*sc,my=(er.sy+cy)*sc;drawDot(x1,mx,my,4,'#ffff00');drawCross(x1,mx,my,10,'#ffff00')}
+
+  const c2=gid('c2'),x2=c2.getContext('2d');
+  c2.width=er.sw+20;c2.height=er.sh+20;
+  drawChecker(x2,0,0,c2.width,c2.height,6);
+  x2.drawImage(img,er.sx,er.sy,er.sw,er.sh,10,10,er.sw,er.sh);
+  x2.strokeStyle='#ff4444';x2.lineWidth=1;x2.strokeRect(10,10,er.sw,er.sh);
+  drawDot(x2,10+cx,10+cy,3,'#ffff00');
+
+  const c3=gid('c3'),x3=c3.getContext('2d');
+  c3.width=(er.sw+40)*3;c3.height=er.sh+60;
+  [{l:'截取原图',dim:false},{l:'drawBlockStack模拟',dim:false},{l:'dim(alpha=0.45)',dim:true}].forEach((o,i)=>{
+    const ox=i*(er.sw+40);drawChecker(x3,ox,0,er.sw+40,c3.height,6);
+    if(o.dim)x3.globalAlpha=0.45;
+    x3.drawImage(img,er.sx,er.sy,er.sw,er.sh,ox+20,20,er.sw,er.sh);
+    if(o.dim)x3.globalAlpha=1;
+    x3.fillStyle='#7fd1c4';x3.font='11px monospace';x3.textAlign='center';x3.fillText(o.l,ox+er.sw/2+20,c3.height-6);
+  });
+
+  const c4=gid('c4'),x4=c4.getContext('2d');
+  c4.width=er.sw+20;c4.height=er.sh+20;
+  drawChecker(x4,0,0,c4.width,c4.height,6);
+  x4.drawImage(img,er.sx,er.sy,er.sw,er.sh,10,10,er.sw,er.sh);
+  x4.fillStyle='rgba(255,0,0,0.25)';x4.fillRect(10,10,er.sw,er.sh);
+  x4.strokeStyle='#ff4444';x4.lineWidth=1;x4.strokeRect(10,10,er.sw,er.sh);
+
+  gid('log_blocks').textContent=makeDiag('blocks',g,row,col,er);
+}
+
+// ===== 渲染Shadows =====
+function renderShadows(){
+  const img=imgs.shadows;if(!img)return;
+  const row=gv('row'),col=gv('col'),cx=gv('cx'),cy=gv('cy'),sx=gv('scaleX'),sy=gv('scaleY'),alpha=gv('alpha');
+  const g=gridCalibVals('shadows');
+  const sc=2;
+  const doChk=gc('opt_checker'),doCtr=gc('opt_center');
+  const doCalib=gc('opt_shadows_gridCalib'),doOrig=gc('opt_shadows_gridOrig'),doHil=gc('opt_shadows_hilite');
+  const doClip=gc('opt_clip'),doOvl=gc('opt_overlay');
+  const er=extractRegion(row,col,g);
+  const drawW=er.sw*sx,drawH=er.sh*sy;
+  const tw=64,th=32,hw=tw/2,hh=th/2;
+
+  const c1=gid('c1'),x1=c1.getContext('2d');
+  c1.width=img.width*sc;c1.height=img.height*sc;
+  if(doChk)drawChecker(x1,0,0,c1.width,c1.height,8*sc);
+  x1.imageSmoothingEnabled=false;x1.drawImage(img,0,0,c1.width,c1.height);
+  drawCalibGrid(x1,img,sc,g,doCalib,doOrig,doHil,row,col);
+  if(doCtr){const mx=(er.sx+cx)*sc,my=(er.sy+cy)*sc;drawDot(x1,mx,my,5,'#ffff00');drawCross(x1,mx,my,12,'#ffff00')}
+
+  const c2=gid('c2'),x2=c2.getContext('2d');
+  c2.width=er.sw+20;c2.height=er.sh+20;
+  drawChecker(x2,0,0,c2.width,c2.height,6);
+  x2.drawImage(img,er.sx,er.sy,er.sw,er.sh,10,10,er.sw,er.sh);
+  x2.strokeStyle='#ff4444';x2.lineWidth=1;x2.strokeRect(10,10,er.sw,er.sh);
+  drawDot(x2,10+cx,10+cy,3,'#ffff00');
+
+  const c3=gid('c3'),x3=c3.getContext('2d');
+  c3.width=(drawW+50)*3;c3.height=Math.max(drawH,th)+40;
+  [{l:'无裁剪',clip:false},{l:'裁剪到菱形',clip:true},{l:'alpha='+alpha,clip:true,alpha:true}].forEach((o,i)=>{
+    const ox=i*(drawW+50);drawChecker(x3,ox,0,drawW+40,c3.height,6);
+    const cx0=ox+drawW/2+20,cy0=c3.height/2;
+    drawDiamond(x3,cx0,cy0,hw,hh,'rgba(127,209,196,0.4)',1);
+    if(o.clip){x3.save();x3.beginPath();x3.moveTo(cx0,cy0-hh);x3.lineTo(cx0+hw,cy0);x3.lineTo(cx0,cy0+hh);x3.lineTo(cx0-hw,cy0);x3.closePath();x3.clip();}
+    if(o.alpha)x3.globalAlpha=alpha;
+    x3.drawImage(img,er.sx,er.sy,er.sw,er.sh,cx0-cx*sx,cy0-cy*sy,drawW,drawH);
+    if(o.alpha)x3.globalAlpha=1;
+    if(o.clip)x3.restore();
+    x3.fillStyle='#7fd1c4';x3.font='11px monospace';x3.textAlign='center';x3.fillText(o.l,cx0,c3.height-6);
+  });
+
+  const c4=gid('c4'),x4=c4.getContext('2d');
+  if(doOvl){
+    const flImg=imgs.floors;
+    c4.width=(drawW+50)*3;c4.height=Math.max(drawH,th)+40;
+    [{l:'floor原始',shadow:false},{l:'shadow(无clip)',shadow:true,clip:false},{l:'shadow(有clip)',shadow:true,clip:true}].forEach((o,i)=>{
+      const ox=i*(drawW+50);drawChecker(x4,ox,0,drawW+40,c4.height,6);
+      const cx0=ox+drawW/2+20,cy0=c4.height/2;
+      if(flImg){const fg=gridCalibVals('floors'),fer=extractRegion(1,0,fg);x4.drawImage(flImg,fer.sx,fer.sy,fer.sw,fer.sh,cx0-31*sx,cy0-27.5*sy,fer.sw*sx,fer.sh*sy)}
+      drawDiamond(x4,cx0,cy0,hw,hh,'rgba(127,209,196,0.3)',1);
+      if(o.shadow){
+        if(o.clip){x4.save();x4.beginPath();x4.moveTo(cx0,cy0-hh);x4.lineTo(cx0+hw,cy0);x4.lineTo(cx0,cy0+hh);x4.lineTo(cx0-hw,cy0);x4.closePath();x4.clip();}
+        x4.globalAlpha=alpha;x4.drawImage(img,er.sx,er.sy,er.sw,er.sh,cx0-cx*sx,cy0-cy*sy,drawW,drawH);x4.globalAlpha=1;
+        if(o.clip)x4.restore();
+      }
+      x4.fillStyle='#7fd1c4';x4.font='11px monospace';x4.textAlign='center';x4.fillText(o.l,cx0,c4.height-6);
+    });
+  }else{c4.width=1;c4.height=1;}
+
+  gid('log_shadows').textContent=makeDiag('shadows',g,row,col,er,sx,sy,alpha);
+}
+
+// ===== 对比 =====
+function renderCompare(){
+  const c=gid('cCmp'),ctx=c.getContext('2d');
+  const W=780,rowH=280;c.width=W;c.height=rowH*3+30;
+  const tabs=['floors','blocks','shadows'],names=['Floors.png','Blocks.png','Shadows.png'],colors=['#7fd1c4','#f9a825','#ff6666'];
+  let y=0;
+  tabs.forEach((tab,i)=>{
+    const img=imgs[tab];if(!img)return;
+    const g=gridCalibVals(tab),tw=(tab==='blocks')?TB:TF;
+    ctx.fillStyle=colors[i];ctx.font='bold 12px monospace';ctx.textAlign='left';
+    ctx.fillText(`${names[i]} — origin=(${g.ox},${g.oy}) cell=(${g.cw}x${g.ch}) extract=(${g.ex},${g.ey}→${g.ew}x${g.eh})  原始:${tw}px`,10,y+14);
+    const ow=Math.min(img.width,300),oh=Math.min(img.height,200);
+    drawChecker(ctx,10,y+20,ow,oh,6);
+    ctx.drawImage(img,0,0,ow,oh,10,y+20,ow,oh);
+    ctx.strokeStyle='rgba(0,255,136,0.5)';ctx.lineWidth=1;
+    const cols=Math.ceil((ow-g.ox)/g.cw)+1,rows=Math.ceil((oh-g.oy)/g.ch)+1;
+    for(let c2=0;c2<=cols;c2++){const x2=g.ox+c2*g.cw;ctx.beginPath();ctx.moveTo(10+x2,y+20);ctx.lineTo(10+x2,y+20+oh);ctx.stroke()}
+    for(let r=0;r<=rows;r++){const y2=g.oy+r*g.ch;ctx.beginPath();ctx.moveTo(10,y+20+y2);ctx.lineTo(10+ow,y+20+y2);ctx.stroke()}
+    ctx.fillStyle='#aaa';ctx.font='10px monospace';ctx.textAlign='left';
+    ctx.fillText(`原始: ${tw}px grid  →  校准: ${g.cw}x${g.ch}, 偏移(${g.ox},${g.oy})`,ow+30,y+40);
+    ctx.fillText(`截取: ex=${g.ex} ey=${g.ey} ew=${g.ew} eh=${g.eh}`,ow+30,y+55);
+    ctx.fillText(`格[0,0] → 源像素[${g.ox+g.ex},${g.oy+g.ey}]`,ow+30,y+70);
+    y+=rowH;
+  });
+}
+
+// ===== 导出 =====
+function doExport(tab){
+  const g=gridCalibVals(tab),row=gv('row'),col=gv('col');
+  const box=gid('exportBox_'+tab),pre=gid('exportPre_'+tab);
+  if(box&&pre){box.style.display='block';pre.textContent=exportCode(tab,g,row,col);}
+}
+
+// ===== Tab定义 =====
+const TAB_DEFS=[
+  {id:'floors',label:'Floors 地板',ew:63,eh:48,cw:TF,ch:TF},
+  {id:'blocks',label:'Blocks 方块',ew:TB,eh:TB,cw:TB,ch:TB},
+  {id:'shadows',label:'Shadows 阴影',ew:80,eh:48,cw:TF,ch:TF},
+  {id:'compare',label:'对比+导出',noCtrl:true},
+];
+
+function getTabHTML(tab){
+  if(tab==='compare')return '<div class="panel"><h3>三者对比</h3></div>';
+  const d=TAB_DEFS.find(t=>t.id===tab);
+  return `
+<div class="panel"><h3>${d.label} 截取参数</h3>
+<div class="row"><label>目标行 (r)</label><input type="range" id="s_row" min="0" max="20" step="1" value="${tab==='shadows'?1:1}" oninput="n_row.value=this.value;update()"><input type="number" id="n_row" min="0" max="20" value="${tab==='shadows'?1:1}" oninput="s_row.value=this.value;update()"></div>
+<div class="row"><label>目标列 (c)</label><input type="range" id="s_col" min="0" max="50" step="1" value="0" oninput="n_col.value=this.value;update()"><input type="number" id="n_col" min="0" max="50" value="0" oninput="s_col.value=this.value;update()"></div>
+<div class="row"><label>菱形中心 X</label><input type="range" id="s_cx" min="0" max="120" step="0.5" value="${tab==='shadows'?47:31}" oninput="n_cx.value=this.value;update()"><input type="number" id="n_cx" min="0" max="120" value="${tab==='shadows'?47:31}" step="0.5" oninput="s_cx.value=this.value;update()"></div>
+<div class="row"><label>菱形中心 Y</label><input type="range" id="s_cy" min="0" max="80" step="0.5" value="${tab==='shadows'?18:27.5}" oninput="n_cy.value=this.value;update()"><input type="number" id="n_cy" min="0" max="80" value="${tab==='shadows'?18:27.5}" step="0.5" oninput="s_cy.value=this.value;update()"></div>
+${tab!=='blocks'?`
+<div class="row"><label>scaleX</label><input type="range" id="s_scaleX" min="0.5" max="2.5" step="0.01" value="1.0667" oninput="n_scaleX.value=this.value;update()"><input type="number" id="n_scaleX" min="0.5" max="2.5" value="1.0667" step="0.01" oninput="s_scaleX.value=this.value;update()"></div>
+<div class="row"><label>scaleY</label><input type="range" id="s_scaleY" min="0.5" max="2.5" step="0.01" value="0.9697" oninput="n_scaleY.value=this.value;update()"><input type="number" id="n_scaleY" min="0.5" max="2.5" value="0.9697" step="0.01" oninput="s_scaleY.value=this.value;update()"></div>
+<div class="row"><label>globalAlpha</label><input type="range" id="s_alpha" min="0" max="1" step="0.01" value="0.62" oninput="n_alpha.value=this.value;update()"><input type="number" id="n_alpha" min="0" max="1" value="0.62" step="0.01" oninput="s_alpha.value=this.value;update()"></div>
+`:''}
+</div>
+${gridCalibHTML(tab,d.cw,d.ch,d.ew,d.eh)}
+<div class="panel"><h3>显示选项</h3>
+<div class="row"><label>棋盘格</label><input type="checkbox" id="opt_checker" checked onchange="update()"></div>
+<div class="row"><label>中心点</label><input type="checkbox" id="opt_center" checked onchange="update()"></div>
+${tab==='shadows'?`
+<div class="row"><label>裁剪菱形</label><input type="checkbox" id="opt_clip" checked onchange="update()"></div>
+<div class="row"><label>叠加地板</label><input type="checkbox" id="opt_overlay" checked onchange="update()"></div>
+`:''}
+</div>
+<div class="panel"><h3>导出</h3>
+<button class="btn green" onclick="doExport('${tab}')">导出修正代码</button>
+<div class="export-box" id="exportBox_${tab}" style="display:none"><pre id="exportPre_${tab}"></pre></div>
+</div>
+<div class="panel"><h3>诊断</h3><div id="log_${tab}">等待加载...</div></div>`;
+}
+
+function getCanvasHTML(tab){
+  if(tab==='compare')return '<div class="cs"><h3>Floors / Blocks / Shadows 对比</h3><canvas id="cCmp"></canvas></div>';
+  const extra=tab==='shadows'?'<div class="cs"><h3>叠加到地板</h3><canvas id="c4"></canvas><div class="info">floor | shadow无clip | shadow有clip</div></div>':'<div class="cs"><h3>Alpha可视化</h3><canvas id="c4"></canvas></div>';
+  return `
+<div class="cs"><h3>${tab}.png 总览 (校准网格)</h3><canvas id="c1"></canvas></div>
+<div class="cs"><h3>截取区域</h3><canvas id="c2"></canvas></div>
+<div class="cs"><h3>缩放效果</h3><canvas id="c3"></canvas></div>
+${extra}`;
+}
+
+function switchTab(tab){
+  curTab=tab;
+  document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active',t.dataset.tab===tab));
+  gid('ctrl').innerHTML=getTabHTML(tab);
+  gid('cvArea').innerHTML=getCanvasHTML(tab);
+  update();
+}
+function update(){
+  if(curTab==='floors')renderFloors();
+  else if(curTab==='blocks')renderBlocks();
+  else if(curTab==='shadows')renderShadows();
+  else if(curTab==='compare')renderCompare();
+}
+
+// Init
+async function init(){
+  const bar=gid('tabBar');
+  bar.innerHTML=TAB_DEFS.map((t,i)=>`<div class="tab${i===0?' active':''}" data-tab="${t.id}" onclick="switchTab('${t.id}')">${t.label}</div>`).join('');
+  try{
+    await Promise.all([
+      new Promise((ok,fail)=>{const i=new Image();i.onload=()=>{imgs.floors=i;ok()};i.onerror=()=>fail('floors');i.src='../assets/elin/floors.png'}),
+      new Promise((ok,fail)=>{const i=new Image();i.onload=()=>{imgs.blocks=i;ok()};i.onerror=()=>fail('blocks');i.src='../assets/elin/blocks.png'}),
+      new Promise((ok,fail)=>{const i=new Image();i.onload=()=>{imgs.shadows=i;ok()};i.onerror=()=>fail('shadows');i.src='../assets/elin/shadows.png'}),
+    ]);
+    switchTab('floors');
+  }catch(e){document.body.innerHTML='<pre style="color:red;padding:20px">加载失败: '+e+'</pre>'}
+}
+init();
+</script>
+</body>
+</html>
