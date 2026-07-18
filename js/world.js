@@ -9,9 +9,9 @@ import { makeNPC } from './npc.js';
 export class GameMap{
   constructor(w, h){
     this.w = w; this.h = h;
-    this.tiles = [];       // 地面层：始终是floor类型（floor/grass/water等），不再是'wall'
-    this.blocks = [];       // 方块层：blocks[y][x] = [blockId, ...] 从底到顶堆叠，或null
-    this.decorations = []; // [{x, y, type, ox, oy, scale, phase}]
+    this.tiles = [];
+    this.blocks = [];
+    this.decorations = [];
     this._decorGrid = null;
     this.explored = [];
     this.visible = [];
@@ -24,13 +24,19 @@ export class GameMap{
     this.rooms = [];
     this.isTown = false;
     this.isWorld = false;
-    this._visibleZ = [];  // [y][x] = {lo, hi} 可见z范围（含）
+    this._visibleZ = [];
+    // 3D可见性：vis3D[y][x] = 位掩码，bit z=1 表示z层空气可见
+    // z=0: 地面层(z=0块的地板面), z=1: 第1块顶面/第2块地板面 ...
+    this.vis3D = [];
+    this.exp3D = [];
     for(let y=0;y<h;y++){
       this.tiles.push(new Array(w).fill('floor'));
       this.blocks.push(new Array(w).fill(null));
       this.explored.push(new Array(w).fill(false));
       this.visible.push(new Array(w).fill(false));
       this._visibleZ.push(new Array(w).fill(null));
+      this.vis3D.push(new Array(w).fill(0));
+      this.exp3D.push(new Array(w).fill(0));
     }
   }
   get(x,y){
@@ -443,117 +449,82 @@ export function generateHome(rng){
   return map;
 }
 
-// ---------- 3D视野：垂直扩展 ----------
-export function computeVerticalVisibility(map){
+// ---------- FOV：JSiso风格欧几里得距离 + Bresenham LOS遮挡 ----------
+// 每个方向从玩家到目标画Bresenham直线，遇到实心格则停止。
+// vis3D[y][x] 位掩码: bit z=1 表示 z 层空气可见
+export function computeFOV3D(map, ox, oy, radius){
   const w = map.w, h = map.h;
-  for(let y=0;y<h;y++) for(let x=0;x<w;x++) map._visibleZ[y][x] = null;
 
-  const setRange = (x,y,lo,hi)=>{
-    if(x<0||y<0||x>=w||y>=h) return;
-    const cur = map._visibleZ[y][x];
-    if(!cur){ map._visibleZ[y][x] = {lo, hi}; return; }
-    if(lo < cur.lo) cur.lo = lo;
-    if(hi > cur.hi) cur.hi = hi;
-  };
-
-  // 对每个可见地板格子，向上/下扩展可见性
+  // 清空
   for(let y=0;y<h;y++){
-    for(let x=0;x<w;x++){
-      if(!map.visible[y][x]) continue;
-      const b = map.blocks[y][x];
-      const stackH = b ? b.length : 0;
-      if(stackH === 0){
-        // 无方块：地板可见，向上扩展直到遇到实体方块
-        let hi = 0;
-        for(let z=0; z<20; z++){
-          const by = y - z;
-          if(by < 0) break;
-          const sb = map.blocks[by]?.[x];
-          if(sb && sb.some(id=>{ const bt=BLOCK_TYPES[id]; return bt && bt.solid; })) break;
-          hi = z;
-        }
-        // 向下扩展
-        let lo = 0;
-        for(let z=1; z<20; z++){
-          const by = y + z;
-          if(by >= h) break;
-          const sb = map.blocks[by]?.[x];
-          if(sb && sb.some(id=>{ const bt=BLOCK_TYPES[id]; return bt && bt.solid; })) break;
-          lo = -z;
-        }
-        setRange(x, y, lo, hi);
-      } else {
-        // 有方块：从地板开始向上，经过非实体方块，到实体方块截止
-        let lo = 0, hi = 0;
-        // 从底部向上扫描
-        for(let z=0; z<stackH; z++){
-          const bt = BLOCK_TYPES[b[z]];
-          if(!bt) continue;
-          if(bt.solid){
-            hi = z; // 实体方块本身可见（玩家能看到这面墙），但到此截止
-            break;
-          } else {
-            hi = z; // 非实体方块（栅栏等），继续向上
-          }
-        }
-        // 如果所有方块都是非实体，hi = stackH-1
-        // 向上继续扩展（方块上方的空空间）
-        for(let z=stackH; z<20; z++){
-          const by = y - z;
-          if(by < 0) break;
-          const sb = map.blocks[by]?.[x];
-          if(sb && sb.some(id=>{ const bt=BLOCK_TYPES[id]; return bt && bt.solid; })) break;
-          hi = z;
-        }
-        setRange(x, y, lo, hi);
-      }
-    }
+    map.visible[y].fill(false);
+    map.vis3D[y].fill(0);
   }
 
-  // 水平扩展平滑层：相邻可见格子的高度信息互相参考
-  // 不传播空间可见性，只帮助确定相邻格子的可见高度
-  for(let y=0;y<h;y++){
-    for(let x=0;x<w;x++){
-      if(!map._visibleZ[y][x]) continue;
-      const cur = map._visibleZ[y][x];
-      const dirs = [[-1,0],[1,0],[0,-1],[0,1]];
-      for(const [dx,dy] of dirs){
-        const nx=x+dx, ny=y+dy;
-        if(nx<0||ny<0||nx>=w||ny>=h) continue;
-        // 只对自身可见的邻居做平滑
-        if(!map.visible[ny][nx]) continue;
-        const nb = map.blocks[ny]?.[nx];
-        const nH = nb ? nb.length : 0;
-        const nHi = nH > 0 ? nH - 1 : cur.hi;
-        setRange(nx, ny, cur.lo, Math.min(cur.hi, nHi));
+  const r2 = radius * radius;
+
+  // Bresenham直线：检查从(ox,oy)到(tx,ty)是否有实心遮挡
+  function hasLineOfSight(tx, ty){
+    let x0 = Math.round(ox), y0 = Math.round(oy);
+    const x1 = Math.round(tx), y1 = Math.round(ty);
+    let dx = Math.abs(x1 - x0), dy = Math.abs(y1 - y0);
+    const sx = x0 < x1 ? 1 : -1, sy = y0 < y1 ? 1 : -1;
+    let err = dx - dy;
+
+    while(true){
+      if(x0 === x1 && y0 === y1) break;
+      if(x0 !== Math.round(ox) || y0 !== Math.round(oy)){
+        if(x0 < 0 || y0 < 0 || x0 >= w || y0 >= h) return false;
+        if(map.isSolid(x0, y0)) return false;
       }
+      const e2 = 2 * err;
+      if(e2 > -dy){ err -= dy; x0 += sx; }
+      if(e2 < dx){  err += dx; y0 += sy; }
+    }
+    return true;
+  }
+
+  // 遍历半径内所有格子
+  const minGx = Math.max(0, Math.floor(ox) - radius);
+  const maxGx = Math.min(w - 1, Math.ceil(ox) + radius);
+  const minGy = Math.max(0, Math.floor(oy) - radius);
+  const maxGy = Math.min(h - 1, Math.ceil(oy) + radius);
+
+  for(let gy = minGy; gy <= maxGy; gy++){
+    for(let gx = minGx; gx <= maxGx; gx++){
+      const dx = gx + 0.5 - ox, dy = gy + 0.5 - oy;
+      if(dx*dx + dy*dy > r2) continue;
+      if(!hasLineOfSight(gx, gy)) continue;
+
+      map.visible[gy][gx] = true;
+      map.explored[gy][gx] = true;
+
+      // 3D z层可见性
+      const b = map.blocks[gy][gx];
+      const stackH = b ? b.length : 0;
+      let mask = 1; // z=0 地板面始终可见
+      for(let z = 1; z <= stackH; z++){
+        const belowBt = BLOCK_TYPES[b[z-1]];
+        if(belowBt && belowBt.solid){
+          mask |= (1 << z);
+          break;
+        }
+        mask |= (1 << z);
+      }
+      if(stackH > 0) mask |= (1 << stackH);
+      map.vis3D[gy][gx] = mask;
+      map.exp3D[gy][gx] |= mask;
     }
   }
 }
 
-// ---------- FOV：射线投射 ----------
+// 兼容旧代码：computeFOV + computeVerticalVisibility 合并
 export function computeFOV(map, ox, oy, radius){
-  for(let y=0;y<map.h;y++) map.visible[y].fill(false);
-  const mark = (x,y)=>{
-    if(x<0||y<0||x>=map.w||y>=map.h) return;
-    map.visible[y][x] = true;
-    map.explored[y][x] = true;
-  };
-  mark(ox,oy);
-  const r2 = radius*radius;
-  const numRays = Math.max(72, radius*16);
-  for(let i=0;i<numRays;i++){
-    const a = (i/numRays)*Math.PI*2;
-    const dx = Math.cos(a), dy = Math.sin(a);
-    let x = ox+0.5, y = oy+0.5;
-    for(let s=0;s<=radius;s++){
-      x += dx*0.4; y += dy*0.4;
-      const gx = Math.floor(x), gy = Math.floor(y);
-      if((gx-ox)*(gx-ox)+(gy-oy)*(gy-oy) > r2) break;
-      mark(gx,gy);
-      if(map.isSolid(gx,gy)) break;
-    }
-  }
+  computeFOV3D(map, ox, oy, radius);
+}
+
+export function computeVerticalVisibility(map){
+  // 已在 computeFOV3D 中完成，此处保持兼容
 }
 
 export { makeItem, qualityMult };

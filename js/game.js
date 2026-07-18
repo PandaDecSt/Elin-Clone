@@ -2,7 +2,7 @@
 
 import { RNG, rng, rollDice } from './rng.js';
 import { IsoRenderer, gridToScreen, screenToGrid, TILE_W, TILE_H, WALL_H, SPRITE_MAP } from './iso.js?v=43';
-import { GameMap, generateDungeon, generateHome, computeFOV, computeVerticalVisibility } from './world.js';
+import { GameMap, generateDungeon, generateHome, computeFOV, computeFOV3D, computeVerticalVisibility } from './world.js';
 import { createPlayer, makeMonster, Entity, equip, unequip } from './entity.js';
 import { makeItem, itemName } from './item.js';
 import { attack, castSpell, applyDamage, tickStatusEffects, regenEntity } from './combat.js';
@@ -18,6 +18,8 @@ const MONSTER_MOVE_SPEED_BASE = 2.5;
 const ATTACK_COOLDOWN = 0.6;      // 玩家攻击冷却秒
 const FOV_UPDATE_INTERVAL = 0.15; // FOV刷新间隔
 const PICKUP_RADIUS = 0.6;        // 自动拾取半径
+
+
 
 class Game{
   constructor(){
@@ -132,8 +134,9 @@ class Game{
     const gx = Math.round(this.player.px), gy = Math.round(this.player.py);
     this.player.x = gx; this.player.y = gy;
     const range = 6 + Math.floor((this.player.getAttr?this.player.getAttr('感知'):0) * 0.3);
-    computeFOV(this.map, gx, gy, Math.max(5, range));
-    computeVerticalVisibility(this.map);
+    const r = Math.max(5, range);
+    this.map.sight = r;
+    computeFOV3D(this.map, gx, gy, r);
   }
 
   // ========== 主循环：实时更新 ==========
@@ -450,6 +453,12 @@ class Game{
           else if(this.keys['s']||this.keys['S']||this.keys['ArrowDown']) dy = 1;
           else if(this.keys['a']||this.keys['A']||this.keys['ArrowLeft']) dx = -1;
           else if(this.keys['d']||this.keys['D']||this.keys['ArrowRight']) dx = 1;
+        } else {
+          // debug模式：WASD移动，方向键留给offset调整
+          if(this.keys['w']||this.keys['W']) dy = -1;
+          else if(this.keys['s']||this.keys['S']) dy = 1;
+          else if(this.keys['a']||this.keys['A']) dx = -1;
+          else if(this.keys['d']||this.keys['D']) dx = 1;
         }
 
         if(dx !== 0 || dy !== 0){
@@ -964,6 +973,12 @@ class Game{
       if(this.keys['s'] || this.keys['S'] || this.keys['ArrowDown']){ dx += 1; dy += 1; }
       if(this.keys['a'] || this.keys['A'] || this.keys['ArrowLeft']){ dx -= 1; dy += 1; }
       if(this.keys['d'] || this.keys['D'] || this.keys['ArrowRight']){ dx += 1; dy -= 1; }
+    } else {
+      // debug模式：WASD移动，方向键留给offset调整
+      if(this.keys['w'] || this.keys['W']){ dx -= 1; dy -= 1; }
+      if(this.keys['s'] || this.keys['S']){ dx += 1; dy += 1; }
+      if(this.keys['a'] || this.keys['A']){ dx -= 1; dy += 1; }
+      if(this.keys['d'] || this.keys['D']){ dx += 1; dy -= 1; }
     }
     if(this.keys['q'] || this.keys['Q']){ dx -= 1; }
     if(this.keys['e'] || this.keys['E']){ dy -= 1; }
@@ -1753,6 +1768,7 @@ class Game{
     r._debugDrawOff = this.debugMode ? this.debugDrawOff : null;
 
     // ===== 第一趟：绘制所有地板瓦片（地面层，始终在最底层）=====
+    const hw = TILE_W/2, hh = TILE_H/2;
     for(let gy = Math.max(0, center.y-rad); gy < Math.min(this.map.h, center.y+rad); gy++){
       for(let gx = Math.max(0, center.x-rad); gx < Math.min(this.map.w, center.x+rad); gx++){
         const tid = this.map.tileId(gx, gy);
@@ -1761,18 +1777,68 @@ class Game{
         const vis = this.map.visible[gy][gx];
         const exp = this.map.explored[gy][gx];
         if(!exp) continue;
-        // 调试模式：隐藏非选中格子
         if(this.debugMode && this.debugHideOthers && this.debugTile && (gx!==this.debugTile.x || gy!==this.debugTile.y)) continue;
         const screenP = gridToScreen(gx, gy);
         if(!inView(screenP.x, screenP.y)) continue;
         const hover = this.hoverTile && this.hoverTile.x===gx && this.hoverTile.y===gy;
-        // 优先使用草地图集(灰度tile程序上色), 其次Elin原版图集, 最后回退到旧版渲染
         const drawn = r.drawGrassAtlas(gx, gy, tid, vis, exp, hover)
                    || r.drawFloorAtlas(gx, gy, tid, vis, exp, hover);
         if(!drawn){
           r.drawTileFloor(gx, gy, tile, vis, exp, hover);
         }
       }
+    }
+
+    // ===== 战争迷雾（地板之后、方块/实体之前绘制，确保墙体在雾之上）=====
+    {
+      const gmMinY = Math.max(0, center.y-rad), gmMaxY = Math.min(this.map.h, center.y+rad);
+      const gmMinX = Math.max(0, center.x-rad), gmMaxX = Math.min(this.map.w, center.x+rad);
+      const playerGx = this.player.gx, playerGy = this.player.gy;
+      const sight = this.map.sight || 12;
+      const FOG_R=10, FOG_G=12, FOG_B=20;
+      const EXPLORED_A=0.55;
+      const VISIBLE_MAX=0.25;
+
+      if(!this._fogDiamond){
+        const cv = document.createElement('canvas');
+        const pad = 2;
+        cv.width = TILE_W + pad*2; cv.height = TILE_H + pad*2;
+        const cx = cv.getContext('2d');
+        cx.fillStyle = `rgb(${FOG_R},${FOG_G},${FOG_B})`;
+        cx.beginPath();
+        cx.moveTo(pad, TILE_H/2 + pad);
+        cx.lineTo(TILE_W/2 + pad, pad);
+        cx.lineTo(TILE_W + pad, TILE_H/2 + pad);
+        cx.lineTo(TILE_W/2 + pad, TILE_H + pad);
+        cx.closePath();
+        cx.fill();
+        this._fogDiamond = cv;
+      }
+      const dw = this._fogDiamond.width, dh = this._fogDiamond.height;
+
+      r.ctx.save();
+      for(let gy = gmMinY; gy < gmMaxY; gy++){
+        for(let gx = gmMinX; gx < gmMaxX; gx++){
+          if(!this.map.explored[gy][gx]) continue;
+          const sp = gridToScreen(gx, gy);
+          if(!inView(sp.x, sp.y)) continue;
+
+          if(!this.map.visible[gy][gx]){
+            r.ctx.globalAlpha = EXPLORED_A;
+            r.ctx.drawImage(this._fogDiamond, sp.x - dw/2, sp.y - dh/2);
+          } else {
+            const dx = gx - playerGx, dy = gy - playerGy;
+            const ratio = Math.sqrt(dx*dx + dy*dy) / sight;
+            const a = Math.min(VISIBLE_MAX, ratio * VISIBLE_MAX);
+            if(a > 0.01){
+              r.ctx.globalAlpha = a;
+              r.ctx.drawImage(this._fogDiamond, sp.x - dw/2, sp.y - dh/2);
+            }
+          }
+        }
+      }
+      r.ctx.globalAlpha = 1;
+      r.ctx.restore();
     }
 
     // ===== 回合制移动范围高亮 =====
@@ -1810,8 +1876,7 @@ class Game{
         const screenP = gridToScreen(gx, gy);
         if(!inView(screenP.x, screenP.y)) continue;
         const hover = this.hoverTile && this.hoverTile.x===gx && this.hoverTile.y===gy;
-        const visibleZ = vis ? (this.map._visibleZ[gy]?.[gx] || null) : null;
-        drawList.push({type:'block', gx, gy, blocks, vis, exp, hover, visibleZ, depth: gx+gy, sortPri: 2});
+        drawList.push({type:'block', gx, gy, blocks, vis, exp, hover, depth: gx+gy, sortPri: 2});
       }
     }
 
@@ -1863,7 +1928,7 @@ class Game{
         // 实体不隐藏（方便观察）
       }
       if(d.type === 'block'){
-        r.drawBlockStack(d.gx, d.gy, d.blocks, d.vis, d.exp, d.hover, d.visibleZ);
+        r.drawBlockStack(d.gx, d.gy, d.blocks, d.vis, d.exp, d.hover);
       } else if(d.type === 'decor'){
         // 不可见（仅已探索）的装饰物降低透明度
         if(!d.vis){
@@ -1903,39 +1968,7 @@ class Game{
       }
     }
 
-    // ===== 战争迷雾：地板层覆盖（方块由drawBlockStack的per-block dim处理）=====
-    {
-      const ctx = r.ctx;
-      r.applyCam();
-      const hw = TILE_W/2, hh = TILE_H/2;
-      ctx.save();
-      ctx.globalAlpha = 0.6;
-      ctx.fillStyle = '#000';
-      ctx.beginPath();
-      for(let gy = Math.max(0, center.y-rad); gy < Math.min(this.map.h, center.y+rad); gy++){
-        for(let gx = Math.max(0, center.x-rad); gx < Math.min(this.map.w, center.x+rad); gx++){
-          const vis = this.map.visible[gy][gx];
-          const exp = this.map.explored[gy][gx];
-          if(vis || !exp) continue;
-          // 有方块的格子：由drawBlockStack的per-block dim处理，跳过
-          const blocks = this.map.getBlocks(gx, gy);
-          if(blocks && blocks.length > 0) continue;
-          const sp = gridToScreen(gx, gy);
-          if(!inView(sp.x, sp.y)) continue;
-          // 纯地板：菱形
-          ctx.moveTo(sp.x, sp.y - hh);
-          ctx.lineTo(sp.x + hw, sp.y);
-          ctx.lineTo(sp.x, sp.y + hh);
-          ctx.lineTo(sp.x - hw, sp.y);
-          ctx.closePath();
-        }
-      }
-      ctx.fill();
-      ctx.restore();
-      r.restore();
-    }
-
-    // 浮动伤害数字
+// 浮动伤害数字
     for(const dp of this.dmgPopups){
       const p = gridToScreen(dp.px, dp.py);
       r.ctx.save();
@@ -2343,6 +2376,44 @@ class Game{
         this.debugSrcOff = {x:0, y:0};
         this.debugDrawOff = {x:0, y:0};
         this.log('偏移已重置', 'info');
+      }
+      else if(this.debugMode && (k==='o'||k==='O')){
+        // 导出3D可见性数据
+        const map = this.map;
+        const lines = [];
+        lines.push('===== Fog of War 3D Visibility Report =====');
+        lines.push(`Time: ${new Date().toISOString()}`);
+        lines.push(`Player: (${this.player.px},${this.player.py})`);
+        lines.push(`Map: ${map.w}x${map.h}`);
+        lines.push('');
+        lines.push('--- Visible Columns (2D) ---');
+        let visCount = 0, expCount = 0;
+        for(let y=0;y<map.h;y++) for(let x=0;x<map.w;x++){
+          if(map.visible[y][x]) visCount++;
+          if(map.explored[y][x]) expCount++;
+        }
+        lines.push(`Visible: ${visCount}  Explored: ${expCount}`);
+        lines.push('');
+        lines.push('--- 3D Visibility (vis3D bitmask per cell) ---');
+        for(let y=0;y<map.h;y++){
+          for(let x=0;x<map.w;x++){
+            const v = map.vis3D[y][x];
+            const e = map.exp3D[y][x];
+            const b = map.blocks[y]?.[x];
+            const stackH = b ? b.length : 0;
+            if(v === 0 && e === 0) continue;
+            lines.push(`  (${x},${y}) vis=0b${v.toString(2).padStart(4,'0')} exp=0b${e.toString(2).padStart(4,'0')} blocks=${stackH}`);
+          }
+        }
+        const blob = new Blob([lines.join('\n')], {type:'text/plain'});
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `fog3d_${this.player.px}_${this.player.py}_${Date.now()}.txt`;
+        a.click();
+        URL.revokeObjectURL(url);
+        this.log(`3D可见性已导出: ${a.download}`, 'info');
+        handled = true;
       }
       else handled = false;
       if(handled) e.preventDefault();

@@ -5,11 +5,6 @@ export const TILE_W = 64;
 export const TILE_H = 32;
 export const WALL_H = 32; // 墙体高度像素
 
-// 复用的临时canvas，用于方块dim效果（避免source-atop影响主canvas）
-const _dimCanvas = document.createElement('canvas');
-_dimCanvas.width = 64; _dimCanvas.height = 64;
-const _dimCtx = _dimCanvas.getContext('2d');
-
 import { TILES, DECOR_TYPES, BLOCK_TYPES, FLOOR_ATLAS, GRASS_ATLAS } from './data.js?v=43';
 
 // 怪物ID -> 精灵图key 映射
@@ -770,7 +765,7 @@ export class IsoRenderer{
   // ---- 绘制堆叠方块 (blocks.png, 64px tiles, 支持无限高度堆叠) ----
   // blockIds: 从底到顶的方块类型ID数组
   // 返回总高度(像素)，用于深度排序
-  drawBlockStack(gx, gy, blockIds, visible, explored, hover, visibleZ){
+  drawBlockStack(gx, gy, blockIds, visible, explored, hover){
     if(!blockIds || blockIds.length === 0) return 0;
     const ctx = this.ctx;
     const p = gridToScreen(gx, gy);
@@ -779,9 +774,9 @@ export class IsoRenderer{
     const atlas = this.elinAtlases?.['blocks'];
     if(!atlas || !atlas.complete || atlas.naturalWidth === 0) return 0;
 
-    const tilePx = 64; // blocks.png tile尺寸
-    const spriteSize = 64; // 绘制尺寸 (1:1不缩放)
-    let accumH = 0; // 累积高度(像素)
+    const tilePx = 64;
+    const spriteSize = 64;
+    let accumH = 0;
 
     ctx.save();
 
@@ -789,36 +784,11 @@ export class IsoRenderer{
       const bt = BLOCK_TYPES[blockIds[i]];
       if(!bt) continue;
 
-      // 3D视野：检查当前方块是否在可见z范围内
-      let dim = false;
-      if(visible && visibleZ){
-        // i=0是地板层(z=0), i=1是第一层方块(z=1)...
-        // visibleZ.lo/hi 是z坐标范围
-        if(i < visibleZ.lo || i > visibleZ.hi) dim = true;
-      } else if(!visible && explored){
-        dim = true;
-      }
-
-      // 绘制位置：sprite的底面中心(y=48)对齐到 p.y - accumH
       const drawY = p.y - 48 - accumH;
-      if(dim){
-        // 暗色方块：通过临时canvas用source-atop精确裁剪到sprite形状
-        _dimCtx.clearRect(0, 0, 64, 64);
-        _dimCtx.drawImage(atlas,
-          bt.c * tilePx, bt.r * tilePx, tilePx, tilePx,
-          0, 0, 64, 64
-        );
-        _dimCtx.globalCompositeOperation = 'source-atop';
-        _dimCtx.fillStyle = 'rgba(15,18,28,0.55)';
-        _dimCtx.fillRect(0, 0, 64, 64);
-        _dimCtx.globalCompositeOperation = 'source-over';
-        ctx.drawImage(_dimCanvas, p.x - 32, drawY);
-      } else {
-        ctx.drawImage(atlas,
-          bt.c * tilePx, bt.r * tilePx, tilePx, tilePx,
-          p.x - 32, drawY, spriteSize, spriteSize
-        );
-      }
+      ctx.drawImage(atlas,
+        bt.c * tilePx, bt.r * tilePx, tilePx, tilePx,
+        p.x - 32, drawY, spriteSize, spriteSize
+      );
 
       accumH += bt.h * WALL_H;
     }
