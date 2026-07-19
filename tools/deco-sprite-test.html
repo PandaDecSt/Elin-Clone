@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<title>装饰物贴图测试</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background:#1a1a2e; color:#e0e0e0; font-family:monospace; }
+h2 { text-align:center; padding:8px; background:#16213e; border-bottom:1px solid #0f3460; }
+.container { display:flex; gap:12px; padding:12px; flex-wrap:wrap; justify-content:center; }
+.panel { background:#16213e; border:1px solid #0f3460; border-radius:6px; padding:12px; }
+canvas { display:block; border:1px solid #333; }
+.info { margin-top:8px; font-size:12px; line-height:1.6; }
+.info span { color:#e94560; font-weight:bold; }
+.controls { text-align:center; margin:8px 0; }
+.controls button { background:#0f3460; color:#e0e0e0; border:1px solid #e94560; padding:4px 12px; margin:0 4px; cursor:pointer; border-radius:4px; }
+.controls button:hover { background:#e94560; }
+.controls button.active { background:#e94560; }
+#status { text-align:center; margin:8px; padding:8px; background:#0f3460; border-radius:4px; }
+</style>
+</head>
+<body>
+<h2>装饰物贴图测试工具</h2>
+<div class="controls">
+  <button onclick="testAll()">测试所有装饰物</button>
+  <button onclick="testSingle()">测试单个</button>
+  <button onclick="testAtlas()">测试图集加载</button>
+  <button id="btnAnim" onclick="toggleAnim()">开启动画</button>
+</div>
+<div id="status">加载中...</div>
+<div class="container">
+  <div class="panel">
+    <h3>装饰物渲染</h3>
+    <canvas id="gameCanvas" width="640" height="480"></canvas>
+    <div class="info">当前测试: <span id="currentTest">-</span></div>
+  </div>
+  <div class="panel">
+    <h3>图集预览</h3>
+    <canvas id="atlasCanvas" width="640" height="480"></canvas>
+    <div class="info">图集状态: <span id="atlasStatus">-</span></div>
+  </div>
+</div>
+
+<script type="module">
+import { DECOR_TYPES } from '../js/data.js';
+import { gridToScreen } from '../js/iso.js';
+
+// 全局状态
+let objsAtlas = null;
+let objsSAtlas = null;
+let animating = false;
+let animTime = 0;
+let testMode = 'all';
+let selectedType = 'grass_tuft';
+
+// 加载图集
+async function loadAtlas(url) {
+  return new Promise((res, rej) => {
+    const img = new Image();
+    img.onload = () => res(img);
+    img.onerror = () => rej('load fail: ' + url);
+    img.src = url;
+  });
+}
+
+// 初始化
+async function init() {
+  try {
+    [objsAtlas, objsSAtlas] = await Promise.all([
+      loadAtlas('../assets/elin/objs.png'),
+      loadAtlas('../assets/elin/objs_S.png'),
+    ]);
+    document.getElementById('status').textContent = '图集加载完成';
+    document.getElementById('atlasStatus').textContent = 
+      `objs: ${objsAtlas.width}x${objsAtlas.height}, objs_S: ${objsSAtlas.width}x${objsSAtlas.height}`;
+    testAll();
+  } catch(e) {
+    document.getElementById('status').textContent = '加载失败: ' + e;
+  }
+}
+
+// 测试所有装饰物
+window.testAll = function() {
+  testMode = 'all';
+  drawTest();
+};
+
+// 测试单个装饰物
+window.testSingle = function() {
+  testMode = 'single';
+  drawTest();
+};
+
+// 测试图集
+window.testAtlas = function() {
+  testMode = 'atlas';
+  drawAtlasPreview();
+};
+
+// 切换动画
+window.toggleAnim = function() {
+  animating = !animating;
+  document.getElementById('btnAnim').textContent = animating ? '停止动画' : '开启动画';
+  if(animating) requestAnimationFrame(animate);
+};
+
+function animate() {
+  if(!animating) return;
+  animTime += 0.016;
+  drawTest();
+  requestAnimationFrame(animate);
+}
+
+function drawTest() {
+  const canvas = document.getElementById('gameCanvas');
+  const ctx = canvas.getContext('2d');
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  
+  // 画地板
+  ctx.fillStyle = '#3a5a3a';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  
+  if(testMode === 'all') {
+    // 画所有装饰物
+    const types = Object.keys(DECOR_TYPES);
+    const cols = 4;
+    const cellW = canvas.width / cols;
+    const cellH = canvas.height / Math.ceil(types.length / cols);
+    
+    types.forEach((type, i) => {
+      const col = i % cols;
+      const row = Math.floor(i / cols);
+      const cx = col * cellW + cellW/2;
+      const cy = row * cellH + cellH - 20;
+      
+      drawDecoration(ctx, type, cx, cy, 1.0, animTime);
+      
+      // 标签
+      ctx.fillStyle = '#fff';
+      ctx.font = '10px monospace';
+      ctx.textAlign = 'center';
+      ctx.fillText(type, cx, row * cellH + 15);
+    });
+    
+    document.getElementById('currentTest').textContent = '所有装饰物';
+  } else if(testMode === 'single') {
+    // 画单个装饰物（大图）
+    drawDecoration(ctx, selectedType, canvas.width/2, canvas.height - 50, 2.0, animTime);
+    document.getElementById('currentTest').textContent = selectedType;
+  }
+}
+
+function drawDecoration(ctx, type, cx, cy, scale, time) {
+  const def = DECOR_TYPES[type];
+  if(!def) return;
+  
+  const atlas = def.atlas === 'objs' ? objsAtlas : objsSAtlas;
+  if(!atlas || !atlas.complete || atlas.naturalWidth === 0) {
+    // 回退：画圆形
+    ctx.fillStyle = '#888';
+    ctx.beginPath();
+    ctx.arc(cx, cy - 10*scale, 8*scale, 0, Math.PI*2);
+    ctx.fill();
+    return;
+  }
+  
+  const dw = def.sw * scale;
+  const dh = def.sh * scale;
+  
+  ctx.drawImage(atlas,
+    def.sx, def.sy, def.sw, def.sh,
+    cx - dw/2, cy - dh, dw, dh
+  );
+  
+  // 发光效果
+  if(def.light) {
+    const glowR = Math.max(dw, dh) * 1.2;
+    const grad = ctx.createRadialGradient(cx, cy - dh/2, 0, cx, cy - dh/2, glowR);
+    if(type === 'torch') {
+      const flicker = 0.7 + 0.3 * Math.sin(time * 8);
+      grad.addColorStop(0, `rgba(255,200,80,${0.3 * flicker})`);
+      grad.addColorStop(1, 'rgba(255,200,80,0)');
+    } else {
+      const glow = 0.5 + 0.3 * Math.sin(time * 2);
+      grad.addColorStop(0, `rgba(120,200,250,${0.25 * glow})`);
+      grad.addColorStop(1, 'rgba(120,200,250,0)');
+    }
+    ctx.fillStyle = grad;
+    ctx.beginPath();
+    ctx.arc(cx, cy - dh/2, glowR, 0, Math.PI*2);
+    ctx.fill();
+  }
+}
+
+function drawAtlasPreview() {
+  const canvas = document.getElementById('atlasCanvas');
+  const ctx = canvas.getContext('2d');
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  
+  if(objsAtlas) {
+    // 画 objs.png 缩略图
+    const scale = Math.min(canvas.width / objsAtlas.width, canvas.height / objsAtlas.height) * 0.9;
+    const x = (canvas.width - objsAtlas.width * scale) / 2;
+    const y = (canvas.height - objsAtlas.height * scale) / 2;
+    ctx.drawImage(objsAtlas, x, y, objsAtlas.width * scale, objsAtlas.height * scale);
+    
+    // 标记每个装饰物的位置
+    ctx.strokeStyle = '#e94560';
+    ctx.lineWidth = 2;
+    for(const [type, def] of Object.entries(DECOR_TYPES)) {
+      if(def.atlas !== 'objs') continue;
+      const rx = x + def.sx * scale;
+      const ry = y + def.sy * scale;
+      const rw = def.sw * scale;
+      const rh = def.sh * scale;
+      ctx.strokeRect(rx, ry, rw, rh);
+      ctx.fillStyle = '#fff';
+      ctx.font = '8px monospace';
+      ctx.fillText(type, rx, ry - 2);
+    }
+    
+    document.getElementById('atlasStatus').textContent = 
+      `objs: ${objsAtlas.width}x${objsAtlas.height} (已标记${Object.keys(DECOR_TYPES).length}个装饰物)`;
+  }
+}
+
+// 启动
+init();
+</script>
+</body>
+</html>

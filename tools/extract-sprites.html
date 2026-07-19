@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<title>图集精灵提取</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background:#1a1a2e; color:#e0e0e0; font-family:monospace; }
+h2 { text-align:center; padding:8px; background:#16213e; border-bottom:1px solid #0f3460; }
+#info { text-align:center; padding:8px; background:#0f3460; margin:8px; border-radius:4px; font-size:13px; }
+#canvas { display:block; margin:0 auto; cursor:crosshair; border:1px solid #333; }
+#result { margin:12px; padding:10px; background:#16213e; border:1px solid #0f3460; border-radius:6px; max-height:300px; overflow-y:auto; font-size:11px; line-height:1.6; }
+#result div { margin:2px 0; }
+#result .highlight { color:#e94560; font-weight:bold; }
+#extracted { display:flex; flex-wrap:wrap; gap:8px; margin:12px; justify-content:center; }
+#extracted canvas { border:2px solid #333; cursor:pointer; }
+#extracted canvas:hover { border-color:#e94560; }
+.controls { text-align:center; margin:8px; }
+.controls button { background:#0f3460; color:#e0e0e0; border:1px solid #e94560; padding:6px 16px; margin:0 4px; cursor:pointer; border-radius:4px; }
+.controls button:hover { background:#e94560; }
+</style>
+</head>
+<body>
+<h2>图集精灵自动提取</h2>
+<div class="controls">
+  <button onclick="analyzeAtlas()">分析objs.png</button>
+  <button onclick="analyzeAtlasS()">分析objs_S.png</button>
+  <button onclick="exportResult()">导出坐标</button>
+</div>
+<div id="info">点击分析按钮开始</div>
+<canvas id="canvas"></canvas>
+<div id="result"></div>
+<h3>已提取精灵 (<span id="count">0</span>)</h3>
+<div id="extracted"></div>
+
+<script>
+let atlas = null;
+let atlasS = null;
+let currentAtlas = null;
+let sprites = [];
+let selectedSprites = [];
+
+async function loadImg(url){
+  return new Promise((res,rej)=>{
+    const img = new Image();
+    img.onload = ()=>res(img);
+    img.onerror = ()=>rej('load fail');
+    img.src = url;
+  });
+}
+
+async function init(){
+  try{
+    [atlas, atlasS] = await Promise.all([
+      loadImg('../assets/elin/objs.png'),
+      loadImg('../assets/elin/objs_S.png'),
+    ]);
+    document.getElementById('info').textContent = 
+      `objs: ${atlas.width}x${atlas.height} | objs_S: ${atlasS.width}x${atlasS.height}`;
+    currentAtlas = atlas;
+    drawAtlas();
+  }catch(e){
+    document.getElementById('info').textContent = 'Error: '+e;
+  }
+}
+
+function drawAtlas(){
+  const canvas = document.getElementById('canvas');
+  const ctx = canvas.getContext('2d');
+  if(!currentAtlas) return;
+  
+  // 缩放以适应屏幕
+  const maxW = Math.min(window.innerWidth - 20, 1400);
+  const scale = Math.min(maxW / currentAtlas.width, 0.4);
+  
+  canvas.width = currentAtlas.width * scale;
+  canvas.height = currentAtlas.height * scale;
+  
+  ctx.imageSmoothingEnabled = false;
+  ctx.drawImage(currentAtlas, 0, 0, canvas.width, canvas.height);
+}
+
+function analyzeAtlas(){
+  analyze(currentAtlas, 'objs');
+}
+
+function analyzeAtlasS(){
+  currentAtlas = atlasS;
+  drawAtlas();
+  analyze(atlasS, 'objs_S');
+}
+
+function analyze(img, name){
+  sprites = [];
+  const tmpCanvas = document.createElement('canvas');
+  tmpCanvas.width = img.width;
+  tmpCanvas.height = img.height;
+  const ctx = tmpCanvas.getContext('2d');
+  ctx.drawImage(img, 0, 0);
+  const imgData = ctx.getImageData(0, 0, img.width, img.height);
+  const data = imgData.data;
+  const w = img.width, h = img.height;
+  
+  // 扫描找到所有非透明区域
+  const visited = new Uint8Array(w * h);
+  
+  for(let y = 0; y < h; y += 4){
+    for(let x = 0; x < w; x += 4){
+      const i = (y * w + x) * 4;
+      if(data[i+3] < 20) continue;
+      if(visited[y * w + x]) continue;
+      
+      // flood fill找到边界
+      const bounds = floodFill(data, visited, w, h, x, y);
+      if(bounds.w < 4 || bounds.h < 4) continue;
+      if(bounds.w > 200 || bounds.h > 200) continue;
+      
+      sprites.push({
+        x: bounds.x,
+        y: bounds.y,
+        w: bounds.w,
+        h: bounds.h,
+        atlas: name,
+        cx: bounds.x + bounds.w/2,
+        cy: bounds.y + bounds.h/2,
+      });
+    }
+  }
+  
+  document.getElementById('info').textContent = 
+    `分析完成: 找到 ${sprites.length} 个精灵`;
+  
+  // 画边界
+  drawAtlas();
+  const canvas = document.getElementById('canvas');
+  const ctx2 = canvas.getContext('2d');
+  const scale = canvas.width / img.width;
+  ctx2.strokeStyle = '#e94560';
+  ctx2.lineWidth = 1;
+  
+  const resultDiv = document.getElementById('result');
+  resultDiv.innerHTML = '';
+  
+  sprites.forEach((s, i) => {
+    ctx2.strokeRect(s.x * scale, s.y * scale, s.w * scale, s.h * scale);
+    const div = document.createElement('div');
+    div.innerHTML = `<span class="highlight">#${i}</span> x:${s.x} y:${s.y} ${s.w}x${s.h}`;
+    resultDiv.appendChild(div);
+  });
+  
+  renderExtracted();
+}
+
+function floodFill(data, visited, w, h, startX, startY){
+  const queue = [[startX, startY]];
+  const isOpaque = (x, y) => {
+    if(x < 0 || y < 0 || x >= w || y >= h) return false;
+    return data[(y * w + x) * 4 + 3] > 20;
+  };
+  
+  let minX = startX, maxX = startX, minY = startY, maxY = startY;
+  
+  while(queue.length){
+    const [cx, cy] = queue.pop();
+    if(cx < minX) minX = cx;
+    if(cx > maxX) maxX = cx;
+    if(cy < minY) minY = cy;
+    if(cy > maxY) maxY = cy;
+    
+    for(const [dx, dy] of [[1,0],[-1,0],[0,1],[0,-1]]){
+      const nx = cx + dx, ny = cy + dy;
+      if(!visited[ny * w + nx] && isOpaque(nx, ny)){
+        visited[ny * w + nx] = 1;
+        queue.push([nx, ny]);
+      }
+    }
+  }
+  
+  return {
+    x: minX,
+    y: minY,
+    w: maxX - minX + 1,
+    h: maxY - minY + 1,
+  };
+}
+
+function renderExtracted(){
+  const container = document.getElementById('extracted');
+  container.innerHTML = '';
+  
+  sprites.forEach((s, i) => {
+    const canvas = document.createElement('canvas');
+    canvas.width = s.w;
+    canvas.height = s.h;
+    const ctx = canvas.getContext('2d');
+    
+    // 从原图提取
+    const srcCanvas = document.createElement('canvas');
+    srcCanvas.width = currentAtlas.width;
+    srcCanvas.height = currentAtlas.height;
+    const srcCtx = srcCanvas.getContext('2d');
+    srcCtx.drawImage(currentAtlas, 0, 0);
+    ctx.drawImage(srcCanvas, s.x, s.y, s.w, s.h, 0, 0, s.w, s.h);
+    
+    canvas.style.width = '48px';
+    canvas.style.height = '48px';
+    canvas.style.imageRendering = 'pixelated';
+    canvas.title = `#${i} x:${s.x} y:${s.y} ${s.w}x${s.h}`;
+    
+    canvas.onclick = () => {
+      const idx = selectedSprites.indexOf(i);
+      if(idx >= 0) selectedSprites.splice(idx, 1);
+      else selectedSprites.push(i);
+      renderExtracted();
+    };
+    
+    if(selectedSprites.includes(i)){
+      canvas.style.borderColor = '#e94560';
+      canvas.style.borderWidth = '3px';
+    }
+    
+    container.appendChild(canvas);
+  });
+  
+  document.getElementById('count').textContent = sprites.length;
+}
+
+function exportResult(){
+  const output = sprites.map((s, i) => 
+    `# ${i} | x:${s.x} y:${s.y} ${s.w}x${s.h} | cx:${s.cx} cy:${s.cy}`
+  ).join('\n');
+  
+  const blob = new Blob([output], {type:'text/plain'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'sprite-coords.txt';
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+init();
+</script>
+</body>
+</html>

@@ -278,21 +278,22 @@ export const SHADOW_ATLAS = {
 };
 
 // ---- 装饰物定义 ----
-// type -> {draw: 绘制函数标识, color, size范围}
+// atlas: 图集名, sx/sy: 图集坐标, sw/sh: 精灵尺寸
+// minS/maxS: 缩放范围, light: 是否发光
 export const DECOR_TYPES = {
-  grass_tuft:   {id:'grass_tuft',   color:'#5a9a4a', minS:0.6, maxS:1.2},
-  grass_tall:   {id:'grass_tall',   color:'#4a8a3a', minS:0.8, maxS:1.5},
-  flower_red:   {id:'flower_red',   color:'#d04a4a', minS:0.5, maxS:0.8},
-  flower_yellow:{id:'flower_yellow',color:'#e0c84a', minS:0.5, maxS:0.8},
-  flower_white: {id:'flower_white', color:'#e8e8d8', minS:0.5, maxS:0.8},
-  mushroom:     {id:'mushroom',     color:'#c44a4a', minS:0.4, maxS:0.7},
-  pebble:       {id:'pebble',       color:'#6a6a6a', minS:0.3, maxS:0.6},
-  crack:        {id:'crack',        color:'#2a2520', minS:0.5, maxS:1.0},
-  vine:         {id:'vine',         color:'#3a6a30', minS:0.6, maxS:1.0},
-  torch:        {id:'torch',        color:'#e0a83a', minS:0.8, maxS:1.0, light:true},
-  crystal:      {id:'crystal',      color:'#7acafa', minS:0.5, maxS:0.9, light:true},
-  bone:         {id:'bone',         color:'#d8d0c0', minS:0.4, maxS:0.8},
-  puddle:       {id:'puddle',       color:'#3a5a7a', minS:0.5, maxS:1.0},
+  grass_tuft:   {id:'grass_tuft',   atlas:'objs',  sx:146, sy:6,   sw:15, sh:13, minS:0.6, maxS:1.2},
+  grass_tall:   {id:'grass_tall',   atlas:'objs',  sx:332, sy:6,   sw:34, sh:53, minS:0.8, maxS:1.5},
+  flower_red:   {id:'flower_red',   atlas:'objs',  sx:163, sy:16,  sw:16, sh:15, minS:0.5, maxS:0.8},
+  flower_yellow:{id:'flower_yellow',atlas:'objs',  sx:136, sy:23,  sw:16, sh:16, minS:0.5, maxS:0.8},
+  flower_white: {id:'flower_white', atlas:'objs',  sx:166, sy:5,   sw:12, sh:11, minS:0.5, maxS:0.8},
+  mushroom:     {id:'mushroom',     atlas:'objs',  sx:155, sy:31,  sw:18, sh:14, minS:0.4, maxS:0.7},
+  pebble:       {id:'pebble',       atlas:'objs',  sx:279, sy:32,  sw:9,  sh:12, minS:0.3, maxS:0.6},
+  crack:        {id:'crack',        atlas:'objs',  sx:288, sy:42,  sw:12, sh:8,  minS:0.5, maxS:1.0},
+  vine:         {id:'vine',         atlas:'objs',  sx:91,  sy:19,  sw:20, sh:13, minS:0.6, maxS:1.0},
+  torch:        {id:'torch',        atlas:'objs',  sx:3854,sy:36,  sw:12, sh:13, minS:0.8, maxS:1.0, light:true},
+  crystal:      {id:'crystal',      atlas:'objs',  sx:3238,sy:36,  sw:8,  sh:8,  minS:0.5, maxS:0.9, light:true},
+  bone:         {id:'bone',         atlas:'objs',  sx:3214,sy:42,  sw:8,  sh:8,  minS:0.4, maxS:0.8},
+  puddle:       {id:'puddle',       atlas:'objs',  sx:4010,sy:28,  sw:18, sh:20, minS:0.5, maxS:1.0},
 };
 
 // ---------- 神明数据 ----------

@@ -99,12 +99,14 @@ export class IsoRenderer{
       this.textures[key] = img;
     }
 
-    // Elin 原版图集：floors.png (48px tiles), blocks.png (64px tiles)
+    // Elin 原版图集：floors.png (48px tiles), blocks.png (64px tiles), objs.png/objs_S.png (装饰物)
     this.elinAtlases = {};
     const elinAtlasMap = {
       'floors':  'assets/elin/floors.png',
       'blocks':  'assets/elin/blocks.png',
       'shadows': 'assets/elin/shadows.png',
+      'objs':    'assets/elin/objs.png',
+      'objs_S':  'assets/elin/objs_S.png',
     };
     for(const [key, url] of Object.entries(elinAtlasMap)){
       const img = new Image();
@@ -1098,7 +1100,7 @@ export class IsoRenderer{
 
   drawFog(){}
 
-  // ---- 绘制装饰物 ----
+  // ---- 绘制装饰物（贴图版） ----
   drawDecoration(decor){
     const ctx = this.ctx;
     const p = gridToScreen(decor.x, decor.y);
@@ -1106,7 +1108,6 @@ export class IsoRenderer{
     const t = this.time;
     const def = DECOR_TYPES[decor.type];
     if(!def) return;
-    const col = def.color;
     const hw = TILE_W/2, hh = TILE_H/2;
 
     // ---- 墙壁装饰物：按 face 定位到对应面 ----
@@ -1115,225 +1116,58 @@ export class IsoRenderer{
     if(decor.face){
       switch(decor.face){
         case 'top':
-          // 顶面：在墙体顶部菱形上
           cy -= WALL_H;
           break;
         case 'left':
-          // 左侧面（西南面）：左偏 + 上移到墙面中部
           cx -= hw * 0.32;
           cy += hh * 0.12 - WALL_H * 0.5;
           break;
         case 'right':
-          // 右侧面（东南面）：右偏 + 上移到墙面中部
           cx += hw * 0.32;
           cy += hh * 0.12 - WALL_H * 0.5;
           break;
         case 'front':
-          // 前缘：两面交界处（底部前角）
           cy += hh * 0.28 - WALL_H * 0.45;
           break;
       }
     }
 
-    ctx.save();
-    switch(decor.type){
-      case 'grass_tuft': {
-        // 3-5 根草叶
-        const sway = Math.sin(t * 2 + decor.phase) * 1.5 * s;
-        ctx.strokeStyle = col;
-        ctx.lineWidth = 1.2 * s;
-        ctx.lineCap = 'round';
-        const n = 4;
-        for(let i=0;i<n;i++){
-          const bx = cx + (i-n/2) * 3 * s;
-          ctx.beginPath();
-          ctx.moveTo(bx, cy);
-          ctx.quadraticCurveTo(bx + sway*0.5, cy - 6*s, bx + sway, cy - 10*s);
-          ctx.stroke();
+    // ---- 贴图绘制 ----
+    const atlas = this.elinAtlases?.[def.atlas];
+    if(atlas && atlas.complete && atlas.naturalWidth > 0){
+      const dw = def.sw * s;
+      const dh = def.sh * s;
+      ctx.drawImage(atlas,
+        def.sx, def.sy, def.sw, def.sh,
+        cx - dw/2, cy - dh, dw, dh
+      );
+      // 发光装饰物附加光晕
+      if(def.light){
+        const glowR = Math.max(dw, dh) * 1.2;
+        const grad = ctx.createRadialGradient(cx, cy - dh/2, 0, cx, cy - dh/2, glowR);
+        if(decor.type === 'torch'){
+          const flicker = 0.7 + 0.3 * Math.sin(t * 8 + decor.phase);
+          grad.addColorStop(0, `rgba(255,200,80,${0.3 * flicker})`);
+          grad.addColorStop(1, 'rgba(255,200,80,0)');
+        } else {
+          const glow = 0.5 + 0.3 * Math.sin(t * 2 + decor.phase);
+          grad.addColorStop(0, `rgba(120,200,250,${0.25 * glow})`);
+          grad.addColorStop(1, 'rgba(120,200,250,0)');
         }
-        break;
-      }
-      case 'grass_tall': {
-        const sway = Math.sin(t * 1.5 + decor.phase) * 2 * s;
-        ctx.strokeStyle = col;
-        ctx.lineWidth = 1.5 * s;
-        ctx.lineCap = 'round';
-        const n = 5;
-        for(let i=0;i<n;i++){
-          const bx = cx + (i-n/2) * 2.5 * s;
-          ctx.beginPath();
-          ctx.moveTo(bx, cy);
-          ctx.quadraticCurveTo(bx + sway*0.5, cy - 8*s, bx + sway, cy - 14*s);
-          ctx.stroke();
-        }
-        break;
-      }
-      case 'flower_red':
-      case 'flower_yellow':
-      case 'flower_white': {
-        const sway = Math.sin(t * 2 + decor.phase) * 0.8 * s;
-        // 茎
-        ctx.strokeStyle = '#3a6a30';
-        ctx.lineWidth = 1.2 * s;
-        ctx.beginPath();
-        ctx.moveTo(cx, cy);
-        ctx.lineTo(cx + sway, cy - 6*s);
-        ctx.stroke();
-        // 花
-        ctx.fillStyle = col;
-        ctx.beginPath();
-        ctx.arc(cx + sway, cy - 7*s, 2.5*s, 0, Math.PI*2);
-        ctx.fill();
-        // 花蕊
-        ctx.fillStyle = '#e0a83a';
-        ctx.beginPath();
-        ctx.arc(cx + sway, cy - 7*s, 1*s, 0, Math.PI*2);
-        ctx.fill();
-        break;
-      }
-      case 'mushroom': {
-        // 蘑菇柄
-        ctx.fillStyle = '#e8e0d0';
-        ctx.fillRect(cx - 1.5*s, cy - 4*s, 3*s, 4*s);
-        // 蘑菇盖
-        ctx.fillStyle = col;
-        ctx.beginPath();
-        ctx.arc(cx, cy - 4*s, 3.5*s, Math.PI, 0);
-        ctx.fill();
-        // 白点
-        ctx.fillStyle = '#e8e8d8';
-        ctx.beginPath();
-        ctx.arc(cx - 1.5*s, cy - 4.5*s, 0.6*s, 0, Math.PI*2);
-        ctx.arc(cx + 1*s, cy - 5*s, 0.5*s, 0, Math.PI*2);
-        ctx.fill();
-        break;
-      }
-      case 'pebble': {
-        ctx.fillStyle = col;
-        ctx.beginPath();
-        ctx.ellipse(cx, cy, 3*s, 2*s, decor.phase, 0, Math.PI*2);
-        ctx.fill();
-        ctx.fillStyle = 'rgba(255,255,255,0.15)';
-        ctx.beginPath();
-        ctx.ellipse(cx - 0.5*s, cy - 0.5*s, 1.5*s, 1*s, decor.phase, 0, Math.PI*2);
-        ctx.fill();
-        break;
-      }
-      case 'crack': {
-        ctx.strokeStyle = col;
-        ctx.lineWidth = 0.8 * s;
-        ctx.beginPath();
-        ctx.moveTo(cx - 6*s, cy + 2*s);
-        ctx.lineTo(cx - 2*s, cy - 1*s);
-        ctx.lineTo(cx + 1*s, cy + 2*s);
-        ctx.lineTo(cx + 5*s, cy - 1*s);
-        ctx.stroke();
-        // 分支
-        ctx.beginPath();
-        ctx.moveTo(cx - 2*s, cy - 1*s);
-        ctx.lineTo(cx - 1*s, cy - 4*s);
-        ctx.stroke();
-        break;
-      }
-      case 'vine': {
-        // 从上方垂下的藤蔓
-        const sway = Math.sin(t * 1.2 + decor.phase) * 2 * s;
-        ctx.strokeStyle = col;
-        ctx.lineWidth = 1.5 * s;
-        ctx.beginPath();
-        ctx.moveTo(cx, cy - 20*s);
-        ctx.quadraticCurveTo(cx + sway*0.5, cy - 12*s, cx + sway, cy - 6*s);
-        ctx.stroke();
-        // 叶子
-        ctx.fillStyle = shade(col, 0.1);
-        ctx.beginPath();
-        ctx.ellipse(cx + sway + 2*s, cy - 8*s, 3*s, 1.5*s, 0.5, 0, Math.PI*2);
-        ctx.fill();
-        ctx.beginPath();
-        ctx.ellipse(cx + sway - 2*s, cy - 12*s, 2.5*s, 1.2*s, -0.5, 0, Math.PI*2);
-        ctx.fill();
-        break;
-      }
-      case 'torch': {
-        // 火把杆
-        ctx.fillStyle = '#5a3a1a';
-        ctx.fillRect(cx - 1.5*s, cy - 14*s, 3*s, 14*s);
-        // 火焰
-        const flicker = Math.sin(t * 8 + decor.phase) * 1.5 * s;
-        const fy = cy - 16*s;
-        ctx.fillStyle = '#e0a83a';
-        ctx.beginPath();
-        ctx.ellipse(cx + flicker*0.3, fy, 3*s, 5*s, 0, 0, Math.PI*2);
-        ctx.fill();
-        ctx.fillStyle = '#ffe070';
-        ctx.beginPath();
-        ctx.ellipse(cx + flicker*0.3, fy + 1*s, 2*s, 3*s, 0, 0, Math.PI*2);
-        ctx.fill();
-        // 光晕
-        const grad = ctx.createRadialGradient(cx, fy, 0, cx, fy, 20*s);
-        grad.addColorStop(0, 'rgba(255,200,80,0.25)');
-        grad.addColorStop(1, 'rgba(255,200,80,0)');
         ctx.fillStyle = grad;
         ctx.beginPath();
-        ctx.arc(cx, fy, 20*s, 0, Math.PI*2);
+        ctx.arc(cx, cy - dh/2, glowR, 0, Math.PI*2);
         ctx.fill();
-        break;
       }
-      case 'crystal': {
-        const glow = 0.5 + 0.3 * Math.sin(t * 2 + decor.phase);
-        // 光晕
-        const grad = ctx.createRadialGradient(cx, cy - 4*s, 0, cx, cy - 4*s, 12*s);
-        grad.addColorStop(0, `rgba(120,200,250,${0.2 * glow})`);
-        grad.addColorStop(1, 'rgba(120,200,250,0)');
-        ctx.fillStyle = grad;
-        ctx.beginPath();
-        ctx.arc(cx, cy - 4*s, 12*s, 0, Math.PI*2);
-        ctx.fill();
-        // 晶体
-        ctx.fillStyle = col;
-        ctx.beginPath();
-        ctx.moveTo(cx, cy - 10*s);
-        ctx.lineTo(cx + 3*s, cy - 4*s);
-        ctx.lineTo(cx, cy);
-        ctx.lineTo(cx - 3*s, cy - 4*s);
-        ctx.closePath();
-        ctx.fill();
-        // 高光面
-        ctx.fillStyle = 'rgba(255,255,255,0.3)';
-        ctx.beginPath();
-        ctx.moveTo(cx, cy - 10*s);
-        ctx.lineTo(cx + 1.5*s, cy - 4*s);
-        ctx.lineTo(cx, cy);
-        ctx.closePath();
-        ctx.fill();
-        break;
-      }
-      case 'bone': {
-        ctx.fillStyle = col;
-        // 骨头主体
-        ctx.beginPath();
-        ctx.ellipse(cx, cy, 5*s, 1.5*s, decor.phase, 0, Math.PI*2);
-        ctx.fill();
-        // 两端球
-        ctx.beginPath();
-        ctx.arc(cx - 5*s, cy, 1.5*s, 0, Math.PI*2);
-        ctx.arc(cx + 5*s, cy, 1.5*s, 0, Math.PI*2);
-        ctx.fill();
-        break;
-      }
-      case 'puddle': {
-        ctx.fillStyle = `rgba(50,80,110,0.4)`;
-        ctx.beginPath();
-        ctx.ellipse(cx, cy, 8*s, 4*s, 0, 0, Math.PI*2);
-        ctx.fill();
-        // 水面反光
-        ctx.fillStyle = `rgba(120,180,220,${0.15+0.08*Math.sin(t*1.5+decor.phase)})`;
-        ctx.beginPath();
-        ctx.ellipse(cx - 2*s, cy - 1*s, 3*s, 1.5*s, 0, 0, Math.PI*2);
-        ctx.fill();
-        break;
-      }
+      return;
     }
+
+    // ---- 回退：图集未加载时用简单形状 ----
+    ctx.save();
+    ctx.fillStyle = def.color || '#888';
+    ctx.beginPath();
+    ctx.arc(cx, cy - 6*s, 5*s, 0, Math.PI*2);
+    ctx.fill();
     ctx.restore();
   }
 

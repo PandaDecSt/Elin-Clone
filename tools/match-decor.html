@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<title>装饰物精灵匹配</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background:#1a1a2e; color:#e0e0e0; font-family:monospace; }
+h2 { text-align:center; padding:8px; background:#16213e; border-bottom:1px solid #0f3460; }
+.container { display:flex; flex-wrap:wrap; gap:12px; padding:12px; justify-content:center; }
+.panel { background:#16213e; border:1px solid #0f3460; border-radius:6px; padding:12px; }
+canvas { display:block; border:1px solid #333; cursor:crosshair; }
+.info { margin-top:8px; font-size:11px; line-height:1.5; }
+.controls { text-align:center; margin:8px; }
+.controls button { background:#0f3460; color:#e0e0e0; border:1px solid #e94560; padding:6px 14px; margin:0 4px; cursor:pointer; border-radius:4px; }
+.controls button:hover { background:#e94560; }
+#mapping { margin:12px; padding:10px; background:#0f3460; border-radius:4px; }
+#mapping div { margin:3px 0; font-size:12px; }
+.slot { display:inline-block; width:48px; height:48px; border:2px solid #333; margin:4px; cursor:pointer; vertical-align:top; }
+.slot:hover { border-color:#e94560; }
+.slot.filled { border-color:#4CAF50; }
+.slot canvas { width:100%; height:100%; image-rendering:pixelated; }
+.label { font-size:10px; color:#aaa; }
+</style>
+</head>
+<body>
+<h2>装饰物精灵匹配工具</h2>
+<div class="controls">
+  <button onclick="loadAtlas()">加载图集</button>
+  <button onclick="showRegion(0,0,500,200)">植物区域</button>
+  <button onclick="showRegion(3200,0,900,200)">右侧区域</button>
+  <button onclick="showRegion(0,0,4096,4096)">全图</button>
+  <button onclick="exportMapping()">导出坐标</button>
+</div>
+<div class="container">
+  <div class="panel">
+    <h3>图集区域 (点击提取精灵)</h3>
+    <canvas id="atlas" width="800" height="400"></canvas>
+    <div class="info" id="atlasInfo">-</div>
+  </div>
+  <div class="panel">
+    <h3>装饰物映射</h3>
+    <div id="mapping"></div>
+  </div>
+</div>
+
+<script>
+const DECOR_TYPES = [
+  'grass_tuft','grass_tall','flower_red','flower_yellow','flower_white',
+  'mushroom','pebble','crack','vine','torch','crystal','bone','puddle'
+];
+
+let atlasImg = null;
+let regionCanvas = null;
+let regionCtx = null;
+let currentRegion = {x:0, y:0, w:4096, h:4096};
+let mapping = {};
+let selectedSlot = null;
+
+async function loadAtlas(){
+  atlasImg = new Image();
+  atlasImg.onload = ()=>{
+    document.getElementById('atlasInfo').textContent = 
+      `已加载: ${atlasImg.width}x${atlasImg.height}`;
+    showRegion(0, 0, 500, 200);
+    buildMappingUI();
+  };
+  atlasImg.src = '../assets/elin/objs.png';
+}
+
+function showRegion(x, y, w, h){
+  if(!atlasImg) return;
+  currentRegion = {x, y, w, h};
+  
+  const canvas = document.getElementById('atlas');
+  const ctx = canvas.getContext('2d');
+  
+  // 计算缩放
+  const scale = Math.min(800 / w, 400 / h);
+  canvas.width = w * scale;
+  canvas.height = h * scale;
+  
+  ctx.imageSmoothingEnabled = false;
+  ctx.drawImage(atlasImg, x, y, w, h, 0, 0, canvas.width, canvas.height);
+  
+  // 画网格
+  ctx.strokeStyle = 'rgba(255,255,255,0.1)';
+  ctx.lineWidth = 0.5;
+  for(let gx = 0; gx < w; gx += 16){
+    ctx.beginPath();
+    ctx.moveTo(gx * scale, 0);
+    ctx.lineTo(gx * scale, canvas.height);
+    ctx.stroke();
+  }
+  for(let gy = 0; gy < h; gy += 16){
+    ctx.beginPath();
+    ctx.moveTo(0, gy * scale);
+    ctx.lineTo(canvas.width, gy * scale);
+    ctx.stroke();
+  }
+  
+  regionCanvas = canvas;
+  regionCtx = ctx;
+  
+  canvas.onmousemove = (e)=>{
+    const rect = canvas.getBoundingClientRect();
+    const mx = e.clientX - rect.left;
+    const my = e.clientY - rect.top;
+    const ax = Math.floor(mx / scale) + x;
+    const ay = Math.floor(my / scale) + y;
+    document.getElementById('atlasInfo').textContent = 
+      `区域: (${x},${y}) ${w}x${h} | 鼠标: (${ax}, ${ay})`;
+  };
+  
+  canvas.onclick = (e)=>{
+    const rect = canvas.getBoundingClientRect();
+    const mx = e.clientX - rect.left;
+    const my = e.clientY - rect.top;
+    const ax = Math.floor(mx / scale) + x;
+    const ay = Math.floor(my / scale) + y;
+    extractSpriteAt(ax, ay);
+  };
+}
+
+function extractSpriteAt(px, py){
+  if(!atlasImg) return;
+  
+  // 从原图获取像素数据
+  const tmpCanvas = document.createElement('canvas');
+  tmpCanvas.width = atlasImg.width;
+  tmpCanvas.height = atlasImg.height;
+  const tmpCtx = tmpCanvas.getContext('2d');
+  tmpCtx.drawImage(atlasImg, 0, 0);
+  const imgData = tmpCtx.getImageData(0, 0, atlasImg.width, atlasImg.height);
+  const data = imgData.data;
+  const w = atlasImg.width;
+  
+  // 找非透明像素边界
+  const visited = new Uint8Array(w * atlasImg.height);
+  const queue = [[px, py]];
+  visited[py * w + px] = 1;
+  let minX = px, maxX = px, minY = py, maxY = py;
+  
+  while(queue.length){
+    const [cx, cy] = queue.pop();
+    if(cx < minX) minX = cx;
+    if(cx > maxX) maxX = cx;
+    if(cy < minY) minY = cy;
+    if(cy > maxY) maxY = cy;
+    
+    for(const [dx, dy] of [[1,0],[-1,0],[0,1],[0,-1]]){
+      const nx = cx + dx, ny = cy + dy;
+      if(nx >= 0 && ny >= 0 && nx < w && ny < atlasImg.height && !visited[ny * w + nx]){
+        const i = (ny * w + nx) * 4;
+        if(data[i+3] > 20){
+          visited[ny * w + nx] = 1;
+          queue.push([nx, ny]);
+        }
+      }
+    }
+  }
+  
+  const bounds = {x: minX, y: minY, w: maxX - minX + 1, h: maxY - minY + 1};
+  
+  // 提取精灵
+  const spriteCanvas = document.createElement('canvas');
+  spriteCanvas.width = bounds.w;
+  spriteCanvas.height = bounds.h;
+  const spriteCtx = spriteCanvas.getContext('2d');
+  spriteCtx.drawImage(atlasImg, bounds.x, bounds.y, bounds.w, bounds.h, 0, 0, bounds.w, bounds.h);
+  
+  // 如果有选中的slot，填充它
+  if(selectedSlot !== null){
+    mapping[selectedSlot] = {
+      atlas: 'objs',
+      sx: bounds.x,
+      sy: bounds.y,
+      sw: bounds.w,
+      sh: bounds.h
+    };
+    selectedSlot = null;
+    buildMappingUI();
+  }
+  
+  // 显示提取的精灵
+  const info = document.getElementById('atlasInfo');
+  info.textContent = `提取: x:${bounds.x} y:${bounds.y} ${bounds.w}x${bounds.h}`;
+}
+
+function buildMappingUI(){
+  const div = document.getElementById('mapping');
+  div.innerHTML = '';
+  
+  DECOR_TYPES.forEach((type, i)=>{
+    const m = mapping[type];
+    const slot = document.createElement('div');
+    slot.style.margin = '8px 0';
+    slot.style.padding = '6px';
+    slot.style.background = m ? '#1a3a1a' : '#1a1a2e';
+    slot.style.borderRadius = '4px';
+    
+    const label = document.createElement('span');
+    label.className = 'label';
+    label.textContent = `${type}: `;
+    slot.appendChild(label);
+    
+    const canvas = document.createElement('canvas');
+    canvas.width = 48;
+    canvas.height = 48;
+    canvas.style.border = '2px solid ' + (m ? '#4CAF50' : '#333');
+    canvas.style.cursor = 'pointer';
+    canvas.style.verticalAlign = 'middle';
+    
+    if(m){
+      const ctx = canvas.getContext('2d');
+      ctx.imageSmoothingEnabled = false;
+      ctx.drawImage(atlasImg, m.sx, m.sy, m.sw, m.sh, 0, 0, 48, 48);
+    }
+    
+    canvas.onclick = ()=>{
+      selectedSlot = type;
+      div.querySelectorAll('canvas').forEach(c=>c.style.borderColor='#333');
+      canvas.style.borderColor='#e94560';
+    };
+    
+    slot.appendChild(canvas);
+    
+    if(m){
+      const coords = document.createElement('span');
+      coords.className = 'label';
+      coords.textContent = ` (${m.sx},${m.sy}) ${m.sw}x${m.sh}`;
+      slot.appendChild(coords);
+    }
+    
+    div.appendChild(slot);
+  });
+}
+
+function exportMapping(){
+  const output = {};
+  for(const [type, m] of Object.entries(mapping)){
+    output[type] = m;
+  }
+  
+  const blob = new Blob([JSON.stringify(output, null, 2)], {type:'application/json'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'decor-mapping.json';
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+loadAtlas();
+</script>
+</body>
+</html>

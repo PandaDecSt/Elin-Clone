@@ -2964,41 +2964,87 @@ class Game{
     grid.innerHTML = '';
     let items = [];
     if(cat === 'decor'){
-      // 装饰物列表
       for(const [id, def] of Object.entries(DECOR_TYPES)){
-        items.push({id, name: this._decorName(id), icon: this._decorIcon(id), color: def.color});
+        items.push({id, name: this._decorName(id), def});
       }
     } else if(cat === 'wall'){
-      // 方块类型（可堆叠）
       for(const [id, bt] of Object.entries(BLOCK_TYPES)){
-        items.push({id, name: bt.name, icon: '🧱', color: bt.solid ? '#8a7a6a' : '#6a8a6a'});
+        items.push({id, name: bt.name, def: bt});
       }
     } else if(cat === 'floor'){
       for(const id of ['floor','floor_dark','dirt','stone_path','moss','grass','grass_dark','sand','rubble','water','water_deep','altar','chest_tile']){
         const t = TILES[id];
-        if(t) items.push({id, name: t.name, icon: '⬡', color: t.top});
+        if(t) items.push({id, name: t.name, def: t});
       }
     }
     for(const item of items){
       const el = document.createElement('div');
       el.className = 'build-item';
       if(this.buildMode.selected === item.id) el.classList.add('selected');
-      el.innerHTML = `
-        <div class="build-item-icon" style="background:${item.color}33;border:1px solid ${item.color};">${item.icon}</div>
-        <div class="build-item-name">${item.name}</div>
-      `;
+
+      const iconDiv = document.createElement('div');
+      iconDiv.className = 'build-item-icon';
+
+      // 用canvas绘制图集精灵
+      const c = document.createElement('canvas');
+      c.width = 48; c.height = 48;
+      c.style.width = '100%'; c.style.height = '100%';
+      c.style.imageRendering = 'pixelated';
+      this._drawBuildIcon(c, cat, item.def);
+      iconDiv.appendChild(c);
+
+      const nameDiv = document.createElement('div');
+      nameDiv.className = 'build-item-name';
+      nameDiv.textContent = item.name;
+
+      el.appendChild(iconDiv);
+      el.appendChild(nameDiv);
+
       el.onclick = () => {
         this.buildMode.selected = item.id;
         this.buildMode.tool = 'place';
-        // 更新选中状态
         grid.querySelectorAll('.build-item').forEach(x=>x.classList.remove('selected'));
         el.classList.add('selected');
-        // 切换到放置工具
         document.querySelectorAll('.build-tool-btn').forEach(b=>b.classList.remove('active'));
         document.querySelector('.build-tool-btn[data-tool="place"]').classList.add('active');
       };
       grid.appendChild(el);
     }
+  }
+
+  _drawBuildIcon(canvas, cat, def){
+    const ctx = canvas.getContext('2d');
+    ctx.imageSmoothingEnabled = false;
+    const atlas = this.renderer?.elinAtlases;
+    if(!atlas) return;
+
+    if(cat === 'decor'){
+      const img = atlas[def.atlas];
+      if(img && img.complete && img.naturalWidth > 0){
+        ctx.drawImage(img, def.sx, def.sy, def.sw, def.sh, 0, 0, 48, 48);
+        return;
+      }
+    } else if(cat === 'wall'){
+      const img = atlas['blocks'];
+      if(img && img.complete && img.naturalWidth > 0){
+        const tilePx = 64;
+        ctx.drawImage(img, def.c * tilePx, def.r * tilePx, tilePx, tilePx, 0, 0, 48, 48);
+        return;
+      }
+    } else if(cat === 'floor'){
+      const img = atlas['floors'];
+      if(img && img.complete && img.naturalWidth > 0){
+        const srcW = 64, srcH = 48;
+        const drawDef = FLOOR_ATLAS[def.id] || GRASS_ATLAS[def.id];
+        if(drawDef){
+          ctx.drawImage(img, drawDef.c * srcW, drawDef.r * srcH, srcW, srcH, 0, 0, 48, 48);
+          return;
+        }
+      }
+    }
+    // fallback
+    ctx.fillStyle = '#555';
+    ctx.fillRect(4, 4, 40, 40);
   }
 
   _decorName(id){
