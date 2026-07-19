@@ -65,6 +65,14 @@ class Game{
 
   // ========== 初始化角色创建 ==========
   _initCharCreate(){
+    const urlParams = new URLSearchParams(window.location.search);
+    if(urlParams.get('auto') === '1'){
+      this.ui.hideCharCreate();
+      this.ui.showHUD();
+      this.player = createPlayer('yerles', 'warrior', '测试', this.rng);
+      this.enterDungeon(3);
+      return;
+    }
     this.ui.initCharCreate(({raceId, classId, name})=>{
       this.ui.hideCharCreate();
       this.ui.showHUD();
@@ -1789,32 +1797,85 @@ class Game{
       }
     }
 
+    // 战争迷雾颜色常量（供地板迷雾和方块/物品迷雾共用）
+    const FOG_R=10, FOG_G=12, FOG_B=20;
+
     // ===== 战争迷雾（地板之后、方块/实体之前绘制，确保墙体在雾之上）=====
+    // 改进: 平滑衰减、边缘渐变过渡、多光源支持、高度遮挡
     {
       const gmMinY = Math.max(0, center.y-rad), gmMaxY = Math.min(this.map.h, center.y+rad);
       const gmMinX = Math.max(0, center.x-rad), gmMaxX = Math.min(this.map.w, center.x+rad);
-      const playerGx = this.player.gx, playerGy = this.player.gy;
       const sight = this.map.sight || 12;
-      const FOG_R=10, FOG_G=12, FOG_B=20;
-      const EXPLORED_A=0.55;
-      const VISIBLE_MAX=0.25;
 
-      if(!this._fogDiamond){
-        const cv = document.createElement('canvas');
-        const pad = 2;
-        cv.width = TILE_W + pad*2; cv.height = TILE_H + pad*2;
-        const cx = cv.getContext('2d');
-        cx.fillStyle = `rgb(${FOG_R},${FOG_G},${FOG_B})`;
-        cx.beginPath();
-        cx.moveTo(pad, TILE_H/2 + pad);
-        cx.lineTo(TILE_W/2 + pad, pad);
-        cx.lineTo(TILE_W + pad, TILE_H/2 + pad);
-        cx.lineTo(TILE_W/2 + pad, TILE_H + pad);
-        cx.closePath();
-        cx.fill();
-        this._fogDiamond = cv;
+      // 收集光源: 玩家 + 带light状态的实体 + 火把装饰物
+      const lights = [];
+      lights.push({ x: this.player.px, y: this.player.py, radius: sight, intensity: 1.0 });
+      // 带照明状态的实体
+      for(const e of this.map.entities){
+        if(!e.alive) continue;
+        if(e.hasStatus && e.hasStatus('light')){
+          lights.push({ x: e.px, y: e.py, radius: sight * 0.8, intensity: 0.8 });
+        }
       }
-      const dw = this._fogDiamond.width, dh = this._fogDiamond.height;
+
+      // Smoothstep: 平滑step函数
+      const smoothstep = (t) => { t = Math.max(0, Math.min(1, t)); return t * t * (3 - 2 * t); };
+      const smootherstep = (t) => { t = Math.max(0, Math.min(1, t)); return t*t*t*(t*(t*6-15)+10); };
+
+      // 计算某格的综合光照值 (0=完全照亮, 1=完全黑暗)
+      this._computeFogAlpha = (gx, gy) => {
+        // 已探索但不在视野内: 已探索迷雾
+        if(!this.map.visible[gy] || !this.map.visible[gy][gx]){
+          // 边缘软化: 检查周围是否有可见格，有则渐变过渡
+          let neighborVis = 0;
+          for(const [dx,dy] of [[-1,0],[1,0],[0,-1],[0,1],[-1,-1],[1,-1],[-1,1],[1,1]]){
+            const nx=gx+dx, ny=gy+dy;
+            if(ny>=0 && ny<this.map.h && nx>=0 && nx<this.map.w && this.map.visible[ny][nx]){
+              neighborVis++;
+            }
+          }
+          if(neighborVis > 0){
+            return 0.35 + (0.6 - 0.35) * (1 - neighborVis/4);
+          }
+          return 0.62;
+        }
+
+        let minFog = 1.0;
+        for(const light of lights){
+          const dx = gx - light.x, dy = gy - light.y;
+          const dist = Math.sqrt(dx*dx + dy*dy);
+          const ratio = dist / light.radius;
+
+          let fog;
+          if(ratio < 0.35){
+            fog = 0;
+          } else if(ratio < 0.8){
+            fog = smootherstep((ratio - 0.35) / 0.45) * 0.85;
+          } else if(ratio < 1.0){
+            fog = 0.85 + smootherstep((ratio - 0.8) / 0.2) * 0.15;
+          } else {
+            fog = 1.0;
+          }
+
+          const effectiveIntensity = light.intensity * Math.max(0, 1 - ratio * 0.3);
+          fog = fog * (1 - effectiveIntensity * 0.3);
+          minFog = Math.min(minFog, fog);
+        }
+
+        // 高度遮挡阴影
+        const pGx = Math.round(this.player.px), pGy = Math.round(this.player.py);
+        const b = this.map.blocks[gy]?.[gx];
+        const stackH = b ? b.length : 0;
+        if(stackH >= 2){
+          const distToPlayer = Math.sqrt((gx-pGx)**2 + (gy-pGy)**2);
+          if(distToPlayer > 2){
+            const shadowAlpha = Math.min(0.15, stackH * 0.05);
+            minFog = Math.min(1.0, minFog + shadowAlpha);
+          }
+        }
+
+        return Math.max(0, Math.min(1, minFog));
+      };
 
       r.ctx.save();
       for(let gy = gmMinY; gy < gmMaxY; gy++){
@@ -1823,17 +1884,17 @@ class Game{
           const sp = gridToScreen(gx, gy);
           if(!inView(sp.x, sp.y)) continue;
 
-          if(!this.map.visible[gy][gx]){
-            r.ctx.globalAlpha = EXPLORED_A;
-            r.ctx.drawImage(this._fogDiamond, sp.x - dw/2, sp.y - dh/2);
-          } else {
-            const dx = gx - playerGx, dy = gy - playerGy;
-            const ratio = Math.sqrt(dx*dx + dy*dy) / sight;
-            const a = Math.min(VISIBLE_MAX, ratio * VISIBLE_MAX);
-            if(a > 0.01){
-              r.ctx.globalAlpha = a;
-              r.ctx.drawImage(this._fogDiamond, sp.x - dw/2, sp.y - dh/2);
-            }
+          const fogAlpha = this._computeFogAlpha(gx, gy);
+          if(fogAlpha > 0.01){
+            r.ctx.globalAlpha = fogAlpha;
+            r.ctx.fillStyle = `rgb(${FOG_R},${FOG_G},${FOG_B})`;
+            r.ctx.beginPath();
+            r.ctx.moveTo(sp.x, sp.y - TILE_H/2);
+            r.ctx.lineTo(sp.x + TILE_W/2, sp.y);
+            r.ctx.lineTo(sp.x, sp.y + TILE_H/2);
+            r.ctx.lineTo(sp.x - TILE_W/2, sp.y);
+            r.ctx.closePath();
+            r.ctx.fill();
           }
         }
       }
@@ -1929,6 +1990,52 @@ class Game{
       }
       if(d.type === 'block'){
         r.drawBlockStack(d.gx, d.gy, d.blocks, d.vis, d.exp, d.hover);
+        if(this._computeFogAlpha){
+          const fogA = this._computeFogAlpha(d.gx, d.gy);
+          if(fogA > 0.02){
+            const bp = gridToScreen(d.gx, d.gy);
+            const accumH = this.map.blockHeightAt(d.gx, d.gy) * WALL_H;
+            const hw = TILE_W / 2, hh = TILE_H / 2;
+            r.ctx.save();
+            r.ctx.globalAlpha = fogA;
+            r.ctx.fillStyle = `rgb(${FOG_R},${FOG_G},${FOG_B})`;
+            // 邻接剔除：判断相邻方块高度，跳过不可见面
+            const curH = this.map.blockHeightAt(d.gx, d.gy);
+            const nbS = this.map.blockHeightAt(d.gx, d.gy + 1);
+            const nbE = this.map.blockHeightAt(d.gx + 1, d.gy);
+            const showLeft = nbS < curH;
+            const showRight = nbE < curH;
+            // 顶面菱形（始终绘制）
+            r.ctx.beginPath();
+            r.ctx.moveTo(bp.x, bp.y - accumH - hh);
+            r.ctx.lineTo(bp.x + hw, bp.y - accumH);
+            r.ctx.lineTo(bp.x, bp.y - accumH + hh);
+            r.ctx.lineTo(bp.x - hw, bp.y - accumH);
+            r.ctx.closePath();
+            r.ctx.fill();
+            // 左侧面（西南面）
+            if(showLeft){
+              r.ctx.beginPath();
+              r.ctx.moveTo(bp.x - hw, bp.y - accumH);
+              r.ctx.lineTo(bp.x, bp.y - accumH + hh);
+              r.ctx.lineTo(bp.x, bp.y + hh);
+              r.ctx.lineTo(bp.x - hw, bp.y);
+              r.ctx.closePath();
+              r.ctx.fill();
+            }
+            // 右侧面（东南面）
+            if(showRight){
+              r.ctx.beginPath();
+              r.ctx.moveTo(bp.x, bp.y - accumH + hh);
+              r.ctx.lineTo(bp.x + hw, bp.y - accumH);
+              r.ctx.lineTo(bp.x + hw, bp.y);
+              r.ctx.lineTo(bp.x, bp.y + hh);
+              r.ctx.closePath();
+              r.ctx.fill();
+            }
+            r.ctx.restore();
+          }
+        }
       } else if(d.type === 'decor'){
         // 不可见（仅已探索）的装饰物降低透明度
         if(!d.vis){
@@ -1943,6 +2050,24 @@ class Game{
         const icon = d.item.icon || '❓';
         const color = d.item.type==='currency' ? '#e0b34a' : d.item.type==='weapon' ? '#c9a23a' : '#7fd1c4';
         r.drawItem(d.x, d.y, icon, color);
+        // 物品迷雾覆盖
+        if(this._computeFogAlpha){
+          const fogA = this._computeFogAlpha(d.x, d.y);
+          if(fogA > 0.02){
+            const ip = gridToScreen(d.x, d.y);
+            r.ctx.save();
+            r.ctx.globalAlpha = fogA;
+            r.ctx.fillStyle = `rgb(${FOG_R},${FOG_G},${FOG_B})`;
+            r.ctx.beginPath();
+            r.ctx.moveTo(ip.x, ip.y - TILE_H/2);
+            r.ctx.lineTo(ip.x + TILE_W/2, ip.y);
+            r.ctx.lineTo(ip.x, ip.y + TILE_H/2);
+            r.ctx.lineTo(ip.x - TILE_W/2, ip.y);
+            r.ctx.closePath();
+            r.ctx.fill();
+            r.ctx.restore();
+          }
+        }
       } else if(d.type === 'entity'){
         const e = d.entity;
         const floatBob = e.floats ? Math.sin(r.time*3)*3 : 0;
