@@ -49,7 +49,17 @@ export function screenToGrid(cx, cy, cam, canvasW, canvasH){
   const sy = (cy - canvasH/2) / cam.zoom + cam.y;
   const gx = (sx / (TILE_W/2) + sy / (TILE_H/2)) / 2;
   const gy = (sy / (TILE_H/2) - sx / (TILE_W/2)) / 2;
-  return {x: Math.floor(gx), y: Math.floor(gy)};
+  // Math.floor on both axes independently gives wrong tile near diamond edges.
+  // Check 4 candidate tiles and pick closest by diamond distance.
+  const hw = TILE_W / 2, hh = TILE_H / 2;
+  const fx = Math.floor(gx), fy = Math.floor(gy);
+  let bestX = fx, bestY = fy, bestD = Infinity;
+  for(const [tx,ty] of [[fx,fy],[fx+1,fy],[fx,fy+1],[fx+1,fy+1]]){
+    const px = (tx - ty) * hw, py = (tx + ty) * hh;
+    const d = Math.abs(sx - px) * hh + Math.abs(sy - py) * hw;
+    if(d < bestD){ bestD = d; bestX = tx; bestY = ty; }
+  }
+  return {x: bestX, y: bestY};
 }
 
 export class IsoRenderer{
