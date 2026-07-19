@@ -53,7 +53,7 @@
       <div>WASD/方向键 移动 · 左键点击自动寻路 · F 攻击</div>
       <div>Tab 切换实时/回合制 · 空格结束回合 · R冲刺 · Q急救 · G拾取</div>
       <div>1-9 法术 · Enter 下楼/上楼 · 滚轮缩放 · 右键拖拽视角</div>
-      <div>B 建造模式 · 左键放置 · 右键拆除</div>
+      <div>B 建造模式 · S 设置 · I背包 · V角色</div>
     </div>
 
     <!-- 浮动信息日志 -->
@@ -80,11 +80,67 @@
       <div class="mob-btn" data-action="build" id="btn-build">🔨</div>
       <div class="mob-btn" data-action="inventory" id="btn-inventory">📜</div>
       <div class="mob-btn" data-action="character" id="btn-character">👤</div>
+      <div class="mob-btn" data-action="settings" id="btn-settings">⚙</div>
       <div class="mob-btn" data-action="cancel" id="btn-cancel">✖</div>
     </div>
 
     <!-- 移动端法术快捷栏 -->
     <div id="mobile-spells" class="mobile-only"></div>
+
+    <!-- 设置按钮 -->
+    <div id="settings-btn" class="settings-btn" title="设置 (S)">⚙</div>
+
+    <!-- 设置面板 -->
+    <div id="settings-panel" class="settings-panel hidden">
+      <div class="settings-header">
+        <span class="settings-title">⚙ 设置</span>
+        <button class="settings-close-btn" id="settings-close">✕</button>
+      </div>
+      <div class="settings-body">
+        <div class="settings-section">
+          <h3>画面</h3>
+          <div class="settings-row">
+            <span class="settings-label">渐变可视范围</span>
+            <label class="settings-toggle"><input type="checkbox" id="set-fog-gradient" checked><span class="toggle-slider"></span></label>
+          </div>
+          <div class="settings-row">
+            <span class="settings-label">暗角效果</span>
+            <label class="settings-toggle"><input type="checkbox" id="set-vignette" checked><span class="toggle-slider"></span></label>
+          </div>
+          <div class="settings-row">
+            <span class="settings-label">顶部渐变</span>
+            <label class="settings-toggle"><input type="checkbox" id="set-top-gradient" checked><span class="toggle-slider"></span></label>
+          </div>
+          <div class="settings-row">
+            <span class="settings-label">底部渐变</span>
+            <label class="settings-toggle"><input type="checkbox" id="set-bottom-gradient" checked><span class="toggle-slider"></span></label>
+          </div>
+          <div class="settings-row">
+            <span class="settings-label">调色滤镜</span>
+            <label class="settings-toggle"><input type="checkbox" id="set-color-grading" checked><span class="toggle-slider"></span></label>
+          </div>
+        </div>
+        <div class="settings-section">
+          <h3>游戏</h3>
+          <div class="settings-row">
+            <span class="settings-label">自动拾取</span>
+            <label class="settings-toggle"><input type="checkbox" id="set-auto-pickup" checked><span class="toggle-slider"></span></label>
+          </div>
+          <div class="settings-row">
+            <span class="settings-label">显示帮助提示</span>
+            <label class="settings-toggle"><input type="checkbox" id="set-show-help" checked><span class="toggle-slider"></span></label>
+          </div>
+          <div class="settings-row">
+            <span class="settings-label">显示浮动伤害</span>
+            <label class="settings-toggle"><input type="checkbox" id="set-dmg-popups" checked><span class="toggle-slider"></span></label>
+          </div>
+        </div>
+        <div class="settings-section">
+          <h3>信息</h3>
+          <div class="settings-info">按 <kbd>S</kbd> 键打开/关闭设置面板</div>
+        </div>
+      </div>
+    </div>
 
     <!-- 建造模式面板 -->
     <div id="build-panel" class="hidden">

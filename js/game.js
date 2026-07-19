@@ -59,6 +59,8 @@ class Game{
     this.debugDrawOff = {x:0, y:0};  // 绘制位置偏移 (像素)
     this._setupResize();
     this._setupInput();
+    this.ui.initSettings();
+    this._initSettingsListeners();
     this._initCharCreate();
     this._startLoop();
   }
@@ -82,6 +84,16 @@ class Game{
   }
 
   startNewGame(){ this.enterHome(); }
+
+  // ========== 设置监听 ==========
+  _initSettingsListeners(){
+    this.ui.onSettingsChange((key, value)=>{
+      if(key === 'showHelp'){
+        const tip = document.getElementById('help-tip');
+        if(tip) tip.classList.toggle('hidden', !value);
+      }
+    });
+  }
 
   // ========== 进入家园 ==========
   enterHome(){
@@ -128,6 +140,9 @@ class Game{
     this._recomputeFOV();
     this._centerCamera();
     this._updateHUD();
+    // 应用设置
+    const tip = document.getElementById('help-tip');
+    if(tip) tip.classList.toggle('hidden', !this.ui.settings.showHelp);
     // 刷新移动端法术栏
     if(this._isTouch) this._updateMobileSpells();
   }
@@ -1128,11 +1143,13 @@ class Game{
   _checkPickupAndStairs(){
     const p = this.player;
     // 自动拾取金币
-    const tileItem = this.map.itemAt(p.x, p.y);
-    if(tileItem && tileItem.item.id === 'gold'){
-      p.gold += tileItem.item.amount;
-      this.log(`拾取 ${tileItem.item.amount} 金币`, 'info');
-      this._removeMapItem(tileItem);
+    if(this.ui.settings.autoPickup){
+      const tileItem = this.map.itemAt(p.x, p.y);
+      if(tileItem && tileItem.item.id === 'gold'){
+        p.gold += tileItem.item.amount;
+        this.log(`拾取 ${tileItem.item.amount} 金币`, 'info');
+        this._removeMapItem(tileItem);
+      }
     }
     // 楼梯提示
     const tile = this.map.get(p.x, p.y);
@@ -1823,9 +1840,11 @@ class Game{
       const smootherstep = (t) => { t = Math.max(0, Math.min(1, t)); return t*t*t*(t*(t*6-15)+10); };
 
       // 计算某格的综合光照值 (0=完全照亮, 1=完全黑暗)
+      const fogGradientOn = this.ui.settings.fogGradient;
       this._computeFogAlpha = (gx, gy) => {
         // 已探索但不在视野内: 已探索迷雾
         if(!this.map.visible[gy] || !this.map.visible[gy][gx]){
+          if(!fogGradientOn) return 0.62;
           // 边缘软化: 检查周围是否有可见格，有则渐变过渡
           let neighborVis = 0;
           for(const [dx,dy] of [[-1,0],[1,0],[0,-1],[0,1],[-1,-1],[1,-1],[-1,1],[1,1]]){
@@ -1847,14 +1866,19 @@ class Game{
           const ratio = dist / light.radius;
 
           let fog;
-          if(ratio < 0.35){
-            fog = 0;
-          } else if(ratio < 0.8){
-            fog = smootherstep((ratio - 0.35) / 0.45) * 0.85;
-          } else if(ratio < 1.0){
-            fog = 0.85 + smootherstep((ratio - 0.8) / 0.2) * 0.15;
+          if(!fogGradientOn){
+            // 无渐变: 视野内完全照亮
+            fog = ratio < 1.0 ? 0 : 1.0;
           } else {
-            fog = 1.0;
+            if(ratio < 0.35){
+              fog = 0;
+            } else if(ratio < 0.8){
+              fog = smootherstep((ratio - 0.35) / 0.45) * 0.85;
+            } else if(ratio < 1.0){
+              fog = 0.85 + smootherstep((ratio - 0.8) / 0.2) * 0.15;
+            } else {
+              fog = 1.0;
+            }
           }
 
           const effectiveIntensity = light.intensity * Math.max(0, 1 - ratio * 0.3);
@@ -2094,17 +2118,19 @@ class Game{
     }
 
 // 浮动伤害数字
-    for(const dp of this.dmgPopups){
-      const p = gridToScreen(dp.px, dp.py);
-      r.ctx.save();
-      r.ctx.font = `${14/r.cam.zoom}px Microsoft YaHei`;
-      r.ctx.textAlign = 'center';
-      r.ctx.globalAlpha = Math.min(1, dp.life);
-      r.ctx.fillStyle = '#000';
-      r.ctx.fillText(dp.text, p.x+1, p.y - 20 + 1);
-      r.ctx.fillStyle = dp.color;
-      r.ctx.fillText(dp.text, p.x, p.y - 20);
-      r.ctx.restore();
+    if(this.ui.settings.dmgPopups){
+      for(const dp of this.dmgPopups){
+        const p = gridToScreen(dp.px, dp.py);
+        r.ctx.save();
+        r.ctx.font = `${14/r.cam.zoom}px Microsoft YaHei`;
+        r.ctx.textAlign = 'center';
+        r.ctx.globalAlpha = Math.min(1, dp.life);
+        r.ctx.fillStyle = '#000';
+        r.ctx.fillText(dp.text, p.x+1, p.y - 20 + 1);
+        r.ctx.fillStyle = dp.color;
+        r.ctx.fillText(dp.text, p.x, p.y - 20);
+        r.ctx.restore();
+      }
     }
 
     // 目标选择高亮
@@ -2382,40 +2408,49 @@ class Game{
     const r = this.renderer;
     const ctx = r.ctx;
     const w = this.canvas.clientWidth, h = this.canvas.clientHeight;
+    const s = this.ui.settings;
 
     ctx.save();
     ctx.setTransform(r.dpr, 0, 0, r.dpr, 0, 0);
 
     // 1. 暗角（Vignette）— 径向渐变，边缘变暗
-    const vGrad = ctx.createRadialGradient(w/2, h/2, Math.min(w,h)*0.3, w/2, h/2, Math.max(w,h)*0.75);
-    vGrad.addColorStop(0, 'rgba(0,0,0,0)');
-    vGrad.addColorStop(0.6, 'rgba(0,0,0,0.15)');
-    vGrad.addColorStop(1, 'rgba(0,0,0,0.55)');
-    ctx.fillStyle = vGrad;
-    ctx.fillRect(0, 0, w, h);
-
-    // 2. 调色 — 地下城偏冷青色调，城镇偏暖
-    if(this.map && this.map.isTown){
-      ctx.fillStyle = 'rgba(255,200,120,0.04)';
-      ctx.fillRect(0, 0, w, h);
-    } else {
-      ctx.fillStyle = 'rgba(40,60,90,0.06)';
+    if(s.vignette){
+      const vGrad = ctx.createRadialGradient(w/2, h/2, Math.min(w,h)*0.3, w/2, h/2, Math.max(w,h)*0.75);
+      vGrad.addColorStop(0, 'rgba(0,0,0,0)');
+      vGrad.addColorStop(0.6, 'rgba(0,0,0,0.15)');
+      vGrad.addColorStop(1, 'rgba(0,0,0,0.55)');
+      ctx.fillStyle = vGrad;
       ctx.fillRect(0, 0, w, h);
     }
 
+    // 2. 调色 — 地下城偏冷青色调，城镇偏暖
+    if(s.colorGrading){
+      if(this.map && this.map.isTown){
+        ctx.fillStyle = 'rgba(255,200,120,0.04)';
+        ctx.fillRect(0, 0, w, h);
+      } else {
+        ctx.fillStyle = 'rgba(40,60,90,0.06)';
+        ctx.fillRect(0, 0, w, h);
+      }
+    }
+
     // 3. 顶部渐变压暗 — 模拟天花板/上方阴影
-    const topGrad = ctx.createLinearGradient(0, 0, 0, h * 0.3);
-    topGrad.addColorStop(0, 'rgba(0,0,0,0.25)');
-    topGrad.addColorStop(1, 'rgba(0,0,0,0)');
-    ctx.fillStyle = topGrad;
-    ctx.fillRect(0, 0, w, h * 0.3);
+    if(s.topGradient){
+      const topGrad = ctx.createLinearGradient(0, 0, 0, h * 0.3);
+      topGrad.addColorStop(0, 'rgba(0,0,0,0.25)');
+      topGrad.addColorStop(1, 'rgba(0,0,0,0)');
+      ctx.fillStyle = topGrad;
+      ctx.fillRect(0, 0, w, h * 0.3);
+    }
 
     // 4. 底部渐变压暗 — 模拟地面雾气
-    const botGrad = ctx.createLinearGradient(0, h * 0.7, 0, h);
-    botGrad.addColorStop(0, 'rgba(0,0,0,0)');
-    botGrad.addColorStop(1, 'rgba(10,12,18,0.3)');
-    ctx.fillStyle = botGrad;
-    ctx.fillRect(0, h * 0.7, w, h * 0.3);
+    if(s.bottomGradient){
+      const botGrad = ctx.createLinearGradient(0, h * 0.7, 0, h);
+      botGrad.addColorStop(0, 'rgba(0,0,0,0)');
+      botGrad.addColorStop(1, 'rgba(10,12,18,0.3)');
+      ctx.fillStyle = botGrad;
+      ctx.fillRect(0, h * 0.7, w, h * 0.3);
+    }
 
     ctx.restore();
   }
@@ -2425,9 +2460,13 @@ class Game{
     // 键盘按下/释放跟踪
     window.addEventListener('keydown', (e)=>{
       this.keys[e.key] = true;
-      // 面板打开时只处理 Esc
+      // 面板打开时只处理 Esc 和 Settings
       if(this.ui.isPanelOpen()){
         if(e.key === 'Escape'){ this.ui.hidePanel(); }
+        return;
+      }
+      if(this.ui.isSettingsOpen()){
+        if(e.key === 'Escape' || e.key === 's' || e.key === 'S'){ this.ui.hideSettings(); }
         return;
       }
       if(!this.player || !this.player.alive) return;
@@ -2445,6 +2484,7 @@ class Game{
       else if(k === 'f' || k === 'F'){ /* 攻击在 update 中持续处理 */ }
       else if(k === 't' || k === 'T'){ this._interactNPC(); }
       else if(k === 'b' || k === 'B'){ this._toggleBuildMode(); }
+      else if(k === 's' || k === 'S'){ this.ui.toggleSettings(); }
       else if(k === 'Tab'){ e.preventDefault(); this._toggleCombatMode(); }
       else if(k === 'r' || k === 'R'){ if(this.tb.active && this.tb.isMyTurn(this.player)) this._tbDash(); }
       else if(k === 'q' || k === 'Q'){ if(this.tb.active && this.tb.isMyTurn(this.player)) this._tbQuickHeal(); }
@@ -2706,6 +2746,7 @@ class Game{
         if(this.buildMode){ this._toggleBuildMode(); return; }
         this._cancelAutoPath(); this.targetMode = null; this.log('取消', 'info');
       },
+      'settings': () => { this.ui.toggleSettings(); },
     };
 
     document.querySelectorAll('.mob-btn').forEach(btn => {

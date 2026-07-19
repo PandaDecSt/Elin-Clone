@@ -8,6 +8,18 @@ export class UI{
     this.ccSelectedRace = null;
     this.ccSelectedClass = null;
     this.onPanelClose = null;
+    // 设置状态
+    this.settings = {
+      fogGradient: true,
+      vignette: true,
+      topGradient: true,
+      bottomGradient: true,
+      colorGrading: true,
+      autoPickup: true,
+      showHelp: true,
+      dmgPopups: true
+    };
+    this._settingsListeners = [];
   }
 
   // ========== 角色创建 ==========
@@ -338,6 +350,94 @@ export class UI{
     document.getElementById('restart-btn').onclick = onRestart;
   }
   hideGameOver(){ document.getElementById('game-over').classList.add('hidden'); }
+
+  // ========== 设置面板 ==========
+  initSettings(){
+    this._loadSettings();
+    const panel = document.getElementById('settings-panel');
+    const btn = document.getElementById('settings-btn');
+    const closeBtn = document.getElementById('settings-close');
+
+    btn.onclick = ()=> this.toggleSettings();
+    closeBtn.onclick = ()=> this.hideSettings();
+
+    // 点击面板外部关闭
+    document.addEventListener('click', (e)=>{
+      if(!panel.classList.contains('hidden') && 
+         !panel.contains(e.target) && 
+         !btn.contains(e.target)){
+        this.hideSettings();
+      }
+    });
+
+    // 绑定开关事件
+    const toggleMap = {
+      'set-fog-gradient': 'fogGradient',
+      'set-vignette': 'vignette',
+      'set-top-gradient': 'topGradient',
+      'set-bottom-gradient': 'bottomGradient',
+      'set-color-grading': 'colorGrading',
+      'set-auto-pickup': 'autoPickup',
+      'set-show-help': 'showHelp',
+      'set-dmg-popups': 'dmgPopups'
+    };
+    for(const [id, key] of Object.entries(toggleMap)){
+      const el = document.getElementById(id);
+      if(!el) continue;
+      el.checked = this.settings[key];
+      el.addEventListener('change', ()=>{
+        this.settings[key] = el.checked;
+        this._saveSettings();
+        this._notifySettingsChange(key, el.checked);
+      });
+    }
+  }
+
+  toggleSettings(){
+    if(document.getElementById('settings-panel').classList.contains('hidden')){
+      this.showSettings();
+    } else {
+      this.hideSettings();
+    }
+  }
+
+  showSettings(){
+    document.getElementById('settings-panel').classList.remove('hidden');
+  }
+
+  hideSettings(){
+    document.getElementById('settings-panel').classList.add('hidden');
+  }
+
+  isSettingsOpen(){
+    return !document.getElementById('settings-panel').classList.contains('hidden');
+  }
+
+  onSettingsChange(cb){
+    this._settingsListeners.push(cb);
+  }
+
+  _notifySettingsChange(key, value){
+    for(const cb of this._settingsListeners) cb(key, value);
+  }
+
+  _loadSettings(){
+    try {
+      const saved = localStorage.getItem('elin_settings');
+      if(saved){
+        const obj = JSON.parse(saved);
+        for(const k in this.settings){
+          if(k in obj) this.settings[k] = obj[k];
+        }
+      }
+    } catch(e){}
+  }
+
+  _saveSettings(){
+    try {
+      localStorage.setItem('elin_settings', JSON.stringify(this.settings));
+    } catch(e){}
+  }
 }
 
 // ---- 辅助 ----
