@@ -2023,10 +2023,12 @@ class Game{
             r.ctx.save();
             r.ctx.globalAlpha = fogA;
             r.ctx.fillStyle = `rgb(${FOG_R},${FOG_G},${FOG_B})`;
-            // 邻接剔除：判断相邻方块高度，跳过不可见面
+            // 邻接剔除：判断相邻方块高度，跳过不可见面（仅已探索邻格参与剔除）
             const curH = this.map.blockHeightAt(d.gx, d.gy);
-            const nbS = this.map.blockHeightAt(d.gx, d.gy + 1);
-            const nbE = this.map.blockHeightAt(d.gx + 1, d.gy);
+            const nbSExplored = this.map.explored[d.gy + 1]?.[d.gx];
+            const nbEExplored = this.map.explored[d.gy]?.[d.gx + 1];
+            const nbS = nbSExplored ? this.map.blockHeightAt(d.gx, d.gy + 1) : 0;
+            const nbE = nbEExplored ? this.map.blockHeightAt(d.gx + 1, d.gy) : 0;
             const showLeft = nbS < curH;
             const showRight = nbE < curH;
             // 顶面菱形（始终绘制）
@@ -2460,13 +2462,13 @@ class Game{
     // 键盘按下/释放跟踪
     window.addEventListener('keydown', (e)=>{
       this.keys[e.key] = true;
-      // 面板打开时只处理 Esc 和 Settings
+      // 面板打开时只处理 Esc
       if(this.ui.isPanelOpen()){
         if(e.key === 'Escape'){ this.ui.hidePanel(); }
         return;
       }
       if(this.ui.isSettingsOpen()){
-        if(e.key === 'Escape' || e.key === 's' || e.key === 'S'){ this.ui.hideSettings(); }
+        if(e.key === 'Escape'){ this.ui.hideSettings(); }
         return;
       }
       if(!this.player || !this.player.alive) return;
@@ -2484,12 +2486,12 @@ class Game{
       else if(k === 'f' || k === 'F'){ /* 攻击在 update 中持续处理 */ }
       else if(k === 't' || k === 'T'){ this._interactNPC(); }
       else if(k === 'b' || k === 'B'){ this._toggleBuildMode(); }
-      else if(k === 's' || k === 'S'){ this.ui.toggleSettings(); }
       else if(k === 'Tab'){ e.preventDefault(); this._toggleCombatMode(); }
       else if(k === 'r' || k === 'R'){ if(this.tb.active && this.tb.isMyTurn(this.player)) this._tbDash(); }
       else if(k === 'q' || k === 'Q'){ if(this.tb.active && this.tb.isMyTurn(this.player)) this._tbQuickHeal(); }
       else if(k === 'Escape'){
         if(this.buildMode){ this._toggleBuildMode(); }
+        else if(!this.targetMode){ this.ui.toggleSettings(); }
         else { this.targetMode = null; this._cancelAutoPath(); }
       }
       else if(k === ' '){
