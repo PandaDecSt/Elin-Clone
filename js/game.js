@@ -2,14 +2,14 @@
 
 import { RNG, rng, rollDice } from './rng.js';
 import { IsoRenderer, gridToScreen, screenToGrid, TILE_W, TILE_H, WALL_H, SPRITE_MAP } from './iso.js?v=43';
-import { GameMap, generateDungeon, generateHome, computeFOV, computeFOV3D, computeVerticalVisibility } from './world.js';
+import { GameMap, generateTown, computeFOV, computeFOV3D, computeVerticalVisibility, Zone, Region, World, ZoneTransition, EnterState, generateRegion } from './world.js?v=43';
 import { createPlayer, makeMonster, Entity, equip, unequip } from './entity.js';
 import { makeItem, itemName } from './item.js';
 import { attack, castSpell, applyDamage, tickStatusEffects, regenEntity } from './combat.js';
-import { RACES, CLASSES, SPELLS, ITEMS, TILES, GODS, SKILLS, ATTRS, DECOR_TYPES, BLOCK_TYPES, FLOOR_ATLAS, GRASS_ATLAS } from './data.js?v=43';
+import { RACES, CLASSES, SPELLS, ITEMS, TILES, GODS, SKILLS, ATTRS, DECOR_TYPES, BLOCK_TYPES, FLOOR_ATLAS, GRASS_ATLAS, SEASONS, getSeason, WEATHER_EFFECTS } from './data.js?v=43';
 import { UI } from './ui.js';
 import { findPath, smoothPath } from './pathfind.js?v=2';
-import { AI_PACKAGES, getNPCPackage, getNPCDialogue, getTimePhase } from './npc.js';
+import { AI_PACKAGES, getNPCPackage, getNPCDialogue, getTimePhase, RelationManager, ShopManager, DIALOGUE_TOPICS, getTopicResponse, FACTIONS, getNPCTopics } from './npc.js?v=43';
 import { TBCombat, getMoveRange, AP_ACTION, AP_BONUS } from './tbcombat.js';
 
 // 移动速度常量
@@ -30,6 +30,12 @@ class Game{
     this.player = null;
     this.map = null;
     this.gs = { day:1, weather:'晴', mapName:'', depth:null, turn:0, hour:8, timeAccum:0 };
+    this._relations = new RelationManager();
+    this._shopMgr = new ShopManager();
+    this.world = null;
+    this.region = null;
+    this.currentZone = null;
+    this._lastRegionPos = null;
     this.hoverTile = null;
     this.targetMode = null;
     this.lastTime = 0;
@@ -83,7 +89,7 @@ class Game{
     });
   }
 
-  startNewGame(){ this.enterHome(); }
+  startNewGame(){ this.enterRegion(); }
 
   // ========== 设置监听 ==========
   _initSettingsListeners(){
@@ -95,26 +101,93 @@ class Game{
     });
   }
 
-  // ========== 进入家园 ==========
-  enterHome(){
-    this.map = generateHome(this.rng);
-    this.gs.mapName = this.map.name;
+  // ========== 进入大地图（Region）==========
+  enterRegion(){
+    this.world = new World();
+    this.region = generateRegion(this.rng, 0);
+    this.world.addRegion(this.region);
+    this.currentZone = this.region;
+    this.map = this.region.map;
+    this.gs.mapName = this.region.name;
     this.gs.depth = 0;
     this._placePlayer(this.map.stairsUp.x, this.map.stairsUp.y);
-    this.log('你回到了温馨的家。这里有祭坛和补给。', 'info');
-    this.log('走下行楼梯进入地下城冒险。', 'info');
+    this.log(`欢迎来到 ${this.region.name}！`, 'info');
+    this.log('在大地图上行走，找到城镇和地下城入口。', 'info');
+    this._afterMapEnter();
+  }
+
+  // ========== 进入城镇 ==========
+  enterTown(townZone){
+    this.map = generateTown(this.rng, 0);
+    this.currentZone = townZone;
+    this.gs.mapName = townZone.name;
+    this.gs.depth = 0;
+    this._placePlayer(this.map.stairsUp.x, this.map.stairsUp.y);
+    this.log(`来到 ${townZone.name}！这里有商店、酒馆和祭坛。`, 'info');
+    // 初始化NPC商店库存
+    for(const npc of this.map.entities){
+      if(npc.isNPC && npc.shop && npc.shop.length > 0){
+        this._shopMgr.initShop(npc.name, npc.shop, this.rng);
+      }
+    }
     this._afterMapEnter();
   }
 
   // ========== 进入地下城 ==========
-  enterDungeon(depth){
-    this.map = generateDungeon(depth, this.rng);
-    this.gs.mapName = this.map.name;
-    this.gs.depth = depth;
+  enterDungeon(dungeonZone, depth){
+    // 找到或创建对应层级的 Zone
+    const targetLv = -(depth || 1);
+    let targetZone = dungeonZone.findZone(targetLv);
+    if(!targetZone){
+      targetZone = new Zone(dungeonZone.id + '_' + targetLv, dungeonZone.name + ' ' + depth + 'F', {
+        lv: targetLv,
+        dangerLv: dungeonZone.dangerLv,
+        isDungeon: true,
+        generator: 'dungeon',
+        branch: dungeonZone.branch,
+      });
+      dungeonZone.addChild(targetZone);
+    }
+    // 生成地图（如果还没有）
+    targetZone.generate(this.rng);
+    this.map = targetZone.map;
+    this.currentZone = targetZone;
+    this.gs.mapName = targetZone.name;
+    this.gs.depth = depth || Math.abs(targetLv);
     const sx = this.map.stairsUp.x, sy = this.map.stairsUp.y;
     this._placePlayer(sx, sy);
-    this.log(`进入 ${this.map.name}（危险度 ${depth}）`, 'info');
-    if(depth % 5 === 0) this.log('前方似乎有强大的存在…', 'warn');
+    this.log(`进入 ${targetZone.name}（危险度 ${targetZone.dangerLevel}）`, 'info');
+    if(this.gs.depth % 5 === 0) this.log('前方似乎有强大的存在…', 'warn');
+    this._afterMapEnter();
+  }
+
+  // ========== 进入野外 ==========
+  enterField(fieldZone){
+    fieldZone.generate(this.rng);
+    this.map = fieldZone.map;
+    this.currentZone = fieldZone;
+    this.gs.mapName = fieldZone.name;
+    this.gs.depth = 0;
+    this._placePlayer(this.map.stairsUp.x, this.map.stairsUp.y);
+    this.log(`进入 ${fieldZone.name}`, 'info');
+    this._afterMapEnter();
+  }
+
+  // ========== 返回大地图 ==========
+  returnToRegion(){
+    if(!this.region) return;
+    this.map = this.region.map;
+    this.currentZone = this.region;
+    this.gs.mapName = this.region.name;
+    this.gs.depth = 0;
+    // 返回到之前的大地图位置（如果有的话）
+    const lastPos = this._lastRegionPos;
+    if(lastPos){
+      this._placePlayer(lastPos.x, lastPos.y);
+    } else {
+      this._placePlayer(this.map.stairsUp.x, this.map.stairsUp.y);
+    }
+    this.log(`返回 ${this.region.name}`, 'info');
     this._afterMapEnter();
   }
 
@@ -241,7 +314,21 @@ class Game{
     // ---- 游戏时间推进（1现实秒 = 1游戏分钟，24分钟=1天）----
     this.gs.timeAccum += dt;
     this.gs.hour += dt * (24/1440); // 1秒=1分钟，24*60=1440秒=1天
-    while(this.gs.hour >= 24){ this.gs.hour -= 24; this.gs.day++; }
+    while(this.gs.hour >= 24){
+      this.gs.hour -= 24;
+      this.gs.day++;
+      // 每天更新天气
+      this._updateWeather();
+      // 每6小时检查是否需要换天气
+    }
+    // 每6小时有概率换天气
+    this._weatherTimer = (this._weatherTimer || 0) + dt;
+    if(this._weatherTimer >= 21600){ // 6小时=21600秒
+      this._weatherTimer = 0;
+      if(Math.random() < 0.3){
+        this._updateWeather();
+      }
+    }
 
     // FOV 定时刷新
     this.fovTimer += dt;
@@ -317,6 +404,32 @@ class Game{
       this._hudTimer = 0;
       this._updateHUD();
     }
+  }
+
+  // ========== 天气更新 ==========
+  _updateWeather(){
+    const season = getSeason(this.gs.day);
+    const weights = season.weatherWeights;
+    const total = Object.values(weights).reduce((a,b)=>a+b, 0);
+    let rand = Math.random() * total;
+    for(const [w, weight] of Object.entries(weights)){
+      rand -= weight;
+      if(rand <= 0){
+        if(this.gs.weather !== w){
+          this.gs.weather = w;
+          const effect = WEATHER_EFFECTS[w];
+          if(effect){
+            this.log(`天气变化：${effect.desc}`, 'info');
+          }
+        }
+        return;
+      }
+    }
+  }
+
+  // 获取当前天气效果
+  _getWeatherEffect(){
+    return WEATHER_EFFECTS[this.gs.weather] || WEATHER_EFFECTS['晴'];
   }
 
   // ========== 回合制：进入/退出战斗 ==========
@@ -899,11 +1012,37 @@ class Game{
     const dialogue = getNPCDialogue(npc, this.gs.hour, this.rng);
     const phase = getTimePhase(this.gs.hour);
 
+    // 获取玩家与NPC的关系（如果有 RelationManager）
+    let affinityLevel = '中立';
+    let affinityValue = 0;
+    if(this._relations){
+      const rel = this._relations.get(npc.name);
+      affinityLevel = this._relations.getAffinityLevel(npc.name);
+      affinityValue = rel.affinity;
+    }
+
     // 构建交互面板
     let html = `<div style="margin-bottom:8px;">`;
     html += `<div style="font-size:16px;font-weight:bold;color:${npc.color};">${npc.name}</div>`;
-    html += `<div style="font-size:12px;color:#888;margin-bottom:8px;">${npc.npcType === 'merchant' ? '商人' : npc.npcType === 'guard' ? '卫兵' : npc.npcType === 'priest' ? '祭司' : npc.npcType === 'innkeeper' ? '旅店老板' : npc.npcType === 'adventurer' ? '冒险者' : '村民'} · ${phase.name}</div>`;
+    html += `<div style="font-size:12px;color:#888;margin-bottom:4px;">${npc.npcType === 'merchant' ? '商人' : npc.npcType === 'guard' ? '卫兵' : npc.npcType === 'priest' ? '祭司' : npc.npcType === 'innkeeper' ? '旅店老板' : npc.npcType === 'adventurer' ? '冒险者' : '村民'} · ${phase.name}</div>`;
+    // 关系显示
+    const affinityColor = affinityValue >= 20 ? '#4a4' : affinityValue <= -20 ? '#a44' : '#888';
+    html += `<div style="font-size:11px;color:${affinityColor};margin-bottom:8px;">关系: ${affinityLevel} (${affinityValue > 0 ? '+' : ''}${affinityValue})</div>`;
     html += `<div style="background:#1a1a2e;padding:8px;border-radius:4px;margin-bottom:8px;font-style:italic;">"${dialogue}"</div>`;
+
+    // 话题按钮
+    const topics = getNPCTopics(npc, this.gs.hour, this._relations ? this._relations.get(npc.name) : null);
+    if(topics.length > 0){
+      html += `<div style="margin-bottom:8px;font-size:12px;color:#aaa;">话题:</div>`;
+      html += `<div style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:8px;">`;
+      for(const topicId of topics){
+        const topic = DIALOGUE_TOPICS[topicId];
+        if(topic){
+          html += `<button class="npc-topic-btn" data-topic="${topicId}" style="padding:4px 8px;background:#2a2a3a;border:1px solid #444;border-radius:4px;color:#ccc;font-size:12px;cursor:pointer;">${topic.name}</button>`;
+        }
+      }
+      html += `</div>`;
+    }
 
     // 商人/旅店老板：交易按钮
     if(npc.shop && npc.shop.length > 0){
@@ -939,6 +1078,22 @@ class Game{
 
     // 绑定按钮事件（延迟一帧让DOM渲染）
     setTimeout(()=>{
+      // 话题按钮
+      document.querySelectorAll('.npc-topic-btn').forEach(btn=>{
+        btn.onclick = ()=>{
+          const topicId = btn.dataset.topic;
+          const response = getTopicResponse(topicId, npc, this.rng);
+          if(response){
+            // 显示对话回复
+            const dialogBox = document.querySelector('.npc-panel div[style*="font-style:italic"]');
+            if(dialogBox) dialogBox.textContent = `"${response}"`;
+            // 增加好感度
+            if(this._relations){
+              this._relations.addAffinity(npc.name, 1, `谈论${DIALOGUE_TOPICS[topicId]?.name || ''}`);
+            }
+          }
+        };
+      });
       // 购买物品
       document.querySelectorAll('.npc-shop-item').forEach(el=>{
         el.onclick = ()=>{
@@ -1533,18 +1688,79 @@ class Game{
       this.log('这里没有楼梯', 'info');
       return;
     }
+
+    // 保存当前位置（返回大地图时用）
+    // 只在大地图上进入其他区域时保存位置
+    if(this.map && this.map.isWorld){
+      this._lastRegionPos = { x: this.player.x, y: this.player.y };
+    }
+
     if(tile.id === 'stairs_dn'){
-      if(this.map.isTown){
-        this.enterDungeon(this.player._maxDungeonDepth || 1);
+      // 下楼梯
+      if(this.currentZone && this.currentZone.isTown){
+        // 在城镇里 → 进入地下城（城镇不应该有楼梯dn，这里是兼容）
+        this.log('城镇里没有地下城入口', 'info');
+        return;
+      } else if(this.currentZone && this.currentZone.isDungeon){
+        // 在地下城里 → 继续深入
+        const depth = (this.currentZone.lv ? Math.abs(this.currentZone.lv) : 1) + 1;
+        this.enterDungeon(this.currentZone.parent || this.currentZone, depth);
+      } else if(this.map.isWorld){
+        // 在大地图上 → 检查是否有城镇/地下城
+        const site = this._getSiteAtPlayer();
+        if(site){
+          if(site.isTown){
+            this.enterTown(site);
+          } else if(site.isDungeon){
+            this.enterDungeon(site, 1);
+          } else {
+            this.enterField(site);
+          }
+        } else {
+          this.log('这里没有入口', 'info');
+        }
       } else {
-        this.player._maxDungeonDepth = Math.max(this.player._maxDungeonDepth||1, this.map.depth+1);
-        this.enterDungeon(this.map.depth + 1);
+        this.log('这里没有楼梯', 'info');
       }
     } else if(tile.id === 'stairs_up'){
-      if(this.map.isTown){ this.log('已经是地面了', 'info'); return; }
-      if(this.map.depth <= 1){ this.enterHome(); }
-      else { this.enterDungeon(this.map.depth - 1); }
+      // 上楼梯
+      if(this.currentZone && this.currentZone.isDungeon){
+        // 在地下城里 → 返回上一层
+        const depth = Math.abs(this.currentZone.lv || 0);
+        if(depth <= 1){
+          // 返回大地图
+          this.returnToRegion();
+        } else {
+          // 返回上一层：在父zone中找 depth-1 的子zone
+          this.enterDungeon(this.currentZone.parent, depth - 1);
+        }
+      } else if(this.currentZone && this.currentZone.isTown){
+        // 在城镇里 → 返回大地图
+        this.returnToRegion();
+      } else if(this.currentZone && this.currentZone.isField){
+        // 在野外 → 返回大地图
+        this.returnToRegion();
+      } else {
+        this.log('已经是地面了', 'info');
+      }
     }
+  }
+
+  // 获取玩家所在位置的地点
+  _getSiteAtPlayer(){
+    if(!this.region || !this.map) return null;
+    const px = this.player.x, py = this.player.y;
+    // 计算在大地图上的坐标
+    const mapW = this.map.w, mapH = this.map.h;
+    const regionW = this.region.regionW, regionH = this.region.regionH;
+    const gx = Math.floor(regionW / 2 - mapW / 2 + px);
+    const gy = Math.floor(regionH / 2 - mapH / 2 + py);
+    // 检查附近是否有地点
+    for(const site of this.region.sites){
+      const d = Math.abs(site.x - gx) + Math.abs(site.y - gy);
+      if(d <= 3) return site;
+    }
+    return null;
   }
 
   playerPickup(){
@@ -1758,7 +1974,7 @@ class Game{
     this.player.xp = Math.floor(this.player.xp * 0.9);
     this.player.gold = Math.floor(this.player.gold * 0.9);
     this.player.statusEffects = [];
-    this.enterHome();
+    this.enterRegion();
   }
 
   // ========== 渲染 ==========

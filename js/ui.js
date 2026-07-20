@@ -1,6 +1,6 @@
 // ===== UI 模块：角色创建 / HUD / 背包面板 / 角色面板 / 消息日志 =====
 
-import { RACES, CLASSES, ATTRS, SKILLS, SPELLS, QUALITY, GODS } from './data.js';
+import { RACES, CLASSES, ATTRS, SKILLS, SPELLS, QUALITY, GODS, getSeason } from './data.js';
 import { itemName, qualityName, qualityClass } from './item.js';
 
 export class UI{
@@ -139,7 +139,8 @@ export class UI{
       if(hour < 5 || hour >= 20) phaseIcon = '🌙';
       else if(hour < 8) phaseIcon = '🌅';
       else if(hour >= 17) phaseIcon = '🌇';
-      document.getElementById('date-info').textContent = `第 ${gs.day} 天 · ${phaseIcon} ${timeStr} · ${gs.weather}`;
+      const season = getSeason(gs.day);
+      document.getElementById('date-info').textContent = `${season.icon}${season.name} · 第 ${gs.day} 天 · ${phaseIcon} ${timeStr} · ${gs.weather}`;
       document.getElementById('location-info').textContent = gs.mapName || '';
       document.getElementById('depth-info').textContent = gs.depth!=null ? `危险度: ${gs.depth}` : '危险度: --';
     }

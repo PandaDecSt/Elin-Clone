@@ -1,0 +1,6381 @@
+{
+ "_meta": {
+  "note": "按精灵表分组的 tile编号->物件id 索引, 直接对应素材图集位置."
+ },
+ "sheets": {
+  "objS": {
+   "-5600": [
+    "statue_gargoyle_wall"
+   ],
+   "-5500": [
+    "statue_gargoyle_wall"
+   ],
+   "-2047": [
+    "spotlight3"
+   ],
+   "-2045": [
+    "spotlight2"
+   ],
+   "-1947": [
+    "spotlight3"
+   ],
+   "-1945": [
+    "spotlight2"
+   ],
+   "-1940": [
+    "shower_head"
+   ],
+   "-1939": [
+    "shower_head"
+   ],
+   "-1928": [
+    "stairs_cover3"
+   ],
+   "-1924": [
+    "torch_wall"
+   ],
+   "-1916": [
+    "editor_torch_wall"
+   ],
+   "-1828": [
+    "stairs_cover3"
+   ],
+   "-1824": [
+    "torch_wall"
+   ],
+   "-1819": [
+    "candle5",
+    "candle5"
+   ],
+   "-1816": [
+    "editor_torch_wall"
+   ],
+   "-1761": [
+    "goods_charm"
+   ],
+   "-1760": [
+    "goods_canvas"
+   ],
+   "-1661": [
+    "goods_charm"
+   ],
+   "-1660": [
+    "goods_canvas"
+   ],
+   "-1634": [
+    "register"
+   ],
+   "-1633": [
+    "register"
+   ],
+   "-1619": [
+    98
+   ],
+   "-1618": [
+    98
+   ],
+   "-1617": [
+    97
+   ],
+   "-1616": [
+    97
+   ],
+   "-1557": [
+    "candle_oillamp",
+    "candle_oillamp"
+   ],
+   "-1517": [
+    "chair"
+   ],
+   "-1516": [
+    "chair"
+   ],
+   "-1309": [
+    "lamp_table_sun"
+   ],
+   "-1307": [
+    "lamp_table_sun"
+   ],
+   "-606": [
+    21
+   ],
+   "0": [
+    145
+   ],
+   "2": [
+    80
+   ],
+   "3": [
+    80
+   ],
+   "4": [
+    80
+   ],
+   "5": [
+    48
+   ],
+   "6": [
+    48
+   ],
+   "7": [
+    80
+   ],
+   "8": [
+    80
+   ],
+   "9": [
+    80
+   ],
+   "10": [
+    80
+   ],
+   "11": [
+    80
+   ],
+   "19": [
+    8
+   ],
+   "24": [
+    20
+   ],
+   "25": [
+    20
+   ],
+   "26": [
+    7
+   ],
+   "27": [
+    45
+   ],
+   "28": [
+    45
+   ],
+   "29": [
+    45
+   ],
+   "47": [
+    127
+   ],
+   "100": [
+    22
+   ],
+   "101": [
+    22
+   ],
+   "102": [
+    22
+   ],
+   "103": [
+    22
+   ],
+   "105": [
+    0
+   ],
+   "106": [
+    10
+   ],
+   "107": [
+    10
+   ],
+   "108": [
+    11,
+    22
+   ],
+   "109": [
+    11,
+    22
+   ],
+   "110": [
+    11,
+    59
+   ],
+   "111": [
+    11,
+    59
+   ],
+   "112": [
+    9
+   ],
+   "113": [
+    9
+   ],
+   "114": [
+    9
+   ],
+   "115": [
+    9
+   ],
+   "116": [
+    52
+   ],
+   "117": [
+    52
+   ],
+   "118": [
+    52
+   ],
+   "119": [
+    52
+   ],
+   "120": [
+    52
+   ],
+   "124": [
+    51
+   ],
+   "125": [
+    51
+   ],
+   "126": [
+    51
+   ],
+   "127": [
+    66
+   ],
+   "128": [
+    66
+   ],
+   "129": [
+    72
+   ],
+   "130": [
+    74
+   ],
+   "131": [
+    74
+   ],
+   "132": [
+    74
+   ],
+   "133": [
+    74
+   ],
+   "134": [
+    74
+   ],
+   "135": [
+    74
+   ],
+   "136": [
+    91
+   ],
+   "137": [
+    91
+   ],
+   "138": [
+    91
+   ],
+   "139": [
+    102
+   ],
+   "140": [
+    102
+   ],
+   "141": [
+    102
+   ],
+   "147": [
+    115
+   ],
+   "200": [
+    26
+   ],
+   "201": [
+    26
+   ],
+   "202": [
+    1,
+    26
+   ],
+   "203": [
+    101,
+    26
+   ],
+   "208": [
+    26
+   ],
+   "209": [
+    26
+   ],
+   "212": [
+    4
+   ],
+   "217": [
+    3,
+    118
+   ],
+   "220": [
+    119
+   ],
+   "221": [
+    119
+   ],
+   "222": [
+    14,
+    50,
+    119
+   ],
+   "223": [
+    119
+   ],
+   "225": [
+    61
+   ],
+   "230": [
+    73
+   ],
+   "231": [
+    73
+   ],
+   "232": [
+    73
+   ],
+   "233": [
+    73
+   ],
+   "234": [
+    73
+   ],
+   "235": [
+    75
+   ],
+   "236": [
+    75
+   ],
+   "237": [
+    75
+   ],
+   "238": [
+    75
+   ],
+   "239": [
+    75
+   ],
+   "240": [
+    75
+   ],
+   "241": [
+    75
+   ],
+   "247": [
+    116
+   ],
+   "300": [
+    27
+   ],
+   "301": [
+    27
+   ],
+   "302": [
+    5,
+    27
+   ],
+   "303": [
+    27
+   ],
+   "307": [
+    2
+   ],
+   "308": [
+    27
+   ],
+   "309": [
+    27
+   ],
+   "310": [
+    59
+   ],
+   "311": [
+    59
+   ],
+   "312": [
+    6
+   ],
+   "317": [
+    120
+   ],
+   "347": [
+    117
+   ],
+   "400": [
+    "floor",
+    28
+   ],
+   "401": [
+    "block",
+    28
+   ],
+   "402": [
+    "platform",
+    28
+   ],
+   "403": [
+    "ramp",
+    28
+   ],
+   "404": [
+    "fence"
+   ],
+   "405": [
+    "pillar"
+   ],
+   "406": [
+    "wall"
+   ],
+   "408": [
+    "obj",
+    28
+   ],
+   "409": [
+    28
+   ],
+   "410": [
+    "deco"
+   ],
+   "414": [
+    24
+   ],
+   "415": [
+    24
+   ],
+   "416": [
+    24
+   ],
+   "417": [
+    112,
+    106
+   ],
+   "418": [
+    106
+   ],
+   "419": [
+    106
+   ],
+   "420": [
+    106
+   ],
+   "421": [
+    106
+   ],
+   "422": [
+    145
+   ],
+   "500": [
+    "log",
+    29
+   ],
+   "501": [
+    "ingot",
+    29
+   ],
+   "502": [
+    "chunk",
+    29
+   ],
+   "503": [
+    "ore",
+    29
+   ],
+   "504": [
+    "gem"
+   ],
+   "505": [
+    "plank"
+   ],
+   "506": [
+    "texture"
+   ],
+   "507": [
+    "fragment"
+   ],
+   "508": [
+    "stick",
+    29
+   ],
+   "509": [
+    "bone",
+    29
+   ],
+   "510": [
+    "rock"
+   ],
+   "511": [
+    "fiber"
+   ],
+   "512": [
+    "dye"
+   ],
+   "513": [
+    "bark"
+   ],
+   "514": [
+    "stone"
+   ],
+   "515": [
+    "resin"
+   ],
+   "516": [
+    "string"
+   ],
+   "517": [
+    "rope"
+   ],
+   "518": [
+    "vine"
+   ],
+   "519": [
+    "thread"
+   ],
+   "520": [
+    "skin"
+   ],
+   "521": [
+    "microchip"
+   ],
+   "522": [
+    "fang"
+   ],
+   "524": [
+    "ic"
+   ],
+   "525": [
+    "leaf"
+   ],
+   "526": [
+    "branch"
+   ],
+   "527": [
+    "cutstone"
+   ],
+   "528": [
+    "clay"
+   ],
+   "529": [
+    "brick"
+   ],
+   "530": [
+    "ore_gem"
+   ],
+   "531": [
+    "pebble"
+   ],
+   "532": [
+    "grass"
+   ],
+   "533": [
+    "heart"
+   ],
+   "534": [
+    "offal"
+   ],
+   "535": [
+    "leaf_palulu"
+   ],
+   "536": [
+    "needle"
+   ],
+   "537": [
+    "nail"
+   ],
+   "538": [
+    "bolt"
+   ],
+   "539": [
+    "poop"
+   ],
+   "540": [
+    "scrap"
+   ],
+   "541": [
+    "glass"
+   ],
+   "542": [
+    "zettel"
+   ],
+   "543": [
+    "crystal"
+   ],
+   "546": [
+    "sulfur"
+   ],
+   "547": [
+    "polish_powder"
+   ],
+   "548": [
+    "break_powder"
+   ],
+   "549": [
+    "gene"
+   ],
+   "550": [
+    "gene_brain"
+   ],
+   "600": [
+    30
+   ],
+   "601": [
+    30
+   ],
+   "602": [
+    13,
+    30
+   ],
+   "603": [
+    30
+   ],
+   "604": [
+    21
+   ],
+   "605": [
+    21
+   ],
+   "606": [
+    21
+   ],
+   "607": [
+    12,
+    15,
+    47
+   ],
+   "608": [
+    30
+   ],
+   "609": [
+    30
+   ],
+   "612": [
+    17
+   ],
+   "617": [
+    54
+   ],
+   "622": [
+    "seed"
+   ],
+   "700": [
+    67,
+    68
+   ],
+   "701": [
+    67
+   ],
+   "702": [
+    67
+   ],
+   "703": [
+    67
+   ],
+   "708": [
+    67
+   ],
+   "709": [
+    67
+   ],
+   "800": [
+    "weapon_broken",
+    124
+   ],
+   "801": [
+    "hammer_garokk",
+    124
+   ],
+   "802": [
+    "brush_strip",
+    69,
+    49,
+    113,
+    114,
+    124
+   ],
+   "803": [
+    "hammer_strip",
+    124
+   ],
+   "804": [
+    "duponneball"
+   ],
+   "805": [
+    "silvercatball"
+   ],
+   "806": [
+    "pole_naginata"
+   ],
+   "807": [
+    "dagger_parry"
+   ],
+   "808": [
+    "explosive",
+    124
+   ],
+   "809": [
+    "explosive_mega",
+    124
+   ],
+   "812": [
+    53
+   ],
+   "813": [
+    "crowbar"
+   ],
+   "814": [
+    "kusarigama"
+   ],
+   "815": [
+    "scythe_sickle"
+   ],
+   "816": [
+    "point_stick"
+   ],
+   "817": [
+    "luckydagger",
+    55
+   ],
+   "823": [
+    "windbow"
+   ],
+   "826": [
+    "kogitsunemaru"
+   ],
+   "829": [
+    "warmonger"
+   ],
+   "832": [
+    "gun_mani"
+   ],
+   "833": [
+    "shirt_wind"
+   ],
+   "834": [
+    "cloak_mani"
+   ],
+   "835": [
+    "bow_vindale"
+   ],
+   "837": [
+    "panzerfaust"
+   ],
+   "839": [
+    "bullet_rocket"
+   ],
+   "900": [
+    "axe_hand",
+    125
+   ],
+   "901": [
+    "recorder",
+    125
+   ],
+   "902": [
+    "flute",
+    125
+   ],
+   "903": [
+    "sword_bokuto",
+    125
+   ],
+   "904": [
+    "boomerang"
+   ],
+   "906": [
+    "pole_trident"
+   ],
+   "907": [
+    "dagger_pirate"
+   ],
+   "908": [
+    "throw_putit",
+    125
+   ],
+   "909": [
+    "dagger_gaki",
+    125
+   ],
+   "910": [
+    "sword_claymore"
+   ],
+   "911": [
+    "dagger_ninto"
+   ],
+   "912": [
+    "sword_katana"
+   ],
+   "913": [
+    "pole_halberd"
+   ],
+   "914": [
+    "axe_bardish"
+   ],
+   "915": [
+    "sickle"
+   ],
+   "916": [
+    "blunt_club"
+   ],
+   "917": [
+    "blunt_hammer"
+   ],
+   "918": [
+    "staff_long",
+    107
+   ],
+   "919": [
+    "staff",
+    107
+   ],
+   "920": [
+    "staff_element",
+    107
+   ],
+   "921": [
+    107
+   ],
+   "922": [
+    107
+   ],
+   "923": [
+    "staff_magius"
+   ],
+   "924": [
+    "sword_ragnarok"
+   ],
+   "925": [
+    "sword_forgetmenot"
+   ],
+   "926": [
+    "sword_zephir"
+   ],
+   "927": [
+    "dagger_hathaway"
+   ],
+   "929": [
+    "shield_flower"
+   ],
+   "930": [
+    "shield_lute"
+   ],
+   "936": [
+    "shield_turtle"
+   ],
+   "1000": [
+    "scythe",
+    126,
+    60
+   ],
+   "1001": [
+    "dagger_hocho",
+    126,
+    60
+   ],
+   "1002": [
+    77,
+    126
+   ],
+   "1003": [
+    "hammer",
+    126,
+    65
+   ],
+   "1004": [
+    "pickaxe",
+    65
+   ],
+   "1005": [
+    65
+   ],
+   "1006": [
+    "hoe"
+   ],
+   "1007": [
+    "lute",
+    76,
+    71
+   ],
+   "1008": [
+    "butcherknife",
+    71,
+    126
+   ],
+   "1009": [
+    71,
+    126
+   ],
+   "1010": [
+    "lightsaber",
+    71
+   ],
+   "1011": [
+    "axe_machine"
+   ],
+   "1012": [
+    "spear",
+    103
+   ],
+   "1013": [
+    "staff_Cat",
+    25
+   ],
+   "1014": [
+    "bow",
+    25
+   ],
+   "1015": [
+    "axe_battle",
+    25
+   ],
+   "1016": [
+    25
+   ],
+   "1017": [
+    "mic"
+   ],
+   "1018": [
+    109
+   ],
+   "1019": [
+    "bow_wood",
+    "bow_short",
+    109
+   ],
+   "1020": [
+    "bow_skull",
+    109
+   ],
+   "1021": [
+    "sling",
+    109
+   ],
+   "1022": [
+    "staff_leek"
+   ],
+   "1023": [
+    "blunt_mace"
+   ],
+   "1024": [
+    111
+   ],
+   "1025": [
+    "EtherDagger",
+    "EtherDagger2",
+    111
+   ],
+   "1026": [
+    "dagger",
+    111
+   ],
+   "1028": [
+    "weapon_anvil",
+    "weapon_wood",
+    "weapon_stone",
+    "sword"
+   ],
+   "1030": [
+    "gun"
+   ],
+   "1031": [
+    "crossbow"
+   ],
+   "1032": [
+    "gun_assault"
+   ],
+   "1033": [
+    "gun_rail"
+   ],
+   "1034": [
+    "martial_claw"
+   ],
+   "1035": [
+    "martial_glove"
+   ],
+   "1036": [
+    "gun_laser"
+   ],
+   "1037": [
+    "gun_laser_assault"
+   ],
+   "1038": [
+    "shotgun"
+   ],
+   "1039": [
+    "helm_eyemask"
+   ],
+   "1040": [
+    "martial_chakram"
+   ],
+   "1041": [
+    "shuriken"
+   ],
+   "1042": [
+    "kunai"
+   ],
+   "1043": [
+    "gun_gatling"
+   ],
+   "1044": [
+    "gun_gravity2"
+   ],
+   "1045": [
+    "gun_gravity"
+   ],
+   "1048": [
+    "gloves_foreign"
+   ],
+   "1049": [
+    "girdle_corset"
+   ],
+   "1100": [
+    "axe",
+    128,
+    79
+   ],
+   "1101": [
+    "shovel",
+    128,
+    79
+   ],
+   "1102": [
+    128,
+    79
+   ],
+   "1103": [
+    "shears",
+    128,
+    79
+   ],
+   "1104": [
+    84
+   ],
+   "1107": [
+    "fishingRod"
+   ],
+   "1108": [
+    "stradivarius",
+    "instrument_violin",
+    128
+   ],
+   "1109": [
+    "trumpet",
+    128
+   ],
+   "1110": [
+    "catalyst",
+    "stethoscope"
+   ],
+   "1113": [
+    144
+   ],
+   "1114": [
+    "cane_simple",
+    144
+   ],
+   "1115": [
+    144
+   ],
+   "1116": [
+    144
+   ],
+   "1117": [
+    "whistle",
+    144
+   ],
+   "1118": [
+    "syringe_gene",
+    "syringe_heaven",
+    "syringe_blood",
+    144
+   ],
+   "1119": [
+    "cigar",
+    144
+   ],
+   "1120": [
+    "sax",
+    144
+   ],
+   "1121": [
+    "unicorn_horn"
+   ],
+   "1122": [
+    "ocarina"
+   ],
+   "1123": [
+    "staff_insanity"
+   ],
+   "1124": [
+    "harmonica"
+   ],
+   "1125": [
+    "catalyst_grail"
+   ],
+   "1126": [
+    "shield_wood"
+   ],
+   "1127": [
+    "shield_round"
+   ],
+   "1128": [
+    "shield_small"
+   ],
+   "1129": [
+    "shield"
+   ],
+   "1130": [
+    "shield_composite"
+   ],
+   "1132": [
+    "shield_knight"
+   ],
+   "1133": [
+    "shield_tower"
+   ],
+   "1135": [
+    "boots_foreign"
+   ],
+   "1136": [
+    "shoes"
+   ],
+   "1137": [
+    "boots_"
+   ],
+   "1139": [
+    "boots_armored"
+   ],
+   "1140": [
+    "boots_heavy"
+   ],
+   "1141": [
+    "boots_composite"
+   ],
+   "1142": [
+    "boots_seven"
+   ],
+   "1143": [
+    "gloves_light"
+   ],
+   "1144": [
+    "gloves_thick"
+   ],
+   "1145": [
+    "gloves"
+   ],
+   "1146": [
+    "gloves_plate"
+   ],
+   "1147": [
+    "gloves_deco"
+   ],
+   "1148": [
+    "gloves_composite"
+   ],
+   "1149": [
+    "girdle"
+   ],
+   "1150": [
+    "girdle_composite"
+   ],
+   "1151": [
+    "girdle_plate"
+   ],
+   "1152": [
+    "tail_snowleopard"
+   ],
+   "1154": [
+    "tail_cat"
+   ],
+   "1155": [
+    "tail_fox"
+   ],
+   "1156": [
+    "tail_dog"
+   ],
+   "1157": [
+    "tail_wolf"
+   ],
+   "1158": [
+    "tail_shiva"
+   ],
+   "1159": [
+    "tail_shark"
+   ],
+   "1200": [
+    "torch_held",
+    129
+   ],
+   "1201": [
+    "wateringCan",
+    129
+   ],
+   "1202": [
+    56,
+    129
+   ],
+   "1203": [
+    129
+   ],
+   "1204": [
+    "waterPot"
+   ],
+   "1206": [
+    "wrench"
+   ],
+   "1207": [
+    "brush",
+    57
+   ],
+   "1208": [
+    "water_jure",
+    129
+   ],
+   "1209": [
+    "shield_man",
+    129
+   ],
+   "1211": [
+    "whip_egg",
+    "whip_love",
+    "whip_interest"
+   ],
+   "1212": [
+    "leash_pet",
+    58
+   ],
+   "1213": [
+    "book_kumiromi"
+   ],
+   "1214": [
+    "ring"
+   ],
+   "1215": [
+    "ring_decorative"
+   ],
+   "1216": [
+    "ring_composite"
+   ],
+   "1217": [
+    "ring_engagement",
+    70
+   ],
+   "1218": [
+    "ring_armored"
+   ],
+   "1219": [
+    "ring_aurora"
+   ],
+   "1220": [
+    "ring_speed"
+   ],
+   "1221": [
+    "amulet_necklace"
+   ],
+   "1223": [
+    "ribbon",
+    "ribbon_duponne"
+   ],
+   "1225": [
+    "toolbelt"
+   ],
+   "1226": [
+    "shirt"
+   ],
+   "1230": [
+    "arrow_makeshift",
+    "arrow"
+   ],
+   "1231": [
+    "bait"
+   ],
+   "1232": [
+    "cloak"
+   ],
+   "1233": [
+    "helm"
+   ],
+   "1234": [
+    "boots_tight"
+   ],
+   "1235": [
+    "helm_bucket"
+   ],
+   "1236": [
+    "hat_feather"
+   ],
+   "1237": [
+    "hat_wizard"
+   ],
+   "1240": [
+    "helm_knight"
+   ],
+   "1241": [
+    "helm_heavy"
+   ],
+   "1242": [
+    "helm_composite"
+   ],
+   "1243": [
+    "cloak_feather"
+   ],
+   "1244": [
+    "cloak_wing"
+   ],
+   "1245": [
+    "cloak_light"
+   ],
+   "1246": [
+    "cloak_armored"
+   ],
+   "1247": [
+    "cloak_vindale"
+   ],
+   "1249": [
+    "robe"
+   ],
+   "1250": [
+    "robe_pope"
+   ],
+   "1251": [
+    "armor_banded"
+   ],
+   "1252": [
+    "armor_ring"
+   ],
+   "1253": [
+    "armor_chain"
+   ],
+   "1254": [
+    "armor_composite"
+   ],
+   "1255": [
+    "armor_plate"
+   ],
+   "1256": [
+    "armor_breast"
+   ],
+   "1258": [
+    "armor_light"
+   ],
+   "1259": [
+    "armor_coat"
+   ],
+   "1260": [
+    "armor_bullet"
+   ],
+   "1261": [
+    "armor_foreign"
+   ],
+   "1262": [
+    "wear_swim"
+   ],
+   "1300": [
+    130
+   ],
+   "1301": [
+    "snow",
+    130
+   ],
+   "1302": [
+    "snow",
+    130
+   ],
+   "1303": [
+    "generator_snowman",
+    130
+   ],
+   "1304": [
+    "monsterball"
+   ],
+   "1305": [
+    "punish_ball"
+   ],
+   "1307": [
+    "lamp_table_sun"
+   ],
+   "1308": [
+    130
+   ],
+   "1309": [
+    "lamp_table_sun",
+    130
+   ],
+   "1311": [
+    "drug"
+   ],
+   "1312": [
+    "water_dirty"
+   ],
+   "1313": [
+    "letter"
+   ],
+   "1314": [
+    "amulet_peridot"
+   ],
+   "1315": [
+    "amulet_talisman"
+   ],
+   "1316": [
+    "amulet_armored"
+   ],
+   "1317": [
+    "amulet_charm"
+   ],
+   "1318": [
+    "amulet_jewel"
+   ],
+   "1319": [
+    "amulet_engagement"
+   ],
+   "1320": [
+    "amulet_decorative"
+   ],
+   "1321": [
+    "amulet_moonnight"
+   ],
+   "1322": [
+    "amulet_begger"
+   ],
+   "1323": [
+    "blanket_fire"
+   ],
+   "1324": [
+    "blanket_cold"
+   ],
+   "1325": [
+    "hat"
+   ],
+   "1330": [
+    "quarrel"
+   ],
+   "1331": [
+    "bullet"
+   ],
+   "1332": [
+    "bullet_energy"
+   ],
+   "1333": [
+    "mod_ranged"
+   ],
+   "1334": [
+    "talisman"
+   ],
+   "1336": [
+    "hat_fairy"
+   ],
+   "1337": [
+    "helm_sage"
+   ],
+   "1338": [
+    "helm_seeker"
+   ],
+   "1339": [
+    "helm_flower",
+    "mask"
+   ],
+   "1340": [
+    "helm_chef"
+   ],
+   "1341": [
+    "helm_foreign"
+   ],
+   "1343": [
+    "cloak_foreign"
+   ],
+   "1344": [
+    "hat_rune"
+   ],
+   "1345": [
+    "shirt_rune"
+   ],
+   "1346": [
+    "cloak_rune"
+   ],
+   "1347": [
+    "girdle_rune"
+   ],
+   "1348": [
+    "gloves_rune"
+   ],
+   "1349": [
+    "boots_rune"
+   ],
+   "1350": [
+    "hat_wedding"
+   ],
+   "1351": [
+    "helm_angel"
+   ],
+   "1352": [
+    "martial_ring"
+   ],
+   "1362": [
+    "wear_swim_danger"
+   ],
+   "1400": [
+    "trash1",
+    131
+   ],
+   "1401": [
+    "trash2",
+    131
+   ],
+   "1402": [
+    "snowman",
+    131
+   ],
+   "1403": [
+    131
+   ],
+   "1405": [
+    "lamp_table"
+   ],
+   "1408": [
+    131
+   ],
+   "1409": [
+    131
+   ],
+   "1410": [
+    "lantern_old"
+   ],
+   "1451": [
+    "light_floor"
+   ],
+   "1500": [
+    "lockpick",
+    132
+   ],
+   "1501": [
+    "mathammer",
+    132
+   ],
+   "1502": [
+    132
+   ],
+   "1503": [
+    132
+   ],
+   "1505": [
+    "cushion"
+   ],
+   "1508": [
+    132
+   ],
+   "1509": [
+    "bucket_fish",
+    132
+   ],
+   "1512": [
+    "record"
+   ],
+   "1514": [
+    "furnitureS"
+   ],
+   "1516": [
+    "chair"
+   ],
+   "1517": [
+    "chair"
+   ],
+   "1522": [
+    "trashbin"
+   ],
+   "1523": [
+    "torch"
+   ],
+   "1528": [
+    "gachaBall",
+    "ability"
+   ],
+   "1531": [
+    "editor_torch"
+   ],
+   "1538": [
+    "statue_weird"
+   ],
+   "1545": [
+    "pillow_truth"
+   ],
+   "1546": [
+    "pillow_truth"
+   ],
+   "1548": [
+    "candle8"
+   ],
+   "1549": [
+    "candle8b"
+   ],
+   "1550": [
+    "candle8c"
+   ],
+   "1551": [
+    "potion_alchemy"
+   ],
+   "1557": [
+    "candle_oillamp",
+    "candle_oillamp"
+   ],
+   "1600": [
+    "battery",
+    133
+   ],
+   "1601": [
+    "chest_merchant",
+    133
+   ],
+   "1602": [
+    133
+   ],
+   "1603": [
+    "littleball",
+    133
+   ],
+   "1604": [
+    "camppot",
+    "flowerArch"
+   ],
+   "1605": [
+    "bonfire"
+   ],
+   "1606": [
+    "bank"
+   ],
+   "1608": [
+    "calbell",
+    133
+   ],
+   "1609": [
+    133
+   ],
+   "1610": [
+    "gacha_coin_plat",
+    "gacha_coin_gold",
+    "gacha_coin_silver",
+    "gacha_coin"
+   ],
+   "1613": [
+    "letter_trial",
+    "scroll"
+   ],
+   "1614": [
+    "potion"
+   ],
+   "1615": [
+    "spellbook",
+    "book_ancient"
+   ],
+   "1616": [
+    "arch_deco",
+    "rod",
+    97
+   ],
+   "1617": [
+    "book_plan",
+    "book_skill",
+    "torii_mini",
+    97
+   ],
+   "1618": [
+    "bill_tax",
+    98
+   ],
+   "1619": [
+    "deed",
+    "deed_move",
+    "deed_wedding",
+    "deed_divorce",
+    "deed_lostring",
+    98
+   ],
+   "1620": [
+    "chest_tax"
+   ],
+   "1624": [
+    "coolerbox"
+   ],
+   "1627": [
+    "ticket_furniture"
+   ],
+   "1628": [
+    "ecopo"
+   ],
+   "1629": [
+    "medal"
+   ],
+   "1630": [
+    "money"
+   ],
+   "1631": [
+    "plat"
+   ],
+   "1632": [
+    "money2"
+   ],
+   "1633": [
+    "register"
+   ],
+   "1634": [
+    "register"
+   ],
+   "1643": [
+    "license_illumination",
+    "license_void"
+   ],
+   "1644": [
+    "license_adv"
+   ],
+   "1645": [
+    "pillow_truth"
+   ],
+   "1646": [
+    "pillow_truth"
+   ],
+   "1647": [
+    "ticket_fortune"
+   ],
+   "1649": [
+    "fortune_ball"
+   ],
+   "1650": [
+    "box_xmas"
+   ],
+   "1651": [
+    "xmas_wreath"
+   ],
+   "1653": [
+    "xmas_socks"
+   ],
+   "1654": [
+    "xmas_boot"
+   ],
+   "1655": [
+    "xmas_cane"
+   ],
+   "1656": [
+    "xmas_jure"
+   ],
+   "1657": [
+    "xmas_pedestal"
+   ],
+   "1658": [
+    "goods_coin"
+   ],
+   "1659": [
+    "goods_figure"
+   ],
+   "1660": [
+    "goods_canvas"
+   ],
+   "1661": [
+    "goods_charm"
+   ],
+   "1662": [
+    "goods_crim"
+   ],
+   "1700": [
+    134
+   ],
+   "1701": [
+    134
+   ],
+   "1702": [
+    "backpack",
+    "casket",
+    134
+   ],
+   "1703": [
+    134
+   ],
+   "1708": [
+    "parchment",
+    "letter_news",
+    134
+   ],
+   "1709": [
+    "diary_little",
+    "diary_sister",
+    "diary_catsister",
+    "diary_lady",
+    134
+   ],
+   "1711": [
+    "tool_policy"
+   ],
+   "1712": [
+    "book_resident"
+   ],
+   "1713": [
+    "map"
+   ],
+   "1714": [
+    "water"
+   ],
+   "1715": [
+    "potion_empty"
+   ],
+   "1716": [
+    "bucket_empty"
+   ],
+   "1717": [
+    "bucket"
+   ],
+   "1718": [
+    "ticket_melilith"
+   ],
+   "1719": [
+    "blueprint"
+   ],
+   "1722": [
+    "sketch_old"
+   ],
+   "1723": [
+    "sketch_special"
+   ],
+   "1724": [
+    "electronicsS",
+    "electronicsSWall"
+   ],
+   "1725": [
+    "bill_debt"
+   ],
+   "1731": [
+    "casino_coin"
+   ],
+   "1740": [
+    "leverS"
+   ],
+   "1747": [
+    "table_mirror_small"
+   ],
+   "1748": [
+    "artifact_summon"
+   ],
+   "1749": [
+    "xmas_crown"
+   ],
+   "1750": [
+    "xmas_blackcat"
+   ],
+   "1759": [
+    "goods_figure"
+   ],
+   "1760": [
+    "goods_canvas"
+   ],
+   "1761": [
+    "goods_charm"
+   ],
+   "1800": [
+    "ash3",
+    62
+   ],
+   "1801": [
+    "quiver",
+    62
+   ],
+   "1802": [
+    "purse",
+    64
+   ],
+   "1803": [
+    "grimoire",
+    62
+   ],
+   "1804": [
+    "pouch",
+    62
+   ],
+   "1805": [
+    "barrel",
+    63
+   ],
+   "1806": [
+    "barrel",
+    63
+   ],
+   "1807": [
+    "barrel"
+   ],
+   "1809": [
+    "gift"
+   ],
+   "1811": [
+    "scratchcard"
+   ],
+   "1812": [
+    "firework"
+   ],
+   "1813": [
+    "letter_will"
+   ],
+   "1814": [
+    "letter_note"
+   ],
+   "1816": [
+    "editor_torch_wall"
+   ],
+   "1817": [
+    "candle6"
+   ],
+   "1819": [
+    "candle5",
+    "candle5"
+   ],
+   "1822": [
+    "candle3"
+   ],
+   "1823": [
+    "candle2"
+   ],
+   "1824": [
+    "torch_wall",
+    "stairs_cover"
+   ],
+   "1825": [
+    "candle",
+    "stairs_cover"
+   ],
+   "1826": [
+    "roomPlate",
+    "housePlate",
+    "stairs_cover"
+   ],
+   "1827": [
+    "stairs_cover"
+   ],
+   "1828": [
+    "ticket_resident",
+    "stairs_cover3"
+   ],
+   "1829": [
+    "mine"
+   ],
+   "1830": [
+    "trap"
+   ],
+   "1900": [
+    "flower"
+   ],
+   "1904": [
+    "map_treasure"
+   ],
+   "1905": [
+    "ecomark"
+   ],
+   "1906": [
+    "perfume"
+   ],
+   "1907": [
+    "tag_sell"
+   ],
+   "1909": [
+    "parcel"
+   ],
+   "1910": [
+    "gift_newyear"
+   ],
+   "1911": [
+    "detector"
+   ],
+   "1912": [
+    "firework_launcher"
+   ],
+   "1916": [
+    "editor_torch_wall"
+   ],
+   "1917": [
+    "bill"
+   ],
+   "1919": [
+    "rp"
+   ],
+   "1922": [
+    "flyer"
+   ],
+   "1924": [
+    "torch_wall",
+    "stairs_cover2"
+   ],
+   "1925": [
+    "candle2_sun",
+    "stairs_cover2"
+   ],
+   "1926": [
+    "stairs_cover2"
+   ],
+   "1927": [
+    "stairs_cover2"
+   ],
+   "1928": [
+    "stairs_cover3"
+   ],
+   "1929": [
+    "lucky_coin"
+   ],
+   "1938": [
+    "candle_wall"
+   ],
+   "1939": [
+    "shower_head"
+   ],
+   "1940": [
+    "shower_head"
+   ],
+   "1941": [
+    "bottle_message"
+   ],
+   "1945": [
+    "spotlight2"
+   ],
+   "1947": [
+    "spotlight3"
+   ],
+   "1952": [
+    "candle9"
+   ],
+   "2000": [
+    "vegi"
+   ],
+   "2006": [
+    "fruit"
+   ],
+   "2013": [
+    "nuts"
+   ],
+   "2033": [
+    "herb"
+   ],
+   "2045": [
+    "spotlight2"
+   ],
+   "2047": [
+    "spotlight3"
+   ],
+   "2100": [
+    "pot_plantSmall"
+   ],
+   "2200": [
+    "junk",
+    "terra_globe"
+   ],
+   "2207": [
+    "electronicsL"
+   ],
+   "2300": [
+    "drink"
+   ],
+   "2359": [
+    "plamo_stand"
+   ],
+   "2361": [
+    "plamo_box"
+   ],
+   "2400": [
+    "furnitureL",
+    "junkFlat"
+   ],
+   "2500": [
+    "vase"
+   ],
+   "2525": [
+    "illumination"
+   ],
+   "2642": [
+    "holyFeather"
+   ],
+   "2655": [
+    "mokugyo"
+   ],
+   "2660": [
+    "tambourine"
+   ],
+   "2703": [
+    "head2"
+   ],
+   "2721": [
+    "234"
+   ],
+   "2736": [
+    "snow_globe"
+   ],
+   "2748": [
+    "musicbox_jure"
+   ],
+   "2752": [
+    "musicbox_cat"
+   ],
+   "2757": [
+    "musicbox_memory2",
+    "musicbox_memory"
+   ],
+   "2800": [
+    "fish"
+   ],
+   "2900": [
+    "junkWall"
+   ],
+   "3000": [
+    "food",
+    "geyser"
+   ],
+   "3001": [
+    "mailpost2"
+   ],
+   "3007": [
+    "dish"
+   ],
+   "3012": [
+    "book_roster"
+   ],
+   "3100": [
+    "sign"
+   ],
+   "3146": [
+    "xmas_string"
+   ],
+   "3148": [
+    "xmas_ball"
+   ],
+   "3202": [
+    "chest_gamble"
+   ],
+   "3205": [
+    "ticket_massage"
+   ],
+   "3206": [
+    "ticket_armpillow"
+   ],
+   "3207": [
+    "ticket_champagne"
+   ],
+   "3208": [
+    "backpack_holding"
+   ],
+   "3306": [
+    "milk_mother"
+   ],
+   "3401": [
+    "meat"
+   ],
+   "3403": [
+    "food_raw"
+   ],
+   "3404": [
+    "egg"
+   ],
+   "3405": [
+    "milk"
+   ],
+   "3411": [
+    "dough"
+   ],
+   "3418": [
+    "seasoning"
+   ],
+   "3419": [
+    "milkcan"
+   ],
+   "3420": [
+    "rice"
+   ],
+   "3424": [
+    "dreambug"
+   ],
+   "3448": [
+    "pasture"
+   ],
+   "3700": [
+    "censored_item"
+   ],
+   "4100": [
+    "panty"
+   ],
+   "4200": [
+    "1084"
+   ],
+   "4400": [
+    "ingredient"
+   ],
+   "4401": [
+    "magic_stone"
+   ],
+   "4402": [
+    "rune"
+   ],
+   "4405": [
+    "stone_destiny"
+   ],
+   "4406": [
+    "rune_free"
+   ],
+   "4500": [
+    "bandage"
+   ],
+   "4502": [
+    "rune_mold"
+   ],
+   "4600": [
+    "book_story"
+   ],
+   "4601": [
+    "book_story_home"
+   ],
+   "4602": [
+    "book_tutorial"
+   ],
+   "4606": [
+    "book"
+   ],
+   "4608": [
+    "book_exp"
+   ],
+   "5000": [
+    "plamo_bird"
+   ],
+   "5100": [
+    "plamo"
+   ],
+   "5500": [
+    "statue_gargoyle_wall"
+   ],
+   "5600": [
+    "statue_gargoyle_wall"
+   ]
+  },
+  "obj": {
+   "-6000": [
+    "coffinv"
+   ],
+   "-5900": [
+    "coffinv"
+   ],
+   "-5607": [
+    "statue_gargoyle"
+   ],
+   "-5507": [
+    "statue_gargoyle"
+   ],
+   "-4900": [
+    "painting_reward"
+   ],
+   "-4800": [
+    "painting_reward"
+   ],
+   "-3028": [
+    "figure3"
+   ],
+   "-2946": [
+    "scratchmachine"
+   ],
+   "-2934": [
+    "counter_corner"
+   ],
+   "-2931": [
+    "counter",
+    "counter"
+   ],
+   "-2928": [
+    "figure2"
+   ],
+   "-2927": [
+    "figure"
+   ],
+   "-2924": [
+    "trainingDummy"
+   ],
+   "-2921": [
+    "anvil"
+   ],
+   "-2911": [
+    "dry_brick"
+   ],
+   "-2910": [
+    "dry_brick"
+   ],
+   "-2846": [
+    "scratchmachine"
+   ],
+   "-2843": [
+    "dry_rack"
+   ],
+   "-2842": [
+    "dry_rack"
+   ],
+   "-2841": [
+    "piano"
+   ],
+   "-2840": [
+    "piano"
+   ],
+   "-2827": [
+    "furniture"
+   ],
+   "-2824": [
+    "trainingDummy"
+   ],
+   "-2821": [
+    "anvil"
+   ],
+   "-2813": [
+    "sawmill"
+   ],
+   "-2812": [
+    "sawmill"
+   ],
+   "-2657": [
+    "door_alien"
+   ],
+   "-2656": [
+    "door_alien"
+   ],
+   "-2655": [
+    "door_cloth"
+   ],
+   "-2654": [
+    "door_cloth"
+   ],
+   "-2653": [
+    "door_biscuit",
+    "door_biscuit"
+   ],
+   "-2651": [
+    "door_curtain2"
+   ],
+   "-2650": [
+    "door_curtain2"
+   ],
+   "-2622": [
+    "door_shoji",
+    "door_shoji"
+   ],
+   "-2618": [
+    "door_grass",
+    "door_grass"
+   ],
+   "-2611": [
+    "door_swing",
+    "door_swing"
+   ],
+   "-2608": [
+    "door_stone",
+    "door_stone"
+   ],
+   "-2606": [
+    "door_auto",
+    "door_auto"
+   ],
+   "-2604": [
+    "door_fence",
+    "door_fence"
+   ],
+   "-2603": [
+    "door_chocolate",
+    "door_chocolate"
+   ],
+   "-2602": [
+    "door_lattice",
+    "door_lattice"
+   ],
+   "-2601": [
+    "door4",
+    "door4",
+    "door_boat",
+    "door_boat"
+   ],
+   "-2435": [
+    "play_ride_big"
+   ],
+   "-2335": [
+    "play_ride_big"
+   ],
+   "-2235": [
+    "play_ride"
+   ],
+   "-2234": [
+    "play_ride_kin"
+   ],
+   "-2231": [
+    "shower_head2"
+   ],
+   "-2135": [
+    "play_ride"
+   ],
+   "-2134": [
+    "play_ride_kin"
+   ],
+   "-2131": [
+    "shower_head2"
+   ],
+   "-2107": [
+    "stool"
+   ],
+   "-2106": [
+    "stool"
+   ],
+   "-2043": [
+    "pillow_jure"
+   ],
+   "-2038": [
+    "pillow_jure"
+   ],
+   "-2037": [
+    "pillow_itzpalt"
+   ],
+   "-2036": [
+    "pillow_itzpalt"
+   ],
+   "-2033": [
+    "pillow_kumiromi"
+   ],
+   "-2032": [
+    "pillow_kumiromi"
+   ],
+   "-2026": [
+    "pillow_jure"
+   ],
+   "-2005": [
+    "street_lamp4"
+   ],
+   "-2004": [
+    "street_lamp4"
+   ],
+   "-1938": [
+    "play_bar"
+   ],
+   "-1937": [
+    "play_bar"
+   ],
+   "-1916": [
+    "roadsign"
+   ],
+   "-1915": [
+    "roadsign"
+   ],
+   "-1857": [
+    "pulpit"
+   ],
+   "-1856": [
+    "pulpit"
+   ],
+   "-1752": [
+    "sofa_single"
+   ],
+   "-1730": [
+    "chair_long"
+   ],
+   "-1729": [
+    "tool_art"
+   ],
+   "-1725": [
+    "locker"
+   ],
+   "-1714": [
+    "factory_hand"
+   ],
+   "-1713": [
+    "workbench2"
+   ],
+   "-1700": [
+    "fireplace"
+   ],
+   "-1652": [
+    "sofa_single"
+   ],
+   "-1630": [
+    "chair_long"
+   ],
+   "-1629": [
+    "tool_art"
+   ],
+   "-1625": [
+    "locker"
+   ],
+   "-1614": [
+    "factory_hand"
+   ],
+   "-1613": [
+    "workbench2"
+   ],
+   "-1600": [
+    "fireplace"
+   ],
+   "-1558": [
+    "votivestand"
+   ],
+   "-1556": [
+    "factory_map"
+   ],
+   "-1554": [
+    "nuke"
+   ],
+   "-1530": [
+    "toilet"
+   ],
+   "-1526": [
+    "table_mirror"
+   ],
+   "-1523": [
+    "gacha"
+   ],
+   "-1521": [
+    "chest3"
+   ],
+   "-1518": [
+    "cabinet"
+   ],
+   "-1511": [
+    "sofa"
+   ],
+   "-1507": [
+    "workbench"
+   ],
+   "-1501": [
+    "vmachine"
+   ],
+   "-1458": [
+    "votivestand"
+   ],
+   "-1456": [
+    "factory_map"
+   ],
+   "-1454": [
+    "nuke"
+   ],
+   "-1430": [
+    "toilet"
+   ],
+   "-1426": [
+    "table_mirror"
+   ],
+   "-1423": [
+    "gacha"
+   ],
+   "-1421": [
+    "chest3"
+   ],
+   "-1418": [
+    "cabinet"
+   ],
+   "-1411": [
+    "sofa"
+   ],
+   "-1407": [
+    "workbench"
+   ],
+   "-1401": [
+    "vmachine"
+   ],
+   "-1209": [
+    "igloo"
+   ],
+   "-1208": [
+    "igloo"
+   ],
+   "-1207": [
+    "hitchingpost"
+   ],
+   "-1206": [
+    "hitchingpost"
+   ],
+   "-1151": [
+    "wall_arch"
+   ],
+   "-1149": [
+    "pearl_oyster"
+   ],
+   "-1148": [
+    "pearl_oyster"
+   ],
+   "-1118": [
+    "computer"
+   ],
+   "-1100": [
+    "spotlight"
+   ],
+   "-1051": [
+    "wall_arch"
+   ],
+   "-1044": [
+    "case2"
+   ],
+   "-1027": [
+    "vine_wall",
+    "vine_wall"
+   ],
+   "-1018": [
+    "computer"
+   ],
+   "-1003": [
+    "camera"
+   ],
+   "-1000": [
+    "spotlight"
+   ],
+   "-944": [
+    "case2"
+   ],
+   "-931": [
+    "candle7",
+    "candle7"
+   ],
+   "-924": [
+    "candle4",
+    "candle4"
+   ],
+   "-923": [
+    "icicle"
+   ],
+   "-922": [
+    "icicle"
+   ],
+   "-920": [
+    "wall_shelf"
+   ],
+   "-916": [
+    "chimney2"
+   ],
+   "-912": [
+    "painting1"
+   ],
+   "-911": [
+    "poster_crowd"
+   ],
+   "-904": [
+    "easel"
+   ],
+   "-820": [
+    "wall_shelf"
+   ],
+   "-816": [
+    "chimney2"
+   ],
+   "-812": [
+    "painting1"
+   ],
+   "-811": [
+    "poster_crowd"
+   ],
+   "-804": [
+    "easel"
+   ],
+   "-705": [
+    "scarecrow"
+   ],
+   "-704": [
+    "scarecrow"
+   ],
+   "-703": [
+    "camera"
+   ],
+   "-605": [
+    "chimney",
+    "furniture_tall",
+    "furniture_huge",
+    "statue_god"
+   ],
+   "-604": [
+    "chimney",
+    "furniture_tall",
+    "furniture_huge",
+    "statue_god"
+   ],
+   "-527": [
+    "root_wall",
+    "root_wall"
+   ],
+   "5": [
+    93
+   ],
+   "6": [
+    93
+   ],
+   "7": [
+    93
+   ],
+   "14": [
+    94
+   ],
+   "15": [
+    94
+   ],
+   "18": [
+    99
+   ],
+   "21": [
+    121
+   ],
+   "22": [
+    121
+   ],
+   "53": [
+    108
+   ],
+   "57": [
+    139
+   ],
+   "61": [
+    140
+   ],
+   "103": [
+    37
+   ],
+   "105": [
+    "obj_fake"
+   ],
+   "107": [
+    "block_fake"
+   ],
+   "108": [
+    "statue_elin"
+   ],
+   "145": [
+    122
+   ],
+   "153": [
+    137
+   ],
+   "240": [
+    123
+   ],
+   "253": [
+    105
+   ],
+   "300": [
+    35
+   ],
+   "305": [
+    88
+   ],
+   "310": [
+    39
+   ],
+   "311": [
+    42
+   ],
+   "312": [
+    141
+   ],
+   "315": [
+    36
+   ],
+   "316": [
+    40
+   ],
+   "320": [
+    41
+   ],
+   "321": [
+    38
+   ],
+   "322": [
+    138
+   ],
+   "325": [
+    78
+   ],
+   "330": [
+    81
+   ],
+   "335": [
+    16
+   ],
+   "340": [
+    104
+   ],
+   "345": [
+    90
+   ],
+   "432": [
+    "machine_gene2"
+   ],
+   "454": [
+    "waterfall"
+   ],
+   "510": [
+    "defertilizer"
+   ],
+   "511": [
+    "fertilizer"
+   ],
+   "513": [
+    "ration"
+   ],
+   "514": [
+    "dish_lunch"
+   ],
+   "523": [
+    "core_user"
+   ],
+   "527": [
+    "root_wall",
+    "root_wall"
+   ],
+   "554": [
+    "teleporter"
+   ],
+   "558": [
+    "teleporter2"
+   ],
+   "600": [
+    "pot_plantBig"
+   ],
+   "604": [
+    "chimney",
+    "furniture_tall",
+    "furniture_huge",
+    "statue_god"
+   ],
+   "605": [
+    "chimney",
+    "furniture_tall",
+    "furniture_huge",
+    "statue_god"
+   ],
+   "608": [
+    "waystone"
+   ],
+   "612": [
+    "harp"
+   ],
+   "614": [
+    "candle_stand4"
+   ],
+   "616": [
+    "balloon"
+   ],
+   "617": [
+    "balloon"
+   ],
+   "618": [
+    "balloon"
+   ],
+   "619": [
+    "balloon"
+   ],
+   "620": [
+    "furniture_pole"
+   ],
+   "632": [
+    "machine_gene"
+   ],
+   "633": [
+    "machine_gene"
+   ],
+   "636": [
+    "machine_gene"
+   ],
+   "644": [
+    "case"
+   ],
+   "652": [
+    82
+   ],
+   "653": [
+    82
+   ],
+   "656": [
+    82
+   ],
+   "657": [
+    82
+   ],
+   "658": [
+    82
+   ],
+   "659": [
+    82
+   ],
+   "660": [
+    83
+   ],
+   "700": [
+    "grave"
+   ],
+   "702": [
+    "stand_armor"
+   ],
+   "703": [
+    "camera"
+   ],
+   "704": [
+    "scarecrow"
+   ],
+   "705": [
+    "scarecrow"
+   ],
+   "708": [
+    "candle_stand6"
+   ],
+   "709": [
+    "candle_stand"
+   ],
+   "710": [
+    "candle_stand3"
+   ],
+   "712": [
+    "candle_stand2"
+   ],
+   "713": [
+    "candle_stand2"
+   ],
+   "714": [
+    "candle_stand5"
+   ],
+   "715": [
+    "carpet"
+   ],
+   "718": [
+    "electronics",
+    "tool_talisman"
+   ],
+   "719": [
+    "tool_butcher"
+   ],
+   "720": [
+    "tool_writting"
+   ],
+   "721": [
+    "chopper"
+   ],
+   "722": [
+    "tool_alchemy"
+   ],
+   "724": [
+    "mixer"
+   ],
+   "725": [
+    "candle_kinoko"
+   ],
+   "727": [
+    "tool_jewelry"
+   ],
+   "728": [
+    "tool_sewing"
+   ],
+   "729": [
+    "tool_carving"
+   ],
+   "730": [
+    "tool_bone"
+   ],
+   "744": [
+    "board_cork"
+   ],
+   "751": [
+    "teleporter_demon"
+   ],
+   "757": [
+    100
+   ],
+   "758": [
+    87
+   ],
+   "759": [
+    86
+   ],
+   "760": [
+    46
+   ],
+   "761": [
+    34
+   ],
+   "762": [
+    85
+   ],
+   "804": [
+    "easel"
+   ],
+   "805": [
+    "mountedStuff"
+   ],
+   "811": [
+    "poster_crowd"
+   ],
+   "812": [
+    "painting1"
+   ],
+   "816": [
+    "chimney2"
+   ],
+   "819": [
+    "posterBig"
+   ],
+   "820": [
+    "wall_shelf"
+   ],
+   "822": [
+    "poster"
+   ],
+   "824": [
+    "tapestry1"
+   ],
+   "827": [
+    "shackle"
+   ],
+   "904": [
+    "easel"
+   ],
+   "906": [
+    "tree_fallen2"
+   ],
+   "908": [
+    "tree_fallen3"
+   ],
+   "911": [
+    "poster_crowd"
+   ],
+   "912": [
+    "painting1"
+   ],
+   "916": [
+    "chimney2"
+   ],
+   "920": [
+    "wall_shelf"
+   ],
+   "922": [
+    "icicle"
+   ],
+   "923": [
+    "icicle"
+   ],
+   "924": [
+    "candle4",
+    "candle4"
+   ],
+   "926": [
+    "waterdrain"
+   ],
+   "929": [
+    "cobweb"
+   ],
+   "930": [
+    "cobweb"
+   ],
+   "931": [
+    "candle7",
+    "candle7"
+   ],
+   "938": [
+    "toro_stone"
+   ],
+   "940": [
+    "toro_wood"
+   ],
+   "944": [
+    "case2"
+   ],
+   "960": [
+    "basketGoal"
+   ],
+   "1000": [
+    "spotlight"
+   ],
+   "1003": [
+    "camera"
+   ],
+   "1008": [
+    "tree_fallen"
+   ],
+   "1015": [
+    "container_delivery"
+   ],
+   "1018": [
+    "computer"
+   ],
+   "1022": [
+    "cardboard_box"
+   ],
+   "1024": [
+    "container_shipping_farm",
+    "container_shipping",
+    "container_shippingBig"
+   ],
+   "1026": [
+    "generator_drain"
+   ],
+   "1027": [
+    "vine_wall",
+    "vine_wall"
+   ],
+   "1029": [
+    "fountain_wall"
+   ],
+   "1032": [
+    "coffin_stone"
+   ],
+   "1044": [
+    "case2"
+   ],
+   "1048": [
+    "xmas_garland"
+   ],
+   "1051": [
+    "wall_arch"
+   ],
+   "1056": [
+    "xmas_sled"
+   ],
+   "1057": [
+    "xmas_bigbag"
+   ],
+   "1058": [
+    "xmas_bigbox"
+   ],
+   "1059": [
+    "xmas_tree"
+   ],
+   "1100": [
+    "spotlight"
+   ],
+   "1102": [
+    "generator_man"
+   ],
+   "1106": [
+    "generator_solar"
+   ],
+   "1116": [
+    "chest_boss"
+   ],
+   "1117": [
+    "chest_treasure"
+   ],
+   "1118": [
+    "computer"
+   ],
+   "1120": [
+    "chest8"
+   ],
+   "1121": [
+    "chest7"
+   ],
+   "1128": [
+    "container_burnable"
+   ],
+   "1130": [
+    "container_unburnable"
+   ],
+   "1134": [
+    "container_compost"
+   ],
+   "1136": [
+    "container_saisen"
+   ],
+   "1137": [
+    "container_magic"
+   ],
+   "1148": [
+    "pearl_oyster"
+   ],
+   "1149": [
+    "pearl_oyster"
+   ],
+   "1151": [
+    "wall_arch"
+   ],
+   "1206": [
+    "hitchingpost"
+   ],
+   "1207": [
+    "hitchingpost"
+   ],
+   "1208": [
+    "igloo"
+   ],
+   "1209": [
+    "igloo"
+   ],
+   "1213": [
+    "altar_fox2"
+   ],
+   "1215": [
+    "taiko"
+   ],
+   "1225": [
+    "chest5"
+   ],
+   "1228": [
+    "chest6"
+   ],
+   "1242": [
+    "mannequin"
+   ],
+   "1245": [
+    "mannequin_wedding"
+   ],
+   "1304": [
+    "lever"
+   ],
+   "1309": [
+    "entrance_mine_mini"
+   ],
+   "1313": [
+    "altar_fox"
+   ],
+   "1314": [
+    "altar_strife"
+   ],
+   "1315": [
+    "guitar_ash",
+    "guitar_efrond",
+    "guitar"
+   ],
+   "1326": [
+    "chest_practice"
+   ],
+   "1330": [
+    "toilet2"
+   ],
+   "1357": [
+    "stone_garden"
+   ],
+   "1400": [
+    "furniture_big"
+   ],
+   "1401": [
+    "vmachine"
+   ],
+   "1403": [
+    "safe",
+    "container_deposit"
+   ],
+   "1405": [
+    "bathtub"
+   ],
+   "1407": [
+    "workbench"
+   ],
+   "1408": [
+    "fridge"
+   ],
+   "1411": [
+    "sofa"
+   ],
+   "1412": [
+    "board"
+   ],
+   "1413": [
+    "altar"
+   ],
+   "1416": [
+    "table_cook"
+   ],
+   "1418": [
+    "cabinet"
+   ],
+   "1419": [
+    "bookshelf"
+   ],
+   "1421": [
+    "chest3"
+   ],
+   "1422": [
+    "table"
+   ],
+   "1423": [
+    "gacha"
+   ],
+   "1426": [
+    "table_mirror"
+   ],
+   "1427": [
+    "pitchfork"
+   ],
+   "1428": [
+    "torture_horse"
+   ],
+   "1429": [
+    "torture_cross"
+   ],
+   "1430": [
+    "toilet"
+   ],
+   "1431": [
+    "screen"
+   ],
+   "1439": [
+    "factory_floor"
+   ],
+   "1440": [
+    "factory_block"
+   ],
+   "1441": [
+    "factory_wall"
+   ],
+   "1442": [
+    "factory_platform"
+   ],
+   "1443": [
+    "factory_sculpture"
+   ],
+   "1445": [
+    "spinner"
+   ],
+   "1446": [
+    "espresso_machine"
+   ],
+   "1447": [
+    "factory_sign"
+   ],
+   "1448": [
+    "incubator"
+   ],
+   "1453": [
+    "takomaker"
+   ],
+   "1454": [
+    "nuke"
+   ],
+   "1456": [
+    "factory_map"
+   ],
+   "1458": [
+    "votivestand"
+   ],
+   "1501": [
+    "vmachine"
+   ],
+   "1507": [
+    "workbench"
+   ],
+   "1510": [
+    "truck"
+   ],
+   "1511": [
+    "sofa"
+   ],
+   "1516": [
+    "stove"
+   ],
+   "1518": [
+    "cabinet"
+   ],
+   "1521": [
+    "chest3"
+   ],
+   "1523": [
+    "gacha"
+   ],
+   "1524": [
+    "mailpost"
+   ],
+   "1526": [
+    "table_mirror"
+   ],
+   "1527": [
+    "broom_witch"
+   ],
+   "1528": [
+    "trashcan"
+   ],
+   "1530": [
+    "toilet"
+   ],
+   "1533": [
+    "factory_accessory"
+   ],
+   "1534": [
+    "factory_armorLight"
+   ],
+   "1535": [
+    "factory_gun"
+   ],
+   "1536": [
+    "factory_armorHeavy"
+   ],
+   "1537": [
+    "factory_bow"
+   ],
+   "1539": [
+    "factory_barrel"
+   ],
+   "1546": [
+    "grindstone"
+   ],
+   "1547": [
+    "factory_wood"
+   ],
+   "1548": [
+    "factory_glass",
+    "factory_alchemy"
+   ],
+   "1549": [
+    "factory_stone"
+   ],
+   "1550": [
+    "factory_tinker"
+   ],
+   "1551": [
+    "factory_metal"
+   ],
+   "1552": [
+    "telescope"
+   ],
+   "1554": [
+    "nuke"
+   ],
+   "1556": [
+    "factory_map"
+   ],
+   "1558": [
+    "votivestand"
+   ],
+   "1600": [
+    "fireplace",
+    "gallows"
+   ],
+   "1603": [
+    "caseL",
+    "piano2"
+   ],
+   "1604": [
+    "bed"
+   ],
+   "1605": [
+    "furnitureL_wall",
+    "windowL",
+    "doorframe"
+   ],
+   "1607": [
+    "server"
+   ],
+   "1609": [
+    "generator2"
+   ],
+   "1611": [
+    "recharger"
+   ],
+   "1613": [
+    "workbench2"
+   ],
+   "1614": [
+    "factory_hand",
+    "curtainL"
+   ],
+   "1615": [
+    "doll"
+   ],
+   "1617": [
+    "furance",
+    "oven"
+   ],
+   "1623": [
+    "chest4"
+   ],
+   "1624": [
+    "cathouse"
+   ],
+   "1625": [
+    "locker"
+   ],
+   "1628": [
+    "fence_flower"
+   ],
+   "1629": [
+    "tool_art"
+   ],
+   "1630": [
+    "chair_long"
+   ],
+   "1652": [
+    "sofa_single"
+   ],
+   "1658": [
+    "speaker"
+   ],
+   "1700": [
+    "fireplace"
+   ],
+   "1701": [
+    "well_holy"
+   ],
+   "1707": [
+    "generator"
+   ],
+   "1713": [
+    "workbench2"
+   ],
+   "1714": [
+    "factory_hand"
+   ],
+   "1718": [
+    "chest_modern2"
+   ],
+   "1724": [
+    "doghouse"
+   ],
+   "1725": [
+    "locker"
+   ],
+   "1729": [
+    "tool_art"
+   ],
+   "1730": [
+    "chair_long"
+   ],
+   "1752": [
+    "sofa_single"
+   ],
+   "1754": [
+    "generator_chair"
+   ],
+   "1758": [
+    "generator_hamster1"
+   ],
+   "1760": [
+    "generator_hamster2"
+   ],
+   "1800": [
+    "well"
+   ],
+   "1803": [
+    "well"
+   ],
+   "1804": [
+    "altar_chaos",
+    "stairs"
+   ],
+   "1805": [
+    "ash",
+    "stairs"
+   ],
+   "1806": [
+    "ash2",
+    "stairs"
+   ],
+   "1807": [
+    "altar_machine",
+    "stairs"
+   ],
+   "1809": [
+    "core_zone"
+   ],
+   "1810": [
+    "tool_build"
+   ],
+   "1811": [
+    "board_build"
+   ],
+   "1812": [
+    "well_modern"
+   ],
+   "1813": [
+    "chest_modern",
+    "container_delivery_modern"
+   ],
+   "1816": [
+    "board_modern",
+    "stairsHoard"
+   ],
+   "1817": [
+    "monitor",
+    "stairsHoard"
+   ],
+   "1818": [
+    "stairsHoard"
+   ],
+   "1819": [
+    "stairsHoard"
+   ],
+   "1821": [
+    "microwave_oven"
+   ],
+   "1829": [
+    "chest_stone"
+   ],
+   "1856": [
+    "pulpit"
+   ],
+   "1857": [
+    "pulpit"
+   ],
+   "1902": [
+    "pedestal_power"
+   ],
+   "1903": [
+    "grave_dagger"
+   ],
+   "1906": [
+    "stone_defense"
+   ],
+   "1907": [
+    "core_defense"
+   ],
+   "1908": [
+    "beehive"
+   ],
+   "1909": [
+    "altar_ancient"
+   ],
+   "1910": [
+    "board_tech"
+   ],
+   "1911": [
+    "board_map"
+   ],
+   "1912": [
+    "board_expedition"
+   ],
+   "1913": [
+    "board_home"
+   ],
+   "1914": [
+    "board_resident"
+   ],
+   "1915": [
+    "roadsign"
+   ],
+   "1916": [
+    "roadsign"
+   ],
+   "1918": [
+    "boardHouse"
+   ],
+   "1919": [
+    "signpost"
+   ],
+   "1922": [
+    "container_salary"
+   ],
+   "1923": [
+    "boardRoom"
+   ],
+   "1935": [
+    "play_seesaw"
+   ],
+   "1937": [
+    "play_bar"
+   ],
+   "1938": [
+    "play_bar"
+   ],
+   "1940": [
+    "play_gym"
+   ],
+   "1941": [
+    "play_gym2"
+   ],
+   "1943": [
+    "play_slide"
+   ],
+   "1945": [
+    "play_pool"
+   ],
+   "1950": [
+    "play_mountain"
+   ],
+   "2000": [
+    "street_lamp",
+    "door_hole"
+   ],
+   "2001": [
+    "street_lamp2",
+    "door_hole"
+   ],
+   "2002": [
+    "street_lamp3",
+    "door_trap"
+   ],
+   "2003": [
+    "street_lamp3",
+    "stairsDown"
+   ],
+   "2004": [
+    "raft",
+    "street_lamp4"
+   ],
+   "2005": [
+    "street_lamp4"
+   ],
+   "2006": [
+    "street_lamp5"
+   ],
+   "2007": [
+    "street_lamp6"
+   ],
+   "2008": [
+    "head"
+   ],
+   "2012": [
+    "meatbag"
+   ],
+   "2013": [
+    "meatbag"
+   ],
+   "2014": [
+    "meatbag"
+   ],
+   "2015": [
+    "meatbag"
+   ],
+   "2016": [
+    "statue_lulu_b"
+   ],
+   "2021": [
+    "stairs_locked"
+   ],
+   "2022": [
+    "stairs_locked"
+   ],
+   "2023": [
+    "parasol"
+   ],
+   "2026": [
+    "pillow_body",
+    "pillow_jure"
+   ],
+   "2029": [
+    "pillow_ehekatl"
+   ],
+   "2031": [
+    "pillow_opatos"
+   ],
+   "2032": [
+    "pillow_kumiromi"
+   ],
+   "2033": [
+    "pillow_kumiromi"
+   ],
+   "2034": [
+    "pillow_mani"
+   ],
+   "2035": [
+    "pillow_lulwy"
+   ],
+   "2036": [
+    "pillow_itzpalt"
+   ],
+   "2037": [
+    "pillow_itzpalt"
+   ],
+   "2038": [
+    "pillow_jure"
+   ],
+   "2039": [
+    "play_swing"
+   ],
+   "2043": [
+    "pillow_jure"
+   ],
+   "2045": [
+    "rolling_fortune"
+   ],
+   "2049": [
+    "spit_pig"
+   ],
+   "2106": [
+    "stool"
+   ],
+   "2107": [
+    "stool"
+   ],
+   "2111": [
+    "pedestal_stone"
+   ],
+   "2117": [
+    "board_party"
+   ],
+   "2118": [
+    "board_party2"
+   ],
+   "2129": [
+    "hammock"
+   ],
+   "2131": [
+    "shower_head2"
+   ],
+   "2134": [
+    "play_ride_kin"
+   ],
+   "2135": [
+    "play_ride"
+   ],
+   "2149": [
+    "spit_dino"
+   ],
+   "2201": [
+    "paintsign_stand"
+   ],
+   "2203": [
+    "paint",
+    "paintsign_side"
+   ],
+   "2222": [
+    "pool_damn"
+   ],
+   "2231": [
+    "shower_head2"
+   ],
+   "2234": [
+    "play_ride_kin"
+   ],
+   "2235": [
+    "play_ride"
+   ],
+   "2335": [
+    "play_ride_big"
+   ],
+   "2414": [
+    "torchL"
+   ],
+   "2435": [
+    "play_ride_big"
+   ],
+   "2500": [
+    "window"
+   ],
+   "2503": [
+    "bridge_tree"
+   ],
+   "2504": [
+    "curtain"
+   ],
+   "2507": [
+    "wall_broken"
+   ],
+   "2513": [
+    "furniture_float",
+    "furniture_wall"
+   ],
+   "2600": [
+    "illumination3"
+   ],
+   "2601": [
+    "door4",
+    "door4",
+    "door_boat",
+    "door_boat"
+   ],
+   "2602": [
+    "door_lattice",
+    "door_lattice"
+   ],
+   "2603": [
+    "door_chocolate",
+    "door_chocolate"
+   ],
+   "2604": [
+    "door_fence",
+    "door_fence"
+   ],
+   "2606": [
+    "door_auto",
+    "door_auto"
+   ],
+   "2608": [
+    "door_stone",
+    "door_stone"
+   ],
+   "2611": [
+    "door_swing",
+    "door_swing"
+   ],
+   "2612": [
+    "door_curtain"
+   ],
+   "2618": [
+    "door_grass",
+    "door_grass"
+   ],
+   "2622": [
+    "door_shoji",
+    "door_shoji"
+   ],
+   "2650": [
+    "door_curtain2"
+   ],
+   "2651": [
+    "door_curtain2"
+   ],
+   "2653": [
+    "door_biscuit",
+    "door_biscuit"
+   ],
+   "2654": [
+    "door_cloth"
+   ],
+   "2655": [
+    "door_cloth"
+   ],
+   "2656": [
+    "door_alien"
+   ],
+   "2657": [
+    "door_alien"
+   ],
+   "2800": [
+    "brewery"
+   ],
+   "2806": [
+    "bbq"
+   ],
+   "2808": [
+    "shelf_aging"
+   ],
+   "2812": [
+    "sawmill"
+   ],
+   "2813": [
+    "sawmill"
+   ],
+   "2814": [
+    "stonecutter"
+   ],
+   "2815": [
+    "loom"
+   ],
+   "2816": [
+    "jewelybench"
+   ],
+   "2817": [
+    "klin"
+   ],
+   "2818": [
+    "millstone"
+   ],
+   "2819": [
+    "machinebench"
+   ],
+   "2821": [
+    "anvil"
+   ],
+   "2823": [
+    "cauldron"
+   ],
+   "2824": [
+    "trainingDummy"
+   ],
+   "2827": [
+    "furniture"
+   ],
+   "2828": [
+    "map_big"
+   ],
+   "2831": [
+    "dartsboard_wall"
+   ],
+   "2832": [
+    "dartsboard"
+   ],
+   "2833": [
+    "table_casino"
+   ],
+   "2834": [
+    "table_bj"
+   ],
+   "2835": [
+    "throne1"
+   ],
+   "2838": [
+    "table_billiard"
+   ],
+   "2840": [
+    "piano"
+   ],
+   "2841": [
+    "piano"
+   ],
+   "2842": [
+    "dry_rack"
+   ],
+   "2843": [
+    "dry_rack"
+   ],
+   "2846": [
+    "scratchmachine"
+   ],
+   "2910": [
+    "dry_brick"
+   ],
+   "2911": [
+    "dry_brick"
+   ],
+   "2918": [
+    "rationmaker"
+   ],
+   "2920": [
+    "smelter"
+   ],
+   "2921": [
+    "anvil"
+   ],
+   "2923": [
+    "dyemaker"
+   ],
+   "2924": [
+    "trainingDummy"
+   ],
+   "2926": [
+    "loytel_mart",
+    "wagon1"
+   ],
+   "2927": [
+    "figure"
+   ],
+   "2928": [
+    "figure2"
+   ],
+   "2931": [
+    "counter",
+    "counter"
+   ],
+   "2932": [
+    "counter_corner"
+   ],
+   "2933": [
+    "counter_corner"
+   ],
+   "2934": [
+    "counter_corner"
+   ],
+   "2939": [
+    "koto"
+   ],
+   "2941": [
+    "cello"
+   ],
+   "2946": [
+    "scratchmachine"
+   ],
+   "3018": [
+    "millstone_wood"
+   ],
+   "3024": [
+    "trainingDummy_heavy"
+   ],
+   "3028": [
+    "figure3"
+   ],
+   "3033": [
+    "slotmachine"
+   ],
+   "3037": [
+    "pachislot"
+   ],
+   "3040": [
+    "harpsichord"
+   ],
+   "3041": [
+    "piano_killkill"
+   ],
+   "3042": [
+    "piano_gould"
+   ],
+   "3043": [
+    "drum"
+   ],
+   "3101": [
+    "bed_double"
+   ],
+   "3102": [
+    "stall"
+   ],
+   "3107": [
+    "elevator"
+   ],
+   "3108": [
+    "cage"
+   ],
+   "3109": [
+    "cage"
+   ],
+   "3112": [
+    "cage"
+   ],
+   "3116": [
+    "statue_power"
+   ],
+   "3126": [
+    "trainingDummy_sandbag"
+   ],
+   "3139": [
+    "jukebox"
+   ],
+   "3216": [
+    "statue_power"
+   ],
+   "3220": [
+    136
+   ],
+   "3221": [
+    136
+   ],
+   "3222": [
+    136
+   ],
+   "3223": [
+    136
+   ],
+   "3316": [
+    135
+   ],
+   "3323": [
+    "cauldron_dark"
+   ],
+   "3416": [
+    89
+   ],
+   "3500": [
+    "lamp_ceil",
+    43
+   ],
+   "3502": [
+    "lamp_ceil2"
+   ],
+   "3506": [
+    "lamp_ceil_sun"
+   ],
+   "3508": [
+    "ceil_fan"
+   ],
+   "3511": [
+    "lamp_ceil3"
+   ],
+   "3516": [
+    44
+   ],
+   "3600": [
+    "furniture_ceil",
+    31
+   ],
+   "3608": [
+    "awning "
+   ],
+   "3615": [
+    "cloud"
+   ],
+   "3616": [
+    "cloud",
+    33
+   ],
+   "3617": [
+    "cloud"
+   ],
+   "3618": [
+    "cloud"
+   ],
+   "3619": [
+    "cloud"
+   ],
+   "3620": [
+    "cloud"
+   ],
+   "3621": [
+    "cloud"
+   ],
+   "3622": [
+    "cloud"
+   ],
+   "3623": [
+    "cloud"
+   ],
+   "3624": [
+    "cloud"
+   ],
+   "3700": [
+    "illumination2",
+    32
+   ],
+   "3716": [
+    92
+   ],
+   "3800": [
+    110
+   ],
+   "4100": [
+    "balloon_ono"
+   ],
+   "4101": [
+    "balloon_ono"
+   ],
+   "4102": [
+    "balloon_ono"
+   ],
+   "4103": [
+    "balloon_ono"
+   ],
+   "4200": [
+    "generator_wind"
+   ],
+   "4300": [
+    "sword_dragon"
+   ],
+   "4301": [
+    "pole_gunlance"
+   ],
+   "4302": [
+    "blunt_bonehammer"
+   ],
+   "4303": [
+    "axe_destruction"
+   ],
+   "4304": [
+    "lightsaber_double"
+   ],
+   "4305": [
+    "sword_muramasa"
+   ],
+   "4307": [
+    "dagger_fish"
+   ],
+   "4308": [
+    "sword_muramasa2"
+   ],
+   "4311": [
+    "scythe_kumi"
+   ],
+   "4314": [
+    "blunt_log"
+   ],
+   "4315": [
+    "dagger_cakecutter"
+   ],
+   "4400": [
+    "blunt_earth"
+   ],
+   "4403": [
+    "pole_holy"
+   ],
+   "4412": [
+    "dress_wedding"
+   ],
+   "4413": [
+    "tuxedo"
+   ],
+   "4800": [
+    "painting_reward"
+   ],
+   "4900": [
+    "painting_reward"
+   ],
+   "5200": [
+    "memorial_block"
+   ],
+   "5300": [
+    "partition_pole"
+   ],
+   "5507": [
+    "statue_gargoyle"
+   ],
+   "5607": [
+    "statue_gargoyle"
+   ],
+   "5800": [
+    "coffin",
+    "coffin_bed"
+   ],
+   "5900": [
+    "coffinv"
+   ],
+   "6000": [
+    "coffinv"
+   ],
+   "6100": [
+    142
+   ],
+   "6101": [
+    142
+   ],
+   "6102": [
+    142
+   ],
+   "6103": [
+    142
+   ],
+   "6104": [
+    "wall_bone"
+   ],
+   "6106": [
+    143
+   ],
+   "6107": [
+    143
+   ],
+   "6108": [
+    143
+   ],
+   "6109": [
+    143
+   ],
+   "6110": [
+    143
+   ]
+  },
+  "objH": {
+   "1618": [
+    "rock_monument"
+   ],
+   "2209": [
+    "incinerator"
+   ],
+   "2400": [
+    "furnitureL_huge",
+    "cross_big"
+   ],
+   "2401": [
+    "cross_big2"
+   ],
+   "2403": [
+    "statueL_lulu"
+   ],
+   "2404": [
+    "statueL_jure"
+   ],
+   "2405": [
+    "statueL_ehe"
+   ],
+   "2406": [
+    "statueL_kumi"
+   ],
+   "2407": [
+    "statueL_mani"
+   ],
+   "2408": [
+    "statueL_itz"
+   ],
+   "2409": [
+    "statueL_opa"
+   ],
+   "2500": [
+    "cross_pedestal"
+   ],
+   "2501": [
+    "furnitureL_flat"
+   ],
+   "2502": [
+    "furnitureL_flat"
+   ]
+  },
+  "block": {
+   "-2831": [
+    123
+   ],
+   "-2830": [
+    117
+   ],
+   "-2829": [
+    116
+   ],
+   "-2828": [
+    115
+   ],
+   "-2827": [
+    113
+   ],
+   "-2826": [
+    112
+   ],
+   "-2824": [
+    105
+   ],
+   "-2823": [
+    104
+   ],
+   "-2822": [
+    103
+   ],
+   "-2821": [
+    102
+   ],
+   "-2820": [
+    64
+   ],
+   "-2819": [
+    63
+   ],
+   "-2818": [
+    62
+   ],
+   "-2817": [
+    61
+   ],
+   "-2816": [
+    98
+   ],
+   "-2815": [
+    92
+   ],
+   "-2814": [
+    91
+   ],
+   "-2813": [
+    90
+   ],
+   "-2812": [
+    59
+   ],
+   "-2811": [
+    58
+   ],
+   "-2810": [
+    57
+   ],
+   "-2809": [
+    48
+   ],
+   "-2808": [
+    56
+   ],
+   "-2807": [
+    55
+   ],
+   "-2806": [
+    54
+   ],
+   "-2805": [
+    89
+   ],
+   "-2804": [
+    88
+   ],
+   "-2803": [
+    52
+   ],
+   "-2802": [
+    51
+   ],
+   "-2801": [
+    49
+   ],
+   "-2800": [
+    47
+   ],
+   "-2431": [
+    96
+   ],
+   "-2427": [
+    210
+   ],
+   "-2426": [
+    209
+   ],
+   "-2425": [
+    208
+   ],
+   "-2424": [
+    197
+   ],
+   "-2423": [
+    195
+   ],
+   "-2422": [
+    170
+   ],
+   "-2421": [
+    169
+   ],
+   "-2420": [
+    127
+   ],
+   "-2418": [
+    166,
+    186
+   ],
+   "-2417": [
+    164
+   ],
+   "-2416": [
+    163
+   ],
+   "-2415": [
+    161
+   ],
+   "-2414": [
+    158
+   ],
+   "-2413": [
+    157
+   ],
+   "-2412": [
+    156
+   ],
+   "-2411": [
+    148
+   ],
+   "-2410": [
+    136
+   ],
+   "-2409": [
+    139
+   ],
+   "-2408": [
+    142
+   ],
+   "-2407": [
+    147
+   ],
+   "-2406": [
+    144
+   ],
+   "-2404": [
+    130
+   ],
+   "-2403": [
+    131
+   ],
+   "-2401": [
+    137
+   ],
+   "-1913": [
+    135
+   ],
+   "-1912": [
+    101
+   ],
+   "-1813": [
+    135
+   ],
+   "-1812": [
+    101
+   ],
+   "-1418": [
+    204
+   ],
+   "-1417": [
+    203
+   ],
+   "-1416": [
+    202
+   ],
+   "-1415": [
+    190
+   ],
+   "-1414": [
+    185
+   ],
+   "-1413": [
+    162
+   ],
+   "-1412": [
+    153
+   ],
+   "-1411": [
+    95
+   ],
+   "-1410": [
+    94
+   ],
+   "-1409": [
+    93
+   ],
+   "-1408": [
+    60
+   ],
+   "-1407": [
+    66
+   ],
+   "-1406": [
+    65
+   ],
+   "-1405": [
+    26
+   ],
+   "-1404": [
+    43
+   ],
+   "-1403": [
+    44
+   ],
+   "-1402": [
+    42
+   ],
+   "-1401": [
+    27
+   ],
+   "-1400": [
+    2
+   ],
+   "-1307": [
+    96
+   ],
+   "-1306": [
+    96
+   ],
+   "-1305": [
+    96
+   ],
+   "-1304": [
+    96
+   ],
+   "-1302": [
+    95
+   ],
+   "-1301": [
+    95
+   ],
+   "-1300": [
+    95
+   ],
+   "-801": [
+    159
+   ],
+   "-703": [
+    45
+   ],
+   "-702": [
+    45
+   ],
+   "-701": [
+    159
+   ],
+   "0": [
+    213
+   ],
+   "11": [
+    128
+   ],
+   "12": [
+    149
+   ],
+   "13": [
+    150
+   ],
+   "100": [
+    1,
+    5
+   ],
+   "101": [
+    124
+   ],
+   "102": [
+    9,
+    11
+   ],
+   "103": [
+    143
+   ],
+   "104": [
+    33,
+    7
+   ],
+   "105": [
+    145,
+    7
+   ],
+   "106": [
+    8,
+    7
+   ],
+   "107": [
+    0,
+    7
+   ],
+   "108": [
+    10
+   ],
+   "110": [
+    12
+   ],
+   "112": [
+    14
+   ],
+   "114": [
+    36
+   ],
+   "116": [
+    97
+   ],
+   "117": [
+    187
+   ],
+   "118": [
+    129
+   ],
+   "119": [
+    129
+   ],
+   "120": [
+    191
+   ],
+   "121": [
+    193
+   ],
+   "122": [
+    193
+   ],
+   "123": [
+    192
+   ],
+   "124": [
+    194,
+    133
+   ],
+   "125": [
+    196,
+    133
+   ],
+   "126": [
+    133
+   ],
+   "127": [
+    133
+   ],
+   "128": [
+    134
+   ],
+   "129": [
+    134
+   ],
+   "201": [
+    141
+   ],
+   "204": [
+    15,
+    37
+   ],
+   "205": [
+    146,
+    37
+   ],
+   "206": [
+    34,
+    37
+   ],
+   "207": [
+    205,
+    37
+   ],
+   "208": [
+    30
+   ],
+   "210": [
+    31
+   ],
+   "212": [
+    32
+   ],
+   "214": [
+    35
+   ],
+   "215": [
+    187
+   ],
+   "216": [
+    187
+   ],
+   "217": [
+    187
+   ],
+   "218": [
+    171
+   ],
+   "219": [
+    171
+   ],
+   "220": [
+    188
+   ],
+   "221": [
+    188
+   ],
+   "222": [
+    188
+   ],
+   "223": [
+    188
+   ],
+   "224": [
+    206,
+    132
+   ],
+   "225": [
+    206,
+    132
+   ],
+   "226": [
+    207,
+    132
+   ],
+   "227": [
+    132
+   ],
+   "228": [
+    134
+   ],
+   "229": [
+    134
+   ],
+   "300": [
+    114
+   ],
+   "301": [
+    114
+   ],
+   "302": [
+    201
+   ],
+   "304": [
+    38
+   ],
+   "305": [
+    140,
+    38
+   ],
+   "306": [
+    1,
+    38
+   ],
+   "307": [
+    1,
+    38
+   ],
+   "308": [
+    1
+   ],
+   "309": [
+    167
+   ],
+   "310": [
+    167
+   ],
+   "314": [
+    165
+   ],
+   "315": [
+    165
+   ],
+   "316": [
+    165
+   ],
+   "317": [
+    189
+   ],
+   "318": [
+    189
+   ],
+   "319": [
+    189
+   ],
+   "320": [
+    189
+   ],
+   "400": [
+    16
+   ],
+   "401": [
+    17
+   ],
+   "402": [
+    18
+   ],
+   "403": [
+    19
+   ],
+   "404": [
+    20,
+    39
+   ],
+   "405": [
+    21,
+    39
+   ],
+   "406": [
+    22,
+    39
+   ],
+   "407": [
+    23,
+    39
+   ],
+   "408": [
+    24
+   ],
+   "409": [
+    25
+   ],
+   "410": [
+    50
+   ],
+   "411": [
+    138
+   ],
+   "412": [
+    151
+   ],
+   "413": [
+    152
+   ],
+   "503": [
+    53
+   ],
+   "504": [
+    40
+   ],
+   "505": [
+    40
+   ],
+   "506": [
+    40
+   ],
+   "507": [
+    40
+   ],
+   "600": [
+    18
+   ],
+   "601": [
+    19
+   ],
+   "604": [
+    41
+   ],
+   "605": [
+    23,
+    41
+   ],
+   "606": [
+    41
+   ],
+   "607": [
+    41
+   ],
+   "701": [
+    159
+   ],
+   "702": [
+    45
+   ],
+   "703": [
+    45
+   ],
+   "704": [
+    13,
+    126
+   ],
+   "705": [
+    13,
+    126
+   ],
+   "706": [
+    13,
+    126
+   ],
+   "707": [
+    13,
+    126
+   ],
+   "708": [
+    28
+   ],
+   "709": [
+    28
+   ],
+   "710": [
+    28
+   ],
+   "711": [
+    28
+   ],
+   "713": [
+    160
+   ],
+   "714": [
+    168
+   ],
+   "801": [
+    159
+   ],
+   "804": [
+    175
+   ],
+   "805": [
+    175
+   ],
+   "806": [
+    175
+   ],
+   "807": [
+    175
+   ],
+   "904": [
+    176
+   ],
+   "905": [
+    176
+   ],
+   "906": [
+    176
+   ],
+   "907": [
+    176
+   ],
+   "1004": [
+    177
+   ],
+   "1005": [
+    177
+   ],
+   "1006": [
+    177
+   ],
+   "1007": [
+    177
+   ],
+   "1104": [
+    178
+   ],
+   "1105": [
+    178
+   ],
+   "1106": [
+    178
+   ],
+   "1107": [
+    178
+   ],
+   "1204": [
+    179
+   ],
+   "1205": [
+    179
+   ],
+   "1206": [
+    179
+   ],
+   "1207": [
+    179
+   ],
+   "1300": [
+    95
+   ],
+   "1301": [
+    95
+   ],
+   "1302": [
+    95
+   ],
+   "1304": [
+    96,
+    180
+   ],
+   "1305": [
+    96,
+    180
+   ],
+   "1306": [
+    96,
+    180
+   ],
+   "1307": [
+    96,
+    180
+   ],
+   "1400": [
+    2
+   ],
+   "1401": [
+    27
+   ],
+   "1402": [
+    42
+   ],
+   "1403": [
+    44
+   ],
+   "1404": [
+    43,
+    181
+   ],
+   "1405": [
+    26,
+    181
+   ],
+   "1406": [
+    65,
+    181
+   ],
+   "1407": [
+    66,
+    181
+   ],
+   "1408": [
+    60
+   ],
+   "1409": [
+    93
+   ],
+   "1410": [
+    94
+   ],
+   "1411": [
+    95
+   ],
+   "1412": [
+    153
+   ],
+   "1413": [
+    162
+   ],
+   "1414": [
+    185
+   ],
+   "1415": [
+    190
+   ],
+   "1416": [
+    202
+   ],
+   "1417": [
+    203
+   ],
+   "1418": [
+    204
+   ],
+   "1504": [
+    182
+   ],
+   "1505": [
+    182
+   ],
+   "1506": [
+    182
+   ],
+   "1507": [
+    182
+   ],
+   "1600": [
+    3
+   ],
+   "1601": [
+    3
+   ],
+   "1602": [
+    3
+   ],
+   "1603": [
+    3
+   ],
+   "1604": [
+    6,
+    183
+   ],
+   "1605": [
+    6,
+    183
+   ],
+   "1606": [
+    6,
+    183
+   ],
+   "1607": [
+    6,
+    183
+   ],
+   "1612": [
+    29
+   ],
+   "1613": [
+    29
+   ],
+   "1614": [
+    29
+   ],
+   "1615": [
+    29
+   ],
+   "1704": [
+    184
+   ],
+   "1705": [
+    184
+   ],
+   "1706": [
+    184
+   ],
+   "1707": [
+    184
+   ],
+   "1804": [
+    4
+   ],
+   "1805": [
+    4
+   ],
+   "1806": [
+    4
+   ],
+   "1807": [
+    4
+   ],
+   "1808": [
+    46
+   ],
+   "1809": [
+    46
+   ],
+   "1810": [
+    46
+   ],
+   "1811": [
+    46
+   ],
+   "1812": [
+    101
+   ],
+   "1813": [
+    135
+   ],
+   "1816": [
+    106
+   ],
+   "1817": [
+    106
+   ],
+   "1818": [
+    106
+   ],
+   "1819": [
+    106
+   ],
+   "1820": [
+    154
+   ],
+   "1821": [
+    154
+   ],
+   "1822": [
+    154
+   ],
+   "1823": [
+    154
+   ],
+   "1904": [
+    99
+   ],
+   "1905": [
+    99
+   ],
+   "1906": [
+    99
+   ],
+   "1907": [
+    99
+   ],
+   "1908": [
+    100
+   ],
+   "1909": [
+    100
+   ],
+   "1910": [
+    100
+   ],
+   "1911": [
+    100
+   ],
+   "1912": [
+    101
+   ],
+   "1913": [
+    135
+   ],
+   "1916": [
+    107
+   ],
+   "1917": [
+    107
+   ],
+   "1918": [
+    107
+   ],
+   "1919": [
+    107
+   ],
+   "1920": [
+    155
+   ],
+   "1921": [
+    155
+   ],
+   "1922": [
+    155
+   ],
+   "1923": [
+    155
+   ],
+   "2016": [
+    172
+   ],
+   "2017": [
+    172
+   ],
+   "2018": [
+    172
+   ],
+   "2019": [
+    172
+   ],
+   "2020": [
+    174
+   ],
+   "2021": [
+    174
+   ],
+   "2022": [
+    174
+   ],
+   "2023": [
+    174
+   ],
+   "2116": [
+    173
+   ],
+   "2117": [
+    173
+   ],
+   "2118": [
+    173
+   ],
+   "2119": [
+    173
+   ],
+   "2401": [
+    137
+   ],
+   "2403": [
+    131
+   ],
+   "2404": [
+    130
+   ],
+   "2406": [
+    144
+   ],
+   "2407": [
+    147
+   ],
+   "2408": [
+    142
+   ],
+   "2409": [
+    139
+   ],
+   "2410": [
+    136
+   ],
+   "2411": [
+    148
+   ],
+   "2412": [
+    156
+   ],
+   "2413": [
+    157
+   ],
+   "2414": [
+    158
+   ],
+   "2415": [
+    161
+   ],
+   "2416": [
+    163
+   ],
+   "2417": [
+    164
+   ],
+   "2418": [
+    166,
+    186
+   ],
+   "2420": [
+    127
+   ],
+   "2421": [
+    169
+   ],
+   "2422": [
+    170
+   ],
+   "2423": [
+    195
+   ],
+   "2424": [
+    197
+   ],
+   "2425": [
+    208
+   ],
+   "2426": [
+    209
+   ],
+   "2427": [
+    210
+   ],
+   "2431": [
+    96
+   ],
+   "2605": [
+    200
+   ],
+   "2623": [
+    198
+   ],
+   "2624": [
+    199
+   ],
+   "2625": [
+    211
+   ],
+   "2626": [
+    212
+   ],
+   "2627": [
+    213
+   ],
+   "2800": [
+    47
+   ],
+   "2801": [
+    49
+   ],
+   "2802": [
+    51
+   ],
+   "2803": [
+    52
+   ],
+   "2804": [
+    88
+   ],
+   "2805": [
+    89
+   ],
+   "2806": [
+    54
+   ],
+   "2807": [
+    55
+   ],
+   "2808": [
+    56
+   ],
+   "2809": [
+    48
+   ],
+   "2810": [
+    57
+   ],
+   "2811": [
+    58
+   ],
+   "2812": [
+    59
+   ],
+   "2813": [
+    90
+   ],
+   "2814": [
+    91
+   ],
+   "2815": [
+    92
+   ],
+   "2816": [
+    98
+   ],
+   "2817": [
+    61
+   ],
+   "2818": [
+    62
+   ],
+   "2819": [
+    63
+   ],
+   "2820": [
+    64
+   ],
+   "2821": [
+    102
+   ],
+   "2822": [
+    103
+   ],
+   "2823": [
+    104
+   ],
+   "2824": [
+    105
+   ],
+   "2826": [
+    112
+   ],
+   "2827": [
+    113
+   ],
+   "2828": [
+    115
+   ],
+   "2829": [
+    116
+   ],
+   "2830": [
+    117
+   ],
+   "2831": [
+    123
+   ],
+   "3000": [
+    67
+   ],
+   "3001": [
+    68
+   ],
+   "3002": [
+    69
+   ],
+   "3003": [
+    70
+   ],
+   "3004": [
+    71
+   ],
+   "3005": [
+    72
+   ],
+   "3006": [
+    73
+   ],
+   "3007": [
+    74
+   ],
+   "3008": [
+    75
+   ],
+   "3009": [
+    76
+   ],
+   "3010": [
+    77
+   ],
+   "3011": [
+    78
+   ],
+   "3012": [
+    79
+   ],
+   "3013": [
+    80
+   ],
+   "3014": [
+    81
+   ],
+   "3015": [
+    82
+   ],
+   "3016": [
+    83
+   ],
+   "3017": [
+    84
+   ],
+   "3018": [
+    85
+   ],
+   "3019": [
+    86
+   ],
+   "3020": [
+    87
+   ],
+   "3021": [
+    108
+   ],
+   "3022": [
+    109
+   ],
+   "3023": [
+    110
+   ],
+   "3024": [
+    111
+   ],
+   "3025": [
+    125
+   ],
+   "3026": [
+    118
+   ],
+   "3027": [
+    119
+   ],
+   "3028": [
+    120
+   ],
+   "3029": [
+    121
+   ],
+   "3030": [
+    122
+   ]
+  },
+  "floor": {
+   "-910": [
+    112
+   ],
+   "-904": [
+    76
+   ],
+   "-900": [
+    55
+   ],
+   "-704": [
+    76
+   ],
+   "-700": [
+    4
+   ],
+   "-607": [
+    45
+   ],
+   "-605": [
+    21
+   ],
+   "-603": [
+    47
+   ],
+   "-602": [
+    46
+   ],
+   "-601": [
+    5
+   ],
+   "-600": [
+    57
+   ],
+   "-428": [
+    89
+   ],
+   "-427": [
+    89
+   ],
+   "-420": [
+    85
+   ],
+   "-416": [
+    82
+   ],
+   "0": [
+    143,
+    2
+   ],
+   "6": [
+    0,
+    0
+   ],
+   "7": [
+    3
+   ],
+   "8": [
+    2
+   ],
+   "9": [
+    77
+   ],
+   "11": [
+    90
+   ],
+   "100": [
+    34
+   ],
+   "101": [
+    34
+   ],
+   "102": [
+    34
+   ],
+   "103": [
+    34
+   ],
+   "104": [
+    34
+   ],
+   "105": [
+    34
+   ],
+   "106": [
+    34
+   ],
+   "114": [
+    114
+   ],
+   "116": [
+    113
+   ],
+   "200": [
+    1
+   ],
+   "201": [
+    101
+   ],
+   "202": [
+    99
+   ],
+   "203": [
+    100
+   ],
+   "204": [
+    40
+   ],
+   "205": [
+    40
+   ],
+   "206": [
+    40
+   ],
+   "207": [
+    40
+   ],
+   "208": [
+    40
+   ],
+   "209": [
+    40
+   ],
+   "210": [
+    1
+   ],
+   "211": [
+    1
+   ],
+   "212": [
+    1
+   ],
+   "216": [
+    1
+   ],
+   "300": [
+    33,
+    122
+   ],
+   "301": [
+    40
+   ],
+   "302": [
+    37
+   ],
+   "303": [
+    74
+   ],
+   "306": [
+    72
+   ],
+   "307": [
+    43
+   ],
+   "308": [
+    44
+   ],
+   "309": [
+    73
+   ],
+   "310": [
+    121
+   ],
+   "311": [
+    121
+   ],
+   "312": [
+    121
+   ],
+   "313": [
+    121
+   ],
+   "400": [
+    35
+   ],
+   "401": [
+    35
+   ],
+   "402": [
+    35
+   ],
+   "403": [
+    35
+   ],
+   "404": [
+    42
+   ],
+   "405": [
+    42
+   ],
+   "406": [
+    42
+   ],
+   "407": [
+    42
+   ],
+   "413": [
+    63
+   ],
+   "414": [
+    61
+   ],
+   "415": [
+    62
+   ],
+   "416": [
+    82
+   ],
+   "417": [
+    83
+   ],
+   "418": [
+    84
+   ],
+   "419": [
+    84
+   ],
+   "420": [
+    85
+   ],
+   "421": [
+    86
+   ],
+   "422": [
+    86
+   ],
+   "423": [
+    87
+   ],
+   "424": [
+    87
+   ],
+   "425": [
+    128
+   ],
+   "426": [
+    88
+   ],
+   "427": [
+    89
+   ],
+   "428": [
+    89
+   ],
+   "501": [
+    6
+   ],
+   "502": [
+    14
+   ],
+   "503": [
+    15
+   ],
+   "504": [
+    16
+   ],
+   "505": [
+    17
+   ],
+   "506": [
+    18
+   ],
+   "507": [
+    19
+   ],
+   "508": [
+    27
+   ],
+   "509": [
+    27
+   ],
+   "510": [
+    28
+   ],
+   "511": [
+    32
+   ],
+   "512": [
+    27
+   ],
+   "513": [
+    58
+   ],
+   "514": [
+    59
+   ],
+   "515": [
+    60
+   ],
+   "516": [
+    65
+   ],
+   "517": [
+    103
+   ],
+   "518": [
+    106
+   ],
+   "519": [
+    64
+   ],
+   "520": [
+    107
+   ],
+   "521": [
+    108
+   ],
+   "522": [
+    109
+   ],
+   "523": [
+    117
+   ],
+   "524": [
+    117
+   ],
+   "525": [
+    127
+   ],
+   "526": [
+    129
+   ],
+   "527": [
+    129
+   ],
+   "600": [
+    57
+   ],
+   "601": [
+    5
+   ],
+   "602": [
+    46
+   ],
+   "603": [
+    47
+   ],
+   "604": [
+    31
+   ],
+   "605": [
+    21
+   ],
+   "606": [
+    41
+   ],
+   "607": [
+    45
+   ],
+   "608": [
+    48
+   ],
+   "609": [
+    48
+   ],
+   "610": [
+    48
+   ],
+   "611": [
+    48
+   ],
+   "612": [
+    48
+   ],
+   "613": [
+    102
+   ],
+   "614": [
+    56
+   ],
+   "615": [
+    56
+   ],
+   "617": [
+    94
+   ],
+   "618": [
+    95
+   ],
+   "619": [
+    95
+   ],
+   "620": [
+    96
+   ],
+   "621": [
+    97
+   ],
+   "622": [
+    97
+   ],
+   "623": [
+    115
+   ],
+   "624": [
+    116
+   ],
+   "625": [
+    118
+   ],
+   "626": [
+    119
+   ],
+   "627": [
+    120
+   ],
+   "628": [
+    120
+   ],
+   "629": [
+    132
+   ],
+   "630": [
+    132
+   ],
+   "700": [
+    4
+   ],
+   "701": [
+    29
+   ],
+   "702": [
+    22
+   ],
+   "703": [
+    23
+   ],
+   "704": [
+    76
+   ],
+   "705": [
+    141
+   ],
+   "706": [
+    36
+   ],
+   "707": [
+    75
+   ],
+   "709": [
+    49
+   ],
+   "710": [
+    39,
+    56
+   ],
+   "711": [
+    56
+   ],
+   "712": [
+    56
+   ],
+   "713": [
+    56
+   ],
+   "714": [
+    56
+   ],
+   "715": [
+    56
+   ],
+   "717": [
+    123
+   ],
+   "718": [
+    124
+   ],
+   "719": [
+    131
+   ],
+   "720": [
+    134
+   ],
+   "721": [
+    135
+   ],
+   "722": [
+    136
+   ],
+   "725": [
+    142
+   ],
+   "726": [
+    143
+   ],
+   "727": [
+    143
+   ],
+   "729": [
+    133
+   ],
+   "730": [
+    133
+   ],
+   "731": [
+    133
+   ],
+   "800": [
+    24
+   ],
+   "801": [
+    7
+   ],
+   "802": [
+    25
+   ],
+   "803": [
+    9
+   ],
+   "804": [
+    11
+   ],
+   "805": [
+    12
+   ],
+   "806": [
+    13
+   ],
+   "807": [
+    38
+   ],
+   "808": [
+    30
+   ],
+   "809": [
+    50
+   ],
+   "810": [
+    51
+   ],
+   "811": [
+    50
+   ],
+   "812": [
+    51
+   ],
+   "813": [
+    50
+   ],
+   "814": [
+    51
+   ],
+   "815": [
+    78
+   ],
+   "816": [
+    79
+   ],
+   "817": [
+    80
+   ],
+   "818": [
+    81
+   ],
+   "819": [
+    92
+   ],
+   "820": [
+    92
+   ],
+   "821": [
+    92
+   ],
+   "822": [
+    93
+   ],
+   "823": [
+    93
+   ],
+   "824": [
+    93
+   ],
+   "825": [
+    98
+   ],
+   "826": [
+    98
+   ],
+   "827": [
+    98
+   ],
+   "828": [
+    98
+   ],
+   "829": [
+    105
+   ],
+   "830": [
+    110
+   ],
+   "831": [
+    111
+   ],
+   "900": [
+    55
+   ],
+   "901": [
+    8
+   ],
+   "902": [
+    26
+   ],
+   "903": [
+    9
+   ],
+   "904": [
+    76
+   ],
+   "905": [
+    52
+   ],
+   "906": [
+    53
+   ],
+   "907": [
+    10
+   ],
+   "908": [
+    10
+   ],
+   "909": [
+    104
+   ],
+   "910": [
+    112
+   ],
+   "911": [
+    125
+   ],
+   "912": [
+    125
+   ],
+   "913": [
+    126
+   ],
+   "1111": [
+    130
+   ],
+   "1200": [
+    67
+   ],
+   "1201": [
+    67
+   ],
+   "1202": [
+    67
+   ],
+   "1203": [
+    67
+   ],
+   "1207": [
+    138
+   ],
+   "1208": [
+    68
+   ],
+   "1209": [
+    68
+   ],
+   "1210": [
+    68
+   ],
+   "1211": [
+    68
+   ],
+   "1212": [
+    91
+   ],
+   "1213": [
+    91
+   ],
+   "1214": [
+    91
+   ],
+   "1215": [
+    91
+   ],
+   "1216": [
+    69
+   ],
+   "1217": [
+    69
+   ],
+   "1218": [
+    69
+   ],
+   "1219": [
+    69
+   ],
+   "1224": [
+    66
+   ],
+   "1225": [
+    66
+   ],
+   "1226": [
+    66
+   ],
+   "1227": [
+    66
+   ],
+   "1300": [
+    70
+   ],
+   "1301": [
+    70
+   ],
+   "1302": [
+    70
+   ],
+   "1303": [
+    70
+   ],
+   "1305": [
+    139
+   ],
+   "1306": [
+    140
+   ],
+   "1307": [
+    71
+   ],
+   "1308": [
+    71
+   ],
+   "1309": [
+    71
+   ],
+   "1310": [
+    71
+   ],
+   "1311": [
+    71
+   ],
+   "1312": [
+    137
+   ],
+   "1313": [
+    137
+   ],
+   "1314": [
+    137
+   ],
+   "1315": [
+    137
+   ],
+   "1316": [
+    137
+   ],
+   "1317": [
+    137
+   ],
+   "2200": [
+    20
+   ],
+   "2915": [
+    2
+   ],
+   "3300": [
+    54
+   ],
+   "3301": [
+    54
+   ],
+   "3302": [
+    54
+   ],
+   "3303": [
+    54
+   ]
+  }
+ }
+}

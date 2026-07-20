@@ -2,6 +2,9 @@
 // 移植自原版 Elin 的 AIAct 协程式行为树体系
 // 使用 JavaScript generator 模拟 C# IEnumerator<Status>
 
+import { findPath } from './pathfind.js?v=2';
+import { attack } from './combat.js';
+
 // ---------- AI 状态枚举 ----------
 export const AIStatus = {
   Running: 0,
@@ -326,7 +329,6 @@ export class AI_Goto extends AIAct {
 
     // 寻路
     if(!this.path){
-      const { findPath } = await import('./pathfind.js');
       this.path = findPath(game.map, e.x, e.y, this.targetX, this.targetY);
       this.pathIdx = 0;
       if(!this.path || this.path.length === 0){
@@ -578,7 +580,6 @@ export class AI_Chase extends AIAct {
     if(dist <= 1){
       if(this.attackCD <= 0){
         // 攻击
-        const { attack } = await import('./combat.js');
         attack(e, this.target, e.rng || game.rng, (t, ty) => game.log && game.log(t, ty));
         this.attackCD = 2;
       } else {

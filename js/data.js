@@ -310,6 +310,58 @@ export const GODS = {
 // ---------- 天气 ----------
 export const WEATHER = ['晴','阴','雨','雷暴','以太之风'];
 
+// ---------- 季节系统 ----------
+export const SEASONS = {
+  spring: {
+    id: 'spring', name: '春', icon: '🌸',
+    temps: [15, 25],  // 温度范围
+    weatherWeights: { '晴': 30, '阴': 25, '雨': 30, '雷暴': 10, '以太之风': 5 },
+    growthMod: 1.2,  // 作物生长速度加成
+    fishingMod: 1.0,
+    desc: '万物复苏的季节',
+  },
+  summer: {
+    id: 'summer', name: '夏', icon: '☀️',
+    temps: [25, 35],
+    weatherWeights: { '晴': 40, '阴': 20, '雨': 15, '雷暴': 20, '以太之风': 5 },
+    growthMod: 1.5,
+    fishingMod: 1.2,
+    desc: '炎热的季节',
+  },
+  autumn: {
+    id: 'autumn', name: '秋', icon: '🍂',
+    temps: [10, 20],
+    weatherWeights: { '晴': 25, '阴': 30, '雨': 25, '雷暴': 10, '以太之风': 10 },
+    growthMod: 0.8,
+    fishingMod: 0.9,
+    desc: '收获的季节',
+  },
+  winter: {
+    id: 'winter', name: '冬', icon: '❄️',
+    temps: [-5, 10],
+    weatherWeights: { '晴': 20, '阴': 30, '雨': 25, '雷暴': 5, '以太之风': 20 },
+    growthMod: 0.3,
+    fishingMod: 0.7,
+    desc: '寒冷的季节',
+  },
+};
+
+// 根据天数获取季节（每30天一季）
+export function getSeason(day){
+  const cycle = Math.floor((day - 1) / 30) % 4;
+  const seasons = ['spring', 'summer', 'autumn', 'winter'];
+  return SEASONS[seasons[cycle]];
+}
+
+// 根据天气获取效果
+export const WEATHER_EFFECTS = {
+  '晴': { moveCost: 1.0, visibility: 1.0, morale: 5, desc: '晴朗' },
+  '阴': { moveCost: 1.0, visibility: 0.9, morale: 0, desc: '阴天' },
+  '雨': { moveCost: 1.2, visibility: 0.7, morale: -5, desc: '下雨' },
+  '雷暴': { moveCost: 1.5, visibility: 0.5, morale: -15, desc: '雷暴' },
+  '以太之风': { moveCost: 1.0, visibility: 0.3, morale: -10, magicResist: -20, desc: '以太之风' },
+};
+
 // ---------- 品质名称 ----------
 export const QUALITY = {
   normal:{name:'',cls:'',mult:1.0},

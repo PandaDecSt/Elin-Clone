@@ -1,0 +1,57 @@
+{
+ "_meta": {
+  "source": "SourceBlock.xlsx!Deco",
+  "total": 4,
+  "note": "地板装饰边框(stone border/curb). sheet 取自 _idRenderData."
+ },
+ "entries": [
+  {
+   "id": 2,
+   "alias": null,
+   "name": 2,
+   "displayName": null,
+   "tile": 0,
+   "sheet": "floor",
+   "sheetSource": "renderData",
+   "tileType": "FloorDeco",
+   "renderData": "floor",
+   "renderMode": null
+  },
+  {
+   "id": 0,
+   "alias": null,
+   "name": 0,
+   "displayName": null,
+   "tile": 6,
+   "sheet": "floor",
+   "sheetSource": "default_floor",
+   "tileType": "None",
+   "renderData": null,
+   "renderMode": null
+  },
+  {
+   "id": 1,
+   "alias": "deco_frame",
+   "name": "stone border",
+   "displayName": "stone border",
+   "tile": 216,
+   "sheet": "floor",
+   "sheetSource": "default_floor",
+   "tileType": null,
+   "renderData": null,
+   "renderMode": null
+  },
+  {
+   "id": 2,
+   "alias": "deco_frame_at",
+   "name": "stone curb",
+   "displayName": "stone curb",
+   "tile": 2915,
+   "sheet": "floor",
+   "sheetSource": "default_floor",
+   "tileType": null,
+   "renderData": null,
+   "renderMode": null
+  }
+ ]
+}

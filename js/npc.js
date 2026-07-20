@@ -1,7 +1,299 @@
 // ===== NPC 行为系统：老滚5风格的 Radiant AI =====
-// 包含：NPC定义、AI行为包、日程表、社交系统
+// 包含：NPC定义、AI行为包、日程表、社交系统、关系系统、派系
 
 import { rollDice } from './rng.js';
+
+// ---------- 派系系统（移植自原版 FACTION）----------
+export const FACTIONS = {
+  town: {
+    id: 'town', name: '城镇居民', color: '#5a7aaa',
+    relations: { monster: -100, bandit: -50, adventure: 30 },
+  },
+  monster: {
+    id: 'monster', name: '怪物', color: '#c04040',
+    relations: { town: -100, adventure: -80 },
+  },
+  adventure: {
+    id: 'adventure', name: '冒险者', color: '#c9a04a',
+    relations: { town: 30, monster: -80, bandit: -30 },
+  },
+  bandit: {
+    id: 'bandit', name: '盗贼', color: '#6a4a6a',
+    relations: { town: -50, adventure: -30, monster: 20 },
+  },
+  neutral: {
+    id: 'neutral', name: '中立', color: '#aaaaaa',
+    relations: {},
+  },
+};
+
+// 获取两个派系之间的关系值
+export function getFactionRelation(factionA, factionB){
+  const a = FACTIONS[factionA];
+  if(!a) return 0;
+  return a.relations[factionB] || 0;
+}
+
+// ---------- 关系系统（移植自原版 Relation）----------
+export class RelationManager {
+  constructor(){
+    this.relations = {};  // npcId -> { affinity, interest, memory }
+  }
+
+  // 获取与某NPC的关系
+  get(npcId){
+    if(!this.relations[npcId]){
+      this.relations[npcId] = {
+        affinity: 0,      // 好感度 (-100 ~ 100)
+        interest: 50,     // 兴趣度 (影响对话质量)
+        memory: [],       // 记忆 [{text, time, positive}]
+        tradeCount: 0,    // 交易次数
+        killCount: 0,     // 击杀记录
+        giftCount: 0,     // 赠礼次数
+      };
+    }
+    return this.relations[npcId];
+  }
+
+  // 增加好感度
+  addAffinity(npcId, amount, reason){
+    const rel = this.get(npcId);
+    rel.affinity = Math.max(-100, Math.min(100, rel.affinity + amount));
+    if(reason){
+      rel.memory.push({ text: reason, time: Date.now(), positive: amount > 0 });
+      if(rel.memory.length > 20) rel.memory.shift();
+    }
+  }
+
+  // 增加交易次数
+  addTrade(npcId){
+    const rel = this.get(npcId);
+    rel.tradeCount++;
+    // 多次交易增加好感
+    if(rel.tradeCount % 5 === 0){
+      this.addAffinity(npcId, 2, '多次惠顾');
+    }
+  }
+
+  // 增加兴趣度（通过对话）
+  addInterest(npcId, amount){
+    const rel = this.get(npcId);
+    rel.interest = Math.max(0, Math.min(100, rel.interest + amount));
+  }
+
+  // 获取好感等级
+  getAffinityLevel(npcId){
+    const rel = this.get(npcId);
+    if(rel.affinity >= 50) return '挚友';
+    if(rel.affinity >= 20) return '友好';
+    if(rel.affinity >= -20) return '中立';
+    if(rel.affinity >= -50) return '冷淡';
+    return '敌对';
+  }
+
+  // 序列化
+  serialize(){ return this.relations; }
+  static deserialize(data){
+    const m = new RelationManager();
+    if(data) m.relations = data;
+    return m;
+  }
+}
+
+// ---------- 对话主题系统 ----------
+export const DIALOGUE_TOPICS = {
+  weather: {
+    id: 'weather', name: '天气',
+    responses: {
+      good: ['今天天气真不错！', '阳光明媚，适合冒险。', '好天气让人心情愉悦。'],
+      bad: ['这鬼天气...', '又下雨了，真烦人。', '以太之风要来了吗？'],
+    },
+  },
+  dungeon: {
+    id: 'dungeon', name: '地下城',
+    responses: {
+      curious: ['听说地下城越来越深了。', '你去过地下城吗？那里危险吗？', '据说5层有个大家伙。'],
+      scared: ['地下城太危险了，我可不敢去。', '最近地下城的怪物越来越多了。'],
+    },
+  },
+  trade: {
+    id: 'trade', name: '交易',
+    responses: {
+      merchant: ['看看我的货物吧！', '都是好货，童叟无欺！', '最近进了一批新货。'],
+      buyer: ['有什么好东西吗？', '能便宜点吗？', '这个质量怎么样？'],
+    },
+  },
+  gossip: {
+    id: 'gossip', name: '八卦',
+    responses: {
+      general: ['你知道吗？镇长最近...', '听说隔壁镇发生了一件大事。', '有个冒险者在地下城发现了宝藏！'],
+      secret: ['我告诉你一个秘密...', '别告诉别人啊，据说...', '你千万别说出去。'],
+    },
+  },
+  quest: {
+    id: 'quest', name: '任务',
+    responses: {
+      available: ['我需要帮忙，你有空吗？', '有个任务想委托你。', '如果你能帮我，我会感谢你的。'],
+      none: ['目前没什么需要帮忙的。', '谢谢你的好意，但现在不需要。'],
+    },
+  },
+  faith: {
+    id: 'faith', name: '信仰',
+    responses: {
+      devout: ['愿神明保佑你。', '信仰是我们的力量。', '祭坛就在那边，去祈祷吧。'],
+      casual: ['我不太信这些。', '宗教？无所谓了。'],
+    },
+  },
+  combat: {
+    id: 'combat', name: '战斗',
+    responses: {
+      warrior: ['最近有练习战斗吗？', '一把好武器很重要。', '战斗技巧需要不断磨练。'],
+      coward: ['我可不敢打架。', '战斗太可怕了。', '还是和平好。'],
+    },
+  },
+};
+
+// 获取NPC当前可聊的话题
+export function getNPCTopics(npc, hour, playerRel){
+  const topics = [];
+  const phase = getTimePhase(hour);
+
+  // 天气话题（总有）
+  topics.push('weather');
+
+  // 根据NPC类型添加话题
+  if(npc.npcType === 'merchant'){
+    topics.push('trade');
+  }
+  if(npc.npcType === 'priest'){
+    topics.push('faith');
+  }
+  if(npc.npcType === 'guard'){
+    topics.push('combat');
+  }
+  if(npc.npcType === 'adventurer'){
+    topics.push('dungeon', 'combat');
+  }
+
+  // 好感度影响话题
+  if(playerRel && playerRel.affinity >= 20){
+    topics.push('gossip');
+  }
+  if(playerRel && playerRel.affinity >= 50){
+    topics.push('quest');
+  }
+
+  // 时间影响话题
+  if(phase.activity === 'social'){
+    topics.push('gossip');
+  }
+
+  return topics;
+}
+
+// 获取话题的对话内容
+export function getTopicResponse(topicId, npc, rng){
+  const topic = DIALOGUE_TOPICS[topicId];
+  if(!topic) return null;
+
+  // 根据NPC类型选择响应
+  let responseKey = 'general';
+  if(topicId === 'trade'){
+    responseKey = npc.npcType === 'merchant' ? 'merchant' : 'buyer';
+  } else if(topicId === 'combat'){
+    responseKey = ['guard', 'adventurer'].includes(npc.npcType) ? 'warrior' : 'coward';
+  } else if(topicId === 'faith'){
+    responseKey = npc.npcType === 'priest' ? 'devout' : 'casual';
+  } else if(topicId === 'dungeon'){
+    responseKey = npc.npcType === 'adventurer' ? 'curious' : 'scared';
+  } else if(topicId === 'weather'){
+    responseKey = rng.chance(0.6) ? 'good' : 'bad';
+  } else if(topicId === 'gossip'){
+    responseKey = rng.chance(0.3) ? 'secret' : 'general';
+  } else if(topicId === 'quest'){
+    responseKey = rng.chance(0.3) ? 'available' : 'none';
+  }
+
+  const responses = topic.responses[responseKey] || topic.responses.general || ['...'];
+  return rng.pick(responses);
+}
+
+// ---------- 商店系统增强 ----------
+export class ShopManager {
+  constructor(){
+    this.shops = {};  // npcId -> ShopData
+  }
+
+  // 初始化商店库存
+  initShop(npcId, stock, rng){
+    if(this.shops[npcId]) return;
+    const items = [];
+    for(const itemId of stock){
+      const count = rng.int(1, 5);
+      for(let i = 0; i < count; i++){
+        items.push({ itemId, stock: rng.int(1, 3) });
+      }
+    }
+    this.shops[npcId] = {
+      items,
+      refreshTimer: 0,
+      refreshInterval: 100,  // 每100秒刷新
+    };
+  }
+
+  // 刷新商店库存
+  refreshShop(npcId, rng){
+    const shop = this.shops[npcId];
+    if(!shop) return;
+    for(const item of shop.items){
+      item.stock = rng.int(1, 5);
+    }
+  }
+
+  // 获取商店物品
+  getShopItems(npcId){
+    const shop = this.shops[npcId];
+    if(!shop) return [];
+    return shop.items.filter(i => i.stock > 0);
+  }
+
+  // 购买物品
+  buyItem(npcId, itemIndex, player){
+    const shop = this.shops[npcId];
+    if(!shop || !shop.items[itemIndex]) return false;
+    const item = shop.items[itemIndex];
+    if(item.stock <= 0) return false;
+
+    const price = this.getItemPrice(item.itemId);
+    if(player.gold < price) return false;
+
+    player.gold -= price;
+    item.stock--;
+    return true;
+  }
+
+  // 获取物品价格
+  getItemPrice(itemId){
+    // 简化价格表
+    const prices = {
+      bread: 5, ration: 10, meat: 12, apple: 3,
+      potion_heal: 40, potion_heal_l: 120, potion_cure: 30,
+      arrow: 2, bullet: 3, torch: 8, lockpick: 15,
+      herb: 5, ore: 8, seed: 2,
+      leather_armor: 60, robe: 40, cloak: 50,
+      shield: 70, straw_hat: 15,
+    };
+    return prices[itemId] || 10;
+  }
+
+  // 序列化
+  serialize(){ return this.shops; }
+  static deserialize(data){
+    const m = new ShopManager();
+    if(data) m.shops = data;
+    return m;
+  }
+}
 
 // ---------- NPC 类型定义 ----------
 export const NPC_TYPES = {
@@ -504,6 +796,7 @@ export function makeNPC(typeId, x, y, rng){
     alive: true,
     blocksMove: false,
     statusEffects: [],
+    conditions: { has(c){ return false; }, add(){}, getAttrMods(){ return {}; }, getDVMod(){ return 0; }, getPVMod(){ return 0; }, getSpeedMod(){ return 0; } },
     inventory: [],
     equipment: {},
     skills: {},
@@ -535,6 +828,7 @@ export function makeNPC(typeId, x, y, rng){
     _dialogueOffset: rng.int(0, 1000),
     // Entity 兼容方法
     _effSpeed(){ return Math.max(10, this.speed); },
+    effectiveSpeed(){ return Math.max(10, this.speed); },
     getAttr(name){ return this.attrs[name] || 10; },
     hasStatus(){ return false; },
     isRanged(){ return false; },
@@ -544,6 +838,8 @@ export function makeNPC(typeId, x, y, rng){
     weaponSkill(){ return '格斗'; },
     getResist(ele){ return (this.resist && this.resist[ele]) || 0; },
     sumEnchants(){ return {}; },
+    gainSkillXP(){},
+    recalcStats(){},
     // 对话
     dialogue: def.dialogue,
     shop: def.shop || null,

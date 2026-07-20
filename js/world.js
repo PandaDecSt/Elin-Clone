@@ -1,4 +1,14 @@
-// ===== 世界/地下城生成 + FOV 视野 =====
+// ===== 世界系统：World > Region > Zone > Map（匹配Elin原版架构）=====
+//
+// Elin的世界结构：
+//   World（根节点，管理日期/天气/季节）
+//     └── Region（大地地图，有地形/城镇/地下城入口）
+//           ├── Zone_Town（城镇，放在大地图上）
+//           ├── Zone_Field（野外区域）
+//           └── Zone_Dungeon（地下城，通过楼梯进入）
+//                 └── Zone（子层级：lv=-1, -2, -3...）
+//
+// 玩家在大地地图上行走，走到城镇/地下城入口时切换到对应Zone的地图。
 
 import { TILES, MONSTERS, ITEMS, ENCHANTS, QUALITY, DECOR_TYPES, BLOCK_TYPES } from './data.js?v=43';
 import { RNG } from './rng.js';
@@ -6,6 +16,7 @@ import { makeMonster } from './entity.js';
 import { makeItem, qualityMult } from './item.js';
 import { makeNPC } from './npc.js';
 
+// ==================== GameMap（实际的瓦片网格）====================
 export class GameMap{
   constructor(w, h){
     this.w = w; this.h = h;
@@ -18,7 +29,7 @@ export class GameMap{
     this.entities = [];
     this.items = [];
     this.depth = 1;
-    this.name = '未知地下城';
+    this.name = '未知区域';
     this.stairsDown = null;
     this.stairsUp = null;
     this.rooms = [];
@@ -26,7 +37,6 @@ export class GameMap{
     this.isWorld = false;
     this._visibleZ = [];
     // 3D可见性：vis3D[y][x] = 位掩码，bit z=1 表示z层空气可见
-    // z=0: 地面层(z=0块的地板面), z=1: 第1块顶面/第2块地板面 ...
     this.vis3D = [];
     this.exp3D = [];
     for(let y=0;y<h;y++){
@@ -47,7 +57,7 @@ export class GameMap{
     if(x<0||y<0||x>=this.w||y>=this.h) return 'wall';
     return this.tiles[y][x];
   }
-  // ---- 方块堆叠系统辅助方法 ----
+  // ---- 方块堆叠系统 ----
   hasBlocks(x,y){
     if(x<0||y<0||x>=this.w||y>=this.h) return false;
     const b = this.blocks[y][x];
@@ -82,7 +92,7 @@ export class GameMap{
   isSolid(x,y){
     if(x<0||y<0||x>=this.w||y>=this.h) return true;
     const t = this.get(x,y);
-    if(t && t.solid) return true; // water等solid地面
+    if(t && t.solid) return true;
     return this.hasSolidBlocks(x,y);
   }
   isWalkable(x,y){
@@ -106,7 +116,7 @@ export class GameMap{
     this.tiles[y][x] = id;
   }
 
-  // ---- 建造模式：放置装饰物 ----
+  // ---- 建造模式 ----
   addDecoration(x, y, type, face){
     if(x<0||y<0||x>=this.w||y>=this.h) return null;
     const def = DECOR_TYPES[type];
@@ -122,8 +132,6 @@ export class GameMap{
     this._decorGrid[key].push(decor);
     return decor;
   }
-
-  // ---- 建造模式：拆除装饰物 ----
   removeDecorationAt(x, y){
     const key = x + ',' + y;
     const list = this._decorGrid[key];
@@ -134,30 +142,691 @@ export class GameMap{
     if(list.length === 0) delete this._decorGrid[key];
     return decor;
   }
-
-  // ---- 建造模式：获取该格所有装饰物 ----
   getDecorationsAt(x, y){
     const key = x + ',' + y;
     return this._decorGrid[key] || [];
   }
 }
 
-// ---------- 地下城生成 ----------
-export function generateDungeon(depth, rng){
-  const W = 48, H = 48;
-  const map = new GameMap(W,H);
-  map.depth = depth;
-  map.name = `地下城 ${depth}F`;
+// ==================== Zone（游戏区域）====================
+// Zone 是世界树的基本单元：城镇、野外、地下城都是 Zone
+export class Zone {
+  constructor(id, name, opts = {}){
+    this.id = id;
+    this.uid = Zone._nextUid++;
+    this.name = name;
+    this.parent = null;
+    this.children = [];
+    // 在大地图上的坐标
+    this.x = opts.x || 0;
+    this.y = opts.y || 0;
+    // 深度层级：0=地面，负数=地下，正数=空中
+    this.lv = opts.lv || 0;
+    this.dangerLv = opts.dangerLv || 0;
+    // 区域类型
+    this.biome = opts.biome || 'temperate';
+    this.faction = opts.faction || null;
+    this.isTown = opts.isTown || false;
+    this.isDungeon = opts.isDungeon || false;
+    this.isField = opts.isField || false;
+    this.isNefia = opts.isNefia || false;  // 随机地下城
+    // 关联的地图
+    this.map = null;
+    // 生成器类型
+    this.generator = opts.generator || null;  // 'town', 'dungeon', 'field', 'region'
+    // 地下城分支
+    this.branch = opts.branch || null;
+    // 状态
+    this.visited = false;
+    this.discovered = false;
+    this.isConquered = false;
+    // 出生点/楼梯标记
+    this.spawnPos = opts.spawnPos || null;
+    this.hasLaw = opts.hasLaw || false;
+    this.regenerateOnEnter = opts.regenerateOnEnter || false;
+  }
 
-  // 填充：所有格子先设为 floor_dark 地面 + 2高石墙
-  const wallBlockTypes = ['stone_wall','stone_wall']; // 2高墙
-  for(let y=0;y<H;y++){
-    for(let x=0;x<W;x++){
-      map.setTile(x,y,'floor_dark');
-      map.setBlocks(x,y, wallBlockTypes.slice());
+  get topZone(){
+    let z = this;
+    while(z.parent) z = z.parent;
+    return z;
+  }
+
+  get dangerLevel(){
+    return this.topZone.dangerLv + Math.abs(this.lv) - 1;
+  }
+
+  get isRegion(){
+    return false;
+  }
+
+  addChild(child){
+    child.parent = this;
+    this.children.push(child);
+    return child;
+  }
+
+  // 查找指定层级的子区域
+  findZone(lv){
+    return this.children.find(z => z.lv === lv);
+  }
+
+  // 查找或创建指定层级
+  findOrCreateLevel(lv, rng){
+    let z = this.findZone(lv);
+    if(!z){
+      z = new Zone(this.id + '_' + lv, this.name + ' ' + Math.abs(lv) + 'F', {
+        lv: lv,
+        dangerLv: this.dangerLv,
+        isDungeon: true,
+        generator: 'dungeon',
+        branch: this.branch,
+      });
+      this.addChild(z);
+    }
+    return z;
+  }
+
+  // 激活区域（加载/生成地图）
+  activate(map){
+    this.map = map;
+    this.visited = true;
+    this.discovered = true;
+  }
+
+  // 停用区域（卸载地图）
+  deactivate(){
+    this.map = null;
+  }
+
+  // 生成地图
+  generate(rng){
+    if(this.map) return this.map;
+    let map;
+    if(this.generator === 'town'){
+      map = _generateTownMap(this, rng);
+    } else if(this.generator === 'dungeon'){
+      map = _generateDungeonMap(this, rng);
+    } else if(this.generator === 'field'){
+      map = _generateFieldMap(this, rng);
+    } else {
+      map = _generateFieldMap(this, rng);
+    }
+    this.activate(map);
+    return map;
+  }
+}
+Zone._nextUid = 1;
+
+// ==================== Region（大地地图 / 表世界）====================
+// Region 是玩家的主要活动区域，包含城镇、野外、地下城入口
+export class Region extends Zone {
+  constructor(id, name, opts = {}){
+    super(id, name, opts);
+    this.isField = true;
+    this.generator = 'region';
+    // 大地图网格（类似 Elin 的 EloMap）
+    this.regionW = opts.regionW || 80;   // 大地图宽（格子数）
+    this.regionH = opts.regionH || 60;   // 大地图高
+    // 大地图地形网格：每个格子记录地形类型
+    this.terrain = [];   // terrain[y][x] = { biome, site, ... }
+    // 区域内的地点（城镇、地下城入口等）
+    this.sites = [];
+    // 地下城列表
+    this.dungeons = [];
+    // 随机地下城目标数量
+    this.nefiaTarget = 12;
+  }
+
+  get isRegion(){ return true; }
+
+  // 初始化大地图地形网格
+  initTerrain(){
+    this.terrain = [];
+    for(let y = 0; y < this.regionH; y++){
+      this.terrain[y] = [];
+      for(let x = 0; x < this.regionW; x++){
+        this.terrain[y][x] = { biome: 'plain', site: null, zone: null };
+      }
     }
   }
 
+  // 在大地图上放置地点
+  addSite(site, gx, gy){
+    site.x = gx;
+    site.y = gy;
+    this.sites.push(site);
+    this.addChild(site);
+    if(gx >= 0 && gy >= 0 && gx < this.regionW && gy < this.regionH){
+      this.terrain[gy][gx].site = site;
+      this.terrain[gy][gx].zone = site;
+    }
+    return site;
+  }
+}
+
+// ==================== World（世界根节点）====================
+export class World {
+  constructor(){
+    this.regions = [];
+    this.date = { day:1, hour:8, season:'春' };
+    this.weather = '晴';
+    this.activeZone = null;
+    this.activeRegion = null;
+  }
+
+  addRegion(region){
+    this.regions.push(region);
+    return region;
+  }
+
+  get activeMap(){
+    return this.activeZone ? this.activeZone.map : null;
+  }
+}
+
+// ==================== ZoneTransition（区域切换）====================
+// 类似 Elin 的 ZoneTransition：记录切换方向/位置/类型
+export const EnterState = {
+  Auto: 0,
+  Center: 1,
+  Top: 2,
+  Right: 3,
+  Bottom: 4,
+  Left: 5,
+  Down: 6,    // 下楼梯
+  Up: 7,      // 上楼梯
+  Return: 8,  // 返回上一区域
+  Exact: 9,   // 精确坐标
+  Region: 10, // 进入大地图
+};
+
+export class ZoneTransition {
+  constructor(opts = {}){
+    this.uidLastZone = opts.uidLastZone || 0;
+    this.x = opts.x || 0;
+    this.z = opts.z || 0;
+    this.state = opts.state || EnterState.Auto;
+    this.idTele = opts.idTele || null;
+    this.ratePos = opts.ratePos || 0;
+  }
+}
+
+// ==================== 大地图地形类型 ====================
+const REGION_TERRAIN = {
+  plain:    { walkable: true,  tile: 'grass',       name: '平原',   dangerMod: 0 },
+  forest:   { walkable: true,  tile: 'grass_dark',  name: '森林',   dangerMod: 1 },
+  hill:     { walkable: true,  tile: 'dirt',        name: '丘陵',   dangerMod: 2 },
+  mountain: { walkable: false, tile: 'wall',        name: '山脉',   dangerMod: 5 },
+  water:    { walkable: false, tile: 'water',       name: '水域',   dangerMod: 0 },
+  beach:    { walkable: true,  tile: 'sand',        name: '海滩',   dangerMod: 0 },
+  road:     { walkable: true,  tile: 'stone_path',  name: '道路',   dangerMod: 0 },
+  swamp:    { walkable: true,  tile: 'moss',        name: '沼泽',   dangerMod: 3 },
+  snow:     { walkable: true,  tile: 'snow',        name: '雪原',   dangerMod: 2 },
+  desert:   { walkable: true,  tile: 'sand',        name: '沙漠',   dangerMod: 1 },
+};
+
+// ==================== 大地图生成器（MapGenRegion）====================
+// 类似 Elin 的 MapGenRegion：读取地形数据生成实际可行走的地图
+export function generateRegion(rng, seed = 0){
+  const regionW = 80, regionH = 60;
+  const mapW = 64, mapH = 48;
+  const region = new Region('main', '雅拉大陆', { regionW, regionH });
+  region.initTerrain();
+
+  // 1. 用噪声生成大地图地形
+  _genTerrainNoise(region, rng);
+
+  // 2. 确保有道路
+  _genRoads(region, rng);
+
+  // 3. 放置城镇（固定位置）
+  _placeTowns(region, rng);
+
+  // 4. 放置地下城入口（Nefia）
+  _placeNefia(region, rng);
+
+  // 5. 生成实际可行走的 Region 地图
+  const map = new GameMap(mapW, mapH);
+  map.name = region.name;
+  map.isWorld = true;
+  map.isTown = false;
+
+  // 将大地图地形映射到 Region 地图
+  _renderRegionMap(region, map, rng);
+
+  region.activate(map);
+  return region;
+}
+
+// ---- 噪声地形生成 ----
+function _genTerrainNoise(region, rng){
+  // 简单的多层噪声地形
+  const W = region.regionW, H = region.regionH;
+  for(let y = 0; y < H; y++){
+    for(let x = 0; x < W; x++){
+      const v = _simpleNoise(x, y, W, H);
+      let biome;
+      if(v < 0.15) biome = 'water';
+      else if(v < 0.22) biome = 'beach';
+      else if(v < 0.50) biome = 'plain';
+      else if(v < 0.65) biome = 'forest';
+      else if(v < 0.78) biome = 'hill';
+      else if(v < 0.88) biome = 'swamp';
+      else if(v < 0.95) biome = 'snow';
+      else biome = 'mountain';
+      region.terrain[y][x].biome = biome;
+    }
+  }
+}
+
+// 简单伪噪声函数
+function _simpleNoise(x, y, W, H){
+  const nx = x / W, ny = y / H;
+  let v = 0;
+  v += Math.sin(nx * 6.28 + 0.5) * 0.3;
+  v += Math.cos(ny * 6.28 + 1.2) * 0.3;
+  v += Math.sin((nx + ny) * 4.7 + 0.8) * 0.2;
+  v += Math.cos((nx - ny) * 3.5 + 2.1) * 0.2;
+  v = (v + 1) / 2;
+  return Math.max(0, Math.min(1, v));
+}
+
+// ---- 道路生成 ----
+function _genRoads(region, rng){
+  const W = region.regionW, H = region.regionH;
+  // 东西向主干道
+  const roadY = Math.floor(H / 2) + rng.int(-3, 3);
+  for(let x = 0; x < W; x++){
+    if(region.terrain[roadY][x].biome !== 'water'){
+      region.terrain[roadY][x].biome = 'road';
+    }
+  }
+  // 南北向主干道
+  const roadX = Math.floor(W / 2) + rng.int(-3, 3);
+  for(let y = 0; y < H; y++){
+    if(region.terrain[y][roadX].biome !== 'water'){
+      region.terrain[y][roadX].biome = 'road';
+    }
+  }
+}
+
+// ---- 城镇放置 ----
+function _placeTowns(region, rng){
+  const W = region.regionW, H = region.regionH;
+  const townDefs = [
+    { name: '维尔尼斯', desc: '新手城镇', icon: '🏘️' },
+    { name: '卡普尔',   desc: '首都',     icon: '🏰' },
+    { name: '诺亚',     desc: '港口城镇', icon: '⚓' },
+  ];
+  for(const def of townDefs){
+    let placed = false;
+    for(let i = 0; i < 200 && !placed; i++){
+      const gx = rng.int(5, W - 5);
+      const gy = rng.int(5, H - 5);
+      const tile = region.terrain[gy][gx];
+      if(tile.biome === 'water' || tile.biome === 'mountain') continue;
+      if(tile.site) continue;
+      // 城镇周围应有道路
+      const hasRoad = _hasNeighborBiome(region, gx, gy, 'road', 3);
+      const town = new Zone(def.name, def.name, {
+        x: gx, y: gy,
+        isTown: true,
+        hasLaw: true,
+        generator: 'town',
+        dangerLv: 0,
+      });
+      town.townDef = def;
+      region.addSite(town, gx, gy);
+      placed = true;
+    }
+  }
+}
+
+// ---- Nefia 随机地下城放置 ----
+function _placeNefia(region, rng){
+  const W = region.regionW, H = region.regionH;
+  const types = [
+    { id: 'dungeon',      name: '地下城',   icon: '🕳️', dangerMod: 0 },
+    { id: 'dungeon_ruins', name: '遗迹',     icon: '🏛️', dangerMod: 1 },
+    { id: 'cavern',       name: '洞窟',     icon: '⛰️', dangerMod: 2 },
+    { id: 'tower',        name: '魔塔',     icon: '🗼', dangerMod: 3 },
+  ];
+  let placed = 0;
+  for(let i = 0; i < 300 && placed < region.nefiaTarget; i++){
+    const gx = rng.int(3, W - 3);
+    const gy = rng.int(3, H - 3);
+    const tile = region.terrain[gy][gx];
+    if(tile.biome === 'water' || tile.biome === 'mountain') continue;
+    if(tile.site) continue;
+    // 距离城镇不能太近
+    if(_nearbySiteType(region, gx, gy, 'isTown', 5)) continue;
+
+    const typeDef = rng.pick(types);
+    const dangerLv = Math.max(1, Math.floor(_simpleNoise(gx, gy, W, H) * 10) + typeDef.dangerMod);
+    const nefia = new Zone(typeDef.id + '_' + placed, typeDef.name, {
+      x: gx, y: gy,
+      isDungeon: true,
+      isNefia: true,
+      generator: 'dungeon',
+      dangerLv: dangerLv,
+      regenerateOnEnter: true,
+    });
+    nefia.icon = typeDef.icon;
+    region.addSite(nefia, gx, gy);
+    region.dungeons.push(nefia);
+    placed++;
+  }
+}
+
+// ---- 辅助函数 ----
+function _hasNeighborBiome(region, x, y, biome, radius){
+  for(let dy = -radius; dy <= radius; dy++){
+    for(let dx = -radius; dx <= radius; dx++){
+      const nx = x + dx, ny = y + dy;
+      if(nx < 0 || ny < 0 || nx >= region.regionW || ny >= region.regionH) continue;
+      if(region.terrain[ny][nx].biome === biome) return true;
+    }
+  }
+  return false;
+}
+
+function _nearbySiteType(region, x, y, typeCheck, radius){
+  for(const site of region.sites){
+    const d = Math.abs(site.x - x) + Math.abs(site.y - y);
+    if(d <= radius && site[typeCheck]) return true;
+  }
+  return false;
+}
+
+// ---- 渲染 Region 实际地图 ----
+function _renderRegionMap(region, map, rng){
+  const W = map.w, H = map.h;
+  const sx = Math.floor(region.regionW / 2 - W / 2);
+  const sy = Math.floor(region.regionH / 2 - H / 2);
+
+  for(let y = 0; y < H; y++){
+    for(let x = 0; x < W; x++){
+      const gx = sx + x, gy = sy + y;
+      if(gx < 0 || gy < 0 || gx >= region.regionW || gy >= region.regionH){
+        map.setTile(x, y, 'wall');
+        map.setBlocks(x, y, ['stone_wall']);
+        continue;
+      }
+      const tile = region.terrain[gy][gx];
+      const tdef = REGION_TERRAIN[tile.biome];
+      if(tdef){
+        map.setTile(x, y, tdef.tile);
+        if(!tdef.walkable){
+          map.setBlocks(x, y, ['stone_wall']);
+        }
+      }
+      // 放置地点标记
+      if(tile.site){
+        if(tile.site.isTown){
+          // 城镇：生成建筑群
+          _renderTownOnRegion(map, x, y, tile.site, rng);
+        } else if(tile.site.isDungeon){
+          // 地下城入口：放楼梯
+          map.setTile(x, y, 'stairs_dn');
+          map.clearBlocks(x, y);
+        }
+      }
+    }
+  }
+
+  // 装饰物
+  generateDecorations(map, rng);
+
+  // 玩家出生点：城镇中心
+  const firstTown = region.sites.find(s => s.isTown);
+  if(firstTown){
+    const tx = firstTown.x - sx;
+    const ty = firstTown.y - sy;
+    map.stairsUp = { x: tx, y: ty };
+  } else {
+    map.stairsUp = { x: Math.floor(W/2), y: Math.floor(H/2) };
+  }
+}
+
+// ---- 在 Region 地图上渲染城镇标记 ----
+// 大地图上城镇只显示为一个小标记，不是建筑群
+function _renderTownOnRegion(map, cx, cy, townZone, rng){
+  // 城镇标记：3x3 平地 + 中心标记
+  const size = 1;
+  for(let dy = -size; dy <= size; dy++){
+    for(let dx = -size; dx <= size; dx++){
+      const x = cx + dx, y = cy + dy;
+      if(x < 0 || y < 0 || x >= map.w || y >= map.h) continue;
+      map.setTile(x, y, 'floor');
+      map.clearBlocks(x, y);
+    }
+  }
+  // 中心放楼梯（进入城镇）
+  map.setTile(cx, cy, 'stairs_dn');
+  map.clearBlocks(cx, cy);
+  // 标记城镇名称（通过 NPC 或日志显示）
+  townZone._regionMarker = { x: cx, y: cy };
+}
+
+// ==================== 城镇地图生成 ====================
+// 生成城镇内部地图（从 Region 进入时）
+export function generateTown(rng, depth = 0){
+  const W = 40, H = 36;
+  const map = new GameMap(W, H);
+  map.name = _townName(rng);
+  map.isTown = true;
+  map.depth = 0;
+
+  // 填充草地 + 围墙
+  for(let y = 0; y < H; y++){
+    for(let x = 0; x < W; x++){
+      map.setTile(x, y, 'grass');
+    }
+  }
+
+  // 外围木墙
+  for(let x = 0; x < W; x++){
+    map.setBlocks(x, 0, ['wood_wall']);
+    map.setBlocks(x, H-1, ['wood_wall']);
+  }
+  for(let y = 0; y < H; y++){
+    map.setBlocks(0, y, ['wood_wall']);
+    map.setBlocks(W-1, y, ['wood_wall']);
+  }
+
+  // ---- 生成建筑群 ----
+  const buildings = [];
+  const buildingDefs = [
+    { name:'酒馆',   w:7, h:5, floor:'floor',      npc:'innkeeper',  items:['ration','bread','meat'] },
+    { name:'商店',   w:6, h:5, floor:'floor',      npc:'merchant',   items:['potion_heal','torch','arrow'] },
+    { name:'祭坛',   w:5, h:5, floor:'stone_path', npc:'priest',     items:[] },
+    { name:'铁匠铺', w:6, h:4, floor:'dirt',       npc:'guard',      items:['ore'] },
+    { name:'民居A',  w:5, h:4, floor:'floor',      npc:'citizen',    items:['bread'] },
+    { name:'民居B',  w:5, h:4, floor:'floor',      npc:'citizen',    items:['ration'] },
+    { name:'仓库',   w:4, h:4, floor:'dirt',       npc:null,         items:['herb','ore','seed'] },
+  ];
+
+  // 放置建筑（避免重叠）
+  const attempts = 200;
+  for(const def of buildingDefs){
+    let placed = false;
+    for(let i = 0; i < attempts && !placed; i++){
+      const bx = rng.int(3, W - def.w - 3);
+      const by = rng.int(3, H - def.h - 3);
+      let overlap = false;
+      for(const b of buildings){
+        if(bx - 1 < b.x + b.w && bx + def.w + 1 > b.x &&
+           by - 1 < b.y + b.h && by + def.h + 1 > b.y){
+          overlap = true;
+          break;
+        }
+      }
+      if(overlap) continue;
+
+      const building = { ...def, x: bx, y: by };
+
+      // 地板
+      for(let y = by; y < by + def.h; y++){
+        for(let x = bx; x < bx + def.w; x++){
+          map.setTile(x, y, def.floor);
+          map.clearBlocks(x, y);
+        }
+      }
+
+      // 墙壁
+      for(let y = by - 1; y <= by + def.h; y++){
+        map.setBlocks(bx - 1, y, ['wood_wall']);
+        map.setBlocks(bx + def.w, y, ['wood_wall']);
+      }
+      for(let x = bx - 1; x <= bx + def.w; x++){
+        map.setBlocks(x, by - 1, ['wood_wall']);
+        map.setBlocks(x, by + def.h, ['wood_wall']);
+      }
+
+      // 门
+      const doorX = bx + Math.floor(def.w / 2);
+      const doorY = by + def.h;
+      map.setTile(doorX, doorY, 'door');
+      map.clearBlocks(doorX, doorY);
+      building.door = {x: doorX, y: doorY};
+
+      // 祭坛特殊处理
+      if(def.name === '祭坛'){
+        const altarX = bx + Math.floor(def.w / 2);
+        const altarY = by + 1;
+        map.setTile(altarX, altarY, 'altar');
+        map.clearBlocks(altarX, altarY);
+      }
+
+      // 室内物品
+      for(const itemId of def.items){
+        const ix = rng.int(bx + 1, bx + def.w - 2);
+        const iy = rng.int(by + 1, by + def.h - 2);
+        if(map.isWalkable(ix, iy) && !map.itemAt(ix, iy)){
+          map.items.push({x: ix, y: iy, item: makeItem(itemId, 0, rng)});
+        }
+      }
+
+      buildings.push(building);
+      placed = true;
+    }
+  }
+
+  // ---- 道路 ----
+  for(let i = 0; i < buildings.length; i++){
+    const a = buildings[i].door;
+    if(!a) continue;
+    let nearest = null, minDist = Infinity;
+    for(let j = 0; j < buildings.length; j++){
+      if(i === j) continue;
+      const b = buildings[j].door;
+      if(!b) continue;
+      const d = Math.abs(a.x - b.x) + Math.abs(a.y - b.y);
+      if(d < minDist){ minDist = d; nearest = b; }
+    }
+    if(nearest){
+      _carveRoad(map, a.x, a.y, nearest.x, nearest.y, rng);
+    }
+  }
+
+  // ---- 出口（返回大地图）----
+  // 在城镇边缘放置出口（门），走到出口会返回大地图
+  const exitX = Math.floor(W / 2);
+  const exitY = H - 2;  // 底部边缘
+  map.setTile(exitX, exitY, 'stairs_up');  // 用 stairs_up 标记返回
+  map.clearBlocks(exitX, exitY);
+  map.stairsUp = { x: exitX, y: exitY };  // 玩家出生点
+
+  // 出口附近放门
+  if(map.tileId(exitX, exitY - 1) !== 'door'){
+    map.setTile(exitX, exitY - 1, 'door');
+    map.clearBlocks(exitX, exitY - 1);
+  }
+
+  // ---- 生成 NPC ----
+  for(const b of buildings){
+    if(b.npc){
+      const nx = b.x + Math.floor(b.w / 2);
+      const ny = b.y + Math.floor(b.h / 2);
+      map.entities.push(makeNPC(b.npc, nx, ny, rng));
+    }
+  }
+
+  const guardCount = rng.int(2, 3);
+  for(let i = 0; i < guardCount; i++){
+    const gx = rng.int(5, W - 5);
+    const gy = rng.int(5, H - 5);
+    if(map.isWalkable(gx, gy)){
+      map.entities.push(makeNPC('guard', gx, gy, rng));
+    }
+  }
+
+  map.entities.push(makeNPC('adventurer', rng.int(5, W-5), rng.int(5, H-5), rng));
+
+  const citizenCount = rng.int(3, 5);
+  for(let i = 0; i < citizenCount; i++){
+    const cx = rng.int(5, W - 5);
+    const cy = rng.int(5, H - 5);
+    if(map.isWalkable(cx, cy)){
+      map.entities.push(makeNPC('citizen', cx, cy, rng));
+    }
+  }
+
+  generateDecorations(map, rng);
+  detectRooms(map);
+  detectRoomWalls(map, map.rooms);
+
+  return map;
+}
+
+// ---- 城镇名称 ----
+const TOWN_NAMES = [
+  ['风','晨','星','月','花','叶','石','水','火','光'],
+  ['息','镇','村','庄','港','集','落','堡','寨','城'],
+];
+function _townName(rng){
+  const pre = rng.pick(TOWN_NAMES[0]);
+  const suf = rng.pick(TOWN_NAMES[1]);
+  return pre + suf;
+}
+
+// ---- 道路雕刻 ----
+function _carveRoad(map, x1, y1, x2, y2, rng){
+  let cx = x1, cy = y1;
+  while(cx !== x2 || cy !== y2){
+    if(map.tileId(cx, cy) === 'grass'){
+      map.setTile(cx, cy, 'stone_path');
+      map.clearBlocks(cx, cy);
+    }
+    if(rng.chance(0.5)){
+      if(cx < x2) cx++;
+      else if(cx > x2) cx--;
+    } else {
+      if(cy < y2) cy++;
+      else if(cy > y2) cy--;
+    }
+  }
+}
+
+// ==================== 地下城地图生成 ====================
+// Zone 内部调用：生成地下城地图
+function _generateDungeonMap(zone, rng){
+  const W = 48, H = 48;
+  const map = new GameMap(W, H);
+  map.depth = Math.abs(zone.lv) + 1;
+  map.name = zone.name;
+
+  // 填充
+  const wallBlockTypes = ['stone_wall','stone_wall'];
+  for(let y = 0; y < H; y++){
+    for(let x = 0; x < W; x++){
+      map.setTile(x, y, 'floor_dark');
+      map.setBlocks(x, y, wallBlockTypes.slice());
+    }
+  }
+
+  // 房间生成
   const rooms = [];
   const maxRooms = 14;
   const minSize = 5, maxSize = 11;
@@ -166,19 +835,18 @@ export function generateDungeon(depth, rng){
     attempts++;
     const rw = rng.int(minSize, maxSize);
     const rh = rng.int(minSize, maxSize);
-    const rx = rng.int(1, W-rw-2);
-    const ry = rng.int(1, H-rh-2);
+    const rx = rng.int(1, W - rw - 2);
+    const ry = rng.int(1, H - rh - 2);
     const room = {x:rx,y:ry,w:rw,h:rh,cx:Math.floor(rx+rw/2),cy:Math.floor(ry+rh/2)};
     let overlap = false;
     for(const r of rooms){
       if(rx-1 < r.x+r.w && rx+rw+1 > r.x && ry-1 < r.y+r.h && ry+rh+1 > r.y){ overlap=true; break; }
     }
     if(overlap) continue;
-    // 挖出房间：清除方块，设为地板
-    for(let y=ry;y<ry+rh;y++)
-      for(let x=rx;x<rx+rw;x++){
-        map.setTile(x,y,'floor');
-        map.clearBlocks(x,y);
+    for(let y = ry; y < ry+rh; y++)
+      for(let x = rx; x < rx+rw; x++){
+        map.setTile(x, y, 'floor');
+        map.clearBlocks(x, y);
       }
     if(rooms.length > 0){
       const prev = rooms[rooms.length-1];
@@ -190,7 +858,7 @@ export function generateDungeon(depth, rng){
 
   const startRoom = rooms[0];
   const lastRoom = rooms[rooms.length-1];
-  if(depth > 1){
+  if(Math.abs(zone.lv) > 0){
     map.stairsUp = {x:startRoom.cx, y:startRoom.cy};
     map.setTile(startRoom.cx, startRoom.cy, 'stairs_up');
   } else {
@@ -215,7 +883,8 @@ export function generateDungeon(depth, rng){
       }
     }
   }
-  // 地形多样化：每个房间随机选择地面类型
+
+  // 地形多样化
   for(const r of rooms){
     const roomFloor = rng.pick(['floor','floor_dark','dirt','stone_path','moss']);
     for(let y=r.y;y<r.y+r.h;y++){
@@ -223,7 +892,6 @@ export function generateDungeon(depth, rng){
         if(map.tileId(x,y)==='floor') map.setTile(x,y,roomFloor);
       }
     }
-    // 墙壁偶尔长苔藓：将 stone_wall 替换为 mossy_wall
     if(rng.chance(0.4)){
       for(let y=r.y-1;y<=r.y+r.h;y++){
         for(let x=r.x-1;x<=r.x+r.w;x++){
@@ -239,18 +907,81 @@ export function generateDungeon(depth, rng){
     }
   }
 
-  // 装饰物生成
   generateDecorations(map, rng);
-
-  spawnMonsters(map, depth, rng);
-  spawnItems(map, depth, rng);
+  spawnMonsters(map, map.depth, rng);
+  spawnItems(map, map.depth, rng);
   return map;
 }
 
-// ---- 装饰物生成 ----
+// ==================== 野外地图生成 ====================
+function _generateFieldMap(zone, rng){
+  const W = 48, H = 48;
+  const map = new GameMap(W, H);
+  map.name = zone.name || '野外';
+  map.depth = 0;
+
+  // 基础草地
+  for(let y = 0; y < H; y++){
+    for(let x = 0; x < W; x++){
+      map.setTile(x, y, 'grass');
+    }
+  }
+
+  // 随机地形斑块
+  const patches = rng.int(3, 8);
+  for(let p = 0; p < patches; p++){
+    const px = rng.int(5, W - 5);
+    const py = rng.int(5, H - 5);
+    const pr = rng.int(3, 8);
+    const tileType = rng.pick(['grass_dark','dirt','moss','stone_path']);
+    for(let dy = -pr; dy <= pr; dy++){
+      for(let dx = -pr; dx <= pr; dx++){
+        if(dx*dx + dy*dy > pr*pr) continue;
+        const x = px + dx, y = py + dy;
+        if(x > 0 && y > 0 && x < W-1 && y < H-1){
+          map.setTile(x, y, tileType);
+        }
+      }
+    }
+  }
+
+  // 水塘
+  if(rng.chance(0.5)){
+    const wx = rng.int(10, W - 10);
+    const wy = rng.int(10, H - 10);
+    const wr = rng.int(2, 4);
+    for(let dy = -wr; dy <= wr; dy++){
+      for(let dx = -wr; dx <= wr; dx++){
+        if(dx*dx + dy*dy <= wr*wr){
+          map.setTile(wx+dx, wy+dy, 'water');
+        }
+      }
+    }
+  }
+
+  // 边界围墙
+  for(let x = 0; x < W; x++){
+    map.setBlocks(x, 0, ['stone_wall']);
+    map.setBlocks(x, H-1, ['stone_wall']);
+  }
+  for(let y = 0; y < H; y++){
+    map.setBlocks(0, y, ['stone_wall']);
+    map.setBlocks(W-1, y, ['stone_wall']);
+  }
+
+  // 楼梯（返回 Region）
+  map.stairsUp = {x: Math.floor(W/2), y: Math.floor(H/2)};
+  map.stairsDown = {x: Math.floor(W/2), y: Math.floor(H/2) + 2};
+  map.setTile(map.stairsDown.x, map.stairsDown.y, 'stairs_dn');
+
+  generateDecorations(map, rng);
+  spawnMonsters(map, Math.max(1, zone.dangerLv || 1), rng);
+  spawnItems(map, Math.max(1, zone.dangerLv || 1), rng);
+  return map;
+}
+
+// ==================== 装饰物 ====================
 function generateDecorations(map, rng){
-  const decorTypes = Object.keys(DECOR_TYPES);
-  // 按地形类型分组装饰偏好
   const floorDecors = ['pebble','crack','puddle','grass_tuft','mushroom'];
   const grassDecors = ['grass_tuft','grass_tall','flower_red','flower_yellow','flower_white','mushroom','pebble'];
   const mossDecors = ['mushroom','flower_white','grass_tuft','pebble'];
@@ -270,12 +1001,11 @@ function generateDecorations(map, rng){
       else if(tid==='dirt') pool = dirtDecors;
       else if(tid==='stone_path') pool = stoneDecors;
       else if(tid==='floor_dark') pool = darkDecors;
-      else if(tid==='floor') pool = floorDecors;
+      else if(tid==='floor' || tid==='wood') pool = floorDecors;
       else if(tid==='rubble') pool = ['pebble','bone'];
       else if(map.hasBlocks(x,y)) pool = wallDecors;
 
       if(!pool) continue;
-      // 装饰密度
       const density = (tid==='grass'||tid==='grass_dark') ? 0.25 : 0.12;
       if(rng.chance(density)){
         const type = rng.pick(pool);
@@ -285,14 +1015,12 @@ function generateDecorations(map, rng){
         const ox = (rng.float() - 0.5) * 20;
         const oy = (rng.float() - 0.5) * 12;
         const phase = rng.float() * Math.PI * 2;
-        // 墙壁装饰物分配4面
         const isWallDecor = (pool === wallDecors);
         const face = isWallDecor ? rng.pick(wallFaces) : null;
         map.decorations.push({x, y, type, ox, oy, scale, phase, face});
       }
     }
   }
-  // 构建装饰网格用于快速查找
   map._decorGrid = {};
   for(const d of map.decorations){
     const key = d.x + ',' + d.y;
@@ -301,6 +1029,7 @@ function generateDecorations(map, rng){
   }
 }
 
+// ==================== 地下城辅助函数 ====================
 function carveCorridor(map, x1,y1,x2,y2, rng){
   if(rng.chance(0.5)){
     carveH(map,x1,x2,y1);
@@ -326,22 +1055,21 @@ function isDoorway(map,x,y){
   return lr || ud;
 }
 
-// ---------- 怪物生成 ----------
+// ==================== 怪物生成 ====================
 function spawnMonsters(map, depth, rng){
   const count = Math.min(6 + depth*2, 22);
   const pool = monsterPoolForDepth(depth);
   const boss = depth % 5 === 0;
-  // 玩家入口位置（上楼梯），附近不放怪
-  const spawn = map.stairsUp || {x: map.rooms[0].cx, y: map.rooms[0].cy};
+  const spawn = map.stairsUp || {x: map.rooms[0]?.cx || 24, y: map.rooms[0]?.cy || 24};
   const SAFE_DIST = 6;
   let placed = 0;
   for(let i=0;i<count+10 && placed<count;i++){
     const r = rng.pick(map.rooms);
-    if(r === map.rooms[0] && depth===1) continue; // 起始房无怪
+    if(!r) break;
+    if(r === map.rooms[0] && depth===1) continue;
     const x = rng.int(r.x, r.x+r.w-1), y = rng.int(r.y, r.y+r.h-1);
     if(!map.isWalkable(x,y)) continue;
     if(map.entityAt(x,y)) continue;
-    // 距离入口太近不放怪
     if(Math.abs(x-spawn.x)+Math.abs(y-spawn.y) < SAFE_DIST) continue;
     const mId = rng.pick(pool);
     const def = MONSTERS[mId];
@@ -349,10 +1077,10 @@ function spawnMonsters(map, depth, rng){
     map.entities.push(makeMonster(def, x, y, depth, rng));
     placed++;
   }
-  if(boss){
+  if(boss && map.rooms.length > 0){
     const lastRoom = map.rooms[map.rooms.length-1];
     let bx = lastRoom.cx, by = lastRoom.cy;
-    if(bx===map.stairsDown.x && by===map.stairsDown.y){ bx++; }
+    if(map.stairsDown && bx===map.stairsDown.x && by===map.stairsDown.y){ bx++; }
     const bossDef = depth>=10 ? MONSTERS.dragon : MONSTERS.troll;
     const m = makeMonster(bossDef, bx, by, depth, rng);
     m.isBoss = true;
@@ -374,6 +1102,7 @@ function spawnItems(map, depth, rng){
   for(let i=0;i<count+8;i++){
     if(map.items.length >= count) break;
     const r = rng.pick(map.rooms);
+    if(!r) break;
     const x = rng.int(r.x, r.x+r.w-1), y = rng.int(r.y, r.y+r.h-1);
     if(!map.get(x,y) || !map.get(x,y).walkable) continue;
     if(map.itemAt(x,y)) continue;
@@ -393,84 +1122,83 @@ function spawnItems(map, depth, rng){
   }
 }
 
-// ---------- 家园/城镇地图 ----------
-export function generateHome(rng){
-  const W=24, H=20;
-  const map = new GameMap(W,H);
-  map.name = '我的家';
-  map.isTown = true;
-  map.depth = 0;
-  // 全部设为草地，无方块
-  for(let y=0;y<H;y++) for(let x=0;x<W;x++) map.setTile(x,y,'grass');
-  // 外围边界：1高木墙
-  for(let x=0;x<W;x++){ map.setBlocks(x,0,['wood_wall']); map.setBlocks(x,H-1,['wood_wall']); }
-  for(let y=0;y<H;y++){ map.setBlocks(0,y,['wood_wall']); map.setBlocks(W-1,y,['wood_wall']); }
-  // 屋内地板
-  for(let y=6;y<12;y++) for(let x=8;x<16;x++){
-    map.setTile(x,y,'wood');
-    map.clearBlocks(x,y);
+// ==================== 房间检测 ====================
+export function detectRooms(map){
+  const rooms = [];
+  const visited = Array.from({length:map.h}, () => new Array(map.w).fill(false));
+  for(let y = 1; y < map.h - 1; y++){
+    for(let x = 1; x < map.w - 1; x++){
+      if(visited[y][x]) continue;
+      if(map.isSolid(x, y)) continue;
+      const tiles = [];
+      const queue = [{x, y}];
+      visited[y][x] = true;
+      let minX = x, maxX = x, minY = y, maxY = y;
+      while(queue.length > 0){
+        const cur = queue.shift();
+        tiles.push(cur);
+        minX = Math.min(minX, cur.x);
+        maxX = Math.max(maxX, cur.x);
+        minY = Math.min(minY, cur.y);
+        maxY = Math.max(maxY, cur.y);
+        const dirs = [{x:0,y:-1},{x:0,y:1},{x:-1,y:0},{x:1,y:0}];
+        for(const d of dirs){
+          const nx = cur.x + d.x, ny = cur.y + d.y;
+          if(nx < 0 || ny < 0 || nx >= map.w || ny >= map.h) continue;
+          if(visited[ny][nx]) continue;
+          if(map.isSolid(nx, ny)) continue;
+          visited[ny][nx] = true;
+          queue.push({x:nx, y:ny});
+        }
+      }
+      if(tiles.length >= 9){
+        rooms.push({ tiles, minX, maxX, minY, maxY, w: maxX-minX+1, h: maxY-minY+1, walls: [], doors: [] });
+      }
+    }
   }
-  // 屋内墙壁：1高木墙
-  for(let y=6;y<12;y++){ map.setBlocks(8,y,['wood_wall']); map.setBlocks(15,y,['wood_wall']); }
-  for(let x=8;x<16;x++){ map.setBlocks(x,6,['wood_wall']); map.setBlocks(x,11,['wood_wall']); }
-  // 门
-  map.setTile(11,11,'door');
-  map.clearBlocks(11,11);
-  map.setTile(20,4,'altar');
-  map.clearBlocks(20,4);
-  map.stairsDown = {x:12, y:16};
-  map.setTile(12,16,'stairs_dn');
-  map.stairsUp = {x:12, y:16};
-  map.items.push({x:13,y:8,item:makeItem('ration',0,rng)});
-  map.items.push({x:10,y:9,item:makeItem('potion_heal',0,rng)});
-  map.items.push({x:18,y:5,item:makeItem('potion_heal_l',0,rng)});
-  map.rooms = [{x:1,y:1,w:W-2,h:H-2,cx:12,cy:10}];
-
-  // ---- 生成 NPC ----
-  // 商人在屋内
-  map.entities.push(makeNPC('merchant', 12, 8, rng));
-  // 卫兵巡逻在室外
-  map.entities.push(makeNPC('guard', 5, 5, rng));
-  map.entities.push(makeNPC('guard', 18, 15, rng));
-  // 祭司在祭坛旁
-  map.entities.push(makeNPC('priest', 20, 5, rng));
-  // 旅店老板在屋子附近
-  map.entities.push(makeNPC('innkeeper', 14, 14, rng));
-  // 村民四处闲逛
-  map.entities.push(makeNPC('citizen', 6, 12, rng));
-  map.entities.push(makeNPC('citizen', 16, 8, rng));
-  map.entities.push(makeNPC('citizen', 8, 16, rng));
-  // 冒险者
-  map.entities.push(makeNPC('adventurer', 3, 3, rng));
-
-  // 家园装饰物
-  generateDecorations(map, rng);
-
-  return map;
+  map.rooms = rooms;
+  return rooms;
 }
 
-// ---------- FOV：JSiso风格欧几里得距离 + Bresenham LOS遮挡 ----------
-// 每个方向从玩家到目标画Bresenham直线，遇到实心格则停止。
-// vis3D[y][x] 位掩码: bit z=1 表示 z 层空气可见
+export function detectRoomWalls(map, rooms){
+  if(!rooms) return;
+  for(const room of rooms){
+    room.walls = [];
+    room.doors = [];
+    for(let y = room.minY; y <= room.maxY; y++){
+      for(let x = room.minX; x <= room.maxX; x++){
+        if(map.hasBlocks(x, y)){
+          room.walls.push({x, y});
+        }
+        if(map.tileId(x, y) === 'door'){
+          room.doors.push({x, y});
+        }
+      }
+    }
+  }
+}
+
+// ==================== 旧版兼容导出 ====================
+// generateHome 现在重定向到 generateTown
+export function generateHome(rng){
+  return generateTown(rng, 0);
+}
+
+// ==================== FOV ====================
 export function computeFOV3D(map, ox, oy, radius){
   const w = map.w, h = map.h;
-
-  // 清空
   for(let y=0;y<h;y++){
     map.visible[y].fill(false);
     map.vis3D[y].fill(0);
   }
-
   const r2 = radius * radius;
 
-  // Bresenham直线：检查从(ox,oy)到(tx,ty)是否有实心遮挡
   function hasLineOfSight(tx, ty){
     let x0 = Math.round(ox), y0 = Math.round(oy);
     const x1 = Math.round(tx), y1 = Math.round(ty);
     let dx = Math.abs(x1 - x0), dy = Math.abs(y1 - y0);
     const sx = x0 < x1 ? 1 : -1, sy = y0 < y1 ? 1 : -1;
     let err = dx - dy;
-
     while(true){
       if(x0 === x1 && y0 === y1) break;
       if(x0 !== Math.round(ox) || y0 !== Math.round(oy)){
@@ -484,7 +1212,6 @@ export function computeFOV3D(map, ox, oy, radius){
     return true;
   }
 
-  // 遍历半径内所有格子
   const minGx = Math.max(0, Math.floor(ox) - radius);
   const maxGx = Math.min(w - 1, Math.ceil(ox) + radius);
   const minGy = Math.max(0, Math.floor(oy) - radius);
@@ -495,14 +1222,11 @@ export function computeFOV3D(map, ox, oy, radius){
       const dx = gx + 0.5 - ox, dy = gy + 0.5 - oy;
       if(dx*dx + dy*dy > r2) continue;
       if(!hasLineOfSight(gx, gy)) continue;
-
       map.visible[gy][gx] = true;
       map.explored[gy][gx] = true;
-
-      // 3D z层可见性
       const b = map.blocks[gy][gx];
       const stackH = b ? b.length : 0;
-      let mask = 1; // z=0 地板面始终可见
+      let mask = 1;
       for(let z = 1; z <= stackH; z++){
         const belowBt = BLOCK_TYPES[b[z-1]];
         if(belowBt && belowBt.solid){
@@ -518,14 +1242,10 @@ export function computeFOV3D(map, ox, oy, radius){
   }
 }
 
-// 兼容旧代码：computeFOV + computeVerticalVisibility 合并
 export function computeFOV(map, ox, oy, radius){
   computeFOV3D(map, ox, oy, radius);
 }
 
-export function computeVerticalVisibility(map){
-  // 已在 computeFOV3D 中完成，此处保持兼容
-}
+export function computeVerticalVisibility(map){}
 
 export { makeItem, qualityMult };
-
