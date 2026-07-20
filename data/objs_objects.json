@@ -1,0 +1,1072 @@
+{
+  "_meta": {
+    "version": "1.0",
+    "linkedBy": "id",
+    "linksTo": [
+      "objs_atlas_map.json",
+      "objs_render_params.json"
+    ],
+    "sampleRange": [
+      0,
+      59
+    ],
+    "totalRecognized": 60,
+    "totalInAtlas": 2002,
+    "generatedAt": "2026-07-20T09:53:07.294113",
+    "note": "WARNING: semantic labels for non-verified entries were NOT visually confirmed (image viewing was disabled in the generation session). They are unverified guesses. Re-run recognition with a multimodal model to fill them in.",
+    "verifiedCount": 12,
+    "verifiedFrom": "js/data.js DECOR_TYPES (13 authoritative decor with exact coords)"
+  },
+  "objects": [
+    {
+      "id": 0,
+      "name": "草簇",
+      "nameEn": "grass_tuft",
+      "category": "植被",
+      "subCategory": "草丛",
+      "description": "地面上低矮密集的草叶，最常见的地面装饰。",
+      "sizeClass": "tiny",
+      "weightKg": 0.039,
+      "material": "plant",
+      "tags": [
+        "verified_from_datajs"
+      ],
+      "gameId": "grass_tuft",
+      "verified": true
+    },
+    {
+      "id": 1,
+      "name": "白花",
+      "nameEn": "flower_white",
+      "category": "植被",
+      "subCategory": "花",
+      "description": "素白色的小花。",
+      "sizeClass": "tiny",
+      "weightKg": 0.026,
+      "material": "plant",
+      "tags": [
+        "verified_from_datajs"
+      ],
+      "gameId": "flower_white",
+      "verified": true
+    },
+    {
+      "id": 2,
+      "name": "高草",
+      "nameEn": "grass_tall",
+      "category": "植被",
+      "subCategory": "高草",
+      "description": "比普通草更高更挺拔的草丛，随风摇曳。",
+      "sizeClass": "medium",
+      "weightKg": 0.36,
+      "material": "plant",
+      "tags": [
+        "verified_from_datajs"
+      ],
+      "gameId": "grass_tall",
+      "verified": true
+    },
+    {
+      "id": 3,
+      "name": "高石柱",
+      "nameEn": "Tall Stone Pillar",
+      "category": "nature",
+      "subCategory": "rock",
+      "description": "高耸的灰色石柱，可能是古代遗迹的残存部分。",
+      "sizeClass": "medium",
+      "weightKg": 25.0,
+      "material": "stone",
+      "tags": [
+        "natural",
+        "solid",
+        "immovable",
+        "tall"
+      ],
+      "verified": false,
+      "needsVision": true
+    },
+    {
+      "id": 4,
+      "name": "绿灌木丛",
+      "nameEn": "Green Bush",
+      "category": "vegetation",
+      "subCategory": "bush",
+      "description": "茂密的绿色灌木丛，叶片细密呈针状。",
+      "sizeClass": "small",
+      "weightKg": 1.5,
+      "material": "plant",
+      "tags": [
+        "decorative",
+        "flammable",
+        "cover"
+      ],
+      "verified": false,
+      "needsVision": true
+    },
+    {
+      "id": 5,
+      "name": "浅绿灌木",
+      "nameEn": "Light Green Bush",
+      "category": "vegetation",
+      "subCategory": "bush",
+      "description": "浅绿色调的灌木，生长在光照充足的开阔地。",
+      "sizeClass": "small",
+      "weightKg": 1.2,
+      "material": "plant",
+      "tags": [
+        "decorative",
+        "flammable"
+      ],
+      "verified": false,
+      "needsVision": true
+    },
+    {
+      "id": 6,
+      "name": "暗色水洼",
+      "nameEn": "Dark Puddle",
+      "category": "nature",
+      "subCategory": "water",
+      "description": "深色的积水坑，可能混有泥土或腐烂物。",
+      "sizeClass": "tiny",
+      "weightKg": 0.5,
+      "material": "liquid",
+      "tags": [
+        "wet",
+        "reflective",
+        "walkable"
+      ],
+      "verified": false,
+      "needsVision": true
+    },
+    {
+      "id": 7,
+      "name": "暗水洼(变体)",
+      "nameEn": "Dark Puddle Variant",
+      "category": "nature",
+      "subCategory": "water",
+      "description": "水洼的另一种外观形态，颜色更深更浑浊。",
+      "sizeClass": "tiny",
+      "weightKg": 0.4,
+      "material": "liquid",
+      "tags": [
+        "wet",
+        "reflective",
+        "walkable"
+      ],
+      "verified": false,
+      "needsVision": true
+    },
+    {
+      "id": 8,
+      "name": "向日葵花簇",
+      "nameEn": "Sunflower Cluster",
+      "category": "vegetation",
+      "subCategory": "flower",
+      "description": "盛开的向日葵，金黄色的花瓣和宽大的绿叶组成醒目的花丛。",
+      "sizeClass": "medium",
+      "weightKg": 3.0,
+      "material": "plant",
+      "tags": [
+        "decorative",
+        "bright",
+        "seasonal",
+        "flammable"
+      ],
+      "verified": false,
+      "needsVision": true
+    },
+    {
+      "id": 9,
+      "name": "枯萎灌木",
+      "nameEn": "Withered Bush",
+      "category": "vegetation",
+      "subCategory": "bush",
+      "description": "干枯发黄的灌木，枝条稀疏无叶，呈现衰败景象。",
+      "sizeClass": "small",
+      "weightKg": 0.6,
+      "material": "plant_dried",
+      "tags": [
+        "dry",
+        "flammable",
+        "dead_vegetation"
+      ],
+      "verified": false,
+      "needsVision": true
+    },
+    {
+      "id": 10,
+      "name": "红郁金香",
+      "nameEn": "Red Tulips",
+      "category": "vegetation",
+      "subCategory": "flower",
+      "description": "鲜艳的红色郁金香花朵，成簇盛开。",
+      "sizeClass": "small",
+      "weightKg": 0.8,
+      "material": "plant",
+      "tags": [
+        "decorative",
+        "colorful",
+        "flammable"
+      ],
+      "verified": false,
+      "needsVision": true
+    },
+    {
+      "id": 11,
+      "name": "藤蔓",
+      "nameEn": "vine",
+      "category": "植被",
+      "subCategory": "藤本",
+      "description": "攀附或垂挂的藤蔓植物。",
+      "sizeClass": "tiny",
+      "weightKg": 0.052,
+      "material": "plant",
+      "tags": [
+        "verified_from_datajs"
+      ],
+      "gameId": "vine",
+      "verified": true
+    },
+    {
+      "id": 12,
+      "name": "黄花",
+      "nameEn": "flower_yellow",
+      "category": "植被",
+      "subCategory": "花",
+      "description": "明黄色的野花。",
+      "sizeClass": "tiny",
+      "weightKg": 0.051,
+      "material": "plant",
+      "tags": [
+        "verified_from_datajs"
+      ],
+      "gameId": "flower_yellow",
+      "verified": true
+    },
+    {
+      "id": 13,
+      "name": "秋叶(散落)",
+      "nameEn": "Scattered Autumn Leaves",
+      "category": "vegetation",
+      "subCategory": "decoration",
+      "description": "散落的橙黄色秋叶，暗示季节为秋季。",
+      "sizeClass": "tiny",
+      "weightKg": 0.02,
+      "material": "plant_dried",
+      "tags": [
+        "seasonal",
+        "ground_litter",
+        "flammable"
+      ],
+      "verified": false,
+      "needsVision": true
+    },
+    {
+      "id": 14,
+      "name": "灰岩堆",
+      "nameEn": "Rock Pile",
+      "category": "nature",
+      "subCategory": "rock",
+      "description": "不规则的灰色岩石堆积，大小不一的石块组合。",
+      "sizeClass": "small",
+      "weightKg": 8.0,
+      "material": "stone",
+      "tags": [
+        "natural",
+        "solid",
+        "immovable"
+      ],
+      "verified": false,
+      "needsVision": true
+    },
+    {
+      "id": 15,
+      "name": "老树桩",
+      "nameEn": "Old Tree Stump",
+      "category": "structure",
+      "subCategory": "wood",
+      "description": "被砍伐后留下的粗大树桩，表面有年轮纹理。",
+      "sizeClass": "medium",
+      "weightKg": 40.0,
+      "material": "wood",
+      "tags": [
+        "solid",
+        "immovable",
+        "craft_material"
+      ],
+      "verified": false,
+      "needsVision": true
+    },
+    {
+      "id": 16,
+      "name": "木桶",
+      "nameEn": "Wooden Barrel",
+      "category": "container",
+      "subCategory": "barrel",
+      "description": "圆木箍成的储物桶，可存放液体或其他物品。",
+      "sizeClass": "small",
+      "weightKg": 15.0,
+      "material": "wood",
+      "tags": [
+        "solid",
+        "interactive",
+        "container",
+        "craft_material",
+        "rotatable"
+      ],
+      "verified": false,
+      "needsVision": true
+    },
+    {
+      "id": 17,
+      "name": "大石块",
+      "nameEn": "Large Boulder",
+      "category": "nature",
+      "subCategory": "rock",
+      "description": "巨大的圆形灰岩块，表面粗糙不平。",
+      "sizeClass": "large",
+      "weightKg": 80.0,
+      "material": "stone",
+      "tags": [
+        "solid",
+        "collision",
+        "immovable",
+        "heavy"
+      ],
+      "verified": false,
+      "needsVision": true
+    },
+    {
+      "id": 18,
+      "name": "高芦苇",
+      "nameEn": "Tall Reeds",
+      "category": "vegetation",
+      "subCategory": "grass",
+      "description": "细长的芦苇草，随风摇摆，高度超过一般草本植物。",
+      "sizeClass": "medium",
+      "weightKg": 0.7,
+      "material": "plant",
+      "tags": [
+        "tall",
+        "swaying",
+        "flammable",
+        "cover"
+      ],
+      "verified": false,
+      "needsVision": true
+    },
+    {
+      "id": 19,
+      "name": "高草(变体)",
+      "nameEn": "Tall Grass Variant",
+      "category": "vegetation",
+      "subCategory": "grass",
+      "description": "另一种形态的高草，叶片更宽更密。",
+      "sizeClass": "medium",
+      "weightKg": 0.6,
+      "material": "plant",
+      "tags": [
+        "tall",
+        "flammable",
+        "cover"
+      ],
+      "verified": false,
+      "needsVision": true
+    },
+    {
+      "id": 20,
+      "name": "蕨类植物",
+      "nameEn": "Fern Plant",
+      "category": "vegetation",
+      "subCategory": "fern",
+      "description": "绿色的羽状复叶蕨类，适合阴暗潮湿环境。",
+      "sizeClass": "small",
+      "weightKg": 0.5,
+      "material": "plant",
+      "tags": [
+        "shade_loving",
+        "flammable",
+        "decorative"
+      ],
+      "verified": false,
+      "needsVision": true
+    },
+    {
+      "id": 21,
+      "name": "枯黄草",
+      "nameEn": "Dry Yellow Grass",
+      "category": "vegetation",
+      "subCategory": "grass",
+      "description": "因缺水或季节原因干枯发黄的草。",
+      "sizeClass": "small",
+      "weightKg": 0.2,
+      "material": "plant_dried",
+      "tags": [
+        "dry",
+        "flammable",
+        "ground_cover"
+      ],
+      "verified": false,
+      "needsVision": true
+    },
+    {
+      "id": 22,
+      "name": "绿蕨叶",
+      "nameEn": "Green Fern Leaf",
+      "category": "vegetation",
+      "subCategory": "fern",
+      "description": "单片展开的蕨类叶子，边缘呈锯齿状。",
+      "sizeClass": "small",
+      "weightKg": 0.3,
+      "material": "plant",
+      "tags": [
+        "shade_loving",
+        "flammable"
+      ],
+      "verified": false,
+      "needsVision": true
+    },
+    {
+      "id": 23,
+      "name": "小绿苗",
+      "nameEn": "Small Green Sprout",
+      "category": "vegetation",
+      "subCategory": "seedling",
+      "description": "刚破土而出的小幼苗，只有几片嫩叶。",
+      "sizeClass": "tiny",
+      "weightKg": 0.05,
+      "material": "plant",
+      "tags": [
+        "young",
+        "growing",
+        "delicate"
+      ],
+      "verified": false,
+      "needsVision": true
+    },
+    {
+      "id": 24,
+      "name": "粉小花",
+      "nameEn": "Tiny Pink Flower",
+      "category": "vegetation",
+      "subCategory": "flower",
+      "description": "单朵小巧的粉色花朵，花瓣精致可爱。",
+      "sizeClass": "tiny",
+      "weightKg": 0.08,
+      "material": "plant",
+      "tags": [
+        "decorative",
+        "fragile"
+      ],
+      "verified": false,
+      "needsVision": true
+    },
+    {
+      "id": 25,
+      "name": "干枯草药",
+      "nameEn": "Dried Herb",
+      "category": "vegetation",
+      "subCategory": "herb",
+      "description": "晒干的药用植物，叶片卷曲呈褐色。",
+      "sizeClass": "tiny",
+      "weightKg": 0.03,
+      "material": "plant_dried",
+      "tags": [
+        "craft_material",
+        "medicinal",
+        "dry"
+      ],
+      "verified": false,
+      "needsVision": true
+    },
+    {
+      "id": 26,
+      "name": "绿叶灌丛",
+      "nameEn": "Leafy Bush",
+      "category": "vegetation",
+      "subCategory": "bush",
+      "description": "叶片宽大的绿色灌木丛，看起来很茂盛。",
+      "sizeClass": "small",
+      "weightKg": 1.8,
+      "material": "plant",
+      "tags": [
+        "dense",
+        "flammable",
+        "cover"
+      ],
+      "verified": false,
+      "needsVision": true
+    },
+    {
+      "id": 27,
+      "name": "枯黄灌木(大)",
+      "nameEn": "Large Withered Bush",
+      "category": "vegetation",
+      "subCategory": "bush",
+      "description": "较大型的枯萎灌木，枝干裸露。",
+      "sizeClass": "medium",
+      "weightKg": 1.0,
+      "material": "plant_dried",
+      "tags": [
+        "dry",
+        "flammable",
+        "dead_vegetation"
+      ],
+      "verified": false,
+      "needsVision": true
+    },
+    {
+      "id": 28,
+      "name": "绿叶植物簇",
+      "nameEn": "Leafy Plant Cluster",
+      "category": "vegetation",
+      "subCategory": "bush",
+      "description": "多株绿叶植物聚集在一起形成的浓密绿丛。",
+      "sizeClass": "medium",
+      "weightKg": 2.2,
+      "material": "plant",
+      "tags": [
+        "dense",
+        "flammable",
+        "cover"
+      ],
+      "verified": false,
+      "needsVision": true
+    },
+    {
+      "id": 29,
+      "name": "水洼",
+      "nameEn": "puddle",
+      "category": "自然",
+      "subCategory": "水",
+      "description": "地面的小水洼。",
+      "sizeClass": "tiny",
+      "weightKg": 0.072,
+      "material": "organic",
+      "tags": [
+        "verified_from_datajs"
+      ],
+      "gameId": "puddle",
+      "verified": true
+    },
+    {
+      "id": 30,
+      "name": "甲虫/螃蟹",
+      "nameEn": "Beetle / Crab",
+      "category": "creature",
+      "subCategory": "arthropod",
+      "description": "棕色的甲壳类昆虫或小型甲虫，在地面上爬行。",
+      "sizeClass": "tiny",
+      "weightKg": 0.02,
+      "material": "chitin",
+      "tags": [
+        "animated",
+        "small_creature",
+        "ground"
+      ],
+      "verified": false,
+      "needsVision": true
+    },
+    {
+      "id": 31,
+      "name": "蘑菇",
+      "nameEn": "mushroom",
+      "category": "植被",
+      "subCategory": "菌类",
+      "description": "从地面长出的小蘑菇。",
+      "sizeClass": "tiny",
+      "weightKg": 0.05,
+      "material": "plant",
+      "tags": [
+        "verified_from_datajs"
+      ],
+      "gameId": "mushroom",
+      "verified": true
+    },
+    {
+      "id": 32,
+      "name": "蛛网",
+      "nameEn": "Spider Web",
+      "category": "nature",
+      "subCategory": "web",
+      "description": "粘性的蜘蛛网，悬挂在角落或树枝间。",
+      "sizeClass": "tiny",
+      "weightKg": 0.001,
+      "material": "silk",
+      "tags": [
+        "sticky",
+        "trap",
+        "decorative",
+        "fragile"
+      ],
+      "verified": false,
+      "needsVision": true
+    },
+    {
+      "id": 33,
+      "name": "干草束",
+      "nameEn": "Dry Straw Bundle",
+      "category": "vegetation",
+      "subCategory": "grass",
+      "description": "成捆的干稻草或枯草，可用于燃料或饲料。",
+      "sizeClass": "tiny",
+      "weightKg": 0.15,
+      "material": "plant_dried",
+      "tags": [
+        "dry",
+        "flammable",
+        "craft_material"
+      ],
+      "verified": false,
+      "needsVision": true
+    },
+    {
+      "id": 34,
+      "name": "嫩绿草",
+      "nameEn": "Fresh Green Grass",
+      "category": "vegetation",
+      "subCategory": "grass",
+      "description": "鲜嫩的青草，颜色明亮翠绿。",
+      "sizeClass": "tiny",
+      "weightKg": 0.1,
+      "material": "plant",
+      "tags": [
+        "fresh",
+        "flammable",
+        "edible_for_herbivore"
+      ],
+      "verified": false,
+      "needsVision": true
+    },
+    {
+      "id": 35,
+      "name": "矮绿灌木",
+      "nameEn": "Low Green Shrub",
+      "category": "vegetation",
+      "subCategory": "bush",
+      "description": "低矮紧凑的绿色灌木，贴地生长。",
+      "sizeClass": "tiny",
+      "weightKg": 0.4,
+      "material": "plant",
+      "tags": [
+        "compact",
+        "flammable"
+      ],
+      "verified": false,
+      "needsVision": true
+    },
+    {
+      "id": 36,
+      "name": "野黄花",
+      "nameEn": "Wild Yellow Flowers",
+      "category": "vegetation",
+      "subCategory": "flower",
+      "description": "野外自然生长的小黄花，零星分布。",
+      "sizeClass": "tiny",
+      "weightKg": 0.1,
+      "material": "plant",
+      "tags": [
+        "wild",
+        "decorative",
+        "flammable"
+      ],
+      "verified": false,
+      "needsVision": true
+    },
+    {
+      "id": 37,
+      "name": "阔叶植物",
+      "nameEn": "Broadleaf Plant",
+      "category": "vegetation",
+      "subCategory": "bush",
+      "description": "叶片宽大厚实的植物，可能是一种观赏性灌木。",
+      "sizeClass": "small",
+      "weightKg": 0.9,
+      "material": "plant",
+      "tags": [
+        "decorative",
+        "flammable"
+      ],
+      "verified": false,
+      "needsVision": true
+    },
+    {
+      "id": 38,
+      "name": "卵石",
+      "nameEn": "pebble",
+      "category": "自然",
+      "subCategory": "碎石",
+      "description": "散落的小石子。",
+      "sizeClass": "tiny",
+      "weightKg": 0.022,
+      "material": "stone",
+      "tags": [
+        "verified_from_datajs"
+      ],
+      "gameId": "pebble",
+      "verified": true
+    },
+    {
+      "id": 39,
+      "name": "地裂",
+      "nameEn": "crack",
+      "category": "自然",
+      "subCategory": "地表",
+      "description": "地面上的裂纹装饰。",
+      "sizeClass": "tiny",
+      "weightKg": 0.019,
+      "material": "organic",
+      "tags": [
+        "verified_from_datajs"
+      ],
+      "gameId": "crack",
+      "verified": true
+    },
+    {
+      "id": 40,
+      "name": "嫩芽",
+      "nameEn": "Tiny Sprout",
+      "category": "vegetation",
+      "subCategory": "seedling",
+      "description": "刚刚冒出的微小嫩芽，只有两片子叶。",
+      "sizeClass": "tiny",
+      "weightKg": 0.008,
+      "material": "plant",
+      "tags": [
+        "very_young",
+        "growing",
+        "delicate"
+      ],
+      "verified": false,
+      "needsVision": true
+    },
+    {
+      "id": 41,
+      "name": "双叶芽",
+      "nameEn": "Two-leaf Sprout",
+      "category": "vegetation",
+      "subCategory": "seedling",
+      "description": "有两片真叶的小幼苗。",
+      "sizeClass": "tiny",
+      "weightKg": 0.01,
+      "material": "plant",
+      "tags": [
+        "young",
+        "growing",
+        "delicate"
+      ],
+      "verified": false,
+      "needsVision": true
+    },
+    {
+      "id": 42,
+      "name": "小绿植群",
+      "nameEn": "Small Green Plant Group",
+      "category": "vegetation",
+      "subCategory": "bush",
+      "description": "几株小型绿色植物聚在一起。",
+      "sizeClass": "tiny",
+      "weightKg": 0.25,
+      "material": "plant",
+      "tags": [
+        "grouped",
+        "flammable"
+      ],
+      "verified": false,
+      "needsVision": true
+    },
+    {
+      "id": 43,
+      "name": "微型芽",
+      "nameEn": "Micro Sprout",
+      "category": "vegetation",
+      "subCategory": "seedling",
+      "description": "几乎看不见的微小芽点。",
+      "sizeClass": "tiny",
+      "weightKg": 0.002,
+      "material": "plant",
+      "tags": [
+        "microscopic_growing",
+        "delicate"
+      ],
+      "verified": false,
+      "needsVision": true
+    },
+    {
+      "id": 44,
+      "name": "水晶",
+      "nameEn": "crystal",
+      "category": "光源",
+      "subCategory": "矿物",
+      "description": "会发光的小水晶。",
+      "sizeClass": "tiny",
+      "weightKg": 0.013,
+      "material": "mineral",
+      "tags": [
+        "verified_from_datajs",
+        "light"
+      ],
+      "gameId": "crystal",
+      "verified": true
+    },
+    {
+      "id": 45,
+      "name": "小黄花(变体)",
+      "nameEn": "Small Yellow Flower v2",
+      "category": "vegetation",
+      "subCategory": "flower",
+      "description": "另一种形态的小黄花，花瓣排列略有不同。",
+      "sizeClass": "tiny",
+      "weightKg": 0.09,
+      "material": "plant",
+      "tags": [
+        "decorative",
+        "flammable"
+      ],
+      "verified": false,
+      "needsVision": true
+    },
+    {
+      "id": 46,
+      "name": "火把",
+      "nameEn": "torch",
+      "category": "光源",
+      "subCategory": "照明",
+      "description": "可发光的火把，提供照明。",
+      "sizeClass": "tiny",
+      "weightKg": 0.031,
+      "material": "organic",
+      "tags": [
+        "verified_from_datajs",
+        "light"
+      ],
+      "gameId": "torch",
+      "verified": true
+    },
+    {
+      "id": 47,
+      "name": "圆灌木",
+      "nameEn": "Round Bush",
+      "category": "vegetation",
+      "subCategory": "bush",
+      "description": "近似圆形轮廓的低矮灌木。",
+      "sizeClass": "small",
+      "weightKg": 1.1,
+      "material": "plant",
+      "tags": [
+        "rounded",
+        "flammable"
+      ],
+      "verified": false,
+      "needsVision": true
+    },
+    {
+      "id": 48,
+      "name": "骨头",
+      "nameEn": "bone",
+      "category": "自然",
+      "subCategory": "残骸",
+      "description": "散落的动物骨头。",
+      "sizeClass": "tiny",
+      "weightKg": 0.013,
+      "material": "organic",
+      "tags": [
+        "verified_from_datajs"
+      ],
+      "gameId": "bone",
+      "verified": true
+    },
+    {
+      "id": 49,
+      "name": "微芽B",
+      "nameEn": "Sprout B",
+      "category": "vegetation",
+      "subCategory": "seedling",
+      "description": "微小嫩芽的另一种形态，方向不同。",
+      "sizeClass": "tiny",
+      "weightKg": 0.003,
+      "material": "plant",
+      "tags": [
+        "tiny",
+        "growing"
+      ],
+      "verified": false,
+      "needsVision": true
+    },
+    {
+      "id": 50,
+      "name": "微粒植物",
+      "nameEn": "Micro Plant",
+      "category": "vegetation",
+      "subCategory": "seedling",
+      "description": "极微小的植物个体，仅有几个像素。",
+      "sizeClass": "tiny",
+      "weightKg": 0.001,
+      "material": "plant",
+      "tags": [
+        "micro",
+        "delicate"
+      ],
+      "verified": false,
+      "needsVision": true
+    },
+    {
+      "id": 51,
+      "name": "长芦苇A",
+      "nameEn": "Long Reed A",
+      "category": "vegetation",
+      "subCategory": "grass",
+      "description": "细长的芦苇草，顶端带穗。",
+      "sizeClass": "medium",
+      "weightKg": 0.65,
+      "material": "plant",
+      "tags": [
+        "tall",
+        "swaying",
+        "flammable"
+      ],
+      "verified": false,
+      "needsVision": true
+    },
+    {
+      "id": 52,
+      "name": "长芦苇B",
+      "nameEn": "Long Reed B",
+      "category": "vegetation",
+      "subCategory": "grass",
+      "description": "芦苇的另一种形态，弯曲角度不同。",
+      "sizeClass": "medium",
+      "weightKg": 0.6,
+      "material": "plant",
+      "tags": [
+        "tall",
+        "swaying",
+        "flammable"
+      ],
+      "verified": false,
+      "needsVision": true
+    },
+    {
+      "id": 53,
+      "name": "橙郁金香",
+      "nameEn": "Orange Tulips",
+      "category": "vegetation",
+      "subCategory": "flower",
+      "description": "橙黄色的郁金香花朵，温暖色调。",
+      "sizeClass": "small",
+      "weightKg": 0.75,
+      "material": "plant",
+      "tags": [
+        "decorative",
+        "colorful",
+        "flammable"
+      ],
+      "verified": false,
+      "needsVision": true
+    },
+    {
+      "id": 54,
+      "name": "矮绿丛A",
+      "nameEn": "Low Green Clump A",
+      "category": "vegetation",
+      "subCategory": "bush",
+      "description": "低矮的绿色植物团簇。",
+      "sizeClass": "tiny",
+      "weightKg": 0.28,
+      "material": "plant",
+      "tags": [
+        "low_growing",
+        "flammable"
+      ],
+      "verified": false,
+      "needsVision": true
+    },
+    {
+      "id": 55,
+      "name": "粉叶花",
+      "nameEn": "Pink Leafy Flower",
+      "category": "vegetation",
+      "subCategory": "flower",
+      "description": "带绿叶衬托的粉色小花。",
+      "sizeClass": "tiny",
+      "weightKg": 0.12,
+      "material": "plant",
+      "tags": [
+        "decorative",
+        "colorful"
+      ],
+      "verified": false,
+      "needsVision": true
+    },
+    {
+      "id": 56,
+      "name": "黄花束",
+      "nameEn": "Yellow Flower Bunch",
+      "category": "vegetation",
+      "subCategory": "flower",
+      "description": "一束黄色小花的集合体。",
+      "sizeClass": "tiny",
+      "weightKg": 0.18,
+      "material": "plant",
+      "tags": [
+        "decorative",
+        "wild",
+        "flammable"
+      ],
+      "verified": false,
+      "needsVision": true
+    },
+    {
+      "id": 57,
+      "name": "黄枯草",
+      "nameEn": "Yellow Withered Grass",
+      "category": "vegetation",
+      "subCategory": "grass",
+      "description": "发黄的枯草，处于半干状态。",
+      "sizeClass": "tiny",
+      "weightKg": 0.12,
+      "material": "plant_dried",
+      "tags": [
+        "semi_dry",
+        "flammable"
+      ],
+      "verified": false,
+      "needsVision": true
+    },
+    {
+      "id": 58,
+      "name": "蕨草A",
+      "nameEn": "Fern Grass A",
+      "category": "vegetation",
+      "subCategory": "fern",
+      "description": "类似蕨类的草叶形态。",
+      "sizeClass": "small",
+      "weightKg": 0.35,
+      "material": "plant",
+      "tags": [
+        "shade_loving",
+        "flammable"
+      ],
+      "verified": false,
+      "needsVision": true
+    },
+    {
+      "id": 59,
+      "name": "微绿芽簇",
+      "nameEn": "Micro Green Sprout Cluster",
+      "category": "vegetation",
+      "subCategory": "seedling",
+      "description": "多个微小绿芽聚集在一起。",
+      "sizeClass": "tiny",
+      "weightKg": 0.015,
+      "material": "plant",
+      "tags": [
+        "clustered",
+        "young",
+        "delicate"
+      ],
+      "verified": false,
+      "needsVision": true
+    }
+  ]
+}

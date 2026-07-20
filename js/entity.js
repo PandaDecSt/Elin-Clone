@@ -1,8 +1,56 @@
 // ===== 实体系统：角色/怪物/属性/等级/状态效果 =====
+// 增强版：集成 ElementContainer + ConditionManager + 生存需求系统
 
 import { RACES, CLASSES, ATTRS, SKILLS, ELEMENTS, QUALITY } from './data.js';
 import { RNG, rollDice } from './rng.js';
 import { makeItem, qualityMult } from './item.js';
+import { ElementContainer, ELE_ID, ATTR_NAME_TO_ID, SKILL_NAME_TO_ID } from './element.js';
+import { ConditionManager, CONDITIONS, addCondition, hasCondition } from './condition.js';
+
+// ---------- 生存需求系统（移植自原版 Stats）----------
+export class SurvivalNeed {
+  constructor(name, max = 100, decayRate = 0.1){
+    this.name = name;
+    this.value = 0;       // 当前值
+    this.max = max;       // 最大值
+    this.decayRate = decayRate;  // 每秒衰减率
+    this.phase = 0;       // 阶段 0-4
+    this.thresholds = [0.2, 0.4, 0.6, 0.8];  // 阶段阈值
+  }
+
+  // 每帧更新
+  update(dt){
+    this.value = Math.min(this.max, this.value + this.decayRate * dt);
+    this._updatePhase();
+  }
+
+  // 消耗
+  consume(amount){
+    this.value = Math.max(0, this.value - amount);
+    this._updatePhase();
+  }
+
+  // 补充
+  restore(amount){
+    this.value = Math.min(this.max, this.value + amount);
+    this._updatePhase();
+  }
+
+  _updatePhase(){
+    const ratio = this.value / this.max;
+    for(let i = this.thresholds.length - 1; i >= 0; i--){
+      if(ratio >= this.thresholds[i]){
+        this.phase = i + 1;
+        return;
+      }
+    }
+    this.phase = 0;
+  }
+
+  // 是否需要关注
+  get needsAttention(){ return this.phase >= 3; }
+  get isCritical(){ return this.phase >= 4; }
+}
 
 // ---- 创建玩家角色 ----
 export function createPlayer(raceId, classId, name, rng){
@@ -189,25 +237,143 @@ export class Entity{
     this.turnsAlive = 0;
     this.floatBob = 0;
     this._lastDamaged = 0;
+
+    // ===== 新增系统 =====
+    // ElementContainer：数据驱动的属性/技能/法术容器
+    this.elements = new ElementContainer();
+    // ConditionManager：状态效果管理器
+    this.conditions = new ConditionManager();
+    // 生存需求系统
+    this.hunger = new SurvivalNeed('饥饿', 100, 0.08);   // 饱食度（越高越饱）
+    this.sleepiness = new SurvivalNeed('睡眠', 100, 0.05); // 精力（越高越精神）
+    this.hygiene = new SurvivalNeed('卫生', 100, 0.02);   // 卫生
+    this.sanity = new SurvivalNeed('理智', 100, 0.01);    // 理智
+    // 负重系统
+    this.burden = 0;        // 当前负重
+    this.weightLimit = this.weightLimit || 99;  // 负重上限
+    // 装备槽系统（增强版）
+    this.bodySlots = this._initBodySlots();
+    // 派系
+    this.faction = null;
+    this.factionRelation = {};  // factionId -> relation value
+    // 信仰
+    this.faith = null;       // 所信仰的神
+    this.piety = 0;          // 虔诚度
+    // NPC 属性
+    this.isNPC = opts.isNPC || false;
+    this.npcType = opts.npcType || null;
+    this.npcJob = opts.npcJob || null;
+    this.shop = opts.shop || null;
+    this.isHealer = opts.isHealer || false;
+    // AI 引用
+    this._game = null;       // 游戏实例引用（由外部设置）
+    this.aiAct = null;       // AI 行为实例
   }
 
-  // ---- 重新计算衍生属性 ----
+  // 初始化装备槽
+  _initBodySlots(){
+    return {
+      主手: null,    // 主手武器
+      副手: null,    // 副手武器/盾牌
+      头部: null,
+      身体: null,
+      披风: null,
+      手套: null,
+      靴子: null,
+      戒指: [null, null],  // 最多2个戒指
+      项链: null,
+      弹药: null,
+    };
+  }
+
+  // 获取总负重
+  getBurden(){
+    let total = 0;
+    if(this.inventory){
+      for(const item of this.inventory){
+        total += (item.weight || 0) * (item._count || 1);
+      }
+    }
+    // 装备负重
+    for(const slot in this.equipment){
+      const item = this.equipment[slot];
+      if(item) total += (item.weight || 0);
+    }
+    this.burden = total;
+    return total;
+  }
+
+  // 负重百分比
+  getBurdenPercent(){
+    return (this.getBurden() / this.weightLimit) * 100;
+  }
+
+  // 是否超重
+  get isOverburdened(){ return this.getBurden() > this.weightLimit; }
+
+  // 更新生存需求
+  updateSurvival(dt){
+    this.hunger.update(dt);
+    this.sleepiness.update(dt);
+    this.hygiene.update(dt);
+    this.sanity.update(dt);
+
+    // 饥饿效果
+    if(this.hunger.phase >= 4){
+      this.hp -= 1 * dt;
+      if(this.hp <= 0){ this.hp = 0; this.alive = false; }
+    }
+
+    // 睡眠不足效果
+    if(this.sleepiness.phase >= 4){
+      // 降低属性
+    }
+  }
+
+  // 从 ElementContainer 读取属性值（兼容旧代码）
+  getAttr(name){
+    // 先查 ElementContainer
+    const eleId = ATTR_NAME_TO_ID[name];
+    if(eleId){
+      const e = this.elements.get(eleId);
+      if(e) return e.Value;
+    }
+    // 回退到旧的 attrs 系统
+    let v = this.attrs[name] || 0;
+    // 条件修正
+    if(this.conditions){
+      v += this.conditions.getAttrMods()[name] || 0;
+    }
+    // 附魔修正
+    if(this.enchBonus && this.enchBonus[name]) v += this.enchBonus[name];
+    return v;
+  }
+
+  // ---- 重新计算衍生属性（增强版：集成 ElementContainer + ConditionManager）----
   recalcStats(){
     const a = this.attrs;
+
+    // 从 ElementContainer 读取主属性
+    const str = this.getAttr('力量');
+    const mag = this.getAttr('魔力');
+    const wil = this.getAttr('意志');
+    const dex = this.getAttr('灵巧');
+    const per = this.getAttr('感知');
+
     // HP = life * (1 + 力量*0.02 + 意志*0.015) * 等级缩放
-    this.maxHp = Math.floor(this.life * (1 + (a['力量']||0)*0.02 + (a['意志']||0)*0.015) * (1 + (this.level-1)*0.08));
+    this.maxHp = Math.floor(this.life * (1 + str*0.02 + wil*0.015) * (1 + (this.level-1)*0.08));
     // MP = mana * (1 + 魔力*0.03 + 意志*0.01)
-    this.maxMp = Math.floor(this.mana * (1 + (a['魔力']||0)*0.03 + (a['意志']||0)*0.01) * (1 + (this.level-1)*0.08));
+    this.maxMp = Math.floor(this.mana * (1 + mag*0.03 + wil*0.01) * (1 + (this.level-1)*0.08));
     // 体力上限
-    this.maxStamina = 100 + (a['意志']||0)*2 + (this.skills['体力']?this.skills['体力'].level*5:0);
-    // DV = 灵巧*0.8 + 感知*0.3 + 种族加成
-    let dv = (a['灵巧']||0)*0.8 + (a['感知']||0)*0.3 + (this.dvBonus||0);
-    // PV 基础 0
+    this.maxStamina = 100 + wil*2 + (this.skills['体力']?this.skills['体力'].level*5:0);
+
+    // DV = 灵巧*0.8 + 感知*0.3 + 种族加成 + 条件修正
+    let dv = dex*0.8 + per*0.3 + (this.dvBonus||0);
     let pv = 0;
-    // 命中 = 灵巧 + 感知 + 等级
-    this.hit = (a['灵巧']||0) + (a['感知']||0) + this.level;
+    // 命中 = 灵巧 + 感知 + 等级 + 武器技能
+    this.hit = dex + per + this.level;
     // 暴击 = 感知*0.3 + 幸运*0.1
-    this.crit = (a['感知']||0)*0.3 + (this.luck||0)*0.1;
+    this.crit = per*0.3 + (this.luck||0)*0.1;
 
     // 装备加成
     if(this.equipment){
@@ -216,24 +382,33 @@ export class Entity{
         if(!item) continue;
         dv += item.dv || 0;
         pv += item.pv || 0;
+        // 武器命中加成
+        if(item.hit) this.hit += item.hit;
         // 附魔
         if(item.enchants){
           for(const e of item.enchants){
             if(e.attr === 'dv') dv += e.val;
             if(e.attr === 'pv') pv += e.val;
             if(e.attr === 'crit') this.crit += e.val;
-            if(e.attr === 'speed') this.attrs['速度'] = (this.attrs['速度']||0); // 速度附魔单独处理
-            if(e.attr === 'life') this.life += 0; // life附魔影响HP上限
           }
         }
       }
     }
+
+    // 条件修正（新系统）
+    if(this.conditions){
+      dv += this.conditions.getDVMod();
+      pv += this.conditions.getPVMod();
+    }
+
     this.dv = Math.floor(dv);
     this.pv = Math.floor(pv);
     // 附魔属性加成汇总
     this.enchBonus = this.sumEnchants();
-    // 速度含附魔
-    this.speed = (a['速度']||100) + (this.enchBonus['速度']||0);
+    // 速度含附魔 + 条件修正
+    let speedMod = 0;
+    if(this.conditions) speedMod = this.conditions.getSpeedMod();
+    this.speed = (a['速度']||100) + (this.enchBonus['速度']||0) + speedMod;
     // HP/MP 含附魔
     this.maxHp += (this.enchBonus['life']||0);
     this.maxMp += (this.enchBonus['mana']||0);
@@ -254,13 +429,6 @@ export class Entity{
       }
     }
     return b;
-  }
-
-  // ---- 获取有效属性（含附魔）----
-  getAttr(name){
-    let v = this.attrs[name] || 0;
-    if(this.enchBonus && this.enchBonus[name]) v += this.enchBonus[name];
-    return v;
   }
 
   // ---- 元素抗性 ----
@@ -338,15 +506,29 @@ export class Entity{
 
   // ---- 状态效果 ----
   addStatus(id, name, dur, level=1, attr=null, bad=true){
-    const existing = this.statusEffects.find(s=>s.id===id);
+    // 旧系统
+    const existing = this.statusEffects.find(s => s.id === id);
     if(existing){
       existing.dur = Math.max(existing.dur, dur);
       existing.level = Math.max(existing.level, level);
     } else {
-      this.statusEffects.push({id,name,dur,level,attr,bad});
+      this.statusEffects.push({id, name, dur, level, attr, bad});
+    }
+    // 新系统（同步）
+    if(this.conditions){
+      const condDef = CONDITIONS[id];
+      if(condDef){
+        this.conditions.add(condDef, level);
+      }
     }
   }
-  hasStatus(id){ return this.statusEffects.some(s=>s.id===id); }
+  hasStatus(id){
+    // 旧系统
+    if(this.statusEffects.some(s => s.id === id)) return true;
+    // 新系统
+    if(this.conditions && this.conditions.has(id)) return true;
+    return false;
+  }
   tickStatus(){
     for(let i=this.statusEffects.length-1;i>=0;i--){
       const s = this.statusEffects[i];
@@ -364,7 +546,18 @@ export class Entity{
     return mod;
   }
   effectiveSpeed(){
-    return Math.max(10, this.speed + this.getSpeedMod());
+    let mod = 0;
+    // 旧状态系统兼容
+    for(const s of this.statusEffects){
+      if(s.id==='slow') mod -= 30*s.level;
+      if(s.id==='haste') mod += 30*s.level;
+      if(s.id==='frozen') mod -= 200;
+    }
+    // 新条件系统
+    if(this.conditions){
+      mod += this.conditions.getSpeedMod();
+    }
+    return Math.max(10, this.speed + mod);
   }
 
   // ---- 经验/升级 ----
