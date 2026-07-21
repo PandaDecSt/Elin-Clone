@@ -10,11 +10,122 @@
 //
 // 玩家在大地地图上行走，走到城镇/地下城入口时切换到对应Zone的地图。
 
-import { TILES, MONSTERS, ITEMS, ENCHANTS, QUALITY, DECOR_TYPES, BLOCK_TYPES } from './data.js?v=43';
 import { RNG } from './rng.js';
 import { makeMonster } from './entity.js';
 import { makeItem, qualityMult } from './item.js';
 import { makeNPC } from './npc.js';
+import { MAT, GROUPS, BIOMES } from './materials.js';
+import { MONSTERS } from './data.js';
+
+// 原版 Elin 分组语义：语义字符串 → xlsx 数字 id（按 biome/defMat 归类）
+// 仅作生成期字面量兼容；地图存储层与渲染层全部是纯数字 id。
+const G = GROUPS;
+
+// ---- 地面语义 → 数字 id ----
+const FLOOR_SEM = {
+  grass:      G.floor.grass[0],
+  grass_dark: G.floor.grass[1] != null ? G.floor.grass[1] : G.floor.grass[0],
+  moss:       G.floor.grass[2] != null ? G.floor.grass[2] : G.floor.grass[0],
+  dirt:       G.floor.stone[3] != null ? G.floor.stone[3] : G.floor.stone[0],
+  floor:      G.floor.stone[0],
+  floor_dark: G.floor.stone[1] != null ? G.floor.stone[1] : G.floor.stone[0],
+  stone_path: G.floor.stone[2] != null ? G.floor.stone[2] : G.floor.stone[0],
+  rubble:     G.floor.stone[4] != null ? G.floor.stone[4] : G.floor.stone[0],
+  sand:       G.floor.sand[0],
+  snow:       G.floor.snow ? G.floor.snow[0] : G.floor.stone[0],
+  ice:        G.floor.ice ? G.floor.ice[0] : G.floor.stone[0],
+  wood:       G.floor.wood ? G.floor.wood[0] : G.floor.stone[0],
+  water:      (G.floor.water_shallow && G.floor.water_shallow[0]) != null ? G.floor.water_shallow[0] : G.floor.stone[0],
+  water_deep: (G.floor.water_deep && G.floor.water_deep[0]) != null ? G.floor.water_deep[0] : G.floor.stone[0],
+  wall:       G.floor.stone[0],  // 越界地形：用石地板（实心由方块提供）
+};
+// 每个地面数字 id 归属的分组（用于装饰物选择）
+const FLOOR_GROUP = {};
+for(const [k, arr] of Object.entries(G.floor)){
+  if(!arr) continue;
+  for(const id of arr){ if(FLOOR_GROUP[id] === undefined) FLOOR_GROUP[id] = k; }
+}
+
+// ---- 方块语义 → 数字 id ----
+const BLOCK_SEM = {
+  wall:        G.block.wall[0],
+  stone_wall:  G.block.wall[0],
+  wood_wall:   G.block.wall[0],
+  brick_wall:  G.block.wall[0],
+  dark_wall:   G.block.wall[0],
+  cobble_wall: G.block.wall[0],
+  mossy_wall:  G.block.wall[0],
+  dark_stone:  G.block.wall[0],
+  sand_wall:   G.block.wall[0],
+  smooth_stone:G.block.wall[0],
+  stone_half:  G.block.half[0] != null ? G.block.half[0] : G.block.wall[0],
+  wood_half:   G.block.half[0] != null ? G.block.half[0] : G.block.wall[0],
+  wood_fence:  G.block.wall[0],
+  stone_fence: G.block.wall[0],
+  iron_bars:   G.block.wall[0],
+};
+
+// ---- 装饰物语义 → obj 数字 id ----
+const DEC_KEY = {};
+for(const [k, arr] of Object.entries(G.obj)){
+  if(arr && arr.length && DEC_KEY[k] === undefined) DEC_KEY[k] = arr[0];
+}
+const firstObj = (g) => (G.obj[g] && G.obj[g][0]) || null;
+DEC_KEY.grass_tuft    = firstObj('grass');
+DEC_KEY.grass_tall    = (G.obj.grass && G.obj.grass[1]) || firstObj('grass');
+DEC_KEY.flower_red    = firstObj('flower');
+DEC_KEY.flower_yellow = (G.obj.flower && G.obj.flower[1]) || firstObj('flower');
+DEC_KEY.flower_white  = (G.obj.flower && G.obj.flower[2]) || firstObj('flower');
+DEC_KEY.mushroom      = firstObj('mushroom');
+DEC_KEY.tree          = firstObj('tree');
+DEC_KEY.rock          = firstObj('rock');
+DEC_KEY.bone          = firstObj('bone');
+DEC_KEY.crystal       = firstObj('crystal');
+DEC_KEY.shell         = firstObj('shell');
+DEC_KEY.bush          = firstObj('bush');
+
+// 特殊瓦片：底层放一个地板，再打 special 标记（楼梯/门/祭坛/宝箱）
+const SPECIALS = {
+  stairs_dn:  { kind: 'stairs_dn',  base: G.floor.stone[0] },
+  stairs_up:  { kind: 'stairs_up',  base: G.floor.stone[0] },
+  door:       { kind: 'door',       base: G.floor.stone[0] },
+  altar:      { kind: 'altar',      base: G.floor.stone[0] },
+  chest_tile: { kind: 'chest',      base: G.floor.stone[0] },
+};
+const isSpecialKey = (id) => typeof id === 'string' && SPECIALS[id];
+
+// ---- id 解析（字符串语义 → 数字）----
+function resolveFloorId(id){
+  if(id == null) return FLOOR_SEM.floor;
+  if(typeof id === 'number') return id;
+  if(typeof id === 'string'){
+    if(isSpecialKey(id)) return SPECIALS[id].base;
+    if(FLOOR_SEM[id] !== undefined) return FLOOR_SEM[id];
+    if(/^\d+$/.test(id)) return parseInt(id, 10);
+    console.warn('[world] 未知地面语义:', id);
+    return FLOOR_SEM.floor;
+  }
+  return FLOOR_SEM.floor;
+}
+function resolveBlockId(id){
+  if(typeof id === 'number') return id;
+  if(typeof id === 'string'){
+    if(BLOCK_SEM[id] !== undefined) return BLOCK_SEM[id];
+    if(/^\d+$/.test(id)) return parseInt(id, 10);
+    return G.block.wall[0];
+  }
+  return G.block.wall[0];
+}
+function resolveObjId(id){
+  if(typeof id === 'number') return id;
+  if(typeof id === 'string'){
+    if(DEC_KEY[id] !== undefined) return DEC_KEY[id];
+    if(/^\d+$/.test(id)) return parseInt(id, 10);
+    return null;
+  }
+  return null;
+}
+const isFloor = (tid, key) => tid === FLOOR_SEM[key];
 
 // ==================== GameMap（实际的瓦片网格）====================
 export class GameMap{
@@ -23,6 +134,7 @@ export class GameMap{
     this.tiles = [];
     this.blocks = [];
     this.decorations = [];
+    this.special = {};
     this._decorGrid = null;
     this.explored = [];
     this.visible = [];
@@ -40,7 +152,7 @@ export class GameMap{
     this.vis3D = [];
     this.exp3D = [];
     for(let y=0;y<h;y++){
-      this.tiles.push(new Array(w).fill('floor'));
+      this.tiles.push(new Array(w).fill(FLOOR_SEM.floor));
       this.blocks.push(new Array(w).fill(null));
       this.explored.push(new Array(w).fill(false));
       this.visible.push(new Array(w).fill(false));
@@ -51,11 +163,18 @@ export class GameMap{
   }
   get(x,y){
     if(x<0||y<0||x>=this.w||y>=this.h) return null;
-    return TILES[this.tiles[y][x]];
+    return MAT.floor[this.tiles[y][x]] || null;
   }
   tileId(x,y){
-    if(x<0||y<0||x>=this.w||y>=this.h) return 'wall';
+    if(x<0||y<0||x>=this.w||y>=this.h) return G.block.wall[0];
     return this.tiles[y][x];
+  }
+  specialAt(x,y){
+    return this.special[x + ',' + y] || null;
+  }
+  setSpecial(x,y,kind){
+    if(x<0||y<0||x>=this.w||y>=this.h) return;
+    this.special[x + ',' + y] = kind;
   }
   // ---- 方块堆叠系统 ----
   hasBlocks(x,y){
@@ -69,7 +188,7 @@ export class GameMap{
   }
   setBlocks(x,y,blockIds){
     if(x<0||y<0||x>=this.w||y>=this.h) return;
-    this.blocks[y][x] = (blockIds && blockIds.length > 0) ? blockIds : null;
+    this.blocks[y][x] = (blockIds && blockIds.length > 0) ? blockIds.map(resolveBlockId) : null;
   }
   clearBlocks(x,y){
     if(x<0||y<0||x>=this.w||y>=this.h) return;
@@ -79,14 +198,14 @@ export class GameMap{
     if(x<0||y<0||x>=this.w||y>=this.h) return true;
     const b = this.blocks[y][x];
     if(!b) return false;
-    return b.some(id => { const bt = BLOCK_TYPES[id]; return bt && bt.solid; });
+    return b.some(id => { const bt = MAT.block[id]; return bt && bt.solid; });
   }
   blockHeightAt(x,y){
     if(x<0||y<0||x>=this.w||y>=this.h) return 0;
     const b = this.blocks[y][x];
     if(!b) return 0;
     let h = 0;
-    for(const id of b){ const bt = BLOCK_TYPES[id]; if(bt) h += bt.h; }
+    for(const id of b){ const bt = MAT.block[id]; if(bt) h += bt.h; }
     return h;
   }
   isSolid(x,y){
@@ -113,19 +232,25 @@ export class GameMap{
   }
   setTile(x,y,id){
     if(x<0||y<0||x>=this.w||y>=this.h) return;
-    this.tiles[y][x] = id;
+    if(isSpecialKey(id)){
+      this.tiles[y][x] = SPECIALS[id].base;
+      this.setSpecial(x, y, SPECIALS[id].kind);
+      return;
+    }
+    this.tiles[y][x] = resolveFloorId(id);
   }
 
   // ---- 建造模式 ----
   addDecoration(x, y, type, face){
     if(x<0||y<0||x>=this.w||y>=this.h) return null;
-    const def = DECOR_TYPES[type];
+    const oid = resolveObjId(type);
+    const def = MAT.obj[oid];
     if(!def) return null;
-    const scale = def.minS + Math.random() * (def.maxS - def.minS);
+    const scale = (def.minS != null) ? (def.minS + Math.random() * (def.maxS - def.minS)) : (0.85 + Math.random() * 0.3);
     const ox = (Math.random() - 0.5) * 20;
     const oy = (Math.random() - 0.5) * 12;
     const phase = Math.random() * Math.PI * 2;
-    const decor = {x, y, type, ox, oy, scale, phase, face: face || null, userPlaced: true};
+    const decor = {x, y, type: oid, ox, oy, scale, phase, face: face || null, userPlaced: true};
     this.decorations.push(decor);
     const key = x + ',' + y;
     if(!this._decorGrid[key]) this._decorGrid[key] = [];
@@ -739,7 +864,7 @@ export function generateTown(rng, depth = 0){
   map.stairsUp = { x: exitX, y: exitY };  // 玩家出生点
 
   // 出口附近放门
-  if(map.tileId(exitX, exitY - 1) !== 'door'){
+  if(map.specialAt(exitX, exitY - 1) !== 'door'){
     map.setTile(exitX, exitY - 1, 'door');
     map.clearBlocks(exitX, exitY - 1);
   }
@@ -795,7 +920,7 @@ function _townName(rng){
 function _carveRoad(map, x1, y1, x2, y2, rng){
   let cx = x1, cy = y1;
   while(cx !== x2 || cy !== y2){
-    if(map.tileId(cx, cy) === 'grass'){
+    if(isFloor(map.tileId(cx, cy), 'grass')){
       map.setTile(cx, cy, 'stone_path');
       map.clearBlocks(cx, cy);
     }
@@ -875,7 +1000,7 @@ function _generateDungeonMap(zone, rng){
         {x:r.cx, y:r.y-1},{x:r.cx, y:r.y+r.h},
       ];
       for(const s of sides){
-        if(map.tileId(s.x,s.y)==='floor' && isDoorway(map,s.x,s.y)){
+        if(isFloor(map.tileId(s.x,s.y),'floor') && isDoorway(map,s.x,s.y)){
           map.setTile(s.x,s.y,'door');
           map.clearBlocks(s.x,s.y);
           break;
@@ -889,7 +1014,7 @@ function _generateDungeonMap(zone, rng){
     const roomFloor = rng.pick(['floor','floor_dark','dirt','stone_path','moss']);
     for(let y=r.y;y<r.y+r.h;y++){
       for(let x=r.x;x<r.x+r.w;x++){
-        if(map.tileId(x,y)==='floor') map.setTile(x,y,roomFloor);
+        if(isFloor(map.tileId(x,y),'floor')) map.setTile(x,y,roomFloor);
       }
     }
     if(rng.chance(0.4)){
@@ -898,7 +1023,7 @@ function _generateDungeonMap(zone, rng){
           if(map.hasBlocks(x,y) && rng.chance(0.3)){
             const blocks = map.getBlocks(x,y);
             if(blocks){
-              const newBlocks = blocks.map(id => id === 'stone_wall' ? 'mossy_wall' : id);
+              const newBlocks = blocks.map(id => id === BLOCK_SEM.stone_wall ? BLOCK_SEM.mossy_wall : id);
               map.setBlocks(x, y, newBlocks);
             }
           }
@@ -982,42 +1107,36 @@ function _generateFieldMap(zone, rng){
 
 // ==================== 装饰物 ====================
 function generateDecorations(map, rng){
-  const floorDecors = ['pebble','crack','puddle','grass_tuft','mushroom'];
-  const grassDecors = ['grass_tuft','grass_tall','flower_red','flower_yellow','flower_white','mushroom','pebble'];
-  const mossDecors = ['mushroom','flower_white','grass_tuft','pebble'];
-  const dirtDecors = ['pebble','crack','bone','grass_tuft'];
-  const stoneDecors = ['crack','pebble','puddle'];
-  const darkDecors = ['mushroom','crack','bone','crystal'];
-  const wallDecors = ['vine','torch','crystal'];
-  const wallFaces = ['top','left','right','front'];
-
+  // 按地面分组选装饰物：地面 id → 其所属 group（见 FLOOR_GROUP）→ 对应 obj 装饰池
+  const POOL = {
+    grass:  ['grass','flower','mushroom'],
+    sand:   ['rock','grass'],
+    snow:   ['rock'],
+    ice:    [],
+    stone:  ['rock','crystal'],
+    wood:   ['grass','flower'],
+    factory:['crate','barrel','rock'],
+    water_shallow: [], water: [], water_deep: [], undersea: [], other: [],
+  };
   for(let y=0;y<map.h;y++){
     for(let x=0;x<map.w;x++){
-      const tid = map.tileId(x,y);
-      if(!tid) continue;
-      let pool = null;
-      if(tid==='grass' || tid==='grass_dark') pool = grassDecors;
-      else if(tid==='moss') pool = mossDecors;
-      else if(tid==='dirt') pool = dirtDecors;
-      else if(tid==='stone_path') pool = stoneDecors;
-      else if(tid==='floor_dark') pool = darkDecors;
-      else if(tid==='floor' || tid==='wood') pool = floorDecors;
-      else if(tid==='rubble') pool = ['pebble','bone'];
-      else if(map.hasBlocks(x,y)) pool = wallDecors;
-
-      if(!pool) continue;
-      const density = (tid==='grass'||tid==='grass_dark') ? 0.25 : 0.12;
+      const gid = map.tileId(x,y);
+      if(gid == null) continue;
+      const gkey = FLOOR_GROUP[gid];
+      if(!gkey) continue;
+      const groups = POOL[gkey];
+      if(!groups || groups.length === 0) continue;
+      const ids = [];
+      for(const g of groups){ const a = G.obj[g]; if(a) ids.push(...a); }
+      if(ids.length === 0) continue;
+      const density = (gkey === 'grass') ? 0.25 : 0.12;
       if(rng.chance(density)){
-        const type = rng.pick(pool);
-        const def = DECOR_TYPES[type];
-        if(!def) continue;
-        const scale = def.minS + rng.float() * (def.maxS - def.minS);
+        const oid = rng.pick(ids);
         const ox = (rng.float() - 0.5) * 20;
         const oy = (rng.float() - 0.5) * 12;
         const phase = rng.float() * Math.PI * 2;
-        const isWallDecor = (pool === wallDecors);
-        const face = isWallDecor ? rng.pick(wallFaces) : null;
-        map.decorations.push({x, y, type, ox, oy, scale, phase, face});
+        const scale = 0.85 + rng.float() * 0.3;
+        map.decorations.push({x, y, type: oid, ox, oy, scale, phase, face: null});
       }
     }
   }
@@ -1056,18 +1175,28 @@ function isDoorway(map,x,y){
 }
 
 // ==================== 怪物生成 ====================
+// 随机找一个可行走格（用于无房间地图，如野外）
+function _randomSpot(map, rng){
+  for(let i=0;i<300;i++){
+    const x = rng.int(1, map.w-2), y = rng.int(1, map.h-2);
+    if(map.isWalkable(x,y) && !map.entityAt(x,y) && !map.itemAt(x,y)) return {x, y};
+  }
+  return null;
+}
 function spawnMonsters(map, depth, rng){
   const count = Math.min(6 + depth*2, 22);
   const pool = monsterPoolForDepth(depth);
   const boss = depth % 5 === 0;
-  const spawn = map.stairsUp || {x: map.rooms[0]?.cx || 24, y: map.rooms[0]?.cy || 24};
+  const hasRooms = !!(map.rooms && map.rooms.length);
+  const spawn = map.stairsUp || (hasRooms ? {x: map.rooms[0].cx, y: map.rooms[0].cy} : {x: Math.floor(map.w/2), y: Math.floor(map.h/2)});
   const SAFE_DIST = 6;
   let placed = 0;
   for(let i=0;i<count+10 && placed<count;i++){
-    const r = rng.pick(map.rooms);
-    if(!r) break;
+    let x, y;
+    const r = hasRooms ? rng.pick(map.rooms) : null;
+    if(r){ x = rng.int(r.x, r.x+r.w-1); y = rng.int(r.y, r.y+r.h-1); }
+    else { const s = _randomSpot(map, rng); if(!s) break; x = s.x; y = s.y; }
     if(r === map.rooms[0] && depth===1) continue;
-    const x = rng.int(r.x, r.x+r.w-1), y = rng.int(r.y, r.y+r.h-1);
     if(!map.isWalkable(x,y)) continue;
     if(map.entityAt(x,y)) continue;
     if(Math.abs(x-spawn.x)+Math.abs(y-spawn.y) < SAFE_DIST) continue;
@@ -1077,7 +1206,7 @@ function spawnMonsters(map, depth, rng){
     map.entities.push(makeMonster(def, x, y, depth, rng));
     placed++;
   }
-  if(boss && map.rooms.length > 0){
+  if(boss && hasRooms){
     const lastRoom = map.rooms[map.rooms.length-1];
     let bx = lastRoom.cx, by = lastRoom.cy;
     if(map.stairsDown && bx===map.stairsDown.x && by===map.stairsDown.y){ bx++; }
@@ -1099,11 +1228,12 @@ function monsterPoolForDepth(depth){
 function spawnItems(map, depth, rng){
   const count = rng.int(4, 8);
   const itemPool = ['bread','ration','potion_heal','potion_cure','arrow','bullet','gold','herb','ore','lockpick','torch','seed'];
-  for(let i=0;i<count+8;i++){
-    if(map.items.length >= count) break;
-    const r = rng.pick(map.rooms);
-    if(!r) break;
-    const x = rng.int(r.x, r.x+r.w-1), y = rng.int(r.y, r.y+r.h-1);
+  const hasRooms = !!(map.rooms && map.rooms.length);
+  for(let i=0;i<count+8 && map.items.length<count;i++){
+    let x, y;
+    const r = hasRooms ? rng.pick(map.rooms) : null;
+    if(r){ x = rng.int(r.x, r.x+r.w-1); y = rng.int(r.y, r.y+r.h-1); }
+    else { const s = _randomSpot(map, rng); if(!s) break; x = s.x; y = s.y; }
     if(!map.get(x,y) || !map.get(x,y).walkable) continue;
     if(map.itemAt(x,y)) continue;
     const id = rng.pick(itemPool);
@@ -1114,9 +1244,11 @@ function spawnItems(map, depth, rng){
     }
   }
   if(rng.chance(0.6)){
-    const r = rng.pick(map.rooms.slice(1));
-    const x = rng.int(r.x, r.x+r.w-1), y = rng.int(r.y, r.y+r.h-1);
-    if(map.get(x,y) && map.get(x,y).walkable && !map.itemAt(x,y)){
+    let x, y;
+    const r = hasRooms && map.rooms.length > 1 ? rng.pick(map.rooms.slice(1)) : null;
+    if(r){ x = rng.int(r.x, r.x+r.w-1); y = rng.int(r.y, r.y+r.h-1); }
+    else { const s = _randomSpot(map, rng); if(!s) { /* no spot */ } else { x = s.x; y = s.y; } }
+    if(x != null && map.get(x,y) && map.get(x,y).walkable && !map.itemAt(x,y)){
       map.items.push({x,y,item:makeItem('chest', depth, rng)});
     }
   }
@@ -1170,7 +1302,7 @@ export function detectRoomWalls(map, rooms){
         if(map.hasBlocks(x, y)){
           room.walls.push({x, y});
         }
-        if(map.tileId(x, y) === 'door'){
+        if(map.specialAt(x, y) === 'door'){
           room.doors.push({x, y});
         }
       }
@@ -1228,7 +1360,7 @@ export function computeFOV3D(map, ox, oy, radius){
       const stackH = b ? b.length : 0;
       let mask = 1;
       for(let z = 1; z <= stackH; z++){
-        const belowBt = BLOCK_TYPES[b[z-1]];
+        const belowBt = MAT.block[b[z-1]];
         if(belowBt && belowBt.solid){
           mask |= (1 << z);
           break;

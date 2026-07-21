@@ -2,6 +2,7 @@
 // 包含：材质/品质/装备槽/食物效果/穿透/范围/物品描述
 
 import { ITEMS, ENCHANTS, QUALITY } from './data.js';
+import { getThing } from './source-data.js';
 
 // ---------- 材质系统（移植自原版 MATERIAL）----------
 export const MATERIALS = {
@@ -37,12 +38,26 @@ export const ITEM_CATEGORIES = {
 
 // ---------- 增强版 makeItem ----------
 export function makeItem(id, depth, rng){
-  const base = ITEMS[id];
+  // 优先 Source Thing 表 (Elin xlsx), 回退内置常量
+  const base = getThing(id);
   if(!base) return {...ITEMS.bread, _uid: uid(rng)};
 
   // 创建物品实例
   const item = {...base};
   item._uid = uid(rng);
+  item.id = id;
+
+  // 中文名 (来自 Source/lang_zh 或常量)
+  item.name = base.name || id;
+
+  // 战斗数值缺省 (Source 物品可能未直接携带, 给安全默认)
+  if(item.dice === undefined) item.dice = '1d4';
+  if(item.pv === undefined) item.pv = 0;
+  if(item.dv === undefined) item.dv = 0;
+  if(item.bonus === undefined) item.bonus = 0;
+  // 价值
+  if(item.value === undefined) item.value = base.price ?? (5 + (depth || 0) * 3);
+  item.price = item.value;
 
   // 材质
   if(base.material){

@@ -6,6 +6,7 @@ import { RNG, rollDice } from './rng.js';
 import { makeItem, qualityMult } from './item.js';
 import { ElementContainer, ELE_ID, ATTR_NAME_TO_ID, SKILL_NAME_TO_ID } from './element.js';
 import { ConditionManager, CONDITIONS, addCondition, hasCondition } from './condition.js';
+import { getRace, getJob, enrichMonster, applySourceElements } from './source-data.js';
 
 // ---------- 生存需求系统（移植自原版 Stats）----------
 export class SurvivalNeed {
@@ -54,8 +55,9 @@ export class SurvivalNeed {
 
 // ---- 创建玩家角色 ----
 export function createPlayer(raceId, classId, name, rng){
-  const race = RACES[raceId];
-  const cls = CLASSES[classId];
+  // 优先从 Source (Elin xlsx) 读取; 回退到内置常量
+  const race = getRace(raceId);
+  const cls = getJob(classId);
   const attrs = {...race.attrs};
   // 速度作为特殊属性存在 attrs.速度
   // 职业加成
@@ -118,6 +120,14 @@ export function createPlayer(raceId, classId, name, rng){
     }
   }
 
+  // ---- Source 数据接入: 保留全部原始属性 (.src), 应用元素/特性到 ElementContainer ----
+  player.raceSrc = race.src;
+  player.jobSrc = cls.src;
+  player.raceName = race.name;
+  player.className = cls.name;
+  if(race.elements) applySourceElements(player, race.elements);
+  if(cls.elements) applySourceElements(player, cls.elements);
+
   player.recalcStats();
   player.hp = player.maxHp;
   player.mp = player.maxMp;
@@ -166,6 +176,8 @@ export function makeMonster(def, x, y, depth, rng){
   m.alive = true;
   m.sightRange = 7;
   m.aiState = 'idle';
+  // ---- Source 数据接入: 用 Elin Chara 表补充全部原始属性 + 中文名 + 元素 ----
+  enrichMonster(m, def.id);
   // 难度缩放
   if(depth > def.lvl){
     const scale = 1 + (depth - def.lvl) * 0.15;

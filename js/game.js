@@ -6,11 +6,13 @@ import { GameMap, generateTown, computeFOV, computeFOV3D, computeVerticalVisibil
 import { createPlayer, makeMonster, Entity, equip, unequip } from './entity.js';
 import { makeItem, itemName } from './item.js';
 import { attack, castSpell, applyDamage, tickStatusEffects, regenEntity } from './combat.js';
-import { RACES, CLASSES, SPELLS, ITEMS, TILES, GODS, SKILLS, ATTRS, DECOR_TYPES, BLOCK_TYPES, FLOOR_ATLAS, GRASS_ATLAS, SEASONS, getSeason, WEATHER_EFFECTS } from './data.js?v=43';
+import { RACES, CLASSES, SPELLS, ITEMS, GODS, SKILLS, ATTRS, SEASONS, getSeason, WEATHER_EFFECTS } from './data.js?v=43';
+import { MAT, GROUPS, BIOMES } from './materials.js';
 import { UI } from './ui.js';
 import { findPath, smoothPath } from './pathfind.js?v=2';
 import { AI_PACKAGES, getNPCPackage, getNPCDialogue, getTimePhase, RelationManager, ShopManager, DIALOGUE_TOPICS, getTopicResponse, FACTIONS, getNPCTopics } from './npc.js?v=43';
 import { TBCombat, getMoveRange, AP_ACTION, AP_BONUS } from './tbcombat.js';
+import { loadSource } from './source-data.js';
 
 // 移动速度常量
 const PLAYER_MOVE_SPEED = 4.5;   // 格/秒
@@ -78,7 +80,10 @@ class Game{
       this.ui.hideCharCreate();
       this.ui.showHUD();
       this.player = createPlayer('yerles', 'warrior', '测试', this.rng);
-      this.enterDungeon(3);
+      const dungeonRoot = new Zone('dungeon_auto', '测试地下城', {
+        lv: 0, dangerLv: 3, isDungeon: true, generator: 'dungeon', branch: null
+      });
+      this.enterDungeon(dungeonRoot, 3);
       return;
     }
     this.ui.initCharCreate(({raceId, classId, name})=>{
@@ -1307,11 +1312,11 @@ class Game{
       }
     }
     // 楼梯提示
-    const tile = this.map.get(p.x, p.y);
-    if(tile && (tile.id === 'stairs_dn' || tile.id === 'stairs_up')){
+    const sp = this.map.specialAt(p.x, p.y);
+    if(sp === 'stairs_dn' || sp === 'stairs_up'){
       if(!this._stairsNotified){
         this._stairsNotified = true;
-        this.log(tile.id==='stairs_dn' ? '按 Enter 下楼' : '按 Enter 上楼', 'info');
+        this.log(sp==='stairs_dn' ? '按 Enter 下楼' : '按 Enter 上楼', 'info');
       }
     } else {
       this._stairsNotified = false;
@@ -1683,8 +1688,8 @@ class Game{
   // ========== 楼梯/拾取/使用 ==========
   useStairs(){
     if(!this.player || !this.player.alive) return;
-    const tile = this.map.get(this.player.x, this.player.y);
-    if(!tile || (tile.id !== 'stairs_dn' && tile.id !== 'stairs_up')){
+    const sp = this.map.specialAt(this.player.x, this.player.y);
+    if(!sp || (sp !== 'stairs_dn' && sp !== 'stairs_up')){
       this.log('这里没有楼梯', 'info');
       return;
     }
@@ -1695,7 +1700,7 @@ class Game{
       this._lastRegionPos = { x: this.player.x, y: this.player.y };
     }
 
-    if(tile.id === 'stairs_dn'){
+    if(sp === 'stairs_dn'){
       // 下楼梯
       if(this.currentZone && this.currentZone.isTown){
         // 在城镇里 → 进入地下城（城镇不应该有楼梯dn，这里是兼容）
@@ -1722,7 +1727,7 @@ class Game{
       } else {
         this.log('这里没有楼梯', 'info');
       }
-    } else if(tile.id === 'stairs_up'){
+    } else if(sp === 'stairs_up'){
       // 上楼梯
       if(this.currentZone && this.currentZone.isDungeon){
         // 在地下城里 → 返回上一层
@@ -1916,8 +1921,8 @@ class Game{
   // ========== 祭坛/祈祷 ==========
   prayAtAltar(){
     if(!this.player || !this.player.alive) return;
-    const tile = this.map.get(this.player.x, this.player.y);
-    if(!tile || tile.id !== 'altar'){ this.log('这里没有祭坛', 'info'); return; }
+    const altar = this.map.specialAt(this.player.x, this.player.y);
+    if(altar !== 'altar'){ this.log('这里没有祭坛', 'info'); return; }
     if(!this.player.faith){
       const godIds = Object.keys(GODS);
       let html = `<button class="btn-close" onclick="document.getElementById('panel-overlay').classList.add('hidden')">关闭</button>`;
@@ -1998,8 +2003,7 @@ class Game{
     const getFloorTex = (x, y) => {
       if(x < 0 || y < 0 || x >= this.map.w || y >= this.map.h) return null;
       const tid = this.map.tileId(x, y);
-      const t = TILES[tid];
-      return t ? (t.tex || tid) : null;
+      return MAT.floor[tid] ? tid : null;
     };
     const halfW = (w/2)/cam.zoom + TILE_W, halfH=(h/2)/cam.zoom + TILE_H*2;
     const inView = (sx, sy) => sx >= cam.x-halfW && sx <= cam.x+halfW && sy >= cam.y-halfH && sy <= cam.y+halfH;
@@ -2013,8 +2017,8 @@ class Game{
     for(let gy = Math.max(0, center.y-rad); gy < Math.min(this.map.h, center.y+rad); gy++){
       for(let gx = Math.max(0, center.x-rad); gx < Math.min(this.map.w, center.x+rad); gx++){
         const tid = this.map.tileId(gx, gy);
-        const tile = TILES[tid];
-        if(!tile) continue;
+        const m = MAT.floor[tid];
+        if(!m) continue;
         const vis = this.map.visible[gy][gx];
         const exp = this.map.explored[gy][gx];
         if(!exp) continue;
@@ -2022,10 +2026,14 @@ class Game{
         const screenP = gridToScreen(gx, gy);
         if(!inView(screenP.x, screenP.y)) continue;
         const hover = this.hoverTile && this.hoverTile.x===gx && this.hoverTile.y===gy;
-        const drawn = r.drawGrassAtlas(gx, gy, tid, vis, exp, hover)
-                   || r.drawFloorAtlas(gx, gy, tid, vis, exp, hover);
+        const drawn = r.drawFloorAtlas(gx, gy, tid, vis, exp, hover);
         if(!drawn){
-          r.drawTileFloor(gx, gy, tile, vis, exp, hover);
+          r.drawTileFloor(gx, gy, tid, vis, exp, hover);
+        }
+        // 特殊瓦片覆盖（楼梯/门/祭坛/宝箱）
+        const sp = this.map.specialAt(gx, gy);
+        if(sp){
+          r.drawSpecialTile(gx, gy, sp, vis, exp, hover);
         }
       }
     }
@@ -2433,9 +2441,8 @@ class Game{
     ctx.stroke();
     // 渲染边界框 (根据绘制方式)
     const tid = this.map.tileId(gx, gy);
-    const fa = FLOOR_ATLAS[tid];
-    const ga = GRASS_ATLAS[tid];
-    if(fa || ga){
+    const m = MAT.floor[tid];
+    if(m){
       // atlas渲染：显示截取区域
       const srcTile = 64;
       const srcW = 63;
@@ -2446,15 +2453,15 @@ class Game{
       ctx.lineWidth = 1.5/cam.zoom;
       ctx.strokeRect(drawX, drawY, drawW, drawH);
       // 标注截取源坐标
-      const col = fa ? fa.c : ga.c;
-      const row = fa ? fa.r : ga.r;
-      const srcX = col * srcTile, srcY = row * srcTile;
+      const col = Math.floor(m.rect[0]/srcTile);
+      const row = Math.floor(m.rect[1]/48);
+      const srcX = col * srcTile, srcY = row * 48;
       ctx.fillStyle = 'rgba(0,0,0,0.7)';
       ctx.fillRect(p.x + hw + 4, p.y - hh, 220, 46);
       ctx.fillStyle = '#0f8';
       ctx.font = '11px Consolas, monospace';
       ctx.textAlign = 'left';
-      ctx.fillText(`atlas: ${fa?'FLOOR':'GRASS'}[${row},${col}]`, p.x+hw+8, p.y-hh+14);
+      ctx.fillText(`atlas: FLOOR[${row},${col}]`, p.x+hw+8, p.y-hh+14);
       ctx.fillText(`src: [${srcX},${srcY}] → ${srcW}x48`, p.x+hw+8, p.y-hh+28);
       ctx.fillText(`draw: (${drawX.toFixed(1)},${drawY.toFixed(1)}) ${drawW.toFixed(0)}x${drawH.toFixed(0)}`, p.x+hw+8, p.y-hh+42);
     } else {
@@ -2475,7 +2482,7 @@ class Game{
     // 右侧信息面板
     ctx.save();
     ctx.setTransform(r.dpr, 0, 0, r.dpr, 0, 0);
-    const tile = TILES[tid];
+    const tile = m;
     const vis = this.map.visible[gy][gx];
     const exp = this.map.explored[gy][gx];
     const blocks = this.map.getBlocks?.(gx, gy);
@@ -2506,24 +2513,21 @@ class Game{
     };
     const divider = () => { ctx.strokeStyle='#333'; ctx.beginPath(); ctx.moveTo(px+10,y-4); ctx.lineTo(px+260,y-4); ctx.stroke(); y+=4; };
 
+    const sp = this.map.specialAt(gx, gy);
     line('tileId:', tid, '#fff');
-    line('name:', tile?.name || '?', '#fff');
-    line('solid:', tile?.solid ?? '?');
-    line('walkable:', tile?.walkable ?? '?');
-    line('tex:', tile?.tex || '(none)');
+    line('name:', m?.name || '?', '#fff');
+    line('solid:', m?.solid ?? '?');
+    line('walkable:', m?.walkable ?? '?');
+    line('alias:', m?.alias || '(none)');
+    if(sp) line('special:', sp, '#fd0');
     divider();
     line('visible:', vis, vis?'#4f8':'#f84');
     line('explored:', exp, exp?'#4f8':'#f84');
     divider();
-    if(fa){
-      line('atlas:', 'FLOOR_ATLAS', '#0f8');
-      line('row:', fa.r);
-      line('col:', fa.c);
-    } else if(ga){
-      line('atlas:', 'GRASS_ATLAS', '#0f8');
-      line('row:', ga.r);
-      line('col:', ga.c);
-      line('color:', `[${ga.color}]`);
+    if(m){
+      line('atlas:', 'FLOOR', '#0f8');
+      line('row:', Math.floor(m.rect[1]/48));
+      line('col:', Math.floor(m.rect[0]/64));
     } else {
       line('atlas:', '(none)', '#f84');
     }
@@ -2536,7 +2540,7 @@ class Game{
       divider();
       line('blocks:', blocks.length+'个', '#fa0');
       blocks.forEach((bid,i)=>{
-        const bt = BLOCK_TYPES[bid];
+        const bt = MAT.block[bid];
         line(`  [${i}]`, `${bid} (${bt?.name||'?'}) h=${bt?.h||'?'}`, '#fa0');
       });
     }
@@ -2574,17 +2578,17 @@ class Game{
       // 检查是否有可拆除的东西
       const hasDecor = this.map.getDecorationsAt(gx, gy).length > 0;
       const hasBlocks = this.map.hasBlocks(gx, gy);
-      const tid = this.map.tileId(gx, gy);
-      const canRemove = hasDecor || hasBlocks || (tid !== 'floor' && tid !== 'stairs_dn' && tid !== 'stairs_up' && tid !== 'water' && tid !== 'water_deep');
+      const isSpecial = !!this.map.specialAt(gx, gy);
+      const canRemove = hasDecor || hasBlocks || (!!this.map.get(gx, gy) && !isSpecial);
       if(!canRemove){
         ctx.fillStyle = 'rgba(120,120,120,0.1)';
         ctx.fill();
       }
     } else if(bm.selected){
       // 放置模式：绿色高亮 + 幽灵预览
-      const isWallDecor = (bm.selected === 'vine' || bm.selected === 'torch' || bm.selected === 'crystal');
+      const isWallDecor = false;
       const hasBlocks = this.map.hasBlocks(gx, gy);
-      const canPlace = !isWallDecor || hasBlocks;
+      const canPlace = true;
       const color = canPlace ? 'rgba(127,209,196,0.8)' : 'rgba(255,180,80,0.8)';
       const fill = canPlace ? 'rgba(127,209,196,0.15)' : 'rgba(255,180,80,0.1)';
       ctx.strokeStyle = color;
@@ -2599,8 +2603,8 @@ class Game{
       ctx.fill();
       ctx.stroke();
       // 方块放置预览：画半透明墙体轮廓
-      if(bm.cat === 'wall' && BLOCK_TYPES[bm.selected]){
-        const bt = BLOCK_TYPES[bm.selected];
+      if(bm.cat === 'wall' && MAT.block[bm.selected]){
+        const bt = MAT.block[bm.selected];
         const stackH = this.map.blockHeightAt(gx, gy);
         const previewH = bt.h * WALL_H;
         const topY = p.y - 48 - stackH - previewH + 16;
@@ -3180,17 +3184,37 @@ class Game{
     grid.innerHTML = '';
     let items = [];
     if(cat === 'decor'){
-      for(const [id, def] of Object.entries(DECOR_TYPES)){
-        items.push({id, name: this._decorName(id), def});
+      // 列出可用的 obj 分组（取每组代表性 id）
+      const decorGroups = ['flower','mushroom','grass','tree','rock','bone','crystal','shell','bush','barrel','crate','book','chest','sign','statue','lantern','web','cursed'];
+      for(const g of decorGroups){
+        const arr = GROUPS.obj[g];
+        if(arr && arr.length){
+          const id = arr[0];
+          const def = MAT.obj[id];
+          items.push({id, name: (def && (def.name || def.nameJP)) || g, def});
+        }
       }
     } else if(cat === 'wall'){
-      for(const [id, bt] of Object.entries(BLOCK_TYPES)){
-        items.push({id, name: bt.name, def: bt});
+      // 列出方块分组
+      const wallGroups = ['wall','pillar','half','water','waterfall'];
+      for(const g of wallGroups){
+        const arr = GROUPS.block[g];
+        if(arr && arr.length){
+          const id = arr[0];
+          const def = MAT.block[id];
+          items.push({id, name: (def && def.name) || g, def});
+        }
       }
     } else if(cat === 'floor'){
-      for(const id of ['floor','floor_dark','dirt','stone_path','moss','grass','grass_dark','sand','rubble','water','water_deep','altar','chest_tile']){
-        const t = TILES[id];
-        if(t) items.push({id, name: t.name, def: t});
+      // 列出地面分组
+      const floorGroups = ['grass','water_shallow','water','water_deep','sand','snow','ice','stone','wood','factory'];
+      for(const g of floorGroups){
+        const arr = GROUPS.floor[g];
+        if(arr && arr.length){
+          const id = arr[0];
+          const def = MAT.floor[id];
+          items.push({id, name: (def && (def.name || def.nameJP)) || g, def});
+        }
       }
     }
     for(const item of items){
@@ -3232,30 +3256,29 @@ class Game{
     const ctx = canvas.getContext('2d');
     ctx.imageSmoothingEnabled = false;
     const atlas = this.renderer?.elinAtlases;
-    if(!atlas) return;
+    if(!atlas || !def) return;
 
     if(cat === 'decor'){
       const img = atlas[def.atlas];
       if(img && img.complete && img.naturalWidth > 0){
-        ctx.drawImage(img, def.sx, def.sy, def.sw, def.sh, 0, 0, 48, 48);
+        ctx.drawImage(img, def.rect[0], def.rect[1], def.rect[2], def.rect[3], 0, 0, 48, 48);
         return;
       }
     } else if(cat === 'wall'){
       const img = atlas['blocks'];
       if(img && img.complete && img.naturalWidth > 0){
         const tilePx = 64;
-        ctx.drawImage(img, def.c * tilePx, def.r * tilePx, tilePx, tilePx, 0, 0, 48, 48);
+        const col = Math.floor(def.rect[0]/tilePx), row = Math.floor(def.rect[1]/tilePx);
+        ctx.drawImage(img, col*tilePx, row*tilePx, tilePx, tilePx, 0, 0, 48, 48);
         return;
       }
     } else if(cat === 'floor'){
       const img = atlas['floors'];
       if(img && img.complete && img.naturalWidth > 0){
-        const srcW = 64, srcH = 48;
-        const drawDef = FLOOR_ATLAS[def.id] || GRASS_ATLAS[def.id];
-        if(drawDef){
-          ctx.drawImage(img, drawDef.c * srcW, drawDef.r * srcH, srcW, srcH, 0, 0, 48, 48);
-          return;
-        }
+        const cellW = 64, cellH = 48;
+        const col = Math.floor(def.rect[0]/cellW), row = Math.floor(def.rect[1]/cellH);
+        ctx.drawImage(img, col*cellW, row*cellH, cellW, cellH, 0, 0, 48, 48);
+        return;
       }
     }
     // fallback
@@ -3264,12 +3287,9 @@ class Game{
   }
 
   _decorName(id){
-    const names = {
-      grass_tuft:'草丛', grass_tall:'高草', flower_red:'红花', flower_yellow:'黄花',
-      flower_white:'白花', mushroom:'蘑菇', pebble:'碎石', crack:'裂缝',
-      vine:'藤蔓', torch:'火把', crystal:'水晶', bone:'骨头', puddle:'水洼',
-    };
-    return names[id] || id;
+    const def = MAT.obj[id];
+    if(def) return def.name || def.nameJP || ('#' + id);
+    return '#' + id;
   }
   _decorIcon(id){
     const icons = {
@@ -3286,34 +3306,26 @@ class Game{
     const cat = this.buildMode.cat;
     const id = this.buildMode.selected;
     if(cat === 'decor'){
-      // 墙壁装饰物需要放在墙上
-      const tile = this.map.get(gx, gy);
-      const isWallTile = tile && tile.solid && tile.id !== 'water' && tile.id !== 'water_deep';
-      const isWallDecor = (id === 'vine' || id === 'torch' || id === 'crystal');
-      let face = null;
-      if(isWallDecor && isWallTile){
-        face = ['top','left','right','front'][Math.floor(Math.random()*4)];
-      }
-      this.map.addDecoration(gx, gy, id, face);
+      // 地面装饰物（Elin objs 图集均为地面物件）
+      this.map.addDecoration(gx, gy, id, null);
       this.log(`放置 ${this._decorName(id)}`, 'info');
     } else if(cat === 'wall' || cat === 'floor'){
-      const oldId = this.map.tileId(gx, gy);
-      // 不能覆盖楼梯
-      if(oldId === 'stairs_dn' || oldId === 'stairs_up'){ this.log('不能覆盖楼梯', 'warn'); return; }
+      // 不能覆盖特殊瓦片（楼梯/门/祭坛/宝箱）
+      if(this.map.specialAt(gx, gy)){ this.log('不能覆盖特殊瓦片', 'warn'); return; }
       if(cat === 'wall'){
         // 放置方块：堆叠到现有方块上方
         const ent = this.map.entityAt(gx, gy);
         if(ent){ this.log('该位置有生物', 'warn'); return; }
-        const bt = BLOCK_TYPES[id];
+        const bt = MAT.block[id];
         if(bt){
           const existing = this.map.getBlocks(gx, gy) || [];
           this.map.setBlocks(gx, gy, [...existing, id]);
-          this.log(`放置 ${bt.name}（高度${existing.length + 1}）`, 'info');
+          this.log(`放置 ${bt.name || id}（高度${existing.length + 1}）`, 'info');
         }
       } else {
         // 放置地板
         this.map.setTile(gx, gy, id);
-        this.log(`放置 ${TILES[id]?.name || id}`, 'info');
+        this.log(`放置 ${MAT.floor[id]?.name || id}`, 'info');
       }
     }
   }
@@ -3330,22 +3342,17 @@ class Game{
     if(this.map.hasBlocks(gx, gy)){
       const blocks = this.map.getBlocks(gx, gy);
       const lastId = blocks[blocks.length - 1];
-      const bt = BLOCK_TYPES[lastId];
+      const bt = MAT.block[lastId];
       this.map.setBlocks(gx, gy, blocks.slice(0, -1));
       this.log(`拆除 ${bt?.name || '方块'}（剩余${Math.max(0, blocks.length-1)}层）`, 'info');
       return;
     }
-    // 没有方块，尝试拆除特殊地板（恢复为 floor）
+    // 没有方块，尝试拆除特殊地板（恢复为默认 floor）
+    if(this.map.specialAt(gx, gy)){ this.log('不能拆除特殊瓦片', 'warn'); return; }
     const tile = this.map.get(gx, gy);
     if(!tile) return;
-    const tid = this.map.tileId(gx, gy);
-    if(tid === 'stairs_dn' || tid === 'stairs_up'){ this.log('不能拆除楼梯', 'warn'); return; }
-    if(tid !== 'floor' && tid !== 'water' && tid !== 'water_deep'){
-      this.map.setTile(gx, gy, 'floor');
-      this.log(`拆除 ${tile.name}`, 'info');
-    } else {
-      this.log('没有可拆除的东西', 'info');
-    }
+    this.map.setTile(gx, gy, 'floor');
+    this.log(`拆除 ${tile.name || '地板'}`, 'info');
   }
 
   // ========== 日志 ==========
@@ -3361,6 +3368,7 @@ class Game{
 }
 
 // 启动
-window.addEventListener('DOMContentLoaded', ()=>{
+window.addEventListener('DOMContentLoaded', async ()=>{
+  await loadSource();           // 加载 Elin SourceData (sources.json + lang_zh.json)
   window.game = new Game();
 });

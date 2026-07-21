@@ -128,7 +128,9 @@ export class UI{
     }
     // 角色简报
     const cb = document.getElementById('char-brief');
-    cb.innerHTML = `${player.name} · ${RACES[player.race]?.name||''} ${CLASSES[player.class]?.name||''} · Lv.${player.level} | 力${player.getAttr('力量')} 魔${player.getAttr('魔力')} 灵巧${player.getAttr('灵巧')} 感知${player.getAttr('感知')} | DV${player.dv} PV${player.pv} 命中${Math.floor(player.hit||0)} 暴击${Math.floor(player.crit||0)}%`;
+    const raceName = player.raceName || (typeof RACES!=='undefined' && RACES[player.race]?.name) || '';
+    const className = player.className || (typeof CLASSES!=='undefined' && CLASSES[player.class]?.name) || '';
+    cb.innerHTML = `${player.name} · ${raceName} ${className} · Lv.${player.level} | 力${player.getAttr('力量')} 魔${player.getAttr('魔力')} 灵巧${player.getAttr('灵巧')} 感知${player.getAttr('感知')} | DV${player.dv} PV${player.pv} 命中${Math.floor(player.hit||0)} 暴击${Math.floor(player.crit||0)}%`;
 
     // 顶部信息
     if(gs){

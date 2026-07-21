@@ -203,98 +203,11 @@ export const MONSTERS = {
   dragon:{id:'dragon',name:'幼龙',icon:'🐲',color:'#c97a2a',hp:120,mp:30,speed:100,dv:12,pv:8,dice:'4d6',bonus:4,xp:120,lvl:12,boss:true,attrs:{力量:30,魔力:18,意志:16,灵巧:12,感知:14,学习:10,魅力:8,速度:100},drops:[{id:'chest',chance:1},{id:'platinum',chance:1,count:3},{id:'longsword',chance:0.4},{id:'gold',chance:1,min:150,max:300}],aggr:true,spells:['fire_ball'],resist:{火:75}},
 };
 
-// ---------- 瓦片类型 ----------
-export const TILES = {
-  grass:        {id:'grass',        name:'草地',    solid:false,base:'#3a6a35',top:'#4a8a45',walkable:true,  tex:'grass'},
-  grass_dark:   {id:'grass_dark',   name:'深草地',  solid:false,base:'#2a5a28',top:'#3a7a32',walkable:true,  tex:'grass'},
-  floor:        {id:'floor',        name:'地板',    solid:false,base:'#5a4a35',top:'#6a5a45',walkable:true,  tex:'floor'},
-  floor_dark:   {id:'floor_dark',   name:'暗地板',  solid:false,base:'#3a3025',top:'#4a4035',walkable:true,  tex:'floor'},
-  dirt:         {id:'dirt',         name:'泥土',    solid:false,base:'#4a3a25',top:'#5a4a30',walkable:true,  tex:'floor'},
-  stone_path:   {id:'stone_path',   name:'石板路',  solid:false,base:'#4a4a4a',top:'#6a6a6a',walkable:true,  tex:'floor'},
-  moss:         {id:'moss',         name:'苔藓',    solid:false,base:'#3a5a30',top:'#4a6a38',walkable:true,  tex:'grass'},
-  wall:         {id:'wall',         name:'墙壁',    solid:true, base:'#3a3530',top:'#5a5048',walkable:false, height:1, tex:'wall'},
-  wall_mossy:   {id:'wall_mossy',   name:'苔墙',    solid:true, base:'#2a3a28',top:'#4a5a40',walkable:false, height:1, tex:'wall'},
-  door:         {id:'door',         name:'门',      solid:false,base:'#6a4a25',top:'#8a6a35',walkable:true},
-  water:        {id:'water',        name:'水面',    solid:true, base:'#2a4a6a',top:'#3a6a8a',walkable:false, water:true},
-  water_deep:   {id:'water_deep',   name:'深水',    solid:true, base:'#1a3a5a',top:'#2a5a7a',walkable:false, water:true, deep:true},
-  sand:         {id:'sand',         name:'沙地',    solid:false,base:'#7a6a45',top:'#8a7a55',walkable:true},
-  stairs_dn:    {id:'stairs_dn',    name:'下行楼梯',solid:false,base:'#3a3530',top:'#7a6a55',walkable:true},
-  stairs_up:    {id:'stairs_up',    name:'上行楼梯',solid:false,base:'#3a3530',top:'#7a6a55',walkable:true},
-  rubble:       {id:'rubble',       name:'碎石',    solid:false,base:'#45413a',top:'#5a554a',walkable:true},
-  altar:        {id:'altar',        name:'祭坛',    solid:false,base:'#4a3a5a',top:'#7a6a9a',walkable:true},
-  chest_tile:   {id:'chest_tile',   name:'宝箱',    solid:false,base:'#5a4a35',top:'#8a6a35',walkable:true},
-};
-
-// ---------- 方块类型（可堆叠，高度无限制）----------
-// h: 高度系数 (1.0=完整方块32px, 0.5=半方块16px, 0.75=栅栏24px)
-// solid: 是否阻挡移动和视线
-// atlas/r/c: blocks.png图集中的位置 (64px tiles)
-export const BLOCK_TYPES = {
-  // 完整方块
-  stone_wall:    { id:'stone_wall',    atlas:'blocks', r:1, c:0,  h:1.0, solid:true,  name:'石墙' },
-  brick_wall:    { id:'brick_wall',    atlas:'blocks', r:1, c:5,  h:1.0, solid:true,  name:'砖墙' },
-  dark_wall:     { id:'dark_wall',     atlas:'blocks', r:1, c:25, h:1.0, solid:true,  name:'暗石墙' },
-  cobble_wall:   { id:'cobble_wall',   atlas:'blocks', r:2, c:6,  h:1.0, solid:true,  name:'鹅卵石墙' },
-  mossy_wall:    { id:'mossy_wall',    atlas:'blocks', r:2, c:7,  h:1.0, solid:true,  name:'苔石墙' },
-  dark_stone:    { id:'dark_stone',    atlas:'blocks', r:2, c:16, h:1.0, solid:true,  name:'深石墙' },
-  sand_wall:     { id:'sand_wall',     atlas:'blocks', r:1, c:23, h:1.0, solid:true,  name:'砂岩墙' },
-  wood_wall:     { id:'wood_wall',     atlas:'blocks', r:0, c:13, h:1.0, solid:true,  name:'木墙' },
-  smooth_stone:  { id:'smooth_stone',  atlas:'blocks', r:1, c:3,  h:1.0, solid:true,  name:'光滑石墙' },
-  // 半方块
-  stone_half:    { id:'stone_half',    atlas:'blocks', r:10,c:0,  h:0.5, solid:true,  name:'半石墙' },
-  wood_half:     { id:'wood_half',     atlas:'blocks', r:2, c:30, h:0.5, solid:true,  name:'半木墙' },
-  // 栅栏 (非实体，可穿越但遮挡视线)
-  wood_fence:    { id:'wood_fence',    atlas:'blocks', r:4, c:0,  h:0.75, solid:false, name:'木栅栏' },
-  stone_fence:   { id:'stone_fence',   atlas:'blocks', r:4, c:3,  h:0.75, solid:false, name:'石栅栏' },
-  iron_bars:     { id:'iron_bars',     atlas:'blocks', r:6, c:0,  h:0.75, solid:false, name:'铁栏杆' },
-};
-
-// ---------- 地板贴图映射 (floors.png, 64×48px cells) ----------
-export const FLOOR_ATLAS = {
-  // cell 64×48
-  floor:      { atlas:'floors', r:1,  c:0  },  // 石地板 (灰)
-  floor_dark: { atlas:'floors', r:8,  c:12 },  // 暗石板 (深灰)
-  dirt:       { atlas:'floors', r:12, c:12 },  // 泥土 (棕)
-  stone_path: { atlas:'floors', r:3,  c:0  },  // 石板路 (浅灰)
-  sand:       { atlas:'floors', r:13, c:0  },  // 沙地 (浅棕)
-  cobble:     { atlas:'floors', r:6,  c:4  },  // 鹅卵石 (浅灰)
-  wood:       { atlas:'floors', r:6,  c:0  },  // 木板 (灰)
-};
-
-// ---------- 草地贴图映射 (floors.png, 64×48px cells, 灰度tile + 程序上色) ----------
-// 草地tile为灰度明暗信息, 运行时按群系颜色程序上色: newRGB = L/255 * colorRGB
-// r=1(第2行): 地面草群系   r=3(第4行): 地牢草群系
-export const GRASS_ATLAS = {
-  grass:      { atlas:'floors', r:1, c:0, color:[120, 178, 82] },  // 地面草 — 淡鲜绿
-  grass_dark: { atlas:'floors', r:3, c:0, color:[72, 122, 56] },   // 地牢草 — 淡暗绿
-  moss:       { atlas:'floors', r:3, c:0, color:[92, 142, 66] },   // 苔藓 — 淡黄绿
-};
-
-// ---------- 暗影贴图映射 (shadows.png, 128×128px cells) ----------
-// 用于不可见/已探索区域的暗化覆盖, 软边菱形自然覆盖完整tile(含草叶上部)
-// r=3,c=1: 第4行第2列, 菱形刚好重合单格地板
-export const SHADOW_ATLAS = {
-  floor: { atlas:'shadows', r:1, c:3 },
-};
-
-// ---- 装饰物定义 ----
-// atlas: 图集名, sx/sy: 图集坐标, sw/sh: 精灵尺寸
-// minS/maxS: 缩放范围, light: 是否发光
-export const DECOR_TYPES = {
-  grass_tuft:   {id:'grass_tuft',   atlas:'objs',  sx:146, sy:6,   sw:15, sh:13, minS:0.6, maxS:1.2},
-  grass_tall:   {id:'grass_tall',   atlas:'objs',  sx:332, sy:6,   sw:34, sh:53, minS:0.8, maxS:1.5},
-  flower_red:   {id:'flower_red',   atlas:'objs',  sx:163, sy:16,  sw:16, sh:15, minS:0.5, maxS:0.8},
-  flower_yellow:{id:'flower_yellow',atlas:'objs',  sx:136, sy:23,  sw:16, sh:16, minS:0.5, maxS:0.8},
-  flower_white: {id:'flower_white', atlas:'objs',  sx:166, sy:5,   sw:12, sh:11, minS:0.5, maxS:0.8},
-  mushroom:     {id:'mushroom',     atlas:'objs',  sx:155, sy:31,  sw:18, sh:14, minS:0.4, maxS:0.7},
-  pebble:       {id:'pebble',       atlas:'objs',  sx:279, sy:32,  sw:9,  sh:12, minS:0.3, maxS:0.6},
-  crack:        {id:'crack',        atlas:'objs',  sx:288, sy:42,  sw:12, sh:8,  minS:0.5, maxS:1.0},
-  vine:         {id:'vine',         atlas:'objs',  sx:91,  sy:19,  sw:20, sh:13, minS:0.6, maxS:1.0},
-  torch:        {id:'torch',        atlas:'objs',  sx:3854,sy:36,  sw:12, sh:13, minS:0.8, maxS:1.0, light:true},
-  crystal:      {id:'crystal',      atlas:'objs',  sx:3238,sy:36,  sw:8,  sh:8,  minS:0.5, maxS:0.9, light:true},
-  bone:         {id:'bone',         atlas:'objs',  sx:3214,sy:42,  sw:8,  sh:8,  minS:0.4, maxS:0.8},
-  puddle:       {id:'puddle',       atlas:'objs',  sx:4010,sy:28,  sw:18, sh:20, minS:0.5, maxS:1.0},
-};
+// ---------- 瓦片/方块/草地/装饰 数据已迁移 ----------
+// 原 TILES / BLOCK_TYPES / FLOOR_ATLAS / GRASS_ATLAS / SHADOW_ATLAS / DECOR_TYPES
+// 已废弃：地图数据层全面改为由 Elin xlsx 驱动（见 js/materials.js）。
+// 所有材质以数字 id 存储与渲染：MAT.floor / MAT.block / MAT.obj。
+// 分组语义按原版 Elin 群系（GROUPS.floor / GROUPS.block / GROUPS.obj）。
 
 // ---------- 神明数据 ----------
 export const GODS = {
@@ -385,3 +298,20 @@ export const ENCHANTS = [
   {id:'ice_r',name:'冰抗',resist:'冰',min:5,max:20},
   {id:'crit',name:'暴击',attr:'crit',min:3,max:10},
 ];
+
+// ---------- 通用 tile 解码（Elin: tile = 行×100 + 列，来自 RenderData.ConvertTile）----------
+// 传入 SourceBlock 的 tile 列值，返回图集内像素 rect。
+//   atlas: 'floors' | 'blocks' | 'objs' | 'shadows'
+//   x = col*cellW,  y = row*cellH
+export function decodeTile(tile, atlas = 'blocks'){
+  const CELL = {
+    floors: { w:64, h:48 },   // 32 列 × 40 行 (2048×1920)
+    blocks: { w:64, h:64 },   // 32 列 × 32 行 (2048×2048)
+    objs:   { w:64, h:64 },
+    shadows:{ w:128,h:128 },
+  };
+  const c = CELL[atlas] || CELL.blocks;
+  const col = ((tile % 100) + 100) % 100;
+  const row = Math.floor(tile / 100);
+  return { x: col * c.w, y: row * c.h, w: c.w, h: c.h, col, row };
+}

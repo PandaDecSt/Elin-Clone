@@ -662,7 +662,8 @@ export class AIWork_Fish extends AIWork {
     if(game.map){
       for(let y = 0; y < game.map.h; y++){
         for(let x = 0; x < game.map.w; x++){
-          if(game.map.tileId(x,y) === 'water' || game.map.tileId(x,y) === 'water_deep'){
+          const wt = game.map.get(x,y);
+          if(wt && (wt.mat === 'water' || (wt.biome && /water/i.test(wt.biome)))){
             // 找水边的可走位置
             for(const [dx,dy] of [[0,1],[0,-1],[1,0],[-1,0]]){
               if(game.map.isWalkable(x+dx, y+dy)){

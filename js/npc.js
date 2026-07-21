@@ -651,7 +651,7 @@ function _workPriest(game, npc, dt){
     // 找祭坛位置
     for(let y = 0; y < game.map.h; y++){
       for(let x = 0; x < game.map.w; x++){
-        if(game.map.tiles[y][x].id === 'altar'){
+        if(game.map.specialAt(x, y) === 'altar'){
           npc._workSpot = { x, y };
           break;
         }

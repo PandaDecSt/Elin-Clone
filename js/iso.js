@@ -5,7 +5,7 @@ export const TILE_W = 64;
 export const TILE_H = 32;
 export const WALL_H = 32; // 墙体高度像素
 
-import { TILES, DECOR_TYPES, BLOCK_TYPES, FLOOR_ATLAS, GRASS_ATLAS } from './data.js?v=43';
+import { MAT, GROUPS, BIOMES } from './materials.js';
 
 // 怪物ID -> 精灵图key 映射
 export const SPRITE_MAP = {
@@ -99,7 +99,7 @@ export class IsoRenderer{
       this.textures[key] = img;
     }
 
-    // Elin 原版图集：floors.png (48px tiles), blocks.png (64px tiles), objs.png/objs_S.png (装饰物)
+    // Elin 原版图集：floors.png (48px tiles), blocks.png (64px tiles), objs/objs_S/objs_L.png (装饰物)
     this.elinAtlases = {};
     const elinAtlasMap = {
       'floors':  'assets/elin/floors.png',
@@ -107,13 +107,14 @@ export class IsoRenderer{
       'shadows': 'assets/elin/shadows.png',
       'objs':    'assets/elin/objs.png',
       'objs_S':  'assets/elin/objs_S.png',
+      'objs_L':  'assets/elin/objs_L.png',
+      'objs_snow':    'assets/elin/objs_snow.png',
+      'objs_S_snow':  'assets/elin/objs_S_snow.png',
+      'objs_L_snow':  'assets/elin/objs_L_snow.png',
     };
     for(const [key, url] of Object.entries(elinAtlasMap)){
       const img = new Image();
-      img.onload = () => {
-        if(key === 'floors') this._preRenderGrass();
-        onDone();
-      };
+      img.onload = () => { onDone(); };
       img.onerror = onDone;
       img.src = url + '?v=43';
       this.elinAtlases[key] = img;
@@ -364,153 +365,72 @@ export class IsoRenderer{
 
   // ---- 获取瓦片对应的贴图 ----
   _tileTexture(tileId){
-    const t = TILES[tileId];
-    if(!t) return this.textures['floor'];
-    if(t.tex === 'grass') return this.textures['grass'];
-    if(t.tex === 'wall') return this.textures['wall'];
-    return this.textures['floor'];
+    // 旧单图纹理系统已弃用（改用 Elin 图集按数字 id 直绘）。保留兼容返回。
+    return null;
   }
 
   // ---- 绘制单个菱形地面瓦片（带贴图 + 变体噪声 + 边缘过渡）----
-  drawTileFloor(gx, gy, tile, visible, explored, hover, variant, floorNeighbors){
+  // ---- 兜底地面填充（drawFloorAtlas 失败时使用）----
+  drawTileFloor(gx, gy, tid, visible, explored, hover){
     const ctx = this.ctx;
     const p = gridToScreen(gx, gy);
     const hw = TILE_W/2, hh = TILE_H/2;
-    const dim = !visible && explored;
-    const tex = this._tileTexture(tile.id);
-    const hasTex = tex && tex.complete && tex.naturalWidth > 0;
-    const isWater = !!tile.water;
-    const fn = floorNeighbors || {};
-
-    // 菱形路径（略扩大1px消除相邻瓦片间的缝隙）
-    const dpad = 1;
-    const diamondPath = () => {
-      ctx.beginPath();
-      ctx.moveTo(p.x, p.y - hh - dpad);
-      ctx.lineTo(p.x + hw + dpad, p.y);
-      ctx.lineTo(p.x, p.y + hh + dpad);
-      ctx.lineTo(p.x - hw - dpad, p.y);
-      ctx.closePath();
-    };
-
     ctx.save();
-    diamondPath();
-    ctx.clip();
-
-    if(isWater){
-      // ---- 水面渲染 ----
-      const t = this.time;
-      const deep = !!tile.deep;
-      const baseColor = deep ? '#1a3a5a' : '#2a5a7a';
-      const topColor = deep ? '#2a4a6a' : '#3a7a9a';
-      // 深度渐变
-      const grad = ctx.createLinearGradient(p.x, p.y-hh, p.x, p.y+hh);
-      grad.addColorStop(0, topColor);
-      grad.addColorStop(1, baseColor);
-      ctx.fillStyle = grad;
-      ctx.fillRect(p.x - hw, p.y - hh, TILE_W, TILE_H * 2);
-      // 波纹动画
-      ctx.fillStyle = `rgba(120,180,220,${0.08+0.06*Math.sin(t*1.5+gx*0.5+gy*0.3)})`;
-      ctx.fillRect(p.x - hw, p.y - hh, TILE_W, TILE_H * 2);
-      // 水面高光点
-      const sparkleSeed = (gx * 73 + gy * 31) % 100;
-      if(sparkleSeed < 20){
-        const sx = p.x + ((sparkleSeed * 7) % 30) - 15;
-        const sy = p.y + ((sparkleSeed * 11) % 14) - 7;
-        ctx.fillStyle = `rgba(200,230,255,${0.3+0.2*Math.sin(t*3+sparkleSeed)})`;
-        ctx.beginPath();
-        ctx.arc(sx, sy, 1.5, 0, Math.PI*2);
-        ctx.fill();
-      }
-    } else if(hasTex){
-      // 用贴图填充菱形，加入 variant 偏移
-      // 注意: drawImage 区域必须覆盖裁剪路径(含dpad), 否则边缘会出现1px透明缝隙
-      const vOff = (variant || 0) % 4;
-      const texPad = dpad + 1; // 比裁剪padding多1px确保完全覆盖
-      ctx.drawImage(tex, p.x - hw - texPad, p.y - hh - texPad + vOff, TILE_W + texPad*2, TILE_H * 2 + texPad*2);
-      // 瓦砾变暗
-      if(tile.id === 'rubble'){
-        ctx.fillStyle = 'rgba(40,30,20,0.4)';
-        ctx.fillRect(p.x - hw - texPad, p.y - hh - texPad, TILE_W + texPad*2, TILE_H * 2 + texPad*2);
-      }
-      // 地形变体色调微调（消除重复感）
-      if(variant !== undefined && tile.id !== 'rubble'){
-        const hueShift = ((variant * 7) % 20 - 10) / 100;
-        if(hueShift !== 0){
-          ctx.fillStyle = hueShift > 0 ? `rgba(255,255,255,${hueShift})` : `rgba(0,0,0,${-hueShift})`;
-          ctx.fillRect(p.x - hw - texPad, p.y - hh - texPad, TILE_W + texPad*2, TILE_H * 2 + texPad*2);
-        }
-      }
-    } else {
-      // 回退：纯色填充 + variant 微调
-      let top = tile.top;
-      if(dim) top = shade(top, 0.4);
-      if(variant !== undefined){
-        const v = ((variant * 13) % 24 - 12);
-        top = shade(top, v / 100);
-      }
-      ctx.fillStyle = top;
-      ctx.fill();
-    }
-
+    ctx.beginPath();
+    ctx.moveTo(p.x, p.y - hh); ctx.lineTo(p.x + hw, p.y);
+    ctx.lineTo(p.x, p.y + hh); ctx.lineTo(p.x - hw, p.y); ctx.closePath();
+    ctx.fillStyle = '#3a5a3a'; ctx.fill();
     ctx.restore();
+  }
 
-    // 战争迷雾由game.js批量处理
-
-
-    // ---- 特殊瓦片装饰 ----
-    if(tile.id === 'stairs_dn' || tile.id === 'stairs_up'){
-      const dn = tile.id==='stairs_dn';
-      const col = dn ? '#4a9fc9' : '#c9a23a';
+  // ---- 特殊瓦片覆盖（楼梯/门/祭坛/宝箱）: 矢量绘制于真实地板之上 ----
+  drawSpecialTile(gx, gy, kind, visible, explored, hover){
+    if(!kind) return;
+    const ctx = this.ctx;
+    const p = gridToScreen(gx, gy);
+    const hw = TILE_W/2, hh = TILE_H/2;
+    ctx.save();
+    if(kind === 'stairs_dn' || kind === 'stairs_up'){
+      const dn = kind === 'stairs_dn';
       ctx.fillStyle = dn ? 'rgba(40,80,110,0.55)' : 'rgba(110,80,30,0.55)';
-      diamondPath(); ctx.fill();
+      ctx.beginPath();
+      ctx.moveTo(p.x, p.y - hh); ctx.lineTo(p.x + hw, p.y);
+      ctx.lineTo(p.x, p.y + hh); ctx.lineTo(p.x - hw, p.y); ctx.closePath();
+      ctx.fill();
       const dir = dn ? 1 : -1;
-      ctx.fillStyle = col;
+      ctx.fillStyle = dn ? '#4a9fc9' : '#c9a23a';
       for(let i=0;i<4;i++){
         const oy = (i-1.5)*5*dir;
         const w = 18 - Math.abs(i-1.5)*2;
         ctx.fillRect(p.x-w/2, p.y+oy-1, w, 2.5);
       }
       ctx.fillStyle = '#fff';
-      ctx.font = `${12/this.cam.zoom}px serif`;
+      ctx.font = (12/this.cam.zoom)+'px serif';
       ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
       ctx.fillText(dn?'▼':'▲', p.x, p.y - 14);
       ctx.textBaseline = 'alphabetic';
-    }
-    if(tile.id === 'door'){
-      ctx.fillStyle = '#5a3a1a';
-      ctx.fillRect(p.x-9, p.y-12, 18, 22);
-      ctx.fillStyle = '#8a6a3a';
-      ctx.fillRect(p.x-7, p.y-10, 14, 18);
-      ctx.fillStyle = '#c9a23a';
-      ctx.fillRect(p.x+4, p.y-1, 2, 2);
-    }
-    if(tile.id === 'altar'){
-      ctx.fillStyle = '#7a6aaa';
-      ctx.fillRect(p.x-12, p.y-10, 24, 18);
-      ctx.fillStyle = '#a990d0';
-      ctx.fillRect(p.x-8, p.y-14, 16, 4);
+    } else if(kind === 'door'){
+      ctx.fillStyle = '#5a3a1a'; ctx.fillRect(p.x-9, p.y-12, 18, 22);
+      ctx.fillStyle = '#8a6a3a'; ctx.fillRect(p.x-7, p.y-10, 14, 18);
+      ctx.fillStyle = '#c9a23a'; ctx.fillRect(p.x+4, p.y-1, 2, 2);
+    } else if(kind === 'altar'){
+      ctx.fillStyle = '#7a6aaa'; ctx.fillRect(p.x-12, p.y-10, 24, 18);
+      ctx.fillStyle = '#a990d0'; ctx.fillRect(p.x-8, p.y-14, 16, 4);
       ctx.fillStyle = '#c9b0e0';
-      ctx.beginPath();
-      ctx.arc(p.x, p.y-16, 4, 0, Math.PI*2);
-      ctx.fill();
+      ctx.beginPath(); ctx.arc(p.x, p.y-16, 4, 0, Math.PI*2); ctx.fill();
+    } else if(kind === 'chest'){
+      ctx.fillStyle = '#6a4a25'; ctx.fillRect(p.x-10, p.y-12, 20, 16);
+      ctx.fillStyle = '#8a6a35'; ctx.fillRect(p.x-8, p.y-10, 16, 12);
+      ctx.fillStyle = '#c9a23a'; ctx.fillRect(p.x-2, p.y-6, 3, 3);
     }
-
-    // 水面岸边过渡
-    if(isWater){
-      // 岸边暗化
-      diamondPath();
-      ctx.strokeStyle = `rgba(60,40,20,${0.3+0.1*Math.sin(this.time)})`;
-      ctx.lineWidth = 1.5/this.cam.zoom;
-      ctx.stroke();
-    }
-
     if(hover){
-      ctx.strokeStyle = '#7fd1c4';
-      ctx.lineWidth = 2/this.cam.zoom;
-      diamondPath();
+      ctx.strokeStyle = '#7fd1c4'; ctx.lineWidth = 2/this.cam.zoom;
+      ctx.beginPath();
+      ctx.moveTo(p.x, p.y - hh); ctx.lineTo(p.x + hw, p.y);
+      ctx.lineTo(p.x, p.y + hh); ctx.lineTo(p.x - hw, p.y); ctx.closePath();
       ctx.stroke();
     }
+    ctx.restore();
   }
 
   // ---- 绘制带高度的墙体瓦片（贴图立方体）----
@@ -635,9 +555,9 @@ export class IsoRenderer{
   //   不裁剪菱形 — 直接画完整区域, 透明角落自然形成菱形
 
   drawFloorAtlas(gx, gy, floorId, visible, explored, hover){
-    const fa = FLOOR_ATLAS[floorId];
-    if(!fa) return false;
-    const atlas = this.elinAtlases?.[fa.atlas];
+    const m = MAT.floor[floorId];
+    if(!m) return false;
+    const atlas = this.elinAtlases?.['floors'];
     if(!atlas || !atlas.complete || atlas.naturalWidth === 0) return false;
 
     const ctx = this.ctx;
@@ -646,8 +566,8 @@ export class IsoRenderer{
     const srcCellW = 64;  // floors.png cell width
     const srcCellH = 48;  // floors.png cell height
 
-    const srcC = fa.c;
-    const srcR = fa.r;
+    const srcC = Math.floor(m.rect[0] / 64);
+    const srcR = Math.floor(m.rect[1] / 48);
 
     // 调试截取偏移
     const dsx = this._debugSrcOff?.x || 0;
@@ -690,89 +610,6 @@ export class IsoRenderer{
     return true;
   }
 
-  // ---- 草地预渲染: 灰度tile → 程序上色 → 缓存offscreen canvas ----
-  // GRASS_ATLAS中的tile为灰度明暗信息, 按群系颜色乘法上色后缓存
-  // 缓存结构: this.grassCache[type] = offscreen canvas (63×48)
-  _preRenderGrass(){
-    try {
-      const atlas = this.elinAtlases?.['floors'];
-      if(!atlas || !atlas.complete || atlas.naturalWidth === 0) return;
-      const srcCellW = 64;  // floors.png cell width
-      const srcCellH = 48;  // floors.png cell height
-      const srcW = 63;
-      this.grassCache = {};
-      for(const [type, ga] of Object.entries(GRASS_ATLAS)){
-        // 提取灰度tile到临时canvas
-        const cv = document.createElement('canvas');
-        cv.width = srcW;
-        cv.height = srcCellH;
-        const cx = cv.getContext('2d');
-        cx.drawImage(atlas, ga.c * srcCellW, ga.r * srcCellH, srcW, srcCellH, 0, 0, srcW, srcCellH);
-        // 读取像素, 逐像素乘法上色: newRGB = L/255 * colorRGB
-        const imgData = cx.getImageData(0, 0, srcW, srcCellH);
-        const data = imgData.data;
-        const cr = ga.color[0], cg = ga.color[1], cb = ga.color[2];
-        for(let i = 0; i < data.length; i += 4){
-          if(data[i+3] > 10){
-            const L = (data[i] + data[i+1] + data[i+2]) / 3;
-            const f = L / 255;
-            data[i]   = f * cr;
-            data[i+1] = f * cg;
-            data[i+2] = f * cb;
-          }
-        }
-        cx.putImageData(imgData, 0, 0);
-        this.grassCache[type] = cv;
-      }
-    } catch(e) {
-      console.warn('Grass pre-render failed:', e);
-      this.grassCache = null;
-    }
-  }
-
-  // ---- 从预渲染缓存绘制草地 (灰度tile已上色) ----
-  drawGrassAtlas(gx, gy, floorId, visible, explored, hover){
-    const ga = GRASS_ATLAS[floorId];
-    if(!ga) return false;
-    const cache = this.grassCache?.[floorId];
-    if(!cache) return false;
-
-    const ctx = this.ctx;
-    const p = gridToScreen(gx, gy);
-    const dim = !visible && explored;
-
-    const ddx = this._debugDrawOff?.x || 0;
-    const ddy = this._debugDrawOff?.y || 0;
-
-    const scaleX = TILE_W / 60;
-    const scaleY = TILE_H / 33;
-    const srcW = 63;
-    const drawW = srcW * scaleX;
-    const drawH = 48 * scaleY;
-    const drawX = p.x - 32 * scaleX + ddx;  // 菱形中心x=32 (60px diamond in 64px cell)
-    const drawY = p.y - 27.5 * scaleY + ddy;
-
-    const pad = 0.5;
-    ctx.drawImage(cache,
-      0, 0, srcW, 48,
-      drawX - pad, drawY - pad, drawW + pad*2, drawH + pad*2
-    );
-
-    // 战争迷雾由game.js批量处理
-
-    if(hover){
-      ctx.strokeStyle = '#7fd1c4';
-      ctx.lineWidth = 2/this.cam.zoom;
-      ctx.beginPath();
-      ctx.moveTo(p.x, p.y - TILE_H/2);
-      ctx.lineTo(p.x + TILE_W/2, p.y);
-      ctx.lineTo(p.x, p.y + TILE_H/2);
-      ctx.lineTo(p.x - TILE_W/2, p.y);
-      ctx.closePath();
-      ctx.stroke();
-    }
-    return true;
-  }
 
   // ---- 绘制堆叠方块 (blocks.png, 64px tiles, 支持无限高度堆叠) ----
   // blockIds: 从底到顶的方块类型ID数组
@@ -793,16 +630,18 @@ export class IsoRenderer{
     ctx.save();
 
     for(let i = 0; i < blockIds.length; i++){
-      const bt = BLOCK_TYPES[blockIds[i]];
+      const bt = MAT.block[blockIds[i]];
       if(!bt) continue;
 
+      const col = Math.floor(bt.rect[0] / tilePx);
+      const row = Math.floor(bt.rect[1] / tilePx);
       const drawY = p.y - 48 - accumH;
       ctx.drawImage(atlas,
-        bt.c * tilePx, bt.r * tilePx, tilePx, tilePx,
+        col * tilePx, row * tilePx, tilePx, tilePx,
         p.x - 32, drawY, spriteSize, spriteSize
       );
 
-      accumH += bt.h * WALL_H;
+      accumH += (bt.h || 1) * WALL_H;
     }
 
     ctx.restore();
@@ -1106,7 +945,7 @@ export class IsoRenderer{
     const p = gridToScreen(decor.x, decor.y);
     const s = decor.scale;
     const t = this.time;
-    const def = DECOR_TYPES[decor.type];
+    const def = MAT.obj[decor.type];
     if(!def) return;
     const hw = TILE_W/2, hh = TILE_H/2;
 
@@ -1135,36 +974,18 @@ export class IsoRenderer{
     // ---- 贴图绘制 ----
     const atlas = this.elinAtlases?.[def.atlas];
     if(atlas && atlas.complete && atlas.naturalWidth > 0){
-      const dw = def.sw * s;
-      const dh = def.sh * s;
-      ctx.drawImage(atlas,
-        def.sx, def.sy, def.sw, def.sh,
-        cx - dw/2, cy - dh, dw, dh
-      );
-      // 发光装饰物附加光晕
-      if(def.light){
-        const glowR = Math.max(dw, dh) * 1.2;
-        const grad = ctx.createRadialGradient(cx, cy - dh/2, 0, cx, cy - dh/2, glowR);
-        if(decor.type === 'torch'){
-          const flicker = 0.7 + 0.3 * Math.sin(t * 8 + decor.phase);
-          grad.addColorStop(0, `rgba(255,200,80,${0.3 * flicker})`);
-          grad.addColorStop(1, 'rgba(255,200,80,0)');
-        } else {
-          const glow = 0.5 + 0.3 * Math.sin(t * 2 + decor.phase);
-          grad.addColorStop(0, `rgba(120,200,250,${0.25 * glow})`);
-          grad.addColorStop(1, 'rgba(120,200,250,0)');
-        }
-        ctx.fillStyle = grad;
-        ctx.beginPath();
-        ctx.arc(cx, cy - dh/2, glowR, 0, Math.PI*2);
-        ctx.fill();
-      }
+      const sw = def.rect[2], sh = def.rect[3];
+      const dw = sw * s, dh = sh * s;
+      ctx.save();
+      if(def.flip){ ctx.translate(cx, 0); ctx.scale(-1, 1); ctx.translate(-cx, 0); }
+      ctx.drawImage(atlas, def.rect[0], def.rect[1], sw, sh, cx - dw/2, cy - dh, dw, dh);
+      ctx.restore();
       return;
     }
 
     // ---- 回退：图集未加载时用简单形状 ----
     ctx.save();
-    ctx.fillStyle = def.color || '#888';
+    ctx.fillStyle = '#888';
     ctx.beginPath();
     ctx.arc(cx, cy - 6*s, 5*s, 0, Math.PI*2);
     ctx.fill();
