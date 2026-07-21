@@ -985,9 +985,10 @@ export function generateTown(rng, depth = 0){
     }
   }
 
-  generateDecorations(map, rng);
+  generateTownDecorations(map, buildings, rng);
   detectRooms(map);
   detectRoomWalls(map, map.rooms);
+  map.buildings = buildings;   // 供调试/后续逻辑区分室内外
 
   return map;
 }
@@ -1199,46 +1200,154 @@ function _generateFieldMap(zone, rng){
 }
 
 // ==================== 装饰物 ====================
-function generateDecorations(map, rng){
-  // 按地面分组选装饰物：地面 id → 其所属 group（见 FLOOR_GROUP）→ 对应 obj 装饰池
-  const POOL = {
-    grass:  ['grass','flower','mushroom'],
-    sand:   ['rock','grass'],
-    snow:   ['rock'],
-    ice:    [],
-    stone:  ['rock','crystal'],
-    wood:   ['grass','flower'],
-    factory:['crate','barrel','rock'],
-    water_shallow: [], water: [], water_deep: [], undersea: [], other: [],
-  };
-  for(let y=0;y<map.h;y++){
-    for(let x=0;x<map.w;x++){
-      const gid = map.tileId(x,y);
-      if(gid == null) continue;
-      const gkey = FLOOR_GROUP[gid];
-      if(!gkey) continue;
-      const groups = POOL[gkey];
-      if(!groups || groups.length === 0) continue;
-      const ids = [];
-      for(const g of groups){ const a = G.obj[g]; if(a) ids.push(...a); }
-      if(ids.length === 0) continue;
-      const density = (gkey === 'grass') ? 0.25 : 0.12;
-      if(rng.chance(density)){
-        const oid = rng.pick(ids);
-        const ox = (rng.float() - 0.5) * 20;
-        const oy = (rng.float() - 0.5) * 12;
-        const phase = rng.float() * Math.PI * 2;
-        const scale = 0.85 + rng.float() * 0.3;
-        map.decorations.push({x, y, type: oid, ox, oy, scale, phase, face: null});
-      }
-    }
-  }
+// 参考 Elin 原版：
+//   - 野外：BiomeProfile.cluster.obj 按 biome 选 obj 簇放置
+//   - 城镇：室内由 Room.thing 放家具(Thing)，室外放公共设施。
+// H5 仅渲染 obj 层（无 Thing 家具），故用外观近似：
+//   室内 → 稀疏“家具感”obj（树桩/鸟巢/盆栽）；室外 → 行道桩/水井(巨岩)/花园花木/行道树。
+const isWaterFloor = (gid) => {
+  const g = FLOOR_GROUP[gid];
+  return g === 'water' || g === 'water_shallow' || g === 'water_deep';
+};
+// 仅保留 MAT.obj 中有贴图的项（避免死 id）
+function _validObjIds(ids){
+  const out = [];
+  for(const id of ids){ if(MAT.obj[id]) out.push(id); }
+  return out;
+}
+const DECOR_POOL = {
+  tree:        _validObjIds([58,56,57,77,76,49,113,114,0,53,55,54,69,70,118,119,112,17,94,63,64]),
+  flower:      _validObjIds([1,2,3,4,120,139,140,141,115,116,117,5,7,127,108,105,60,61,121,138]),
+  mushroom:    _validObjIds([6,12,15,47]),
+  grass_tuft:  _validObjIds([115,116,117,5,7,105,127,108]),
+  rock:        _validObjIds([9,11,144,91,102]),
+  boulder:     _validObjIds([51,100,93,62,64,94]),
+  crystal:     _validObjIds([10]),
+  cactus:      _validObjIds([16,17,9,11,51,91,74]),
+  snow_tree:   _validObjIds([57,54,13,11,52,142,143]),
+  water_edge:  _validObjIds([20,99,73,74,75]),
+  furniture:   _validObjIds([72,48,66,84,145,35,36,38,39,40,139,140]),
+  facility:    _validObjIds([66,100,51,48,79,84]),
+  garden:      _validObjIds([1,2,3,4,120,139,140,141,35,36,38,39,40,78,88,104,105,121,122,138]),
+  street_tree: _validObjIds([17,58,77,76,0,56,113]),
+  dungeon:     _validObjIds([52,142,143,10,93,100,51,145,84,62,64,94,18,19]),
+};
+function _decoBlocked(map, x, y){
+  if(x<0||y<0||x>=map.w||y>=map.h) return true;
+  if(map.hasSolidBlocks(x,y)) return true;
+  if(map.itemAt(x,y)) return true;
+  if(map.entityAt(x,y)) return true;
+  if(map.specialAt(x,y)) return true;
+  return false;
+}
+function _pushDeco(map, x, y, oid, rng, opts){
+  opts = opts || {};
+  const ox = (rng.float() - 0.5) * (opts.ox || 20);
+  const oy = (rng.float() - 0.5) * (opts.oy || 12);
+  const phase = rng.float() * Math.PI * 2;
+  const scale = (opts.scaleMin || 0.85) + rng.float() * (opts.scaleRange || 0.3);
+  map.decorations.push({x, y, type: oid, ox, oy, scale, phase, face: opts.face || null});
+}
+function _finalizeDecoGrid(map){
   map._decorGrid = {};
   for(const d of map.decorations){
     const key = d.x + ',' + d.y;
     if(!map._decorGrid[key]) map._decorGrid[key] = [];
     map._decorGrid[key].push(d);
   }
+}
+// 统一入口：按地图类型分派
+function generateDecorations(map, rng, buildings){
+  if(map.isTown || map.generator === 'town') return generateTownDecorations(map, buildings, rng);
+  if(map.generator === 'dungeon') return generateDungeonDecorations(map, rng);
+  return generateWildDecorations(map, rng);
+}
+// 野外：按 biome 选 obj 簇（参考 BiomeProfile.cluster.obj）
+function generateWildDecorations(map, rng){
+  for(let y=0;y<map.h;y++){
+    for(let x=0;x<map.w;x++){
+      if(_decoBlocked(map,x,y)) continue;
+      const gid = map.tileId(x,y);
+      const gkey = FLOOR_GROUP[gid];
+      if(!gkey) continue;
+      if(isWaterFloor(gid)){
+        if(rng.chance(0.10) && DECOR_POOL.water_edge.length)
+          _pushDeco(map, x, y, rng.pick(DECOR_POOL.water_edge), rng);
+        continue;
+      }
+      if(gkey === 'grass'){
+        const r = rng.float();
+        if(r < 0.07 && DECOR_POOL.tree.length)          _pushDeco(map,x,y,rng.pick(DECOR_POOL.tree),rng,{scaleMin:0.95,scaleRange:0.35});
+        else if(r < 0.25 && DECOR_POOL.flower.length)   _pushDeco(map,x,y,rng.pick(DECOR_POOL.flower),rng);
+        else if(r < 0.31 && DECOR_POOL.mushroom.length) _pushDeco(map,x,y,rng.pick(DECOR_POOL.mushroom),rng);
+        else if(r < 0.39 && DECOR_POOL.grass_tuft.length) _pushDeco(map,x,y,rng.pick(DECOR_POOL.grass_tuft),rng);
+      } else if(gkey === 'sand'){
+        const r = rng.float();
+        if(r < 0.05 && DECOR_POOL.cactus.length) _pushDeco(map,x,y,rng.pick(DECOR_POOL.cactus),rng);
+        else if(r < 0.09 && DECOR_POOL.rock.length) _pushDeco(map,x,y,rng.pick(DECOR_POOL.rock),rng);
+      } else if(gkey === 'snow'){
+        const r = rng.float();
+        if(r < 0.06 && DECOR_POOL.snow_tree.length) _pushDeco(map,x,y,rng.pick(DECOR_POOL.snow_tree),rng);
+        else if(r < 0.11 && DECOR_POOL.rock.length) _pushDeco(map,x,y,rng.pick(DECOR_POOL.rock),rng);
+      } else if(gkey === 'stone' || gkey === 'wood' || gkey === 'factory'){
+        const r = rng.float();
+        if(r < 0.06 && DECOR_POOL.boulder.length) _pushDeco(map,x,y,rng.pick(DECOR_POOL.boulder),rng);
+        else if(r < 0.11 && DECOR_POOL.rock.length) _pushDeco(map,x,y,rng.pick(DECOR_POOL.rock),rng);
+        else if(gkey === 'stone' && r < 0.14 && DECOR_POOL.crystal.length) _pushDeco(map,x,y,rng.pick(DECOR_POOL.crystal),rng);
+      }
+    }
+  }
+  _finalizeDecoGrid(map);
+}
+// 城镇：室内稀疏家具感物件，室外公共设施/花木/行道树
+function generateTownDecorations(map, buildings, rng){
+  const indoor = new Set();
+  if(buildings){
+    for(const b of buildings){
+      for(let yy=b.y; yy<b.y+b.h; yy++)
+        for(let xx=b.x; xx<b.x+b.w; xx++)
+          indoor.add(xx+','+yy);
+    }
+  }
+  for(let y=0;y<map.h;y++){
+    for(let x=0;x<map.w;x++){
+      if(_decoBlocked(map,x,y)) continue;
+      const key = x+','+y;
+      if(indoor.has(key)){
+        // 室内：极低概率放一件家具感物件，避免拥挤
+        if(rng.chance(0.06) && DECOR_POOL.furniture.length)
+          _pushDeco(map,x,y,rng.pick(DECOR_POOL.furniture),rng,{scaleMin:0.8,scaleRange:0.25});
+      } else {
+        const r = rng.float();
+        if(r < 0.06 && DECOR_POOL.street_tree.length) _pushDeco(map,x,y,rng.pick(DECOR_POOL.street_tree),rng,{scaleMin:0.95,scaleRange:0.3});
+        else if(r < 0.18 && DECOR_POOL.garden.length)  _pushDeco(map,x,y,rng.pick(DECOR_POOL.garden),rng);
+        else if(r < 0.22 && DECOR_POOL.facility.length) _pushDeco(map,x,y,rng.pick(DECOR_POOL.facility),rng);
+      }
+    }
+  }
+  // 每栋建筑门口放一根“行道桩/灯柱”作为公共标识
+  if(buildings){
+    for(const b of buildings){
+      if(!b.door) continue;
+      const px = b.door.x, py = b.door.y + 1;
+      if(!_decoBlocked(map,px,py) && DECOR_POOL.facility.length)
+        _pushDeco(map, px, py, 66, rng, {scaleMin:0.9, scaleRange:0.2});
+    }
+  }
+  _finalizeDecoGrid(map);
+}
+// 地牢：骸骨/晶/废墟/岩，低密度
+function generateDungeonDecorations(map, rng){
+  for(let y=0;y<map.h;y++){
+    for(let x=0;x<map.w;x++){
+      if(_decoBlocked(map,x,y)) continue;
+      const gid = map.tileId(x,y);
+      if(isWaterFloor(gid)) continue;
+      if(rng.chance(0.05) && DECOR_POOL.dungeon.length)
+        _pushDeco(map,x,y,rng.pick(DECOR_POOL.dungeon),rng,{scaleMin:0.8,scaleRange:0.3});
+    }
+  }
+  _finalizeDecoGrid(map);
 }
 
 // ==================== 地下城辅助函数 ====================

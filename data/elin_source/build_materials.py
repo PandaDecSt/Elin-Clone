@@ -37,6 +37,37 @@ obj_rect = rect_o['OBJ_ID_RECT']
 # atlas name mapping for objs (tex field -> atlas key used by iso.js)
 OBJ_ATLAS = {'objs': 'objs', 'objs_S': 'objs_S', 'objs_L': 'objs_L'}
 
+# ============ obj 程序化着色 (贴合 Elin: 仅"活物"按材质 matColor 着色) ============
+# Elin 对 obj/Thing 总是执行 p.matColor = base.colorInt：
+#   中性材质(石/矿/屋顶/道路) → 白(不变, 保持灰度遮罩)
+#   活物(树/花/蘑菇/苔藓/落叶) → 彩色 matColor (季节/材质色)
+# 本图集里这些活物精灵是灰度遮罩(graystd≈0)，需 runtime 着色。
+# 石/矿/屋顶等灰度精灵保持原灰(不着色)。
+# 着色方式: 平涂色 + 遮罩 alpha 裁形 (see iso.js _getTintedTile 'colorize' 模式)。
+# 颜色 RGB 0-255，对应 Elin 季节/材质色 (枫红/樱粉/松绿等)。
+OBJ_TINT = {
+    # ---- 树 (foliage) ----
+    0:  [205, 70, 45],    # momiji 枫 → 红 (秋)
+    56: [120, 178, 95],   # birch 桦 → 绿
+    57: [70, 140, 75],    # pine 松 → 深绿
+    63: [130, 158, 110],  # fossil tree 化石树 → 暗绿
+    70: [138, 172, 85],   # acacia 金合欢 → 绿
+    76: [125, 182, 95],   # willow 柳 → 绿
+    # 77: [248, 182, 216],  # cherry 樱 → 粉  ⚠ DISABLED: rect 碰撞(=家具桌), 待修复 obj_id_rect 后启用
+    12: [205, 95, 90],    # mushroom tree 蘑菇树 → 红伞
+    15: [205, 95, 90],
+    47: [205, 95, 90],
+    94: [150, 130, 95],   # decayed tree 枯树 → 褐
+    62: [132, 152, 112],  # decayed fossil tree → 绿灰
+    # ---- 花/草/苔藓/落叶 ----
+    3:  [238, 208, 72],   # yellow flower 黄花
+    7:  [118, 168, 88],   # weed 杂草 → 绿
+    20: [222, 226, 236],  # water lily 睡莲 → 白
+    # 60: [118, 168, 88],   # moss 苔藓 → 绿   ⚠ DISABLED: rect 碰撞(=家具桌), 待修复
+    # 79: [208, 138, 58],   # pile of fallen leaves 落叶堆 → 橙  ⚠ DISABLED: rect 碰撞(=家具桌), 待修复
+    103:[128, 178, 98],   # bamboo 竹 → 绿
+}
+
 floor_src = src['SourceBlock']['Floor']['byId']
 block_src = src['SourceBlock']['Block']['byId']
 obj_src = src['SourceBlock']['Obj']['byId']
@@ -116,6 +147,8 @@ for k, v in obj_src.items():
         'tag': v.get('tag'),
         'defMat': v.get('defMat'),
     }
+    if oid in OBJ_TINT:
+        MAT_obj[oid]['tint'] = OBJ_TINT[oid]
 
 # ============ GROUPS（按原版字段归类）============
 def grp_floor(cats):

@@ -551,8 +551,8 @@ export class IsoRenderer{
   // 灰度图集(floors/blocks.png)按材质 alias 做 multiply 着色，
   // 复用离屏 canvas 缓存（每个 tile id 只渲染一次）。
   // 返回着色后的 canvas，或 null（该材质不着色，直接画原图）。
-  _getTintedTile(atlasName, key, atlas, sx, sy, sw, sh, tint){
-    const ck = atlasName + ':' + key;
+  _getTintedTile(atlasName, key, atlas, sx, sy, sw, sh, tint, mode){
+    const ck = atlasName + ':' + key + ':' + (mode || 'mul');
     const cached = this._tintCache[ck];
     if(cached !== undefined) return cached;           // 含 null
     if(!tint){ this._tintCache[ck] = null; return null; }
@@ -560,16 +560,45 @@ export class IsoRenderer{
     const cv = document.createElement('canvas');
     cv.width = sw; cv.height = sh;
     const cx = cv.getContext('2d');
-    // 1) 原图（含 alpha 遮罩）
-    cx.drawImage(atlas, sx, sy, sw, sh, 0, 0, sw, sh);
-    // 2) multiply 着色
-    cx.globalCompositeOperation = 'multiply';
-    cx.fillStyle = `rgb(${tint[0]},${tint[1]},${tint[2]})`;
-    cx.fillRect(0, 0, sw, sh);
-    // 3) 用原图 alpha 还原透明区域
-    cx.globalCompositeOperation = 'destination-in';
-    cx.drawImage(atlas, sx, sy, sw, sh, 0, 0, sw, sh);
-    cx.globalCompositeOperation = 'source-over';
+    if(mode === 'colorize'){
+      // 按遮罩灰度着色：保留精灵内部明暗(不变成纯色块)
+      // 1) 先画原灰度遮罩(含 alpha)
+      cx.drawImage(atlas, sx, sy, sw, sh, 0, 0, sw, sh);
+      // 2) 逐像素：以遮罩亮度归一化后乘 tint，亮部满色、暗部留底色 → 有立体感的着色树/花
+      const img = cx.getImageData(0, 0, sw, sh);
+      const d = img.data;
+      const tr = tint[0], tg = tint[1], tb = tint[2];
+      let maxL = 1;
+      for(let i = 0; i < d.length; i += 4){
+        if(d[i+3] > 0){
+          const lum = 0.299*d[i] + 0.587*d[i+1] + 0.114*d[i+2];
+          if(lum > maxL) maxL = lum;
+        }
+      }
+      const inv = 255 / maxL;
+      for(let i = 0; i < d.length; i += 4){
+        if(d[i+3] > 0){
+          const lum = (0.299*d[i] + 0.587*d[i+1] + 0.114*d[i+2]) * inv; // → 0..255
+          const f = 0.30 + 0.70 * (lum / 255);   // 暗部保留 30% 底色，亮部满色
+          d[i]   = Math.min(255, tr * f);
+          d[i+1] = Math.min(255, tg * f);
+          d[i+2] = Math.min(255, tb * f);
+          // alpha 保留
+        }
+      }
+      cx.putImageData(img, 0, 0);
+    } else {
+      // 1) 原图（含 alpha 遮罩）
+      cx.drawImage(atlas, sx, sy, sw, sh, 0, 0, sw, sh);
+      // 2) multiply 着色
+      cx.globalCompositeOperation = 'multiply';
+      cx.fillStyle = `rgb(${tint[0]},${tint[1]},${tint[2]})`;
+      cx.fillRect(0, 0, sw, sh);
+      // 3) 用原图 alpha 还原透明区域
+      cx.globalCompositeOperation = 'destination-in';
+      cx.drawImage(atlas, sx, sy, sw, sh, 0, 0, sw, sh);
+      cx.globalCompositeOperation = 'source-over';
+    }
 
     this._tintCache[ck] = cv;
     return cv;
@@ -1020,6 +1049,19 @@ export class IsoRenderer{
     if(atlas && atlas.complete && atlas.naturalWidth > 0){
       const sw = def.rect[2], sh = def.rect[3];
       const dw = sw * s, dh = sh * s;
+      const tint = def.tint;
+      // 程序化着色(obj 灰度遮罩 → 实色, 见 material-tints / build_materials OBJ_TINT)
+      if(tint){
+        const tt = this._getTintedTile('obj_' + def.atlas, String(decor.type), atlas,
+          def.rect[0], def.rect[1], sw, sh, tint, 'colorize');
+        if(tt){
+          ctx.save();
+          if(def.flip){ ctx.translate(cx, 0); ctx.scale(-1, 1); ctx.translate(-cx, 0); }
+          ctx.drawImage(tt, cx - dw/2, cy - dh, dw, dh);
+          ctx.restore();
+          return;
+        }
+      }
       ctx.save();
       if(def.flip){ ctx.translate(cx, 0); ctx.scale(-1, 1); ctx.translate(-cx, 0); }
       ctx.drawImage(atlas, def.rect[0], def.rect[1], sw, sh, cx - dw/2, cy - dh, dw, dh);
