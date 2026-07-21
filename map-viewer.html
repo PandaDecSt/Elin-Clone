@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Elin 地图可视化调试工具 · casino.z</title>
+<style>
+  :root{
+    --bg:#0c0f14; --panel:#161b24; --panel2:#1e2530; --line:#2a3340;
+    --txt:#d7dee8; --dim:#8a96a6; --accent:#e0b34a; --accent2:#4a9fc9;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%;background:var(--bg);color:var(--txt);
+    font-family:"Microsoft YaHei",system-ui,Segoe UI,sans-serif;overflow:hidden}
+  #app{display:flex;height:100%}
+  #stage{flex:1;position:relative}
+  canvas{display:block;width:100%;height:100%;cursor:grab;background:#0a0c10}
+  canvas.drag{cursor:grabbing}
+  #side{width:310px;background:var(--panel);border-left:1px solid var(--line);
+    display:flex;flex-direction:column;overflow-y:auto}
+  #side h1{font-size:15px;margin:0;padding:14px 16px 6px;color:var(--accent);letter-spacing:.5px}
+  #side .sub{padding:0 16px 10px;color:var(--dim);font-size:12px;line-height:1.5}
+  .sec{border-top:1px solid var(--line);padding:12px 16px}
+  .sec h2{font-size:12px;text-transform:uppercase;letter-spacing:1px;color:var(--dim);margin:0 0 10px}
+  .row{display:flex;align-items:center;justify-content:space-between;margin:7px 0;font-size:13px}
+  .row label{cursor:pointer;user-select:none}
+  .toggle{position:relative;width:38px;height:20px;background:var(--panel2);border-radius:10px;
+    border:1px solid var(--line);transition:.15s;flex:none}
+  .toggle.on{background:var(--accent2)}
+  .toggle::after{content:"";position:absolute;width:16px;height:16px;border-radius:50%;background:#fff;
+    top:1px;left:1px;transition:.15s}
+  .toggle.on::after{left:19px}
+  input[type=range]{width:130px;accent-color:var(--accent)}
+  .val{color:var(--accent);font-variant-numeric:tabular-nums;min-width:34px;text-align:right}
+  .legend{font-size:12px;line-height:1.9;color:var(--dim)}
+  .legend .dot{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:7px;vertical-align:middle}
+  #info{position:absolute;left:14px;top:14px;background:rgba(12,15,20,.82);border:1px solid var(--line);
+    border-radius:8px;padding:10px 13px;font-size:12px;line-height:1.7;pointer-events:none;min-width:190px;
+    backdrop-filter:blur(3px)}
+  #info b{color:var(--accent)}
+  #info .k{color:var(--dim)}
+  #hint{position:absolute;right:14px;bottom:14px;background:rgba(12,15,20,.7);border:1px solid var(--line);
+    border-radius:8px;padding:7px 11px;font-size:11px;color:var(--dim)}
+  .btn{background:var(--panel2);border:1px solid var(--line);color:var(--txt);border-radius:6px;
+    padding:6px 10px;font-size:12px;cursor:pointer}
+  .btn:hover{border-color:var(--accent)}
+  .stat{color:var(--dim);font-size:11px}
+  .stat b{color:var(--txt)}
+  .note{font-size:11px;color:#b9893f;background:rgba(224,179,74,.08);border:1px solid rgba(224,179,74,.25);
+    border-radius:6px;padding:8px 10px;line-height:1.6;margin-top:8px}
+  .selname{color:var(--accent);font-weight:600}
+  a{color:var(--accent2)}
+</style>
+</head>
+<body>
+<div id="app">
+  <div id="stage">
+    <canvas id="cv"></canvas>
+    <div id="info">
+      <div><span class="k">网格</span> <b id="iG">—</b></div>
+      <div><span class="k">地板 id</span> <b id="iF">—</b></div>
+      <div><span class="k">方块 id</span> <b id="iB">—</b></div>
+      <div><span class="k">物件</span> <b id="iO">—</b></div>
+    </div>
+    <div id="hint">拖拽平移 · 滚轮缩放 · 点击标记查看</div>
+  </div>
+  <div id="side">
+    <h1>Elin 地图可视化</h1>
+    <div class="sub" id="meta">加载中…</div>
+
+    <div class="sec">
+      <h2>图层</h2>
+      <div class="row"><label data-t="floor">地板层</label><div class="toggle on" id="t_floor"></div></div>
+      <div class="row"><label data-t="block">方块/墙体层</label><div class="toggle on" id="t_block"></div></div>
+      <div class="row"><label data-t="obj">地图物件层</label><div class="toggle on" id="t_obj"></div></div>
+      <div class="row"><label data-t="card">摆放物件/角色</label><div class="toggle on" id="t_card"></div></div>
+      <div class="row"><label data-t="grid">网格辅助线</label><div class="toggle" id="t_grid"></div></div>
+      <div class="row"><label data-t="labels">物件名称标签</label><div class="toggle on" id="t_labels"></div></div>
+    </div>
+
+    <div class="sec">
+      <h2>地板渲染</h2>
+      <div class="row"><label>模式</label>
+        <select id="floorMode" class="btn" style="padding:4px 6px">
+          <option value="sprite">精灵贴图</option>
+          <option value="color">纯色块(按 id)</option>
+        </select>
+      </div>
+      <div class="note">贴图位置已用官方解码规则精确还原：地图里的「材质 id」先查 SourceBlock 映射得到 <b>tile</b>，再 <code>col=tile%100, row=tile//100</code> 取 floors.png(64×48)/blocks.png(64×64) 的像素格。少数材质 id（如 34/35/76、103/153）在已解析源表里缺 tile 映射，会回退为纯色/占位块。</div>
+    </div>
+
+    <div class="sec">
+      <h2>视图</h2>
+      <div class="row"><label>缩放</label>
+        <input type="range" id="zoom" min="0.2" max="3" step="0.05" value="0.6">
+        <span class="val" id="zoomV">0.60</span>
+      </div>
+      <div class="row" style="gap:8px">
+        <button class="btn" id="reset">复位视角</button>
+        <button class="btn" id="center">居中地图</button>
+      </div>
+    </div>
+
+    <div class="sec">
+      <h2>图例</h2>
+      <div class="legend">
+        <div><span class="dot" style="background:#e05a5a"></span>角色 / NPC (chara)</div>
+        <div><span class="dot" style="background:#6abf6a"></span>装饰物件 (obj/obj_S/obj tall…)</div>
+        <div><span class="dot" style="background:#4a9fc9"></span>Thing 实体 (wagon/fountain…)</div>
+        <div><span class="dot" style="background:#c9a23a"></span>悬停/选中标记</div>
+      </div>
+      <div class="stat" id="stats" style="margin-top:10px"></div>
+    </div>
+
+    <div class="sec" style="border-bottom:1px solid var(--line)">
+      <h2>选中物件</h2>
+      <div id="sel" style="font-size:12px;line-height:1.7;color:var(--dim)">未选中。点击地图上的标记查看详情。</div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ===== 等距投影常量（与 iso.js 一致）=====
+const TILE_W = 64, TILE_H = 32, WALL_H = 32;
+
+// ===== Elin 图集解码（来自 Elin-Decompiled/Elin/RenderData.cs::ConvertTile）=====
+//   tile = 行×100 + 列   →   col = tile % 100,  row = Math.floor(tile / 100)
+//   floors.png: cell 64×48, 32列×40行 (2048×1920)
+//   blocks.png: cell 64×64, 32列×32行 (2048×2048)
+const FLOOR_CELL_W = 64, FLOOR_CELL_H = 48;
+const BLOCK_CELL   = 64;
+
+// 材质 id → tile(=row*100+col)，由 floor_map.json / block_map.json 生成
+const FLOOR_ID_TILE = {0:6, 2:8, 3:7, 6:501, 7:801, 8:901, 11:804, 12:805, 13:806, 14:502, 15:503, 16:504, 17:505, 18:506, 19:507, 20:2200, 22:702, 23:703, 24:800, 25:802, 26:902, 28:510, 29:701, 30:808, 31:604, 32:511, 33:300, 36:706, 37:302, 38:807, 39:710, 41:606, 43:307, 44:308, 49:709, 52:905, 53:906, 58:513, 59:514, 60:515, 61:414, 62:415, 63:413, 64:519, 65:516, 72:306, 73:309, 74:303, 75:707, 77:9, 78:815, 79:816, 80:817, 81:818, 83:417, 88:426, 90:11, 94:617, 96:620, 99:202, 100:203, 101:201, 102:613, 103:517, 104:909, 105:829, 106:518, 107:520, 108:521, 109:522, 110:830, 111:831, 113:116, 114:114, 115:623, 116:624, 118:625, 119:626, 122:300, 123:717, 124:718, 126:913, 127:525, 128:425, 130:1111, 131:719, 134:720, 135:721, 136:722, 138:1207, 139:1305, 140:1306, 141:705, 142:725, 143:0};
+const BLOCK_ID_TILE = {0:107, 5:100, 8:106, 9:102, 10:108, 11:102, 12:110, 14:112, 15:204, 16:400, 17:401, 18:402, 19:403, 20:404, 21:405, 22:406, 23:407, 24:408, 25:409, 30:208, 31:210, 32:212, 33:104, 34:206, 35:214, 36:114, 50:410, 53:503, 67:3000, 68:3001, 69:3002, 70:3003, 71:3004, 72:3005, 73:3006, 74:3007, 75:3008, 76:3009, 77:3010, 78:3011, 79:3012, 80:3013, 81:3014, 82:3015, 83:3016, 84:3017, 85:3018, 86:3019, 87:3020, 97:116, 108:3021, 109:3022, 110:3023, 111:3024, 118:3026, 119:3027, 120:3028, 121:3029, 122:3030, 124:101, 125:3025, 128:11, 138:411, 140:305, 141:201, 143:103, 145:105, 146:205, 149:12, 150:13, 151:412, 152:413, 160:713, 168:714, 191:120, 192:123, 194:124, 196:125, 198:2623, 199:2624, 200:2605, 201:302, 205:207, 207:226, 211:2625, 212:2626, 213:2627};
+
+// 把地图里的"材质 id"转成图集像素 rect；缺映射返回 null
+// 注意：tile 允许为 0（即图集左上角首格），必须用 hasOwnProperty 判断，不能用 falsy
+function tileRect(id, kind){
+  const map = (kind==='floor') ? FLOOR_ID_TILE : BLOCK_ID_TILE;
+  if (!map.hasOwnProperty(id|0)) return null;
+  const tile = map[id|0];
+  const cw = (kind==='floor') ? FLOOR_CELL_W : BLOCK_CELL;
+  const ch = (kind==='floor') ? FLOOR_CELL_H : BLOCK_CELL;
+  const col = tile % 100, row = Math.floor(tile / 100);
+  return { x: col*cw, y: row*ch, w: cw, h: ch };
+}
+
+function gridToScreen(gx, gy){
+  return { x:(gx-gy)*(TILE_W/2), y:(gx+gy)*(TILE_H/2) };
+}
+
+// ===== 状态 =====
+const state = {
+  data:null, floorsImg:null, blocksImg:null,
+  objsImgs:{}, objRects:null,
+  show:{floor:true, block:true, obj:true, card:true, grid:false, labels:true},
+  floorMode:'sprite', zoom:0.6,
+  cam:{x:0, y:1600}, panning:false, lastX:0, lastY:0,
+  base:null, baseMinX:0, baseMinY:0, sel:null, hover:null,
+};
+
+const cv = document.getElementById('cv');
+const ctx = cv.getContext('2d');
+
+// ===== 资源加载 =====
+const ASSET = 'assets/elin/';
+function loadImg(name){
+  return new Promise((res,rej)=>{
+    const im=new Image();
+    im.onload=()=>res(im); im.onerror=()=>rej(new Error('load '+name));
+    im.src = ASSET+name;
+  });
+}
+
+async function boot(){
+  try{
+    const [floorsImg, blocksImg, objs_S, objs, objs_L, objRectRaw, raw] = await Promise.all([
+      loadImg('floors.png'), loadImg('blocks.png'),
+      loadImg('objs_S.png'), loadImg('objs.png'), loadImg('objs_L.png'),
+      fetch('data/elin_source/obj_id_rect.json').then(r=>{
+        if(!r.ok) throw new Error('无法加载 obj_id_rect.json（需通过 http 服务打开）');
+        return r.json();
+      }),
+      fetch('data/elin_source/casino_render.json').then(r=>{
+        if(!r.ok) throw new Error('无法加载 casino_render.json（需通过 http 服务打开）');
+        return r.json();
+      })
+    ]);
+    state.floorsImg=floorsImg; state.blocksImg=blocksImg;
+    state.objsImgs={'objs_S':objs_S, 'objs':objs, 'objs_L':objs_L};
+    state.objRects=objRectRaw.OBJ_ID_RECT || {};
+    state.data=raw;
+    const m=raw.meta;
+    document.getElementById('meta').innerHTML =
+      `<b style="color:var(--txt)">${m.name||'(无名)'}</b> · id=<b style="color:var(--txt)">${m.id||'?'}</b><br>`+
+      `尺寸 <b style="color:var(--txt)">${m.w}×${m.h}</b> · 种子 ${m.seed??'?'} · 版本 ${m.version??'?'}<br>`+
+      `楼层: 地板/方块/装饰 各 ${m.w*m.h} 格 · 摆放物件 ${raw.cards.length} 个`;
+    document.getElementById('stats').innerHTML =
+      `摆件: <b>${raw.cards.length}</b> · 已解析名: <b>${raw.cards.filter(c=>c.name).length}</b>`;
+    resize();
+    buildBase();
+    document.getElementById('reset').click();
+    requestAnimationFrame(loop);
+  }catch(e){
+    document.getElementById('meta').innerHTML =
+      `<span style="color:#e05a5a">加载失败: ${e.message}</span><br><br>`+
+      `请用本地 http 服务打开本页，例如:<br><code>python -m http.server</code><br>然后访问 <a href="#">http://localhost:8000/map-viewer.html</a>`;
+    console.error(e);
+  }
+}
+
+// ===== 离屏基础层（地板+方块，渲染一次）=====
+function buildBase(){
+  const d=state.data; if(!d) return;
+  const W=d.meta.w, H=d.meta.h;
+  // 计算世界包围盒
+  let minX=Infinity,minY=Infinity,maxX=-Infinity,maxY=-Infinity;
+  for(let gx=0;gx<W;gx++)for(let gy=0;gy<H;gy++){
+    const p=gridToScreen(gx,gy);
+    minX=Math.min(minX,p.x);maxX=Math.max(maxX,p.x);
+    minY=Math.min(minY,p.y);maxY=Math.max(maxY,p.y);
+  }
+  const pad=96;
+  state.baseMinX=minX-pad; state.baseMinY=minY-pad-WALL_H;
+  const bw=Math.ceil(maxX-minX+pad*2);
+  const bh=Math.ceil(maxY-minY+pad*2+WALL_H);
+  const base=document.createElement('canvas');
+  base.width=bw; base.height=bh;
+  const bx=base.getContext('2d');
+  bx.imageSmoothingEnabled=false;
+  // 地板
+  const scaleX=TILE_W/60, scaleY=TILE_H/33;
+  const drawW=63*scaleX, drawH=48*scaleY;
+  if(state.show.floor){
+    for(let gy=0;gy<H;gy++)for(let gx=0;gx<W;gx++){
+      const fid=d.floors[gy*W+gx]; if(!fid) continue;
+      const p=gridToScreen(gx,gy);
+      const sx=p.x-state.baseMinX, sy=p.y-state.baseMinY;
+      const rc = (state.floorMode==='sprite') ? tileRect(fid,'floor') : null;
+      if(rc && state.floorsImg.complete){
+        bx.drawImage(state.floorsImg, rc.x, rc.y, rc.w, rc.h,
+          sx-32*scaleX, sy-27.5*scaleY, drawW, drawH);
+      }else{
+        // 缺映射或纯色块模式：按 id 取稳定色相
+        const hue=(fid*47)%360;
+        bx.fillStyle=`hsl(${hue} 45% 38%)`;
+        bx.beginPath();
+        bx.moveTo(sx,sy-TILE_H/2); bx.lineTo(sx+TILE_W/2,sy);
+        bx.lineTo(sx,sy+TILE_H/2); bx.lineTo(sx-TILE_W/2,sy); bx.closePath(); bx.fill();
+      }
+    }
+  }
+  // 方块/墙体（画家算法：gy 外、gx 内 -> 由后向前）
+  if(state.show.block && state.blocksImg.complete){
+    for(let gy=0;gy<H;gy++)for(let gx=0;gx<W;gx++){
+      const bid=d.blocks[gy*W+gx]; if(!bid) continue;
+      const p=gridToScreen(gx,gy);
+      const rc = tileRect(bid,'block');
+      const sx=p.x-state.baseMinX, sy=p.y-state.baseMinY;
+      if(rc){
+        bx.drawImage(state.blocksImg, rc.x, rc.y, rc.w, rc.h,
+          sx-32, sy-48, BLOCK_CELL, BLOCK_CELL);
+      }else{
+        // 缺映射：画个占位方块
+        bx.fillStyle='rgba(150,90,90,.6)';
+        bx.fillRect(sx-20, sy-40, 40, 40);
+      }
+    }
+  }
+  state.base=base;
+}
+
+// ===== 绘制循环 =====
+function render(){
+  const d=state.data; if(!d||!state.base) return;
+  const W=d.meta.w, H=d.meta.h;
+  ctx.setTransform(1,0,0,1,0,0);
+  ctx.clearRect(0,0,cv.width,cv.height);
+  ctx.fillStyle='#0a0c10'; ctx.fillRect(0,0,cv.width,cv.height);
+  ctx.imageSmoothingEnabled=false;
+  ctx.save();
+  ctx.translate(cv.width/2, cv.height/2);
+  ctx.scale(state.zoom, state.zoom);
+  ctx.translate(-state.cam.x, -state.cam.y);
+  // 基础层（世界坐标）
+  ctx.drawImage(state.base, state.baseMinX, state.baseMinY);
+  // 网格
+  if(state.show.grid){
+    ctx.strokeStyle='rgba(120,160,200,.18)'; ctx.lineWidth=1/state.zoom;
+    ctx.beginPath();
+    for(let gx=0;gx<=W;gx++){const a=gridToScreen(gx,0),b=gridToScreen(gx,H);
+      ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);}
+    for(let gy=0;gy<=H;gy++){const a=gridToScreen(0,gy),b=gridToScreen(W,gy);
+      ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);}
+    ctx.stroke();
+  }
+  // 摆放物件标记 + 地图物件层：合并到同一画家排序 (x+y)，保证遮挡正确
+  const drawList=[];
+  if(state.show.card){
+    for(const c of d.cards){
+      if(c.x==null||c.y==null) continue;
+      drawList.push({key:c.x+c.y, kind:'card', ref:c});
+    }
+  }
+  if(state.show.obj && state.objRects){
+    for(let gy=0;gy<H;gy++)for(let gx=0;gx<W;gx++){
+      const oid=d.objs[gy*W+gx]; if(!oid) continue;
+      const entry=state.objRects[oid]; if(!entry) continue;
+      const texImg=state.objsImgs[entry.tex];
+      if(!texImg||!texImg.complete) continue;
+      drawList.push({key:gx+gy, kind:'obj', gx, gy, oid, entry, texImg});
+    }
+  }
+  drawList.sort((a,b)=>a.key-b.key);
+  for(const it of drawList){
+    if(it.kind==='card'){
+      drawCard(ctx,it.ref);
+    }else{
+      const p=gridToScreen(it.gx,it.gy);
+      const r=it.entry.rect;
+      // anchor bottom-center of sprite at tile center
+      ctx.drawImage(it.texImg, r[0],r[1],r[2],r[3],
+        p.x-r[2]/2, p.y-r[3], r[2], r[3]);
+      if(state.show.labels && state.zoom>0.7){
+        ctx.font=`${10/state.zoom}px "Microsoft YaHei"`;
+        ctx.textAlign='center'; ctx.textBaseline='bottom';
+        ctx.fillStyle='rgba(255,200,100,.75)';
+        ctx.fillText(`obj:${it.oid}`,p.x,p.y-4);
+      }
+    }
+  }
+  ctx.restore();
+}
+
+function cardColor(c){
+  const t=c.rawType||'';
+  if(t==='chara') return '#e05a5a';
+  if(t.startsWith('Thing')) return '#4a9fc9';
+  return '#6abf6a';
+}
+function drawCard(ctx,c){
+  if(c.x==null||c.y==null) return;
+  const p=gridToScreen(c.x,c.y);
+  const col=cardColor(c);
+  const sel = state.sel===c;
+  const hov = state.hover===c;
+  // 阴影底点
+  ctx.fillStyle='rgba(0,0,0,.35)';
+  ctx.beginPath(); ctx.ellipse(p.x,p.y,7,3,0,0,Math.PI*2); ctx.fill();
+  // 菱形标记
+  const s=sel?7:5;
+  ctx.fillStyle=col;
+  ctx.beginPath();
+  ctx.moveTo(p.x,p.y-s*1.6); ctx.lineTo(p.x+s,p.y); ctx.lineTo(p.x,p.y+s*1.6); ctx.lineTo(p.x-s,p.y); ctx.closePath(); ctx.fill();
+  if(sel||hov){ ctx.strokeStyle='#c9a23a'; ctx.lineWidth=2/state.zoom;
+    ctx.beginPath(); ctx.moveTo(p.x,p.y-TILE_H/2); ctx.lineTo(p.x+TILE_W/2,p.y);
+    ctx.lineTo(p.x,p.y+TILE_H/2); ctx.lineTo(p.x-TILE_W/2,p.y); ctx.closePath(); ctx.stroke(); }
+  if(state.show.labels && c.name && (state.zoom>0.5 || sel || hov)){
+    ctx.font=`${11/state.zoom}px "Microsoft YaHei"`;
+    ctx.textAlign='center'; ctx.textBaseline='bottom';
+    ctx.fillStyle='rgba(0,0,0,.7)'; ctx.fillText(c.name, p.x+1, p.y-12+1);
+    ctx.fillStyle='#e7eef8'; ctx.fillText(c.name, p.x, p.y-12);
+  }
+}
+
+let rafPending=false;
+function loop(){ render(); rafPending=false; }
+function requestRender(){ if(!rafPending){ rafPending=true; requestAnimationFrame(loop); } }
+
+// ===== 坐标换算（屏幕->网格）=====
+function screenToGrid(mx,my){
+  const sx=(mx-cv.width/2)/state.zoom+state.cam.x;
+  const sy=(my-cv.height/2)/state.zoom+state.cam.y;
+  const gx=(sx/(TILE_W/2)+sy/(TILE_H/2))/2;
+  const gy=(sy/(TILE_H/2)-sx/(TILE_W/2))/2;
+  const fx=Math.floor(gx), fy=Math.floor(gy);
+  // 取最近菱形
+  let bestX=fx,bestY=fy,bestD=Infinity;
+  for(const [tx,ty] of [[fx,fy],[fx+1,fy],[fx,fy+1],[fx+1,fy+1]]){
+    const p=gridToScreen(tx,ty);
+    const dx=sx-p.x, dy=sy-p.y;
+    const dist=Math.abs(dx)*(TILE_H/2)+Math.abs(dy)*(TILE_W/2);
+    if(dist<bestD){bestD=dist;bestX=tx;bestY=ty;}
+  }
+  return {x:bestX,y:bestY};
+}
+
+// ===== 交互 =====
+cv.addEventListener('mousedown',e=>{
+  state.panning=true; state.lastX=e.clientX; state.lastY=e.clientY;
+  cv.classList.add('drag');
+});
+window.addEventListener('mouseup',()=>{state.panning=false;cv.classList.remove('drag');});
+window.addEventListener('mousemove',e=>{
+  const rect=cv.getBoundingClientRect();
+  const mx=e.clientX-rect.left, my=e.clientY-rect.top;
+  if(state.panning){
+    state.cam.x-=(e.clientX-state.lastX)/state.zoom;
+    state.cam.y-=(e.clientY-state.lastY)/state.zoom;
+    state.lastX=e.clientX; state.lastY=e.clientY;
+    requestRender(); return;
+  }
+  // hover 信息
+  const g=screenToGrid(mx*dpr(),my*dpr());
+  updateInfo(g.x,g.y);
+  // hover 标记
+  const c=cardAt(g.x,g.y);
+  if(c!==state.hover){ state.hover=c; requestRender(); }
+});
+cv.addEventListener('wheel',e=>{
+  e.preventDefault();
+  const nz=Math.max(0.2,Math.min(3,state.zoom*(e.deltaY<0?1.1:0.9)));
+  state.zoom=nz; document.getElementById('zoom').value=nz;
+  document.getElementById('zoomV').textContent=nz.toFixed(2);
+  requestRender();
+},{passive:false});
+cv.addEventListener('click',e=>{
+  if(Math.abs(e.movementX)+Math.abs(e.movementY)>3) return; // 拖拽不算点击
+  const rect=cv.getBoundingClientRect();
+  const g=screenToGrid((e.clientX-rect.left)*dpr(),(e.clientY-rect.top)*dpr());
+  const c=cardAt(g.x,g.y);
+  state.sel = (c && c===state.sel)?null:c;
+  updateSel(); requestRender();
+});
+function dpr(){return window.devicePixelRatio||1;}
+
+function cardAt(gx,gy){
+  const d=state.data; if(!d) return null;
+  let best=null,bestD=Infinity;
+  for(const c of d.cards){
+    if(c.x==null) continue;
+    const dd=Math.abs(c.x-gx)+Math.abs(c.y-gy);
+    if(dd<=0 && (c.x===gx&&c.y===gy)){ // 同格取最后一个
+      best=c; bestD=0;
+    }else if(dd<bestD && dd<=1){ best=c; bestD=dd; }
+  }
+  return best;
+}
+function updateInfo(gx,gy){
+  const d=state.data; if(!d) return;
+  const inb = gx>=0&&gy>=0&&gx<d.meta.w&&gy<d.meta.h;
+  document.getElementById('iG').textContent = inb?`(${gx}, ${gy})`:'—';
+  document.getElementById('iF').textContent = inb?d.floors[gy*d.meta.w+gx]:'—';
+  document.getElementById('iB').textContent = inb?d.blocks[gy*d.meta.w+gx]:'—';
+  // 地图物件层信息
+  let objInfo='—';
+  if(inb && d.objs){
+    const oid=d.objs[gy*d.meta.w+gx];
+    if(oid && state.objRects && state.objRects[oid]){
+      const e=state.objRects[oid];
+      objInfo=`id${oid} ${e.name||''} [${e.tex}]`;
+    }else if(oid){
+      objInfo=`id${oid} (未解析)`;
+    }
+  }
+  document.getElementById('iO').textContent=objInfo;
+}
+function updateSel(){
+  const c=state.sel, el=document.getElementById('sel');
+  if(!c){ el.textContent='未选中。点击地图上的标记查看详情。'; return; }
+  const ints=(c.ints||[]).join(', ');
+  const strs=(c.strs||[]).map(s=>s==null?'':s).join(' | ');
+  el.innerHTML =
+    `<div class="selname">${c.name||'(未命名)'}</div>`+
+    `<div>类型: <b>${c.rawType||'?'}</b></div>`+
+    `<div>id: <b>${c.id??'?'}</b></div>`+
+    `<div>位置: <b>(${c.x}, ${c.y})</b></div>`+
+    (c.name?`<div style="color:#6abf6a">✓ 已从源表解析名称</div>`:`<div style="color:#b9893f">⚠ 未在源表找到名称（原始 id）</div>`)+
+    `<div style="margin-top:6px;color:#8a96a6;font-size:11px">ints: [${ints}]<br>strs: [${strs}]</div>`;
+}
+
+// ===== UI 绑定 =====
+function bindToggle(id,key){
+  const el=document.getElementById(id);
+  el.addEventListener('click',()=>{
+    state.show[key]=!state.show[key];
+    el.classList.toggle('on',state.show[key]);
+    if(key==='floor'||key==='block') buildBase();
+    requestRender();
+  });
+}
+['floor','block','obj','card','grid','labels'].forEach(k=>bindToggle('t_'+k,k));
+document.getElementById('floorMode').addEventListener('change',e=>{
+  state.floorMode=e.target.value; buildBase(); requestRender();
+});
+const zm=document.getElementById('zoom');
+zm.addEventListener('input',e=>{
+  state.zoom=+e.target.value; document.getElementById('zoomV').textContent=(+e.target.value).toFixed(2);
+  requestRender();
+});
+document.getElementById('reset').addEventListener('click',()=>{
+  state.cam.x=0; state.cam.y=(state.data.meta.w)*TILE_H/2; state.zoom=0.6;
+  zm.value=0.6; document.getElementById('zoomV').textContent='0.60'; requestRender();
+});
+document.getElementById('center').addEventListener('click',()=>{
+  const d=state.data; const cx=(d.meta.w-1)/2, cy=(d.meta.h-1)/2;
+  const p=gridToScreen(cx,cy); state.cam.x=p.x; state.cam.y=p.y; requestRender();
+});
+
+function resize(){
+  const dpr=window.devicePixelRatio||1;
+  cv.width=cv.clientWidth*dpr; cv.height=cv.clientHeight*dpr;
+  requestRender();
+}
+window.addEventListener('resize',resize);
+
+boot();
+</script>
+</body>
+</html>

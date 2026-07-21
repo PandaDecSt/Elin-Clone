@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Elin SourceData 接入测试</title>
+<style>
+  body{font-family:"Microsoft YaHei",system-ui,sans-serif;background:#1a1d23;color:#e6e6e6;margin:0;padding:20px;}
+  h1{color:#7fd1ff;} h2{color:#9fe;margin-top:24px;border-bottom:1px solid #345;padding-bottom:4px;}
+  .wrap{max-width:980px;margin:0 auto;}
+  table{border-collapse:collapse;width:100%;margin:8px 0;font-size:13px;}
+  th,td{border:1px solid #345;padding:5px 8px;text-align:left;}
+  th{background:#222a35;color:#9fe;}
+  .ok{color:#7CFC9A;} .zh{color:#ffd479;font-weight:bold;}
+  pre{background:#11151b;padding:10px;border-radius:6px;overflow:auto;font-size:12px;}
+  .card{background:#222831;border:1px solid #345;border-radius:8px;padding:12px;margin:8px 0;}
+  .muted{color:#8aa;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Elin SourceData 接入测试</h1>
+  <p class="muted">忠实移植 Elin 的 Source 体系：xlsx → sources.json（含类型/alias 合并），运行时 Source.Get / Lang / ZH，并接入角色/怪物/物品生成。</p>
+  <div id="status">加载中…</div>
+  <div id="out"></div>
+</div>
+<script type="module">
+import { loadSource, isSourceReady, Source, Lang, ZH, getRace, getJob, getThing, getChara } from './js/source-data.js';
+import { createPlayer, makeMonster } from './js/entity.js';
+import { makeItem } from './js/item.js';
+import { RNG } from './js/rng.js';
+
+const $ = s => document.querySelector(s);
+function row(tds){ return '<tr>'+tds.map(t=>'<td>'+t+'</td>').join('')+'</tr>'; }
+function zh(v){ return `<span class="zh">${v}</span>`; }
+
+(async ()=>{
+  const ok = await loadSource();
+  const langCount = Object.keys(await fetch('data/elin_source/lang_zh.json').then(r=>r.json())).length;
+  let rowCount = 0;
+  for(const f of ['SourceBlock','SourceCard','SourceChara']){
+    for(const sn of Source.Sheets(f)) rowCount += Source.List(f, sn).length;
+  }
+  $('#status').innerHTML = ok
+    ? `<span class="ok">✓ 数据已加载</span> — sources.json 共 ${rowCount} 行实体, lang_zh ${langCount} 条中文`
+    : '<span style="color:#f88">✗ 加载失败, 已回退内置常量</span>';
+
+  let html = '';
+  // 1) 原始表查询
+  html += '<h2>1. Source.Get 原始表查询 (复刻 Elin SourceData)</h2>';
+  html += '<table><tr><th>调用</th><th>结果</th></tr>';
+  html += row(['Source.Get("SourceChara","Race","fairy")', JSON.stringify(Source.Get('SourceChara','Race','fairy'))?.slice(0,90)+'…']);
+  html += row(['Source.Get("SourceCard","Thing","dagger")', JSON.stringify(Source.Get('SourceCard','Thing','dagger'))?.slice(0,90)+'…']);
+  html += row(['Source.List("SourceBlock","Block").length', Source.List('SourceBlock','Block').length]);
+  html += row(['Source.Sheets("SourceChara")', Source.Sheets('SourceChara').join(', ')]);
+  html += '</table>';
+
+  // 2) 中文保证
+  html += '<h2>2. 中文显示名解析 (ZH: lang_zh 覆盖 → en → jp)</h2>';
+  html += '<table><tr><th>键</th><th>中文</th></tr>';
+  for(const [k,v] of [['Race:fairy','妖精'],['Job:warrior','战士'],['Job:wizard','法师'],['Thing:dagger','匕首'],['Chara:slime','史莱姆'],['Chara:imp','小恶魔'],['Race:dwarf','丘陵民']]){
+    const got = ZH(...k.split(':'));
+    const cls = got===v ? 'ok' : '';
+    html += row([k, `${zh(got||'(无)')} <span class="${cls}">${got===v?'✓匹配'+v:'期望'+v}</span>`]);
+  }
+  html += '</table>';
+
+  // 3) 生成器接入
+  html += '<h2>3. 玩法生成器接入 (createPlayer / makeItem / makeMonster)</h2>';
+  const rng = new RNG(777);
+  const p = createPlayer('fairy','warrior','测试勇者', rng);
+  html += '<div class="card"><b>createPlayer("fairy","warrior")</b><br>';
+  html += `种族=${zh(p.raceName)} · 职业=${zh(p.className)} · 生命${p.maxHp} 法力${p.maxMp} 速度${p.speed}<br>`;
+  html += `属性: 力量${p.getAttr('力量')} 魔力${p.getAttr('魔力')} 灵巧${p.getAttr('灵巧')} 感知${p.getAttr('感知')} 意志${p.getAttr('意志')}<br>`;
+  html += `含 Source 原始数据: ${!!p.raceSrc} (id=${p.raceSrc?.id}, STR=${p.raceSrc?.STR}) · 元素已注入 ElementContainer: ${p.elements.value('featFairyResist')>=0}</div>`;
+
+  const it = makeItem('dagger', 0, rng);
+  html += '<div class="card"><b>makeItem("dagger")</b><br>';
+  html += `名称=${zh(it.name)} · 类型=${it.type} · 价值=${it.value} · 重量=${it.weight}kg · dice=${it.dice}</div>`;
+
+  const m = makeMonster(getChara('slime'), 0, 0, 1, rng);
+  html += '<div class="card"><b>makeMonster(slime)</b><br>';
+  html += `名称=${zh(m.name)} · HP=${m.maxHp} · 含 Chara 原始数据: ${!!m.elin} (id=${m.elin?.id})</div>`;
+
+  // 4) 回退验证
+  html += '<h2>4. 回退验证 (Source 无此 id 时仍用内置常量, 不破坏)</h2>';
+  html += '<table><tr><th>调用</th><th>结果</th></tr>';
+  const j = getJob('mage'); html += row(['getJob("mage") → 回退 CLASSES', zh(j.name)+` (fromSource=${j.fromSource})`]);
+  const r = getRace('hillfolk'); html += row(['getRace("hillfolk") → 回退 RACES', zh(r.name)+` (fromSource=${r.fromSource})`]);
+  html += '</table>';
+
+  $('#out').innerHTML = html;
+})();
+</script>
+</body>
+</html>

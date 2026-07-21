@@ -1,0 +1,5987 @@
+{
+ "OBJ_ID_RECT": {
+  "145": {
+   "tex": "objs",
+   "rect": [
+    14,
+    24,
+    32,
+    16
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": null
+  },
+  "0": {
+   "tex": "objs_S",
+   "rect": [
+    165,
+    8,
+    21,
+    17
+   ],
+   "flip": false,
+   "how": "rescue(off 0,-1)",
+   "name": "momiji"
+  },
+  "1": {
+   "tex": "objs_S",
+   "rect": [
+    79,
+    79,
+    17,
+    13
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "flower"
+  },
+  "2": {
+   "tex": "objs_S",
+   "rect": [
+    227,
+    96,
+    26,
+    30
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "blue flower"
+  },
+  "3": {
+   "tex": "objs_S",
+   "rect": [
+    550,
+    70,
+    18,
+    20
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "yellow flower"
+  },
+  "4": {
+   "tex": "objs_S",
+   "rect": [
+    386,
+    72,
+    27,
+    20
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "white flower"
+  },
+  "115": {
+   "tex": "objs_S",
+   "rect": [
+    1510,
+    42,
+    23,
+    18
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "red grass"
+  },
+  "116": {
+   "tex": "objs_S",
+   "rect": [
+    1510,
+    70,
+    20,
+    22
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "blue grass"
+  },
+  "117": {
+   "tex": "objs_S",
+   "rect": [
+    1510,
+    102,
+    20,
+    22
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "purple grass"
+  },
+  "127": {
+   "tex": "objs_S",
+   "rect": [
+    1510,
+    10,
+    23,
+    18
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "green grass"
+  },
+  "120": {
+   "tex": "objs_S",
+   "rect": [
+    549,
+    99,
+    21,
+    27
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "white flower"
+  },
+  "5": {
+   "tex": "objs_S",
+   "rect": [
+    67,
+    112,
+    14,
+    12
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "weed"
+  },
+  "6": {
+   "tex": "objs_S",
+   "rect": [
+    398,
+    114,
+    11,
+    10
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "mushroom"
+  },
+  "7": {
+   "tex": "objs_S",
+   "rect": [
+    841,
+    11,
+    15,
+    11
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "weed"
+  },
+  "99": {
+   "tex": "objs",
+   "rect": [
+    1160,
+    22,
+    48,
+    34
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "cattail"
+  },
+  "121": {
+   "tex": "objs",
+   "rect": [
+    1353,
+    17,
+    47,
+    37
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "fern"
+  },
+  "8": {
+   "tex": "objs_S",
+   "rect": [
+    613,
+    8,
+    21,
+    18
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "rafflesia"
+  },
+  "9": {
+   "tex": "objs_S",
+   "rect": [
+    401,
+    55,
+    6,
+    4
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "pebble"
+  },
+  "48": {
+   "tex": "objs_S",
+   "rect": [
+    165,
+    8,
+    21,
+    17
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "bird's nest"
+  },
+  "10": {
+   "tex": "objs_S",
+   "rect": [
+    195,
+    35,
+    26,
+    29
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "crystal"
+  },
+  "11": {
+   "tex": "objs_S_snow",
+   "rect": [
+    263,
+    56,
+    5,
+    4
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "stone"
+  },
+  "16": {
+   "tex": "objs",
+   "rect": [
+    2255,
+    193,
+    35,
+    52
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "cactus"
+  },
+  "90": {
+   "tex": "objs",
+   "rect": [
+    2890,
+    198,
+    51,
+    54
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "rainbow fruit"
+  },
+  "14": {
+   "tex": "objs_S",
+   "rect": [
+    709,
+    73,
+    24,
+    21
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "crim"
+  },
+  "104": {
+   "tex": "objs",
+   "rect": [
+    2577,
+    205,
+    32,
+    38
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "api"
+  },
+  "122": {
+   "tex": "objs",
+   "rect": [
+    2899,
+    82,
+    29,
+    34
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "coffee"
+  },
+  "50": {
+   "tex": "objs_S",
+   "rect": [
+    709,
+    73,
+    24,
+    21
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "berry"
+  },
+  "61": {
+   "tex": "objs_S",
+   "rect": [
+    817,
+    71,
+    16,
+    24
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "vine bush"
+  },
+  "73": {
+   "tex": "objs_S",
+   "rect": [
+    966,
+    69,
+    22,
+    23
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "seaweed"
+  },
+  "74": {
+   "tex": "objs_S",
+   "rect": [
+    983,
+    57,
+    5,
+    4
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "shell"
+  },
+  "75": {
+   "tex": "objs_S",
+   "rect": [
+    1121,
+    65,
+    29,
+    31
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "coral"
+  },
+  "136": {
+   "tex": "objs",
+   "rect": [
+    1286,
+    2067,
+    50,
+    33
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "coral reef"
+  },
+  "12": {
+   "tex": "objs_S",
+   "rect": [
+    232,
+    200,
+    15,
+    16
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "mushroom tree"
+  },
+  "15": {
+   "tex": "objs_S",
+   "rect": [
+    232,
+    200,
+    15,
+    16
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "mushroom tree"
+  },
+  "47": {
+   "tex": "objs_S",
+   "rect": [
+    232,
+    200,
+    15,
+    16
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "mushroom tree"
+  },
+  "118": {
+   "tex": "objs_S",
+   "rect": [
+    550,
+    70,
+    18,
+    20
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "feywood tree"
+  },
+  "119": {
+   "tex": "objs_S",
+   "rect": [
+    649,
+    80,
+    14,
+    14
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "coralwood tree"
+  },
+  "53": {
+   "tex": "objs_L",
+   "rect": [
+    326,
+    277,
+    70,
+    41
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "rosewood tree"
+  },
+  "69": {
+   "tex": "objs_S",
+   "rect": [
+    76,
+    269,
+    16,
+    16
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "mahogany tree"
+  },
+  "70": {
+   "tex": "objs_S",
+   "rect": [
+    553,
+    393,
+    13,
+    15
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "acacia tree"
+  },
+  "54": {
+   "tex": "objs",
+   "rect": [
+    1117,
+    434,
+    6,
+    6
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "fir tree"
+  },
+  "55": {
+   "tex": "objs_S",
+   "rect": [
+    551,
+    264,
+    21,
+    21
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "cedar tree"
+  },
+  "76": {
+   "tex": "objs_S",
+   "rect": [
+    227,
+    322,
+    23,
+    22
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "willow tree"
+  },
+  "103": {
+   "tex": "objs_S",
+   "rect": [
+    391,
+    327,
+    23,
+    23
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "bamboo"
+  },
+  "77": {
+   "tex": "objs_S",
+   "rect": [
+    77,
+    341,
+    11,
+    11
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "cherry blossom tree"
+  },
+  "56": {
+   "tex": "objs_S",
+   "rect": [
+    70,
+    397,
+    16,
+    15
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "birch tree"
+  },
+  "57": {
+   "tex": "objs_S",
+   "rect": [
+    236,
+    397,
+    16,
+    16
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "pine tree"
+  },
+  "58": {
+   "tex": "objs_S",
+   "rect": [
+    398,
+    397,
+    14,
+    14
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "oak tree"
+  },
+  "17": {
+   "tex": "objs_S",
+   "rect": [
+    392,
+    200,
+    15,
+    16
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "palulu tree"
+  },
+  "112": {
+   "tex": "objs_S",
+   "rect": [
+    549,
+    99,
+    21,
+    27
+   ],
+   "flip": false,
+   "how": "rescue(off 0,-1)",
+   "name": "banana tree"
+  },
+  "13": {
+   "tex": "objs_S",
+   "rect": [
+    72,
+    200,
+    15,
+    16
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "christmas tree"
+  },
+  "49": {
+   "tex": "objs_S",
+   "rect": [
+    76,
+    269,
+    16,
+    16
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "apple tree"
+  },
+  "113": {
+   "tex": "objs_S",
+   "rect": [
+    76,
+    269,
+    16,
+    16
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "orange tree"
+  },
+  "114": {
+   "tex": "objs_S",
+   "rect": [
+    76,
+    269,
+    16,
+    16
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "pear tree"
+  },
+  "59": {
+   "tex": "objs_S",
+   "rect": [
+    331,
+    55,
+    13,
+    8
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "burnt tree"
+  },
+  "18": {
+   "tex": "objs",
+   "rect": [
+    24,
+    399,
+    16,
+    48
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "ore"
+  },
+  "19": {
+   "tex": "objs",
+   "rect": [
+    76,
+    384,
+    37,
+    64
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "gem ore"
+  },
+  "20": {
+   "tex": "objs_S",
+   "rect": [
+    776,
+    12,
+    16,
+    12
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "water lily"
+  },
+  "21": {
+   "tex": "objs",
+   "rect": [
+    275,
+    398,
+    24,
+    49
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "wall support"
+  },
+  "23": {
+   "tex": "objs",
+   "rect": [
+    335,
+    441,
+    4,
+    4
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "window"
+  },
+  "24": {
+   "tex": "objs_S",
+   "rect": [
+    489,
+    107,
+    12,
+    15
+   ],
+   "flip": false,
+   "how": "rescue(off 1,-1)",
+   "name": "wooden frame"
+  },
+  "101": {
+   "tex": "objs",
+   "rect": [
+    221,
+    172,
+    26,
+    20
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "wooden frame"
+  },
+  "106": {
+   "tex": "objs_S",
+   "rect": [
+    549,
+    99,
+    21,
+    27
+   ],
+   "flip": false,
+   "how": "rescue(off 0,-1)",
+   "name": "metal frame"
+  },
+  "25": {
+   "tex": "objs_S",
+   "rect": [
+    421,
+    325,
+    23,
+    23
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "road"
+  },
+  "144": {
+   "tex": "objs_S",
+   "rect": [
+    432,
+    364,
+    11,
+    18
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "stepping stone"
+  },
+  "71": {
+   "tex": "objs_S",
+   "rect": [
+    227,
+    322,
+    23,
+    22
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "cracked floor"
+  },
+  "107": {
+   "tex": "objs_S",
+   "rect": [
+    584,
+    295,
+    21,
+    22
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "chemicals"
+  },
+  "109": {
+   "tex": "objs",
+   "rect": [
+    1170,
+    683,
+    20,
+    11
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "debris"
+  },
+  "111": {
+   "tex": "objs_S",
+   "rect": [
+    769,
+    322,
+    28,
+    26
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "fragments"
+  },
+  "22": {
+   "tex": "objs_S",
+   "rect": [
+    12,
+    46,
+    7,
+    6
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "roof"
+  },
+  "26": {
+   "tex": "objs_S",
+   "rect": [
+    21,
+    81,
+    7,
+    5
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "roof2"
+  },
+  "27": {
+   "tex": "objs_S",
+   "rect": [
+    12,
+    110,
+    7,
+    6
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "roof3"
+  },
+  "28": {
+   "tex": "objs_S",
+   "rect": [
+    6,
+    140,
+    20,
+    13
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "roof4"
+  },
+  "29": {
+   "tex": "objs_S",
+   "rect": [
+    8,
+    175,
+    16,
+    16
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "roof5"
+  },
+  "30": {
+   "tex": "objs_S",
+   "rect": [
+    8,
+    200,
+    15,
+    16
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "roof6"
+  },
+  "67": {
+   "tex": "objs_S",
+   "rect": [
+    9,
+    237,
+    14,
+    8
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "roof7"
+  },
+  "124": {
+   "tex": "objs_S",
+   "rect": [
+    15,
+    269,
+    14,
+    15
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "roof8"
+  },
+  "125": {
+   "tex": "objs_S",
+   "rect": [
+    8,
+    301,
+    18,
+    15
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "roof9"
+  },
+  "126": {
+   "tex": "objs_S",
+   "rect": [
+    4,
+    325,
+    24,
+    23
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "roof10"
+  },
+  "128": {
+   "tex": "objs_S",
+   "rect": [
+    6,
+    362,
+    21,
+    18
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "roof11"
+  },
+  "129": {
+   "tex": "objs_S",
+   "rect": [
+    7,
+    391,
+    14,
+    20
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "roof12"
+  },
+  "130": {
+   "tex": "objs_S",
+   "rect": [
+    14,
+    424,
+    6,
+    23
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "roof13"
+  },
+  "131": {
+   "tex": "objs_S",
+   "rect": [
+    4,
+    449,
+    23,
+    30
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "roof14"
+  },
+  "132": {
+   "tex": "objs_S",
+   "rect": [
+    8,
+    486,
+    18,
+    22
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "roof15"
+  },
+  "133": {
+   "tex": "objs_S",
+   "rect": [
+    13,
+    530,
+    6,
+    11
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "roof16"
+  },
+  "134": {
+   "tex": "objs_S",
+   "rect": [
+    3,
+    552,
+    26,
+    24
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "roof17"
+  },
+  "31": {
+   "tex": "objs_S",
+   "rect": [
+    6,
+    1160,
+    22,
+    17
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "track"
+  },
+  "110": {
+   "tex": "objs_S",
+   "rect": [
+    4,
+    1227,
+    24,
+    15
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "conveyor belt"
+  },
+  "97": {
+   "tex": "objs_S",
+   "rect": [
+    518,
+    515,
+    21,
+    21
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "track"
+  },
+  "98": {
+   "tex": "objs",
+   "rect": [
+    1167,
+    1033,
+    42,
+    46
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "track"
+  },
+  "92": {
+   "tex": "objs_S",
+   "rect": [
+    519,
+    1195,
+    19,
+    16
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "border"
+  },
+  "32": {
+   "tex": "objs",
+   "rect": [
+    17,
+    2304,
+    46,
+    61
+   ],
+   "flip": false,
+   "how": "rescue(off 0,-1)",
+   "name": "chasm"
+  },
+  "33": {
+   "tex": "objs_S",
+   "rect": [
+    516,
+    1160,
+    20,
+    20
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "stone road"
+  },
+  "34": {
+   "tex": "objs",
+   "rect": [
+    3915,
+    478,
+    44,
+    28
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "wreck"
+  },
+  "85": {
+   "tex": "objs",
+   "rect": [
+    3977,
+    470,
+    47,
+    36
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "wreck"
+  },
+  "86": {
+   "tex": "objs",
+   "rect": [
+    3785,
+    479,
+    48,
+    26
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "wreck"
+  },
+  "105": {
+   "tex": "objs",
+   "rect": [
+    3392,
+    131,
+    64,
+    61
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "pasture"
+  },
+  "108": {
+   "tex": "objs",
+   "rect": [
+    3264,
+    3,
+    256,
+    61
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "silver grass"
+  },
+  "139": {
+   "tex": "objs",
+   "rect": [
+    3649,
+    8,
+    56,
+    51
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "sunflower"
+  },
+  "140": {
+   "tex": "objs",
+   "rect": [
+    3913,
+    23,
+    17,
+    25
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "tulip"
+  },
+  "137": {
+   "tex": "objs",
+   "rect": [
+    3395,
+    67,
+    59,
+    59
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "deep seaweed"
+  },
+  "35": {
+   "tex": "objs",
+   "rect": [
+    2,
+    203,
+    59,
+    52
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "wheat"
+  },
+  "88": {
+   "tex": "objs",
+   "rect": [
+    320,
+    200,
+    64,
+    50
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "rice"
+  },
+  "36": {
+   "tex": "objs",
+   "rect": [
+    985,
+    235,
+    15,
+    12
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "radish"
+  },
+  "37": {
+   "tex": "objs",
+   "rect": [
+    221,
+    113,
+    7,
+    6
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "test"
+  },
+  "38": {
+   "tex": "objs",
+   "rect": [
+    1386,
+    225,
+    16,
+    16
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "cabbage"
+  },
+  "138": {
+   "tex": "objs",
+   "rect": [
+    1421,
+    207,
+    43,
+    41
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "cabocchi"
+  },
+  "39": {
+   "tex": "objs",
+   "rect": [
+    649,
+    198,
+    45,
+    49
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "tomato"
+  },
+  "141": {
+   "tex": "objs",
+   "rect": [
+    777,
+    197,
+    46,
+    50
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "red pepper"
+  },
+  "40": {
+   "tex": "objs",
+   "rect": [
+    1053,
+    234,
+    12,
+    12
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "carrot"
+  },
+  "41": {
+   "tex": "objs",
+   "rect": [
+    1304,
+    237,
+    16,
+    13
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "imo"
+  },
+  "123": {
+   "tex": "objs",
+   "rect": [
+    2582,
+    151,
+    22,
+    28
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "tobacc"
+  },
+  "42": {
+   "tex": "objs",
+   "rect": [
+    713,
+    199,
+    46,
+    49
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "corn"
+  },
+  "78": {
+   "tex": "objs",
+   "rect": [
+    1601,
+    193,
+    62,
+    62
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "grape"
+  },
+  "81": {
+   "tex": "objs",
+   "rect": [
+    1922,
+    201,
+    59,
+    48
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "cotton"
+  },
+  "43": {
+   "tex": "objs_S",
+   "rect": [
+    5,
+    1127,
+    24,
+    21
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "road"
+  },
+  "44": {
+   "tex": "objs_S",
+   "rect": [
+    516,
+    1132,
+    24,
+    15
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "narrow road"
+  },
+  "89": {
+   "tex": "objs_S",
+   "rect": [
+    523,
+    1093,
+    10,
+    18
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "white line"
+  },
+  "135": {
+   "tex": "objs",
+   "rect": [
+    1086,
+    2156,
+    15,
+    18
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "neon line"
+  },
+  "45": {
+   "tex": "objs_S",
+   "rect": [
+    871,
+    14,
+    16,
+    12
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "chunk"
+  },
+  "84": {
+   "tex": "objs_S",
+   "rect": [
+    137,
+    366,
+    16,
+    15
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "mound"
+  },
+  "46": {
+   "tex": "objs",
+   "rect": [
+    3848,
+    474,
+    48,
+    31
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "wreck"
+  },
+  "51": {
+   "tex": "objs_S",
+   "rect": [
+    771,
+    36,
+    25,
+    26
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "big rock"
+  },
+  "100": {
+   "tex": "objs",
+   "rect": [
+    3648,
+    448,
+    64,
+    64
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "huge rock"
+  },
+  "93": {
+   "tex": "objs",
+   "rect": [
+    332,
+    6,
+    34,
+    53
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "stalagmite "
+  },
+  "91": {
+   "tex": "objs_S",
+   "rect": [
+    1155,
+    35,
+    23,
+    24
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "salt rock"
+  },
+  "102": {
+   "tex": "objs_S",
+   "rect": [
+    1251,
+    35,
+    23,
+    24
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "sulfur rock"
+  },
+  "52": {
+   "tex": "objs_S",
+   "rect": [
+    513,
+    37,
+    23,
+    25
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "bone"
+  },
+  "142": {
+   "tex": "objs",
+   "rect": [
+    7,
+    3852,
+    28,
+    46
+   ],
+   "flip": false,
+   "how": "rescue(off 0,-1)",
+   "name": "bone mound"
+  },
+  "143": {
+   "tex": "objs_L",
+   "rect": [
+    182,
+    1932,
+    11,
+    13
+   ],
+   "flip": false,
+   "how": "rescue(off -1,-1)",
+   "name": "bone"
+  },
+  "62": {
+   "tex": "objs",
+   "rect": [
+    13,
+    1171,
+    36,
+    37
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "decayed fossil tree"
+  },
+  "63": {
+   "tex": "objs_S",
+   "rect": [
+    162,
+    576,
+    28,
+    32
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "fossil tree"
+  },
+  "64": {
+   "tex": "objs_S",
+   "rect": [
+    72,
+    588,
+    17,
+    13
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "big fossil tree"
+  },
+  "60": {
+   "tex": "objs_S",
+   "rect": [
+    4,
+    325,
+    24,
+    23
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "moss"
+  },
+  "79": {
+   "tex": "objs_S",
+   "rect": [
+    6,
+    362,
+    21,
+    18
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "pile of fallen leaves"
+  },
+  "65": {
+   "tex": "objs_S",
+   "rect": [
+    106,
+    331,
+    16,
+    16
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "decayed fossil"
+  },
+  "66": {
+   "tex": "objs_S",
+   "rect": [
+    869,
+    41,
+    22,
+    21
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "bollard"
+  },
+  "68": {
+   "tex": "objs_S",
+   "rect": [
+    9,
+    237,
+    14,
+    8
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "fish silhouette "
+  },
+  "72": {
+   "tex": "objs_S",
+   "rect": [
+    929,
+    37,
+    29,
+    25
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "stump"
+  },
+  "94": {
+   "tex": "objs",
+   "rect": [
+    976,
+    22,
+    30,
+    36
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "decayed tree"
+  },
+  "80": {
+   "tex": "objs_S",
+   "rect": [
+    64,
+    3,
+    32,
+    28
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "For Test"
+  },
+  "82": {
+   "tex": "objs",
+   "rect": [
+    3410,
+    402,
+    31,
+    37
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "remain"
+  },
+  "83": {
+   "tex": "objs",
+   "rect": [
+    3846,
+    407,
+    51,
+    31
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "wreck"
+  },
+  "95": {
+   "tex": "objs_S",
+   "rect": [
+    14,
+    424,
+    6,
+    23
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "decayed wall"
+  },
+  "96": {
+   "tex": "objs_S",
+   "rect": [
+    136,
+    425,
+    16,
+    16
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "decayed wall"
+  }
+ },
+ "OBJ_TILE_RECTS": {
+  "145": {
+   "422": {
+    "tex": "objs_L",
+    "rect": [
+     641,
+     129,
+     76,
+     40
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "0": {
+   "105": {
+    "tex": "objs_S",
+    "rect": [
+     165,
+     8,
+     21,
+     17
+    ],
+    "flip": false,
+    "how": "rescue(off 0,-1)"
+   }
+  },
+  "1": {
+   "202": {
+    "tex": "objs_S",
+    "rect": [
+     79,
+     79,
+     17,
+     13
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "2": {
+   "307": {
+    "tex": "objs_S",
+    "rect": [
+     227,
+     96,
+     26,
+     30
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "3": {
+   "217": {
+    "tex": "objs_S",
+    "rect": [
+     550,
+     70,
+     18,
+     20
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "4": {
+   "212": {
+    "tex": "objs_S",
+    "rect": [
+     386,
+     72,
+     27,
+     20
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "115": {
+   "147": {
+    "tex": "objs_S",
+    "rect": [
+     1510,
+     42,
+     23,
+     18
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "116": {
+   "247": {
+    "tex": "objs_S",
+    "rect": [
+     1510,
+     70,
+     20,
+     22
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "117": {
+   "347": {
+    "tex": "objs_S",
+    "rect": [
+     1510,
+     102,
+     20,
+     22
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "127": {
+   "47": {
+    "tex": "objs_S",
+    "rect": [
+     1510,
+     10,
+     23,
+     18
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "120": {
+   "317": {
+    "tex": "objs_S",
+    "rect": [
+     549,
+     99,
+     21,
+     27
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "5": {
+   "302": {
+    "tex": "objs_S",
+    "rect": [
+     67,
+     112,
+     14,
+     12
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "6": {
+   "312": {
+    "tex": "objs_S",
+    "rect": [
+     398,
+     114,
+     11,
+     10
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "7": {
+   "26": {
+    "tex": "objs_S",
+    "rect": [
+     841,
+     11,
+     15,
+     11
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "99": {
+   "18": {
+    "tex": "objs",
+    "rect": [
+     1160,
+     22,
+     48,
+     34
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "121": {
+   "21": {
+    "tex": "objs",
+    "rect": [
+     1353,
+     17,
+     47,
+     37
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "22": {
+    "tex": "objs",
+    "rect": [
+     1430,
+     28,
+     20,
+     23
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "8": {
+   "19": {
+    "tex": "objs_S",
+    "rect": [
+     613,
+     8,
+     21,
+     18
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "9": {
+   "112": {
+    "tex": "objs_S",
+    "rect": [
+     401,
+     55,
+     6,
+     4
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "113": {
+    "tex": "objs_S",
+    "rect": [
+     421,
+     75,
+     22,
+     14
+    ],
+    "flip": false,
+    "how": "rescue(off 0,1)"
+   },
+   "114": {
+    "tex": "objs_S",
+    "rect": [
+     421,
+     75,
+     22,
+     14
+    ],
+    "flip": false,
+    "how": "rescue(off -1,1)"
+   },
+   "115": {
+    "tex": "objs_S",
+    "rect": [
+     493,
+     55,
+     7,
+     5
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "48": {
+   "5": {
+    "tex": "objs_S",
+    "rect": [
+     165,
+     8,
+     21,
+     17
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "6": {
+    "tex": "objs_S",
+    "rect": [
+     197,
+     7,
+     22,
+     19
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "10": {
+   "106": {
+    "tex": "objs_S",
+    "rect": [
+     195,
+     35,
+     26,
+     29
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "107": {
+    "tex": "objs_S",
+    "rect": [
+     228,
+     41,
+     24,
+     23
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "11": {
+   "108": {
+    "tex": "objs_S_snow",
+    "rect": [
+     263,
+     56,
+     5,
+     4
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "109": {
+    "tex": "objs_S",
+    "rect": [
+     297,
+     44,
+     13,
+     9
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "110": {
+    "tex": "objs_S",
+    "rect": [
+     331,
+     55,
+     13,
+     8
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "111": {
+    "tex": "objs_S",
+    "rect": [
+     361,
+     49,
+     8,
+     8
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "16": {
+   "335": {
+    "tex": "objs",
+    "rect": [
+     2255,
+     193,
+     35,
+     52
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "90": {
+   "345": {
+    "tex": "objs",
+    "rect": [
+     2890,
+     198,
+     51,
+     54
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "14": {
+   "222": {
+    "tex": "objs_S",
+    "rect": [
+     709,
+     73,
+     24,
+     21
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "104": {
+   "340": {
+    "tex": "objs",
+    "rect": [
+     2577,
+     205,
+     32,
+     38
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "122": {
+   "145": {
+    "tex": "objs",
+    "rect": [
+     2899,
+     82,
+     29,
+     34
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "50": {
+   "222": {
+    "tex": "objs_S",
+    "rect": [
+     709,
+     73,
+     24,
+     21
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "61": {
+   "225": {
+    "tex": "objs_S",
+    "rect": [
+     817,
+     71,
+     16,
+     24
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "73": {
+   "230": {
+    "tex": "objs_S",
+    "rect": [
+     966,
+     69,
+     22,
+     23
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "231": {
+    "tex": "objs_S",
+    "rect": [
+     993,
+     64,
+     29,
+     32
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "232": {
+    "tex": "objs_S",
+    "rect": [
+     1024,
+     70,
+     31,
+     26
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "233": {
+    "tex": "objs_S",
+    "rect": [
+     1058,
+     71,
+     29,
+     25
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "234": {
+    "tex": "objs_S",
+    "rect": [
+     1090,
+     66,
+     29,
+     29
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "74": {
+   "130": {
+    "tex": "objs_S",
+    "rect": [
+     983,
+     57,
+     5,
+     4
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "131": {
+    "tex": "objs_S",
+    "rect": [
+     1009,
+     54,
+     5,
+     4
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "132": {
+    "tex": "objs_S",
+    "rect": [
+     1042,
+     53,
+     5,
+     5
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "133": {
+    "tex": "objs_S",
+    "rect": [
+     1065,
+     47,
+     16,
+     12
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "134": {
+    "tex": "objs_S",
+    "rect": [
+     1094,
+     52,
+     7,
+     6
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "135": {
+    "tex": "objs_S",
+    "rect": [
+     1130,
+     56,
+     5,
+     4
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "75": {
+   "235": {
+    "tex": "objs_S",
+    "rect": [
+     1121,
+     65,
+     29,
+     31
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "236": {
+    "tex": "objs_S",
+    "rect": [
+     1153,
+     73,
+     30,
+     23
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "237": {
+    "tex": "objs_S",
+    "rect": [
+     1184,
+     70,
+     32,
+     26
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "238": {
+    "tex": "objs_S",
+    "rect": [
+     1217,
+     68,
+     31,
+     27
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "239": {
+    "tex": "objs_S",
+    "rect": [
+     1250,
+     72,
+     28,
+     24
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "240": {
+    "tex": "objs_S",
+    "rect": [
+     1285,
+     70,
+     22,
+     26
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "241": {
+    "tex": "objs_S",
+    "rect": [
+     1315,
+     74,
+     27,
+     21
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "136": {
+   "3220": {
+    "tex": "objs",
+    "rect": [
+     1286,
+     2067,
+     50,
+     33
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "3221": {
+    "tex": "objs",
+    "rect": [
+     1350,
+     2064,
+     51,
+     37
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "3222": {
+    "tex": "objs",
+    "rect": [
+     1408,
+     2061,
+     51,
+     43
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "3223": {
+    "tex": "objs",
+    "rect": [
+     1473,
+     2052,
+     60,
+     48
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "12": {
+   "607": {
+    "tex": "objs_S",
+    "rect": [
+     232,
+     200,
+     15,
+     16
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "15": {
+   "607": {
+    "tex": "objs_S",
+    "rect": [
+     232,
+     200,
+     15,
+     16
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "47": {
+   "607": {
+    "tex": "objs_S",
+    "rect": [
+     232,
+     200,
+     15,
+     16
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "118": {
+   "217": {
+    "tex": "objs_S",
+    "rect": [
+     550,
+     70,
+     18,
+     20
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "119": {
+   "220": {
+    "tex": "objs_S",
+    "rect": [
+     649,
+     80,
+     14,
+     14
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "221": {
+    "tex": "objs_S",
+    "rect": [
+     679,
+     79,
+     18,
+     16
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "222": {
+    "tex": "objs_S",
+    "rect": [
+     709,
+     73,
+     24,
+     21
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "223": {
+    "tex": "objs_S",
+    "rect": [
+     741,
+     72,
+     23,
+     22
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "53": {
+   "812": {
+    "tex": "objs_L",
+    "rect": [
+     326,
+     277,
+     70,
+     41
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "69": {
+   "802": {
+    "tex": "objs_S",
+    "rect": [
+     76,
+     269,
+     16,
+     16
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "70": {
+   "1217": {
+    "tex": "objs_S",
+    "rect": [
+     553,
+     393,
+     13,
+     15
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "54": {
+   "617": {
+    "tex": "objs",
+    "rect": [
+     1117,
+     434,
+     6,
+     6
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "55": {
+   "817": {
+    "tex": "objs_S",
+    "rect": [
+     551,
+     264,
+     21,
+     21
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "76": {
+   "1007": {
+    "tex": "objs_S",
+    "rect": [
+     227,
+     322,
+     23,
+     22
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "103": {
+   "1012": {
+    "tex": "objs_S",
+    "rect": [
+     391,
+     327,
+     23,
+     23
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "77": {
+   "1002": {
+    "tex": "objs_S",
+    "rect": [
+     77,
+     341,
+     11,
+     11
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "56": {
+   "1202": {
+    "tex": "objs_S",
+    "rect": [
+     70,
+     397,
+     16,
+     15
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "57": {
+   "1207": {
+    "tex": "objs_S",
+    "rect": [
+     236,
+     397,
+     16,
+     16
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "58": {
+   "1212": {
+    "tex": "objs_S",
+    "rect": [
+     398,
+     397,
+     14,
+     14
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "17": {
+   "612": {
+    "tex": "objs_S",
+    "rect": [
+     392,
+     200,
+     15,
+     16
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "112": {
+   "417": {
+    "tex": "objs_S",
+    "rect": [
+     549,
+     99,
+     21,
+     27
+    ],
+    "flip": false,
+    "how": "rescue(off 0,-1)"
+   }
+  },
+  "13": {
+   "602": {
+    "tex": "objs_S",
+    "rect": [
+     72,
+     200,
+     15,
+     16
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "49": {
+   "802": {
+    "tex": "objs_S",
+    "rect": [
+     76,
+     269,
+     16,
+     16
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "113": {
+   "802": {
+    "tex": "objs_S",
+    "rect": [
+     76,
+     269,
+     16,
+     16
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "114": {
+   "802": {
+    "tex": "objs_S",
+    "rect": [
+     76,
+     269,
+     16,
+     16
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "59": {
+   "110": {
+    "tex": "objs_S",
+    "rect": [
+     331,
+     55,
+     13,
+     8
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "111": {
+    "tex": "objs_S",
+    "rect": [
+     361,
+     49,
+     8,
+     8
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "310": {
+    "tex": "objs_S",
+    "rect": [
+     326,
+     112,
+     4,
+     6
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "311": {
+    "tex": "objs_S",
+    "rect": [
+     366,
+     111,
+     11,
+     10
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "18": {
+   "600": {
+    "tex": "objs",
+    "rect": [
+     24,
+     399,
+     16,
+     48
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "19": {
+   "601": {
+    "tex": "objs",
+    "rect": [
+     76,
+     384,
+     37,
+     64
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "20": {
+   "24": {
+    "tex": "objs_S",
+    "rect": [
+     776,
+     12,
+     16,
+     12
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "25": {
+    "tex": "objs_S",
+    "rect": [
+     806,
+     6,
+     19,
+     19
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "21": {
+   "604": {
+    "tex": "objs",
+    "rect": [
+     275,
+     398,
+     24,
+     49
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "605": {
+    "tex": "objs",
+    "rect": [
+     335,
+     441,
+     4,
+     4
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "606": {
+    "tex": "objs",
+    "rect": [
+     408,
+     403,
+     16,
+     43
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "-606": {
+    "tex": "objs",
+    "rect": [
+     408,
+     403,
+     16,
+     43
+    ],
+    "flip": true,
+    "how": "exact"
+   }
+  },
+  "23": {
+   "605": {
+    "tex": "objs",
+    "rect": [
+     335,
+     441,
+     4,
+     4
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "24": {
+   "414": {
+    "tex": "objs_S",
+    "rect": [
+     489,
+     107,
+     12,
+     15
+    ],
+    "flip": false,
+    "how": "rescue(off 1,-1)"
+   },
+   "415": {
+    "tex": "objs_S",
+    "rect": [
+     489,
+     107,
+     12,
+     15
+    ],
+    "flip": false,
+    "how": "rescue(off 0,-1)"
+   },
+   "416": {
+    "tex": "objs_S",
+    "rect": [
+     519,
+     104,
+     17,
+     18
+    ],
+    "flip": false,
+    "how": "rescue(off 0,-1)"
+   }
+  },
+  "101": {
+   "203": {
+    "tex": "objs",
+    "rect": [
+     221,
+     172,
+     26,
+     20
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "106": {
+   "417": {
+    "tex": "objs_S",
+    "rect": [
+     549,
+     99,
+     21,
+     27
+    ],
+    "flip": false,
+    "how": "rescue(off 0,-1)"
+   },
+   "418": {
+    "tex": "objs_L",
+    "rect": [
+     582,
+     136,
+     38,
+     34
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "419": {
+    "tex": "objs_L",
+    "rect": [
+     582,
+     136,
+     38,
+     34
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "420": {
+    "tex": "objs_L",
+    "rect": [
+     641,
+     129,
+     76,
+     40
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "421": {
+    "tex": "objs_L",
+    "rect": [
+     641,
+     129,
+     76,
+     40
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "25": {
+   "1013": {
+    "tex": "objs_S",
+    "rect": [
+     421,
+     325,
+     23,
+     23
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "1014": {
+    "tex": "objs_S",
+    "rect": [
+     455,
+     324,
+     24,
+     24
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "1015": {
+    "tex": "objs_S",
+    "rect": [
+     484,
+     325,
+     24,
+     24
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "1016": {
+    "tex": "objs_S",
+    "rect": [
+     520,
+     328,
+     22,
+     22
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "144": {
+   "1113": {
+    "tex": "objs_S",
+    "rect": [
+     432,
+     364,
+     11,
+     18
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "1114": {
+    "tex": "objs_S",
+    "rect": [
+     457,
+     358,
+     13,
+     15
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "1115": {
+    "tex": "objs",
+    "rect": [
+     974,
+     715,
+     44,
+     46
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "1116": {
+    "tex": "objs_S",
+    "rect": [
+     528,
+     369,
+     13,
+     12
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "1117": {
+    "tex": "objs_S",
+    "rect": [
+     560,
+     366,
+     14,
+     13
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "1118": {
+    "tex": "objs_S",
+    "rect": [
+     580,
+     369,
+     28,
+     9
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "1119": {
+    "tex": "objs_S",
+    "rect": [
+     617,
+     366,
+     14,
+     9
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "1120": {
+    "tex": "objs",
+    "rect": [
+     1285,
+     721,
+     44,
+     40
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "71": {
+   "1007": {
+    "tex": "objs_S",
+    "rect": [
+     227,
+     322,
+     23,
+     22
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "1008": {
+    "tex": "objs_S",
+    "rect": [
+     258,
+     326,
+     25,
+     21
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "1009": {
+    "tex": "objs_S",
+    "rect": [
+     290,
+     326,
+     25,
+     21
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "1010": {
+    "tex": "objs_S",
+    "rect": [
+     320,
+     321,
+     28,
+     28
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "107": {
+   "918": {
+    "tex": "objs_S",
+    "rect": [
+     584,
+     295,
+     21,
+     22
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "919": {
+    "tex": "objs_S",
+    "rect": [
+     619,
+     299,
+     16,
+     16
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "920": {
+    "tex": "objs_S",
+    "rect": [
+     640,
+     293,
+     30,
+     27
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "921": {
+    "tex": "objs_S",
+    "rect": [
+     672,
+     293,
+     30,
+     27
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "922": {
+    "tex": "objs_S",
+    "rect": [
+     704,
+     293,
+     30,
+     27
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "109": {
+   "1018": {
+    "tex": "objs",
+    "rect": [
+     1170,
+     683,
+     20,
+     11
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "1019": {
+    "tex": "objs_S",
+    "rect": [
+     618,
+     327,
+     16,
+     16
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "1020": {
+    "tex": "objs_S",
+    "rect": [
+     647,
+     327,
+     20,
+     20
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "1021": {
+    "tex": "objs_S",
+    "rect": [
+     678,
+     324,
+     16,
+     16
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "111": {
+   "1024": {
+    "tex": "objs_S",
+    "rect": [
+     769,
+     322,
+     28,
+     26
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "1025": {
+    "tex": "objs_S",
+    "rect": [
+     807,
+     329,
+     20,
+     20
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "1026": {
+    "tex": "objs_S",
+    "rect": [
+     841,
+     330,
+     17,
+     17
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "22": {
+   "100": {
+    "tex": "objs_S",
+    "rect": [
+     12,
+     46,
+     7,
+     6
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "101": {
+    "tex": "objs_S",
+    "rect": [
+     38,
+     52,
+     7,
+     6
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "102": {
+    "tex": "objs_S",
+    "rect": [
+     73,
+     55,
+     7,
+     6
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "103": {
+    "tex": "objs_S",
+    "rect": [
+     104,
+     32,
+     15,
+     23
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "108": {
+    "tex": "objs_S_snow",
+    "rect": [
+     263,
+     56,
+     5,
+     4
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "109": {
+    "tex": "objs_S",
+    "rect": [
+     297,
+     44,
+     13,
+     9
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "26": {
+   "200": {
+    "tex": "objs_S",
+    "rect": [
+     21,
+     81,
+     7,
+     5
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "201": {
+    "tex": "objs_S",
+    "rect": [
+     49,
+     78,
+     13,
+     9
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "202": {
+    "tex": "objs_S",
+    "rect": [
+     79,
+     79,
+     17,
+     13
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "203": {
+    "tex": "objs_S",
+    "rect": [
+     109,
+     81,
+     16,
+     9
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "208": {
+    "tex": "objs_S",
+    "rect": [
+     260,
+     78,
+     8,
+     7
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "209": {
+    "tex": "objs",
+    "rect": [
+     578,
+     137,
+     62,
+     49
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "27": {
+   "300": {
+    "tex": "objs_S",
+    "rect": [
+     12,
+     110,
+     7,
+     6
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "301": {
+    "tex": "objs_S",
+    "rect": [
+     39,
+     108,
+     14,
+     12
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "302": {
+    "tex": "objs_S",
+    "rect": [
+     67,
+     112,
+     14,
+     12
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "303": {
+    "tex": "objs_S",
+    "rect": [
+     97,
+     114,
+     14,
+     12
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "308": {
+    "tex": "objs_S",
+    "rect": [
+     263,
+     101,
+     22,
+     23
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "309": {
+    "tex": "objs_S",
+    "rect": [
+     263,
+     101,
+     22,
+     23
+    ],
+    "flip": false,
+    "how": "rescue(off -1,0)"
+   }
+  },
+  "28": {
+   "400": {
+    "tex": "objs_S",
+    "rect": [
+     6,
+     140,
+     20,
+     13
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "401": {
+    "tex": "objs_S",
+    "rect": [
+     40,
+     143,
+     16,
+     17
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "402": {
+    "tex": "objs_S",
+    "rect": [
+     70,
+     139,
+     20,
+     16
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "403": {
+    "tex": "objs_S",
+    "rect": [
+     102,
+     139,
+     18,
+     20
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "408": {
+    "tex": "objs_S",
+    "rect": [
+     264,
+     138,
+     14,
+     15
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "409": {
+    "tex": "objs_S",
+    "rect": [
+     294,
+     140,
+     20,
+     13
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "29": {
+   "500": {
+    "tex": "objs_S",
+    "rect": [
+     8,
+     175,
+     16,
+     16
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "501": {
+    "tex": "objs_S",
+    "rect": [
+     35,
+     174,
+     25,
+     17
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "502": {
+    "tex": "objs",
+    "rect": [
+     140,
+     333,
+     35,
+     37
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "503": {
+    "tex": "objs_S",
+    "rect": [
+     105,
+     173,
+     13,
+     13
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "508": {
+    "tex": "objs_S",
+    "rect": [
+     264,
+     169,
+     16,
+     16
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "509": {
+    "tex": "objs_S",
+    "rect": [
+     295,
+     170,
+     16,
+     14
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "30": {
+   "600": {
+    "tex": "objs_S",
+    "rect": [
+     8,
+     200,
+     15,
+     16
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "601": {
+    "tex": "objs_S",
+    "rect": [
+     40,
+     200,
+     15,
+     16
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "602": {
+    "tex": "objs_S",
+    "rect": [
+     72,
+     200,
+     15,
+     16
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "603": {
+    "tex": "objs_S",
+    "rect": [
+     104,
+     200,
+     15,
+     16
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "608": {
+    "tex": "objs_S",
+    "rect": [
+     264,
+     200,
+     15,
+     16
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "609": {
+    "tex": "objs_S",
+    "rect": [
+     296,
+     200,
+     15,
+     16
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "67": {
+   "700": {
+    "tex": "objs_S",
+    "rect": [
+     9,
+     237,
+     14,
+     8
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "701": {
+    "tex": "objs_S",
+    "rect": [
+     41,
+     237,
+     14,
+     8
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "702": {
+    "tex": "objs_S",
+    "rect": [
+     72,
+     239,
+     16,
+     14
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "703": {
+    "tex": "objs_S",
+    "rect": [
+     103,
+     226,
+     20,
+     26
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "708": {
+    "tex": "objs_S",
+    "rect": [
+     264,
+     228,
+     19,
+     24
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "709": {
+    "tex": "objs_S",
+    "rect": [
+     296,
+     229,
+     15,
+     25
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "124": {
+   "800": {
+    "tex": "objs_S",
+    "rect": [
+     15,
+     269,
+     14,
+     15
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "801": {
+    "tex": "objs",
+    "rect": [
+     82,
+     521,
+     25,
+     35
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "802": {
+    "tex": "objs_S",
+    "rect": [
+     76,
+     269,
+     16,
+     16
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "803": {
+    "tex": "objs_S",
+    "rect": [
+     106,
+     267,
+     16,
+     16
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "808": {
+    "tex": "objs_S",
+    "rect": [
+     263,
+     260,
+     18,
+     22
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "809": {
+    "tex": "objs_S",
+    "rect": [
+     295,
+     263,
+     18,
+     19
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "125": {
+   "900": {
+    "tex": "objs_S",
+    "rect": [
+     8,
+     301,
+     18,
+     15
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "901": {
+    "tex": "objs_S",
+    "rect": [
+     46,
+     294,
+     14,
+     25
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "902": {
+    "tex": "objs_S",
+    "rect": [
+     74,
+     288,
+     17,
+     32
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "903": {
+    "tex": "objs_S",
+    "rect": [
+     105,
+     297,
+     18,
+     18
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "908": {
+    "tex": "objs_S",
+    "rect": [
+     262,
+     293,
+     22,
+     22
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "909": {
+    "tex": "objs_S",
+    "rect": [
+     296,
+     296,
+     16,
+     18
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "126": {
+   "1000": {
+    "tex": "objs_S",
+    "rect": [
+     4,
+     325,
+     24,
+     23
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "1001": {
+    "tex": "objs_S",
+    "rect": [
+     46,
+     332,
+     12,
+     13
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "1002": {
+    "tex": "objs_S",
+    "rect": [
+     77,
+     341,
+     11,
+     11
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "1003": {
+    "tex": "objs_S",
+    "rect": [
+     106,
+     331,
+     16,
+     16
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "1008": {
+    "tex": "objs_S",
+    "rect": [
+     258,
+     326,
+     25,
+     21
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "1009": {
+    "tex": "objs_S",
+    "rect": [
+     290,
+     326,
+     25,
+     21
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "128": {
+   "1100": {
+    "tex": "objs_S",
+    "rect": [
+     6,
+     362,
+     21,
+     18
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "1101": {
+    "tex": "objs_S",
+    "rect": [
+     44,
+     369,
+     15,
+     15
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "1102": {
+    "tex": "objs_S",
+    "rect": [
+     68,
+     358,
+     24,
+     20
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "1103": {
+    "tex": "objs_S",
+    "rect": [
+     105,
+     361,
+     19,
+     19
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "1108": {
+    "tex": "objs_S",
+    "rect": [
+     265,
+     359,
+     22,
+     21
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "1109": {
+    "tex": "objs_S",
+    "rect": [
+     292,
+     361,
+     26,
+     20
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "129": {
+   "1200": {
+    "tex": "objs_S",
+    "rect": [
+     7,
+     391,
+     14,
+     20
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "1201": {
+    "tex": "objs_S",
+    "rect": [
+     33,
+     395,
+     22,
+     18
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "1202": {
+    "tex": "objs_S",
+    "rect": [
+     70,
+     397,
+     16,
+     15
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "1203": {
+    "tex": "objs_S",
+    "rect": [
+     105,
+     396,
+     17,
+     17
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "1208": {
+    "tex": "objs_S",
+    "rect": [
+     266,
+     388,
+     13,
+     24
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "1209": {
+    "tex": "objs_S",
+    "rect": [
+     295,
+     388,
+     15,
+     20
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "130": {
+   "1300": {
+    "tex": "objs_S",
+    "rect": [
+     14,
+     424,
+     6,
+     23
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "1301": {
+    "tex": "objs_S",
+    "rect": [
+     43,
+     429,
+     11,
+     11
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "1302": {
+    "tex": "objs_S",
+    "rect": [
+     73,
+     426,
+     14,
+     14
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "1303": {
+    "tex": "objs_S",
+    "rect": [
+     96,
+     416,
+     32,
+     32
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "1308": {
+    "tex": "objs_S",
+    "rect": [
+     259,
+     418,
+     23,
+     29
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "1309": {
+    "tex": "objs_S",
+    "rect": [
+     290,
+     419,
+     23,
+     25
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "131": {
+   "1400": {
+    "tex": "objs_S",
+    "rect": [
+     4,
+     449,
+     23,
+     30
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "1401": {
+    "tex": "objs_S",
+    "rect": [
+     36,
+     450,
+     25,
+     29
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "1402": {
+    "tex": "objs_S",
+    "rect": [
+     64,
+     448,
+     30,
+     32
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "1403": {
+    "tex": "objs_S",
+    "rect": [
+     104,
+     452,
+     16,
+     27
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "1408": {
+    "tex": "objs_S",
+    "rect": [
+     262,
+     452,
+     19,
+     27
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "1409": {
+    "tex": "objs_S",
+    "rect": [
+     298,
+     463,
+     11,
+     16
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "132": {
+   "1500": {
+    "tex": "objs_S",
+    "rect": [
+     8,
+     486,
+     18,
+     22
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "1501": {
+    "tex": "objs_S",
+    "rect": [
+     34,
+     480,
+     29,
+     31
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "1502": {
+    "tex": "objs_S",
+    "rect": [
+     67,
+     481,
+     27,
+     31
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "1503": {
+    "tex": "objs_S",
+    "rect": [
+     96,
+     491,
+     31,
+     19
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "1508": {
+    "tex": "objs_S",
+    "rect": [
+     265,
+     494,
+     15,
+     15
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "1509": {
+    "tex": "objs_S",
+    "rect": [
+     297,
+     493,
+     13,
+     17
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "133": {
+   "1600": {
+    "tex": "objs_S",
+    "rect": [
+     13,
+     530,
+     6,
+     11
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "1601": {
+    "tex": "objs_S",
+    "rect": [
+     40,
+     525,
+     14,
+     16
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "1602": {
+    "tex": "objs_S",
+    "rect": [
+     67,
+     513,
+     27,
+     31
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "1603": {
+    "tex": "objs_S",
+    "rect": [
+     104,
+     519,
+     17,
+     18
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "1608": {
+    "tex": "objs_S",
+    "rect": [
+     268,
+     531,
+     8,
+     11
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "1609": {
+    "tex": "objs_S",
+    "rect": [
+     288,
+     520,
+     32,
+     21
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "134": {
+   "1700": {
+    "tex": "objs_S",
+    "rect": [
+     3,
+     552,
+     26,
+     24
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "1701": {
+    "tex": "objs_S",
+    "rect": [
+     35,
+     549,
+     26,
+     27
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "1702": {
+    "tex": "objs_S",
+    "rect": [
+     69,
+     547,
+     22,
+     29
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "1703": {
+    "tex": "objs_S",
+    "rect": [
+     99,
+     557,
+     26,
+     16
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "1708": {
+    "tex": "objs_S",
+    "rect": [
+     257,
+     549,
+     29,
+     24
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "1709": {
+    "tex": "objs_S",
+    "rect": [
+     296,
+     551,
+     19,
+     18
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "31": {
+   "3600": {
+    "tex": "objs_S",
+    "rect": [
+     6,
+     1160,
+     22,
+     17
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "110": {
+   "3800": {
+    "tex": "objs_S",
+    "rect": [
+     4,
+     1227,
+     24,
+     15
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "97": {
+   "1616": {
+    "tex": "objs_S",
+    "rect": [
+     518,
+     515,
+     21,
+     21
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "-1616": {
+    "tex": "objs_S",
+    "rect": [
+     518,
+     515,
+     21,
+     21
+    ],
+    "flip": true,
+    "how": "exact"
+   },
+   "1617": {
+    "tex": "objs",
+    "rect": [
+     1103,
+     1033,
+     42,
+     46
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "-1617": {
+    "tex": "objs",
+    "rect": [
+     1103,
+     1033,
+     42,
+     46
+    ],
+    "flip": true,
+    "how": "exact"
+   }
+  },
+  "98": {
+   "1618": {
+    "tex": "objs",
+    "rect": [
+     1167,
+     1033,
+     42,
+     46
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "-1618": {
+    "tex": "objs",
+    "rect": [
+     1167,
+     1033,
+     42,
+     46
+    ],
+    "flip": true,
+    "how": "exact"
+   },
+   "1619": {
+    "tex": "objs",
+    "rect": [
+     1232,
+     1034,
+     40,
+     45
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "-1619": {
+    "tex": "objs",
+    "rect": [
+     1232,
+     1034,
+     40,
+     45
+    ],
+    "flip": true,
+    "how": "exact"
+   }
+  },
+  "92": {
+   "3716": {
+    "tex": "objs_S",
+    "rect": [
+     519,
+     1195,
+     19,
+     16
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "32": {
+   "3700": {
+    "tex": "objs",
+    "rect": [
+     17,
+     2304,
+     46,
+     61
+    ],
+    "flip": false,
+    "how": "rescue(off 0,-1)"
+   }
+  },
+  "33": {
+   "3616": {
+    "tex": "objs_S",
+    "rect": [
+     516,
+     1160,
+     20,
+     20
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "34": {
+   "761": {
+    "tex": "objs",
+    "rect": [
+     3915,
+     478,
+     44,
+     28
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "85": {
+   "762": {
+    "tex": "objs",
+    "rect": [
+     3977,
+     470,
+     47,
+     36
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "86": {
+   "759": {
+    "tex": "objs",
+    "rect": [
+     3785,
+     479,
+     48,
+     26
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "87": {
+   "758": {
+    "tex": "objs_S",
+    "rect": [
+     1868,
+     205,
+     9,
+     10
+    ],
+    "flip": false,
+    "how": "rescue(off 0,-1)"
+   }
+  },
+  "105": {
+   "253": {
+    "tex": "objs",
+    "rect": [
+     3392,
+     131,
+     64,
+     61
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "108": {
+   "53": {
+    "tex": "objs",
+    "rect": [
+     3264,
+     3,
+     256,
+     61
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "139": {
+   "57": {
+    "tex": "objs",
+    "rect": [
+     3649,
+     8,
+     56,
+     51
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "140": {
+   "61": {
+    "tex": "objs",
+    "rect": [
+     3913,
+     23,
+     17,
+     25
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "137": {
+   "153": {
+    "tex": "objs",
+    "rect": [
+     3395,
+     67,
+     59,
+     59
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "35": {
+   "300": {
+    "tex": "objs",
+    "rect": [
+     2,
+     203,
+     59,
+     52
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "88": {
+   "305": {
+    "tex": "objs",
+    "rect": [
+     320,
+     200,
+     64,
+     50
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "36": {
+   "315": {
+    "tex": "objs",
+    "rect": [
+     985,
+     235,
+     15,
+     12
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "37": {
+   "103": {
+    "tex": "objs",
+    "rect": [
+     221,
+     113,
+     7,
+     6
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "38": {
+   "321": {
+    "tex": "objs",
+    "rect": [
+     1386,
+     225,
+     16,
+     16
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "138": {
+   "322": {
+    "tex": "objs",
+    "rect": [
+     1421,
+     207,
+     43,
+     41
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "39": {
+   "310": {
+    "tex": "objs",
+    "rect": [
+     649,
+     198,
+     45,
+     49
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "141": {
+   "312": {
+    "tex": "objs",
+    "rect": [
+     777,
+     197,
+     46,
+     50
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "40": {
+   "316": {
+    "tex": "objs",
+    "rect": [
+     1053,
+     234,
+     12,
+     12
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "41": {
+   "320": {
+    "tex": "objs",
+    "rect": [
+     1304,
+     237,
+     16,
+     13
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "123": {
+   "240": {
+    "tex": "objs",
+    "rect": [
+     2582,
+     151,
+     22,
+     28
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "42": {
+   "311": {
+    "tex": "objs",
+    "rect": [
+     713,
+     199,
+     46,
+     49
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "78": {
+   "325": {
+    "tex": "objs",
+    "rect": [
+     1601,
+     193,
+     62,
+     62
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "81": {
+   "330": {
+    "tex": "objs",
+    "rect": [
+     1922,
+     201,
+     59,
+     48
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "43": {
+   "3500": {
+    "tex": "objs_S",
+    "rect": [
+     5,
+     1127,
+     24,
+     21
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "44": {
+   "3516": {
+    "tex": "objs_S",
+    "rect": [
+     516,
+     1132,
+     24,
+     15
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "89": {
+   "3416": {
+    "tex": "objs_S",
+    "rect": [
+     523,
+     1093,
+     10,
+     18
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "135": {
+   "3316": {
+    "tex": "objs",
+    "rect": [
+     1086,
+     2156,
+     15,
+     18
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "45": {
+   "27": {
+    "tex": "objs_S",
+    "rect": [
+     871,
+     14,
+     16,
+     12
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "28": {
+    "tex": "objs_S",
+    "rect": [
+     905,
+     14,
+     15,
+     12
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "29": {
+    "tex": "objs_S",
+    "rect": [
+     939,
+     14,
+     14,
+     11
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "84": {
+   "1104": {
+    "tex": "objs_S",
+    "rect": [
+     137,
+     366,
+     16,
+     15
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "46": {
+   "760": {
+    "tex": "objs",
+    "rect": [
+     3848,
+     474,
+     48,
+     31
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "51": {
+   "124": {
+    "tex": "objs_S",
+    "rect": [
+     771,
+     36,
+     25,
+     26
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "125": {
+    "tex": "objs_S",
+    "rect": [
+     824,
+     48,
+     7,
+     6
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "126": {
+    "tex": "objs_S",
+    "rect": [
+     833,
+     32,
+     30,
+     31
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "100": {
+   "757": {
+    "tex": "objs",
+    "rect": [
+     3648,
+     448,
+     64,
+     64
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "93": {
+   "5": {
+    "tex": "objs",
+    "rect": [
+     332,
+     6,
+     34,
+     53
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "6": {
+    "tex": "objs",
+    "rect": [
+     427,
+     30,
+     13,
+     23
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "7": {
+    "tex": "objs",
+    "rect": [
+     460,
+     20,
+     21,
+     37
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "91": {
+   "136": {
+    "tex": "objs_S",
+    "rect": [
+     1155,
+     35,
+     23,
+     24
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "137": {
+    "tex": "objs_S",
+    "rect": [
+     1206,
+     48,
+     7,
+     7
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "138": {
+    "tex": "objs_S",
+    "rect": [
+     1217,
+     34,
+     28,
+     30
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "102": {
+   "139": {
+    "tex": "objs_S",
+    "rect": [
+     1251,
+     35,
+     23,
+     24
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "140": {
+    "tex": "objs_S",
+    "rect": [
+     1302,
+     48,
+     7,
+     7
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "141": {
+    "tex": "objs_S",
+    "rect": [
+     1313,
+     34,
+     28,
+     30
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "52": {
+   "116": {
+    "tex": "objs_S",
+    "rect": [
+     513,
+     37,
+     23,
+     25
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "117": {
+    "tex": "objs_S",
+    "rect": [
+     551,
+     33,
+     17,
+     27
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "118": {
+    "tex": "objs_S",
+    "rect": [
+     586,
+     57,
+     11,
+     4
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "119": {
+    "tex": "objs_S",
+    "rect": [
+     618,
+     42,
+     15,
+     14
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "120": {
+    "tex": "objs_S",
+    "rect": [
+     648,
+     55,
+     10,
+     4
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "142": {
+   "6100": {
+    "tex": "objs",
+    "rect": [
+     7,
+     3852,
+     28,
+     46
+    ],
+    "flip": false,
+    "how": "rescue(off 0,-1)"
+   },
+   "6101": {
+    "tex": "objs",
+    "rect": [
+     71,
+     3852,
+     34,
+     47
+    ],
+    "flip": false,
+    "how": "rescue(off 0,-1)"
+   },
+   "6102": {
+    "tex": "objs",
+    "rect": [
+     137,
+     3853,
+     24,
+     47
+    ],
+    "flip": false,
+    "how": "rescue(off 0,-1)"
+   },
+   "6103": {
+    "tex": "objs",
+    "rect": [
+     201,
+     3854,
+     27,
+     47
+    ],
+    "flip": false,
+    "how": "rescue(off 0,-1)"
+   }
+  },
+  "143": {
+   "6106": {
+    "tex": "objs_L",
+    "rect": [
+     182,
+     1932,
+     11,
+     13
+    ],
+    "flip": false,
+    "how": "rescue(off -1,-1)"
+   },
+   "6107": {
+    "tex": "objs_L",
+    "rect": [
+     261,
+     1931,
+     13,
+     13
+    ],
+    "flip": false,
+    "how": "rescue(off 1,-1)"
+   },
+   "6108": {
+    "tex": "objs_L",
+    "rect": [
+     261,
+     1931,
+     13,
+     13
+    ],
+    "flip": false,
+    "how": "rescue(off 0,-1)"
+   },
+   "6109": {
+    "tex": "objs_L",
+    "rect": [
+     261,
+     1931,
+     13,
+     13
+    ],
+    "flip": false,
+    "how": "rescue(off -1,-1)"
+   },
+   "6110": {
+    "tex": "objs_L",
+    "rect": [
+     341,
+     1931,
+     13,
+     13
+    ],
+    "flip": false,
+    "how": "rescue(off 0,-1)"
+   }
+  },
+  "62": {
+   "1800": {
+    "tex": "objs",
+    "rect": [
+     13,
+     1171,
+     36,
+     37
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "1801": {
+    "tex": "objs_S",
+    "rect": [
+     41,
+     576,
+     14,
+     31
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "1803": {
+    "tex": "objs_S",
+    "rect": [
+     105,
+     582,
+     14,
+     21
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "1804": {
+    "tex": "objs_S",
+    "rect": [
+     135,
+     588,
+     18,
+     19
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "63": {
+   "1805": {
+    "tex": "objs_S",
+    "rect": [
+     162,
+     576,
+     28,
+     32
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "1806": {
+    "tex": "objs_S",
+    "rect": [
+     194,
+     576,
+     28,
+     32
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "64": {
+   "1802": {
+    "tex": "objs_S",
+    "rect": [
+     72,
+     588,
+     17,
+     13
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "60": {
+   "1000": {
+    "tex": "objs_S",
+    "rect": [
+     4,
+     325,
+     24,
+     23
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "1001": {
+    "tex": "objs_S",
+    "rect": [
+     46,
+     332,
+     12,
+     13
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "79": {
+   "1100": {
+    "tex": "objs_S",
+    "rect": [
+     6,
+     362,
+     21,
+     18
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "1101": {
+    "tex": "objs_S",
+    "rect": [
+     44,
+     369,
+     15,
+     15
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "1102": {
+    "tex": "objs_S",
+    "rect": [
+     68,
+     358,
+     24,
+     20
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "1103": {
+    "tex": "objs_S",
+    "rect": [
+     105,
+     361,
+     19,
+     19
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "65": {
+   "1003": {
+    "tex": "objs_S",
+    "rect": [
+     106,
+     331,
+     16,
+     16
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "1004": {
+    "tex": "objs_S",
+    "rect": [
+     137,
+     329,
+     16,
+     17
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "1005": {
+    "tex": "objs_S",
+    "rect": [
+     171,
+     335,
+     13,
+     13
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "66": {
+   "127": {
+    "tex": "objs_S",
+    "rect": [
+     869,
+     41,
+     22,
+     21
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "128": {
+    "tex": "objs_S",
+    "rect": [
+     901,
+     41,
+     22,
+     22
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "68": {
+   "700": {
+    "tex": "objs_S",
+    "rect": [
+     9,
+     237,
+     14,
+     8
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "72": {
+   "129": {
+    "tex": "objs_S",
+    "rect": [
+     929,
+     37,
+     29,
+     25
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "94": {
+   "15": {
+    "tex": "objs",
+    "rect": [
+     976,
+     22,
+     30,
+     36
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "14": {
+    "tex": "objs",
+    "rect": [
+     912,
+     22,
+     30,
+     36
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "80": {
+   "2": {
+    "tex": "objs_S",
+    "rect": [
+     64,
+     3,
+     32,
+     28
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "3": {
+    "tex": "objs_S",
+    "rect": [
+     104,
+     16,
+     16,
+     12
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "4": {
+    "tex": "objs_S",
+    "rect": [
+     133,
+     10,
+     19,
+     14
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "7": {
+    "tex": "objs_S",
+    "rect": [
+     231,
+     11,
+     18,
+     15
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "8": {
+    "tex": "objs_S",
+    "rect": [
+     262,
+     20,
+     8,
+     8
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "9": {
+    "tex": "objs_S",
+    "rect": [
+     288,
+     0,
+     32,
+     32
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "10": {
+    "tex": "objs_S",
+    "rect": [
+     336,
+     19,
+     16,
+     13
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "11": {
+    "tex": "objs_S",
+    "rect": [
+     358,
+     11,
+     17,
+     12
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "82": {
+   "653": {
+    "tex": "objs",
+    "rect": [
+     3410,
+     402,
+     31,
+     37
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "652": {
+    "tex": "objs",
+    "rect": [
+     3348,
+     402,
+     27,
+     33
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "656": {
+    "tex": "objs_S",
+    "rect": [
+     1804,
+     208,
+     8,
+     7
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "657": {
+    "tex": "objs",
+    "rect": [
+     3665,
+     405,
+     28,
+     30
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "658": {
+    "tex": "objs",
+    "rect": [
+     3728,
+     420,
+     34,
+     19
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "659": {
+    "tex": "objs",
+    "rect": [
+     3827,
+     426,
+     8,
+     9
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "83": {
+   "660": {
+    "tex": "objs",
+    "rect": [
+     3846,
+     407,
+     51,
+     31
+    ],
+    "flip": false,
+    "how": "exact"
+   }
+  },
+  "95": {
+   "1300": {
+    "tex": "objs_S",
+    "rect": [
+     14,
+     424,
+     6,
+     23
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "-1300": {
+    "tex": "objs_S",
+    "rect": [
+     14,
+     424,
+     6,
+     23
+    ],
+    "flip": true,
+    "how": "exact"
+   },
+   "1301": {
+    "tex": "objs_S",
+    "rect": [
+     43,
+     429,
+     11,
+     11
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "-1301": {
+    "tex": "objs_S",
+    "rect": [
+     43,
+     429,
+     11,
+     11
+    ],
+    "flip": true,
+    "how": "exact"
+   },
+   "1302": {
+    "tex": "objs_S",
+    "rect": [
+     73,
+     426,
+     14,
+     14
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "-1302": {
+    "tex": "objs_S",
+    "rect": [
+     73,
+     426,
+     14,
+     14
+    ],
+    "flip": true,
+    "how": "exact"
+   }
+  },
+  "96": {
+   "1304": {
+    "tex": "objs_S",
+    "rect": [
+     136,
+     425,
+     16,
+     16
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "-1304": {
+    "tex": "objs_S",
+    "rect": [
+     136,
+     425,
+     16,
+     16
+    ],
+    "flip": true,
+    "how": "exact"
+   },
+   "1305": {
+    "tex": "objs_S",
+    "rect": [
+     161,
+     418,
+     30,
+     29
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "-1305": {
+    "tex": "objs_S",
+    "rect": [
+     161,
+     418,
+     30,
+     29
+    ],
+    "flip": true,
+    "how": "exact"
+   },
+   "1306": {
+    "tex": "objs_S",
+    "rect": [
+     193,
+     418,
+     30,
+     29
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "-1306": {
+    "tex": "objs_S",
+    "rect": [
+     193,
+     418,
+     30,
+     29
+    ],
+    "flip": true,
+    "how": "exact"
+   },
+   "1307": {
+    "tex": "objs_S",
+    "rect": [
+     227,
+     418,
+     23,
+     29
+    ],
+    "flip": false,
+    "how": "exact"
+   },
+   "-1307": {
+    "tex": "objs_S",
+    "rect": [
+     227,
+     418,
+     23,
+     29
+    ],
+    "flip": true,
+    "how": "exact"
+   }
+  }
+ }
+}
