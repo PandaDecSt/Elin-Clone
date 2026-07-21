@@ -6,6 +6,7 @@ export const TILE_H = 32;
 export const WALL_H = 32; // 墙体高度像素
 
 import { MAT, GROUPS, BIOMES } from './materials.js';
+import { tintForMat } from './material-tints.js';
 
 // 怪物ID -> 精灵图key 映射
 export const SPRITE_MAP = {
@@ -75,6 +76,7 @@ export class IsoRenderer{
     this.sprites = {};       // 旧版单图（保留兼容）
     this.spriteSheets = {};  // 新版图集：{ key: { idle:[canvas,...], walk:[...], attack:[...], hit:[...] } }
     this.assetsReady = false;
+    this._tintCache = {};   // 材质着色缓存: key -> 已着色的离屏 canvas (或 null)
     this._loadAssets();
   }
 
@@ -545,6 +547,34 @@ export class IsoRenderer{
     }
   }
 
+  // ---- 材质程序化着色 ----
+  // 灰度图集(floors/blocks.png)按材质 alias 做 multiply 着色，
+  // 复用离屏 canvas 缓存（每个 tile id 只渲染一次）。
+  // 返回着色后的 canvas，或 null（该材质不着色，直接画原图）。
+  _getTintedTile(atlasName, key, atlas, sx, sy, sw, sh, tint){
+    const ck = atlasName + ':' + key;
+    const cached = this._tintCache[ck];
+    if(cached !== undefined) return cached;           // 含 null
+    if(!tint){ this._tintCache[ck] = null; return null; }
+
+    const cv = document.createElement('canvas');
+    cv.width = sw; cv.height = sh;
+    const cx = cv.getContext('2d');
+    // 1) 原图（含 alpha 遮罩）
+    cx.drawImage(atlas, sx, sy, sw, sh, 0, 0, sw, sh);
+    // 2) multiply 着色
+    cx.globalCompositeOperation = 'multiply';
+    cx.fillStyle = `rgb(${tint[0]},${tint[1]},${tint[2]})`;
+    cx.fillRect(0, 0, sw, sh);
+    // 3) 用原图 alpha 还原透明区域
+    cx.globalCompositeOperation = 'destination-in';
+    cx.drawImage(atlas, sx, sy, sw, sh, 0, 0, sw, sh);
+    cx.globalCompositeOperation = 'source-over';
+
+    this._tintCache[ck] = cv;
+    return cv;
+  }
+
   // ---- 从Elin图集绘制地板 (floors.png, 48px tiles) ----
   // Elin菱形真实几何(逐行alpha扫描确认):
   //   顶(31,11) 左(1,27.5) 右(61,27.5) 底(31,44)
@@ -589,10 +619,17 @@ export class IsoRenderer{
     // 画完整菱形 (源宽63px, 跨c%4==0和c%4==1两个cell)
     // 加0.5px padding防止亚像素级别的缝隙
     const pad = 0.5;
-    ctx.drawImage(atlas,
-      srcC * srcCellW + dsx, srcR * srcCellH + dsy, srcW, srcCellH,
-      drawX - pad, drawY - pad, drawW + pad*2, drawH + pad*2
-    );
+    const tint = tintForMat(m.mat);
+    const tt = this._getTintedTile('floors', floorId, atlas,
+      srcC * srcCellW + dsx, srcR * srcCellH + dsy, srcW, srcCellH, tint);
+    if(tt){
+      ctx.drawImage(tt, drawX - pad, drawY - pad, drawW + pad*2, drawH + pad*2);
+    } else {
+      ctx.drawImage(atlas,
+        srcC * srcCellW + dsx, srcR * srcCellH + dsy, srcW, srcCellH,
+        drawX - pad, drawY - pad, drawW + pad*2, drawH + pad*2
+      );
+    }
 
     // 战争迷雾由game.js批量处理
 
@@ -636,10 +673,17 @@ export class IsoRenderer{
       const col = Math.floor(bt.rect[0] / tilePx);
       const row = Math.floor(bt.rect[1] / tilePx);
       const drawY = p.y - 48 - accumH;
-      ctx.drawImage(atlas,
-        col * tilePx, row * tilePx, tilePx, tilePx,
-        p.x - 32, drawY, spriteSize, spriteSize
-      );
+      const tint = tintForMat(bt.mat);
+      const tt = this._getTintedTile('blocks', blockIds[i], atlas,
+        col * tilePx, row * tilePx, tilePx, tilePx, tint);
+      if(tt){
+        ctx.drawImage(tt, p.x - 32, drawY, spriteSize, spriteSize);
+      } else {
+        ctx.drawImage(atlas,
+          col * tilePx, row * tilePx, tilePx, tilePx,
+          p.x - 32, drawY, spriteSize, spriteSize
+        );
+      }
 
       accumH += (bt.h || 1) * WALL_H;
     }
