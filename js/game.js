@@ -2477,6 +2477,24 @@ class Game{
       ctx.fillText(`drawTileFloor (tex=${tid})`, p.x+hw+8, p.y-hh+14);
       ctx.fillText(`无atlas映射, 使用旧渲染器`, p.x+hw+8, p.y-hh+28);
     }
+    // 墙体 atlas 截取框（橙色，与地板框对应）
+    const blk = this.map.getBlocks?.(gx, gy);
+    if(blk && blk.length){
+      const bt = MAT.block[blk[0]];
+      if(bt && bt.atlas){
+        const col = Math.floor(bt.rect[0]/64), row = Math.floor(bt.rect[1]/64);
+        ctx.strokeStyle = 'rgba(255,170,0,0.85)';
+        ctx.lineWidth = 1.5/cam.zoom;
+        const bw = 46/cam.zoom, bh = 46/cam.zoom;
+        ctx.strokeRect(p.x - bw/2, p.y - hh - bh, bw, bh);
+        ctx.fillStyle = 'rgba(0,0,0,0.72)';
+        ctx.fillRect(p.x - bw/2, p.y - hh - bh - 16/cam.zoom, 170/cam.zoom, 15/cam.zoom);
+        ctx.fillStyle = '#fa0';
+        ctx.font = (11/cam.zoom)+'px Consolas, monospace';
+        ctx.textAlign = 'left';
+        ctx.fillText(`BLOCK[${row},${col}] id=${blk[0]}`, p.x - bw/2, p.y - hh - bh - 4/cam.zoom);
+      }
+    }
     r.restore();
 
     // 右侧信息面板
@@ -2488,7 +2506,7 @@ class Game{
     const blocks = this.map.getBlocks?.(gx, gy);
     const decors = this.map.getDecorationsAt?.(gx, gy) || [];
     const hasOffsets = this.debugSrcOff.x || this.debugSrcOff.y || this.debugDrawOff.x || this.debugDrawOff.y;
-    const panelH = hasOffsets ? 330 : 300;
+    const panelH = (hasOffsets ? 330 : 300) + (this.map.themeName ? 18 : 0);
 
     const px = w - 280, py = 36;
     ctx.fillStyle = 'rgba(0,0,0,0.82)';
@@ -2516,6 +2534,7 @@ class Game{
     const sp = this.map.specialAt(gx, gy);
     line('tileId:', tid, '#fff');
     line('name:', m?.name || '?', '#fff');
+    if(this.map.themeName) line('theme:', this.map.themeName, '#f8a');
     line('solid:', m?.solid ?? '?');
     line('walkable:', m?.walkable ?? '?');
     line('alias:', m?.alias || '(none)');
@@ -2541,7 +2560,18 @@ class Game{
       line('blocks:', blocks.length+'个', '#fa0');
       blocks.forEach((bid,i)=>{
         const bt = MAT.block[bid];
-        line(`  [${i}]`, `${bid} (${bt?.name||'?'}) h=${bt?.h||'?'}`, '#fa0');
+        if(!bt){ line(`  [${i}]`, `${bid} (缺失 rect)`, '#f84'); return; }
+        line(`  [${i}] id`, bid, '#fa0');
+        line('    name:', bt.name || '?', '#fa0');
+        line('    solid:', bt.solid ?? '?');
+        line('    walkable:', bt.walkable ?? '?');
+        line('    alias:', bt.alias || '(none)');
+        line('    type:', bt.type || '-');
+        line('    h:', bt.h ?? '?');
+        if(bt.atlas){
+          const br = Math.floor(bt.rect[1]/64), bc = Math.floor(bt.rect[0]/64);
+          line('    atlas:', `BLOCK[${br},${bc}] (${bt.atlas})`, '#fa0');
+        }
       });
     }
     if(decors.length){
@@ -3371,4 +3401,8 @@ class Game{
 window.addEventListener('DOMContentLoaded', async ()=>{
   await loadSource();           // 加载 Elin SourceData (sources.json + lang_zh.json)
   window.game = new Game();
+  // 调试便利：暴露材质表
+  window.MAT = MAT;
+  window.GROUPS = GROUPS;
+  window.BIOMES = BIOMES;
 });

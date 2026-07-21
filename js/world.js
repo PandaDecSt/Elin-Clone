@@ -53,23 +53,45 @@ for(const [k, arr] of Object.entries(G.floor)){
 }
 
 // ---- 方块语义 → 数字 id ----
+// 每个语义映射到 Elin 中真实存在的「不同」墙块 id（此前全部指向 wall[0]=0 空块，导致所有墙一样）。
+// 真实墙块：石墙(granite)=9/16/19/20/21/140/151；木板(oak)=22/30/31/32/145/146；砖墙(mud)=138/50；
+// 沙墙=33；雪墙=36；冰墙=35；岩浆(magma)=201/18；暗黑(slate/cobalt)=207/191；玻璃=12/14；
+// 半高块=11(石)/5(土)；柱(pillar, 通透)=67-72。
+// 务必避开编辑块：128(隐身)/149(室内)/150(室外)/205(云)。
 const BLOCK_SEM = {
-  wall:        G.block.wall[0],
-  stone_wall:  G.block.wall[0],
-  wood_wall:   G.block.wall[0],
-  brick_wall:  G.block.wall[0],
-  dark_wall:   G.block.wall[0],
-  cobble_wall: G.block.wall[0],
-  mossy_wall:  G.block.wall[0],
-  dark_stone:  G.block.wall[0],
-  sand_wall:   G.block.wall[0],
-  smooth_stone:G.block.wall[0],
-  stone_half:  G.block.half[0] != null ? G.block.half[0] : G.block.wall[0],
-  wood_half:   G.block.half[0] != null ? G.block.half[0] : G.block.wall[0],
-  wood_fence:  G.block.wall[0],
-  stone_fence: G.block.wall[0],
-  iron_bars:   G.block.wall[0],
+  wall:        9,    // stone block (granite) — 默认石墙
+  stone_wall:  9,    // stone block
+  wood_wall:   22,   // wood block (oak)
+  brick_wall:  138,  // brick block (mud)
+  dark_wall:   207,  // alien block (slate) — 暗黑主题
+  cobble_wall: 143,  // stone block (granite) 变体
+  mossy_wall:  16,   // stone block (granite) 变体（偏苔绿感）
+  dark_stone:  191,  // unknown block (cobalt) — 蓝暗石
+  sand_wall:   33,   // sand block
+  smooth_stone:151,  // plain block (granite)
+  stone_half:  11,   // stone step (HalfBlock, h=0.5)
+  wood_half:   5,    // natural step (HalfBlock, h=0.5)
+  wood_fence:  69,   // wooden pillar（通透栅栏柱）
+  stone_fence: 71,   // stone pillar（通透栅栏柱）
+  iron_bars:   12,   // glass block（通透栅栏）
 };
+
+// ---- 地牢主题（按 dangerLv 切换，参考原版 BiomeProfile 单一 biome→地板/墙）----
+// 原版地牢整张用 biome.exterior.floor + biome.exterior.block 一种地板+一种墙；深度越高分配越危险的 BiomeProfile。
+// 这里用 dangerLv 分三档：低级=石质、中级=洞穴、高级=熔岩/暗黑。
+const DUNGEON_THEMES = [
+  // tier 0：低级 石质地牢
+  { name:'stone', lvMax:3,  floors:[6,14,15,99],  wall:9,   wallVar:16,  wallVarChance:0.25 },
+  // tier 1：中级 洞穴地牢
+  { name:'cave',  lvMax:7,  floors:[99,6,14,16],  wall:16,  wallVar:151, wallVarChance:0.30 },
+  // tier 2：高级 熔岩/暗黑地牢
+  { name:'lava',  lvMax:99, floors:[20,99,6,18],  wall:201, wallVar:207, wallVarChance:0.30 },
+];
+function pickDungeonTheme(lv){
+  const L = (typeof lv === 'number' && isFinite(lv)) ? Math.abs(lv) : 1;
+  for(const t of DUNGEON_THEMES){ if(L <= t.lvMax) return t; }
+  return DUNGEON_THEMES[DUNGEON_THEMES.length - 1];
+}
 
 // ---- 装饰物语义 → obj 数字 id ----
 const DEC_KEY = {};
@@ -118,9 +140,9 @@ function resolveBlockId(id){
   if(typeof id === 'string'){
     if(BLOCK_SEM[id] !== undefined) return BLOCK_SEM[id];
     if(/^\d+$/.test(id)) return parseInt(id, 10);
-    return G.block.wall[0];
+    return BLOCK_SEM.wall;
   }
-  return G.block.wall[0];
+  return BLOCK_SEM.wall;
 }
 function resolveObjId(id){
   if(typeof id === 'number') return id;
@@ -132,6 +154,8 @@ function resolveObjId(id){
   return null;
 }
 const isFloor = (tid, key) => tid === FLOOR_SEM[key];
+// 是否为任意地板（属于某个 floor 分组），用于主题化后判断"已开挖/房间地板"
+const isAnyFloor = (tid) => FLOOR_GROUP[tid] !== undefined;
 
 // ==================== GameMap（实际的瓦片网格）====================
 export class GameMap{
@@ -172,7 +196,7 @@ export class GameMap{
     return MAT.floor[this.tiles[y][x]] || null;
   }
   tileId(x,y){
-    if(x<0||y<0||x>=this.w||y>=this.h) return G.block.wall[0];
+    if(x<0||y<0||x>=this.w||y>=this.h) return FLOOR_SEM.floor;
     return this.tiles[y][x];
   }
   specialAt(x,y){
@@ -531,24 +555,81 @@ export function generateRegion(rng, seed = 0){
 }
 
 // ---- 噪声地形生成 ----
+// ---- 分形值噪声（多倍频，参考原版 biome 由连续场驱动，避免硬边界）----
+function _vhash(ix, iy, seed){
+  // 标准 32 位整数哈希（Math.imul 保证 32 位乘法，>>> 无符号移位，避免符号偏置）
+  let h = Math.imul(ix | 0, 374761393) ^ Math.imul(iy | 0, 668265263) ^ Math.imul(seed | 0, 1274126177);
+  h = Math.imul(h ^ (h >>> 13), 1274126177);
+  h ^= h >>> 16;
+  return (h >>> 0) / 4294967296;
+}
+function _smoothstep(t){ return t * t * (3 - 2 * t); }
+function _valueNoise(x, y, seed){
+  const x0 = Math.floor(x), y0 = Math.floor(y);
+  const fx = x - x0, fy = y - y0;
+  const v00 = _vhash(x0,   y0,   seed);
+  const v10 = _vhash(x0+1, y0,   seed);
+  const v01 = _vhash(x0,   y0+1, seed);
+  const v11 = _vhash(x0+1, y0+1, seed);
+  const sx = _smoothstep(fx), sy = _smoothstep(fy);
+  const a = v00 + (v10 - v00) * sx;
+  const b = v01 + (v11 - v01) * sx;
+  return a + (b - a) * sy;
+}
+function _fbm(x, y, seed, octaves){
+  octaves = octaves || 4;
+  let amp = 0.5, freq = 1, sum = 0, norm = 0;
+  for(let o = 0; o < octaves; o++){
+    sum += amp * _valueNoise(x * freq, y * freq, seed + o * 101);
+    norm += amp;
+    amp *= 0.5; freq *= 2;
+  }
+  return sum / norm;
+}
+
 function _genTerrainNoise(region, rng){
-  // 简单的多层噪声地形
   const W = region.regionW, H = region.regionH;
-  for(let y = 0; y < H; y++){
+  const seed = rng ? rng.int(1, 99999) : 12345;
+  const SC = 0.12, OCT = 5;
+  // 1. 连续场：高程(fbm) + 湿度(另一 seed 的 fbm)
+  const elev = new Float32Array(W * H), moist = new Float32Array(W * H);
+  for(let y = 0; y < H; y++)
     for(let x = 0; x < W; x++){
-      const v = _simpleNoise(x, y, W, H);
+      const i = y * W + x;
+      elev[i]  = _fbm(x * SC, y * SC, seed, OCT);
+      moist[i] = _fbm(x * SC + 50, y * SC + 50, seed + 777, 4);
+    }
+  // 2. 轻度 3x3 模糊，消除单格噪点，使 biome 过渡更自然
+  const e2 = new Float32Array(W * H);
+  for(let y = 0; y < H; y++)
+    for(let x = 0; x < W; x++){
+      let s = 0, c = 0;
+      for(let dy = -1; dy <= 1; dy++)
+        for(let dx = -1; dx <= 1; dx++){
+          const nx = x + dx, ny = y + dy;
+          if(nx < 0 || ny < 0 || nx >= W || ny >= H) continue;
+          s += elev[ny * W + nx]; c++;
+        }
+      e2[y * W + x] = s / c;
+    }
+  // 3. 由 高程/湿度/纬度 分配 biome（参考 Elin BiomProfile 连续映射）
+  for(let y = 0; y < H; y++)
+    for(let x = 0; x < W; x++){
+      const i = y * W + x;
+      const e = e2[i], m = moist[i];
+      const lat = y / H, cold = Math.abs(lat - 0.5) * 2; // 0 中部 1 边缘（冷）
       let biome;
-      if(v < 0.15) biome = 'water';
-      else if(v < 0.22) biome = 'beach';
-      else if(v < 0.50) biome = 'plain';
-      else if(v < 0.65) biome = 'forest';
-      else if(v < 0.78) biome = 'hill';
-      else if(v < 0.88) biome = 'swamp';
-      else if(v < 0.95) biome = 'snow';
-      else biome = 'mountain';
+      if(e < 0.42) biome = 'water';
+      else if(e < 0.46) biome = 'beach';
+      else if(e > 0.82) biome = 'mountain';
+      else if(cold > 0.70 && e > 0.55) biome = 'snow';
+      else if(m < 0.26 && e > 0.46) biome = 'desert';
+      else if(m > 0.68) biome = 'swamp';
+      else if(m > 0.50 || e > 0.60) biome = 'forest';
+      else if(e > 0.50) biome = 'hill';
+      else biome = 'plain';
       region.terrain[y][x].biome = biome;
     }
-  }
 }
 
 // 简单伪噪声函数
@@ -948,12 +1029,16 @@ function _generateDungeonMap(zone, rng){
   map.depth = Math.abs(zone.lv) + 1;
   map.name = zone.name;
 
-  // 填充
-  const wallBlockTypes = ['stone_wall','stone_wall'];
+  // 主题：按 dangerLv 选 石质/洞穴/熔岩暗黑（参考原版 BiomeProfile 单一地板+墙）
+  const theme = pickDungeonTheme(zone.lv);
+  map.themeName = theme.name;
+  map.primaryFloor = theme.floors[0];
+
+  // 填充（整张地图一种墙 + 一种主地板，与原版 biome 一致）
   for(let y = 0; y < H; y++){
     for(let x = 0; x < W; x++){
-      map.setTile(x, y, 'floor_dark');
-      map.setBlocks(x, y, wallBlockTypes.slice());
+      map.setTile(x, y, theme.floors[0]);
+      map.setBlocks(x, y, [theme.wall]);
     }
   }
 
@@ -976,7 +1061,7 @@ function _generateDungeonMap(zone, rng){
     if(overlap) continue;
     for(let y = ry; y < ry+rh; y++)
       for(let x = rx; x < rx+rw; x++){
-        map.setTile(x, y, 'floor');
+        map.setTile(x, y, theme.floors[0]);
         map.clearBlocks(x, y);
       }
     if(rooms.length > 0){
@@ -1006,7 +1091,7 @@ function _generateDungeonMap(zone, rng){
         {x:r.cx, y:r.y-1},{x:r.cx, y:r.y+r.h},
       ];
       for(const s of sides){
-        if(isFloor(map.tileId(s.x,s.y),'floor') && isDoorway(map,s.x,s.y)){
+        if(isAnyFloor(map.tileId(s.x,s.y)) && isDoorway(map,s.x,s.y)){
           map.setTile(s.x,s.y,'door');
           map.clearBlocks(s.x,s.y);
           break;
@@ -1017,20 +1102,21 @@ function _generateDungeonMap(zone, rng){
 
   // 地形多样化
   for(const r of rooms){
-    // 地牢房间地板只从石质/洞穴地板里选（不混入草地/泥土），与原版 biome 单一地板一致
-    const roomFloor = rng.pick(['floor','floor_dark','stone_path','cave']);
+    // 房间地板只从本主题地板池里选（不混入草地/泥土），与原版 biome 单一地板一致
+    const roomFloor = rng.pick(theme.floors);
     for(let y=r.y;y<r.y+r.h;y++){
       for(let x=r.x;x<r.x+r.w;x++){
-        if(isFloor(map.tileId(x,y),'floor')) map.setTile(x,y,roomFloor);
+        if(isAnyFloor(map.tileId(x,y))) map.setTile(x,y,roomFloor);
       }
     }
-    if(rng.chance(0.4)){
+    // 墙体变体（主题内的次级墙，如苔绿石/plain/alien）
+    if(rng.chance(theme.wallVarChance)){
       for(let y=r.y-1;y<=r.y+r.h;y++){
         for(let x=r.x-1;x<=r.x+r.w;x++){
           if(map.hasBlocks(x,y) && rng.chance(0.3)){
             const blocks = map.getBlocks(x,y);
             if(blocks){
-              const newBlocks = blocks.map(id => id === BLOCK_SEM.stone_wall ? BLOCK_SEM.mossy_wall : id);
+              const newBlocks = blocks.map(id => id === theme.wall ? theme.wallVar : id);
               map.setBlocks(x, y, newBlocks);
             }
           }
@@ -1166,13 +1252,15 @@ function carveCorridor(map, x1,y1,x2,y2, rng){
   }
 }
 function carveH(map,x1,x2,y){
+  const pf = map.primaryFloor != null ? map.primaryFloor : FLOOR_SEM.floor;
   for(let x=Math.min(x1,x2);x<=Math.max(x1,x2);x++){
-    if(map.hasSolidBlocks(x,y)){ map.setTile(x,y,'floor'); map.clearBlocks(x,y); }
+    if(map.hasSolidBlocks(x,y)){ map.setTile(x,y,pf); map.clearBlocks(x,y); }
   }
 }
 function carveV(map,y1,y2,x){
+  const pf = map.primaryFloor != null ? map.primaryFloor : FLOOR_SEM.floor;
   for(let y=Math.min(y1,y2);y<=Math.max(y1,y2);y++){
-    if(map.hasSolidBlocks(x,y)){ map.setTile(x,y,'floor'); map.clearBlocks(x,y); }
+    if(map.hasSolidBlocks(x,y)){ map.setTile(x,y,pf); map.clearBlocks(x,y); }
   }
 }
 function isDoorway(map,x,y){
