@@ -22,22 +22,28 @@ import { MONSTERS } from './data.js';
 const G = GROUPS;
 
 // ---- 地面语义 → 数字 id ----
+// ===== 地面语义 → 真实 Elin 地板 id =====
+// 原版 Elin 的单体地图/地牢生成是“按 biome 选一种地板”（见 Elin-Decompiled 的
+// MapGenDungen.cs / BiomeProfile.cs：地板来自 zone.biome.exterior.floor / interior.floor），
+// 并非随机挑。此前这些语义被错配到 G.floor.stone[0..4]（含 pedestal=104 / alien floor=131/134），
+// 造成“泥土斑块变石头”“地牢混入草地”等不合理现象。这里映射到正确的 Elin 地板 id。
 const FLOOR_SEM = {
-  grass:      G.floor.grass[0],
-  grass_dark: G.floor.grass[1] != null ? G.floor.grass[1] : G.floor.grass[0],
-  moss:       G.floor.grass[2] != null ? G.floor.grass[2] : G.floor.grass[0],
-  dirt:       G.floor.stone[3] != null ? G.floor.stone[3] : G.floor.stone[0],
-  floor:      G.floor.stone[0],
-  floor_dark: G.floor.stone[1] != null ? G.floor.stone[1] : G.floor.stone[0],
-  stone_path: G.floor.stone[2] != null ? G.floor.stone[2] : G.floor.stone[0],
-  rubble:     G.floor.stone[4] != null ? G.floor.stone[4] : G.floor.stone[0],
-  sand:       G.floor.sand[0],
-  snow:       G.floor.snow ? G.floor.snow[0] : G.floor.stone[0],
-  ice:        G.floor.ice ? G.floor.ice[0] : G.floor.stone[0],
-  wood:       G.floor.wood ? G.floor.wood[0] : G.floor.stone[0],
-  water:      (G.floor.water_shallow && G.floor.water_shallow[0]) != null ? G.floor.water_shallow[0] : G.floor.stone[0],
-  water_deep: (G.floor.water_deep && G.floor.water_deep[0]) != null ? G.floor.water_deep[0] : G.floor.stone[0],
-  wall:       G.floor.stone[0],  // 越界地形：用石地板（实心由方块提供）
+  grass:      G.floor.grass[0],                                                          // 113 bush/grass
+  grass_dark: G.floor.grass[1] != null ? G.floor.grass[1] : G.floor.grass[0],            // 114
+  moss:       G.floor.grass[2] != null ? G.floor.grass[2] : G.floor.grass[0],            // 75 grass（苔藓=暗草，可接受）
+  dirt:       100,                                                                        // 100 barren soil floor（真实泥土，不再是石地板）
+  floor:      6,                                                                          // 6  stone floor（修正 pedestal=104）
+  floor_dark: 15,                                                                         // 15 stone floor（修正 alien=131）
+  stone_path: 14,                                                                         // 14 stone floor（修正 alien=134）
+  rubble:     29,                                                                         // 29 stone floor（碎石）
+  cave:       99,                                                                         // 99 cave floor（地牢房间用）
+  sand:       G.floor.sand[0],                                                            // 33 sand floor
+  snow:       G.floor.snow ? G.floor.snow[0] : 6,                                         // 39 snow floor
+  ice:        G.floor.ice ? G.floor.ice[0] : 38,                                          // 38 ice floor
+  wood:       G.floor.wood ? G.floor.wood[0] : 126,                                       // 126 wooden floor
+  water:      (G.floor.water_shallow && G.floor.water_shallow[0]) != null ? G.floor.water_shallow[0] : 73,
+  water_deep: (G.floor.water_deep && G.floor.water_deep[0]) != null ? G.floor.water_deep[0] : 72,
+  wall:       6,                                                                          // 越界地形用石地板（实心由方块提供）
 };
 // 每个地面数字 id 归属的分组（用于装饰物选择）
 const FLOOR_GROUP = {};
@@ -86,11 +92,11 @@ DEC_KEY.bush          = firstObj('bush');
 
 // 特殊瓦片：底层放一个地板，再打 special 标记（楼梯/门/祭坛/宝箱）
 const SPECIALS = {
-  stairs_dn:  { kind: 'stairs_dn',  base: G.floor.stone[0] },
-  stairs_up:  { kind: 'stairs_up',  base: G.floor.stone[0] },
-  door:       { kind: 'door',       base: G.floor.stone[0] },
-  altar:      { kind: 'altar',      base: G.floor.stone[0] },
-  chest_tile: { kind: 'chest',      base: G.floor.stone[0] },
+  stairs_dn:  { kind: 'stairs_dn',  base: FLOOR_SEM.floor },
+  stairs_up:  { kind: 'stairs_up',  base: FLOOR_SEM.floor },
+  door:       { kind: 'door',       base: FLOOR_SEM.floor },
+  altar:      { kind: 'altar',      base: FLOOR_SEM.floor },
+  chest_tile: { kind: 'chest',      base: FLOOR_SEM.floor },
 };
 const isSpecialKey = (id) => typeof id === 'string' && SPECIALS[id];
 
@@ -1011,7 +1017,8 @@ function _generateDungeonMap(zone, rng){
 
   // 地形多样化
   for(const r of rooms){
-    const roomFloor = rng.pick(['floor','floor_dark','dirt','stone_path','moss']);
+    // 地牢房间地板只从石质/洞穴地板里选（不混入草地/泥土），与原版 biome 单一地板一致
+    const roomFloor = rng.pick(['floor','floor_dark','stone_path','cave']);
     for(let y=r.y;y<r.y+r.h;y++){
       for(let x=r.x;x<r.x+r.w;x++){
         if(isFloor(map.tileId(x,y),'floor')) map.setTile(x,y,roomFloor);
