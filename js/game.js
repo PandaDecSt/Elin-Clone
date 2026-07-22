@@ -58,7 +58,10 @@ class Game{
     this.dmgPopups = [];       // 浮动伤害数字 [{x,y,text,color,life}]
     this._autoPath = null;      // 自动寻路状态 { path: [], idx: 0, target: {x,y} }
     // 建造模式
-    this.buildMode = null;      // null=关闭, {cat:'decor'|'wall'|'floor', tool:'place'|'remove', selected:null}
+    this.buildMode = null;      // null=关闭, {cat:'decor'|'wall'|'floor', tool:'place'|'remove', selected:null, search:''}
+    this.fogNoFog = false;      // 建造模式：去除战争迷雾（完全照亮）
+    this.fogReveal = false;     // 建造模式：直接显示未探索区域
+    this._allTrueCache = null;  // 全true可见性数组缓存
     // 调试模式
     this.debugMode = false;
     this.debugTile = null;      // {x, y} 选中的格子
@@ -1989,6 +1992,18 @@ class Game{
     r.applyCam();
     if(!this.map){ r.restore(); return; }
 
+    // 建造模式迷雾覆盖：显示未探索时临时将 visible/explored 置为全 true（渲染后还原）
+    const _savedVis = this.map.visible, _savedExp = this.map.explored;
+    if(this.fogReveal){
+      if(!this._allTrueCache || this._allTrueCache.length !== this.map.h || this._allTrueCache[0].length !== this.map.w){
+        const a = [];
+        for(let y = 0; y < this.map.h; y++){ const row = []; for(let x = 0; x < this.map.w; x++) row.push(true); a.push(row); }
+        this._allTrueCache = a;
+      }
+      this.map.explored = this._allTrueCache;
+      this.map.visible = this._allTrueCache;
+    }
+
     const cam = r.cam;
     const w = this.canvas.clientWidth, h = this.canvas.clientHeight;
     const center = screenToGrid(w/2, h/2, cam, w, h);
@@ -2066,6 +2081,8 @@ class Game{
       // 计算某格的综合光照值 (0=完全照亮, 1=完全黑暗)
       const fogGradientOn = this.ui.settings.fogGradient;
       this._computeFogAlpha = (gx, gy) => {
+        // 建造模式：去除迷雾 / 显示未探索 → 完全照亮
+        if(this.fogNoFog || this.fogReveal) return 0;
         // 已探索但不在视野内: 已探索迷雾
         if(!this.map.visible[gy] || !this.map.visible[gy][gx]){
           if(!fogGradientOn) return 0.62;
@@ -2403,6 +2420,12 @@ class Game{
 
     // 调试模式：绘制选中格子信息
     if(this.debugMode) this._renderDebug();
+
+    // 还原迷雾数组（若本帧被覆盖）
+    if(this.fogReveal){
+      this.map.visible = _savedVis;
+      this.map.explored = _savedExp;
+    }
   }
 
   // ========== 调试模式渲染 ==========
@@ -2544,9 +2567,9 @@ class Game{
     line('explored:', exp, exp?'#4f8':'#f84');
     divider();
     if(m){
-      line('atlas:', 'FLOOR', '#0f8');
-      line('row:', Math.floor(m.rect[1]/48));
-      line('col:', Math.floor(m.rect[0]/64));
+      const frc = this._atlasRC(m);
+      line('atlas:', m.atlas, '#0f8');
+      if(frc) line('贴图集行列:', `行 ${frc.row} / 列 ${frc.col}`, '#0f8');
     } else {
       line('atlas:', '(none)', '#f84');
     }
@@ -2576,9 +2599,20 @@ class Game{
     }
     if(decors.length){
       divider();
-      line('decors:', decors.length+'个', '#a8f');
+      line('objs(装饰):', decors.length+'个', '#a8f');
       decors.forEach((d,i)=>{
-        line(`  [${i}]`, `${d.typeId||d.type||'?'}`, '#a8f');
+        const oid = d.type;
+        const od = MAT.obj[oid];
+        const orc = this._atlasRC(od);
+        line(`  [${i}] id`, oid, '#a8f');
+        line('    name:', (od && (od.name || od.nameJP)) || '?', '#a8f');
+        if(od && od.atlas){
+          line('    atlas:', `${od.atlas}${orc ? ` [行 ${orc.row}, 列 ${orc.col}]` : ''}`, '#a8f');
+        }
+        line('    alias:', od ? (od.alias || '-') : '(缺失)');
+        line('    type:', od ? (od.type || '-') : '?');
+        line('    solid:', od ? (od.solid ?? '?') : '?');
+        line('    walkable:', od ? (od.walkable ?? '?') : '?');
       });
     }
     ctx.restore();
@@ -2587,7 +2621,7 @@ class Game{
   _drawBuildPreview(r){
     const ctx = r.ctx;
     const gx = this.hoverTile.x, gy = this.hoverTile.y;
-    if(!this.map.visible[gy]?.[gx]) return;
+    if(gx < 0 || gy < 0 || gx >= this.map.w || gy >= this.map.h) return;
     const p = gridToScreen(gx, gy);
     const hw = TILE_W/2, hh = TILE_H/2;
     const bm = this.buildMode;
@@ -3170,9 +3204,14 @@ class Game{
   // ========== 建造模式 ==========
   _toggleBuildMode(){
     if(this.buildMode){
-      // 关闭
+      // 关闭：复位迷雾覆盖标记
       this.buildMode = null;
+      this.fogNoFog = false;
+      this.fogReveal = false;
+      const nf = document.getElementById('build-nofog'); if(nf) nf.checked = false;
+      const rv = document.getElementById('build-reveal'); if(rv) rv.checked = false;
       document.getElementById('build-panel').classList.add('hidden');
+      this._hideBuildTooltip();
       this.log('退出建造模式', 'info');
     } else {
       // 打开
@@ -3185,7 +3224,13 @@ class Game{
   _showBuildPanel(){
     const panel = document.getElementById('build-panel');
     panel.classList.remove('hidden');
+    if(this.buildMode.search === undefined) this.buildMode.search = '';
     this._renderBuildGrid();
+    // 分类标签计数
+    const setCount = (id, n) => { const el = document.getElementById(id); if(el) el.textContent = '(' + n + ')'; };
+    setCount('tabn-decor', Object.keys(MAT.obj).length);
+    setCount('tabn-wall', Object.keys(MAT.block).length);
+    setCount('tabn-floor', Object.keys(MAT.floor).length);
     // tab 切换
     panel.querySelectorAll('.build-tab').forEach(tab => {
       tab.onclick = () => {
@@ -3204,6 +3249,25 @@ class Game{
         this.buildMode.tool = btn.dataset.tool;
       };
     });
+    // 搜索（防抖）
+    const searchEl = document.getElementById('build-search');
+    if(searchEl){
+      searchEl.value = this.buildMode.search || '';
+      if(this._buildSearchTimer) clearTimeout(this._buildSearchTimer);
+      searchEl.oninput = (e) => {
+        const v = e.target.value;
+        if(this._buildSearchTimer) clearTimeout(this._buildSearchTimer);
+        this._buildSearchTimer = setTimeout(() => {
+          this.buildMode.search = v;
+          this._renderBuildGrid();
+        }, 80);
+      };
+    }
+    // 迷雾开关
+    const nofog = document.getElementById('build-nofog');
+    const reveal = document.getElementById('build-reveal');
+    if(nofog){ nofog.checked = !!this.fogNoFog; nofog.onchange = (e)=>{ this.fogNoFog = e.target.checked; }; }
+    if(reveal){ reveal.checked = !!this.fogReveal; reveal.onchange = (e)=>{ this.fogReveal = e.target.checked; }; }
     // 关闭按钮
     document.getElementById('build-close').onclick = () => this._toggleBuildMode();
   }
@@ -3211,75 +3275,185 @@ class Game{
   _renderBuildGrid(){
     const grid = document.getElementById('build-grid');
     const cat = this.buildMode.cat;
+    const q = (this.buildMode.search || '').trim().toLowerCase();
     grid.innerHTML = '';
-    let items = [];
-    if(cat === 'decor'){
-      // 列出可用的 obj 分组（取每组代表性 id）
-      const decorGroups = ['flower','mushroom','grass','tree','rock','bone','crystal','shell','bush','barrel','crate','book','chest','sign','statue','lantern','web','cursed'];
-      for(const g of decorGroups){
-        const arr = GROUPS.obj[g];
-        if(arr && arr.length){
-          const id = arr[0];
-          const def = MAT.obj[id];
-          items.push({id, name: (def && (def.name || def.nameJP)) || g, def});
-        }
+
+    // 收集当前分类的全部元素（不再只取每组代表）
+    let all = [];
+    const table = cat === 'decor' ? MAT.obj : cat === 'wall' ? MAT.block : MAT.floor;
+    for(const id in table){
+      const def = table[id];
+      if(!def) continue;
+      all.push({ id: +id, def, cat });
+    }
+
+    // 搜索过滤（名称/ID/类型/标签/别名/材质/群系/渲染）
+    if(q) all = all.filter(it => this._matchBuildItem(it, q));
+
+    // 分组（无搜索时按语义分组，便于浏览海量元素）
+    const groups = {};
+    if(!q){
+      for(const it of all){
+        const g = this._buildGroupKey(cat, it.def);
+        (groups[g] = groups[g] || []).push(it);
       }
-    } else if(cat === 'wall'){
-      // 列出方块分组
-      const wallGroups = ['wall','pillar','half','water','waterfall'];
-      for(const g of wallGroups){
-        const arr = GROUPS.block[g];
-        if(arr && arr.length){
-          const id = arr[0];
-          const def = MAT.block[id];
-          items.push({id, name: (def && def.name) || g, def});
-        }
+    } else {
+      groups['搜索结果'] = all;
+    }
+
+    const frag = document.createDocumentFragment();
+    const keys = Object.keys(groups).sort((a,b)=> a=== '搜索结果' ? -1 : b==='搜索结果' ? 1 : a.localeCompare(b));
+    for(const gk of keys){
+      if(!q){
+        const h = document.createElement('div');
+        h.className = 'build-group-header';
+        h.textContent = gk + ' (' + groups[gk].length + ')';
+        frag.appendChild(h);
       }
-    } else if(cat === 'floor'){
-      // 列出地面分组
-      const floorGroups = ['grass','water_shallow','water','water_deep','sand','snow','ice','stone','wood','factory'];
-      for(const g of floorGroups){
-        const arr = GROUPS.floor[g];
-        if(arr && arr.length){
-          const id = arr[0];
-          const def = MAT.floor[id];
-          items.push({id, name: (def && (def.name || def.nameJP)) || g, def});
-        }
+      for(const it of groups[gk]){
+        frag.appendChild(this._makeBuildItem(cat, it));
       }
     }
-    for(const item of items){
-      const el = document.createElement('div');
-      el.className = 'build-item';
-      if(this.buildMode.selected === item.id) el.classList.add('selected');
+    grid.appendChild(frag);
 
-      const iconDiv = document.createElement('div');
-      iconDiv.className = 'build-item-icon';
+    const cnt = document.getElementById('build-count');
+    if(cnt) cnt.textContent = all.length + ' 项';
+  }
 
-      // 用canvas绘制图集精灵
-      const c = document.createElement('canvas');
-      c.width = 48; c.height = 48;
-      c.style.width = '100%'; c.style.height = '100%';
-      c.style.imageRendering = 'pixelated';
-      this._drawBuildIcon(c, cat, item.def);
-      iconDiv.appendChild(c);
+  _matchBuildItem(it, q){
+    const d = it.def;
+    const hay = [
+      String(it.id), d.name, d.nameJP, d.type, d.tag, d.alias,
+      d.mat, d.biome, d.render, d.objType, d.defMat
+    ].filter(Boolean).join(' ').toLowerCase();
+    return hay.includes(q);
+  }
 
-      const nameDiv = document.createElement('div');
-      nameDiv.className = 'build-item-name';
-      nameDiv.textContent = item.name;
+  _buildGroupKey(cat, d){
+    if(cat === 'decor') return (d.type && d.type !== 'None' && d.type !== 'none') ? d.type : (d.render || '其他');
+    if(cat === 'wall')  return d.mat || d.type || '其他';
+    if(cat === 'floor') return d.biome || d.mat || '其他';
+    return '其他';
+  }
 
-      el.appendChild(iconDiv);
-      el.appendChild(nameDiv);
+  _makeBuildItem(cat, it){
+    const el = document.createElement('div');
+    el.className = 'build-item';
+    if(this.buildMode.selected === it.id) el.classList.add('selected');
 
-      el.onclick = () => {
-        this.buildMode.selected = item.id;
-        this.buildMode.tool = 'place';
-        grid.querySelectorAll('.build-item').forEach(x=>x.classList.remove('selected'));
-        el.classList.add('selected');
-        document.querySelectorAll('.build-tool-btn').forEach(b=>b.classList.remove('active'));
-        document.querySelector('.build-tool-btn[data-tool="place"]').classList.add('active');
-      };
-      grid.appendChild(el);
+    const iconDiv = document.createElement('div');
+    iconDiv.className = 'build-item-icon';
+    const c = document.createElement('canvas');
+    c.width = 48; c.height = 48;
+    c.style.width = '100%'; c.style.height = '100%';
+    c.style.imageRendering = 'pixelated';
+    this._drawBuildIcon(c, cat, it.def);
+    iconDiv.appendChild(c);
+
+    const nameDiv = document.createElement('div');
+    nameDiv.className = 'build-item-name';
+    nameDiv.textContent = (it.def.name || it.def.nameJP) || ('#' + it.id);
+    nameDiv.title = (it.def.name || it.def.nameJP || ('ID ' + it.id)) + '  ·  id=' + it.id;
+
+    const idDiv = document.createElement('div');
+    idDiv.className = 'build-item-id';
+    idDiv.textContent = '#' + it.id;
+
+    el.appendChild(iconDiv);
+    el.appendChild(nameDiv);
+    el.appendChild(idDiv);
+
+    el.onclick = () => {
+      this.buildMode.selected = it.id;
+      this.buildMode.tool = 'place';
+      const grid = document.getElementById('build-grid');
+      grid.querySelectorAll('.build-item').forEach(x=>x.classList.remove('selected'));
+      el.classList.add('selected');
+      document.querySelectorAll('.build-tool-btn').forEach(b=>b.classList.remove('active'));
+      const pbtn = document.querySelector('.build-tool-btn[data-tool="place"]');
+      if(pbtn) pbtn.classList.add('active');
+    };
+    // 悬停信息卡（显示 atlas 行列等）
+    el.onmouseenter = (e) => { this._showBuildTooltip(it); this._moveBuildTooltip(e); };
+    el.onmousemove = (e) => { this._moveBuildTooltip(e); };
+    el.onmouseleave = () => { this._hideBuildTooltip(); };
+    return el;
+  }
+
+  // 贴图集固定 cell 尺寸（cell = 纹理尺寸 / pass.pmesh.tiling）
+  // 数值为游戏权威值：解析 resources.assets 的 RenderData→MeshPass→ProceduralMesh.tiling 得到，
+  // 见 data/elin_source/render_atlas_truth.json。
+  _atlasCell(atlas){
+    switch(atlas){
+      case 'floors':       return { cw:64, ch:48 };
+      case 'blocks':       return { cw:64, ch:64 };
+      case 'roofs':        return { cw:96, ch:80 };
+      case 'objs':         return { cw:64, ch:64 };
+      case 'objs_S':       return { cw:32, ch:32 };
+      case 'objs_L':       return { cw:80, ch:64 };   // 游戏真值 80x64（原 80x32 错误）
+      case 'objs_SS':      return { cw:32, ch:32 };   // 游戏无 pass 引用，legacy 猜测
+      case 'objs_snow':    return { cw:64, ch:64 };
+      case 'objs_S_snow':  return { cw:32, ch:32 };
+      case 'objs_L_snow':  return { cw:80, ch:64 };   // 同 objs_L 80x64
+      case 'blocks_snow':  return { cw:64, ch:64 };
+      case 'floors_snow':  return { cw:64, ch:48 };
+      case 'objs_C':       return { cw:128, ch:128 }; // 角色图集 pass chara
+      case 'objs_CL':      return { cw:128, ch:256 }; // 角色图集 pass charaL（charaLW 变体 256x256）
+      case 'objs_CLL':     return { cw:256, ch:256 }; // 角色图集 pass charaLL（原 32x32 错误）
+      default:             return { cw:64, ch:64 };
     }
+  }
+  // 贴图集内行列位置（网格索引，非裁剪尺寸）
+  _atlasRC(def){
+    if(!def || !def.atlas || !Array.isArray(def.rect) || def.rect.length < 4) return null;
+    const x = def.rect[0], y = def.rect[1];
+    const cell = this._atlasCell(def.atlas);
+    const col = Math.round(x / cell.cw), row = Math.round(y / cell.ch);
+    return { atlas: def.atlas, col, row, x, y, cw: cell.cw, ch: cell.ch };
+  }
+  _esc(s){
+    return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  }
+  _getTooltip(){
+    let el = document.getElementById('build-tooltip');
+    if(!el){ el = document.createElement('div'); el.id = 'build-tooltip'; el.className = 'hidden'; document.body.appendChild(el); }
+    return el;
+  }
+  _showBuildTooltip(it){
+    const el = this._getTooltip();
+    const d = it.def || {};
+    const rc = this._atlasRC(d);
+    const name = this._esc(d.name || d.nameJP || ('#' + it.id));
+    const atlas = this._esc(d.atlas || '?');
+    const row = (k, v, c) => `<div class="bt-row"><span class="bt-k">${k}</span><span class="bt-v${c ? ' ' + c : ''}">${v}</span></div>`;
+    let html = `<div class="bt-title">${name}</div>`;
+    html += `<div class="bt-sub">#${it.id} · 图集 ${atlas}</div>`;
+    if(rc) html += row('贴图集行列', `行 ${rc.row} / 列 ${rc.col}`, 'atlas');
+    html += row('类型 type', this._esc(String(d.type ?? '-')));
+    html += row('材质 mat', this._esc(String(d.mat ?? '-')));
+    html += row('群系 biome', this._esc(String(d.biome ?? '-')));
+    html += row('别名 alias', this._esc(String(d.alias ?? '-')));
+    html += row('实心 solid', this._esc(String(d.solid ?? '-')));
+    html += row('可走 walkable', this._esc(String(d.walkable ?? '-')));
+    html += row('渲染 render', this._esc(String(d.render ?? '-')));
+    el.innerHTML = html;
+    el.classList.remove('hidden');
+  }
+  _moveBuildTooltip(e){
+    const el = document.getElementById('build-tooltip');
+    if(!el || el.classList.contains('hidden')) return;
+    const tw = el.offsetWidth, th = el.offsetHeight;
+    let x = e.clientX + 16, y = e.clientY + 16;
+    if(x + tw > window.innerWidth - 8) x = e.clientX - tw - 16;
+    if(x < 8) x = 8;
+    if(y + th > window.innerHeight - 8) y = window.innerHeight - th - 8;
+    if(y < 8) y = 8;
+    el.style.left = x + 'px';
+    el.style.top = y + 'px';
+  }
+  _hideBuildTooltip(){
+    const el = document.getElementById('build-tooltip');
+    if(el) el.classList.add('hidden');
   }
 
   _drawBuildIcon(canvas, cat, def){
@@ -3331,8 +3505,8 @@ class Game{
   }
 
   _buildPlace(gx, gy){
-    if(!this.buildMode || !this.buildMode.selected) return;
-    if(!this.map.visible[gy]?.[gx]) { this.log('该区域不可见', 'warn'); return; }
+    if(!this.buildMode || this.buildMode.selected == null) return;
+    if(gx < 0 || gy < 0 || gx >= this.map.w || gy >= this.map.h) return;
     const cat = this.buildMode.cat;
     const id = this.buildMode.selected;
     if(cat === 'decor'){
@@ -3361,7 +3535,7 @@ class Game{
   }
 
   _buildRemove(gx, gy){
-    if(!this.map.visible[gy]?.[gx]) return;
+    if(gx < 0 || gy < 0 || gx >= this.map.w || gy >= this.map.h) return;
     // 先尝试拆除装饰物
     const removed = this.map.removeDecorationAt(gx, gy);
     if(removed){

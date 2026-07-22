@@ -1,0 +1,1826 @@
+{
+ "custom_chara": {
+  "class": "RenderDataChara",
+  "meshpass": null
+ },
+ "fish1": {
+  "class": "RenderDataChara",
+  "meshpass": null
+ },
+ "boat1": {
+  "class": "RenderDataThing",
+  "meshpass": null
+ },
+ "boat2": {
+  "class": "RenderDataThing",
+  "meshpass": null
+ },
+ "boat3": {
+  "class": "RenderDataThing",
+  "meshpass": null
+ },
+ "bone_dinosaur": {
+  "class": "RenderDataThing",
+  "meshpass": null
+ },
+ "bone_dinosaur2": {
+  "class": "RenderDataThing",
+  "meshpass": null
+ },
+ "canvas": {
+  "class": "RenderDataThing",
+  "meshpass": null
+ },
+ "canvas2": {
+  "class": "RenderDataThing",
+  "meshpass": null
+ },
+ "canvas3": {
+  "class": "RenderDataThing",
+  "meshpass": null
+ },
+ "carpet_bear": {
+  "class": "RenderDataThing",
+  "meshpass": null
+ },
+ "cauldron2": {
+  "class": "RenderDataThing",
+  "meshpass": null
+ },
+ "drawing_paper": {
+  "class": "RenderDataThing",
+  "meshpass": null
+ },
+ "drawing_paper2": {
+  "class": "RenderDataThing",
+  "meshpass": null
+ },
+ "entrance_mine": {
+  "class": "RenderDataThing",
+  "meshpass": null
+ },
+ "fountain": {
+  "class": "RenderDataThing",
+  "meshpass": null
+ },
+ "fountain2": {
+  "class": "RenderDataThing",
+  "meshpass": null
+ },
+ "monument_crystal": {
+  "class": "RenderDataThing",
+  "meshpass": null
+ },
+ "photo": {
+  "class": "RenderDataThing",
+  "meshpass": null
+ },
+ "plasma_lamp": {
+  "class": "RenderDataThing",
+  "meshpass": null
+ },
+ "sign_big": {
+  "class": "RenderDataThing",
+  "meshpass": null
+ },
+ "sign_big_little": {
+  "class": "RenderDataThing",
+  "meshpass": null
+ },
+ "sign_big_snail": {
+  "class": "RenderDataThing",
+  "meshpass": null
+ },
+ "sign_curry": {
+  "class": "RenderDataThing",
+  "meshpass": null
+ },
+ "sign_curry2": {
+  "class": "RenderDataThing",
+  "meshpass": null
+ },
+ "site_mine": {
+  "class": "RenderDataThing",
+  "meshpass": null
+ },
+ "statue_jure": {
+  "class": "RenderDataThing",
+  "meshpass": null
+ },
+ "statue_lulu": {
+  "class": "RenderDataThing",
+  "meshpass": null
+ },
+ "statue_opatos": {
+  "class": "RenderDataThing",
+  "meshpass": null
+ },
+ "tent1": {
+  "class": "RenderDataThing",
+  "meshpass": null
+ },
+ "tent2": {
+  "class": "RenderDataThing",
+  "meshpass": null
+ },
+ "test_sword": {
+  "class": "RenderDataThing",
+  "meshpass": null
+ },
+ "torii": {
+  "class": "RenderDataThing",
+  "meshpass": null
+ },
+ "torii_pillar": {
+  "class": "RenderDataThing",
+  "meshpass": null
+ },
+ "tree_cherry": {
+  "class": "RenderDataThing",
+  "meshpass": null
+ },
+ "tree_ether": {
+  "class": "RenderDataThing",
+  "meshpass": null
+ },
+ "wagon_big": {
+  "class": "RenderDataThing",
+  "meshpass": null
+ },
+ "wagon_big2": {
+  "class": "RenderDataThing",
+  "meshpass": null
+ },
+ "wagon_big3": {
+  "class": "RenderDataThing",
+  "meshpass": null
+ },
+ "wagon_big4": {
+  "class": "RenderDataThing",
+  "meshpass": null
+ },
+ "wagon_big5": {
+  "class": "RenderDataThing",
+  "meshpass": null
+ },
+ "_Default": {
+  "class": "RenderDataTile",
+  "meshpass": null
+ },
+ "block mount": {
+  "class": "RenderDataObj",
+  "meshpass": "pass tile_block",
+  "pmesh": "PMesh Block",
+  "tiling": [
+   32.0,
+   32.0
+  ],
+  "atlas": "blocks",
+  "tex_w": 2048,
+  "tex_h": 2048,
+  "cell": [
+   64.0,
+   64.0
+  ]
+ },
+ "block": {
+  "class": "RenderDataTile",
+  "meshpass": "pass tile_block",
+  "pmesh": "PMesh Block",
+  "tiling": [
+   32.0,
+   32.0
+  ],
+  "atlas": "blocks",
+  "tex_w": 2048,
+  "tex_h": 2048,
+  "cell": [
+   64.0,
+   64.0
+  ]
+ },
+ "blockEx": {
+  "class": "RenderDataTile",
+  "meshpass": "pass tile_blockEx",
+  "pmesh": "PMesh Block",
+  "tiling": [
+   32.0,
+   32.0
+  ],
+  "atlas": "blocks",
+  "tex_w": 2048,
+  "tex_h": 2048,
+  "cell": [
+   64.0,
+   64.0
+  ]
+ },
+ "blockShadow": {
+  "class": "RenderDataTile",
+  "meshpass": "pass tile_edge",
+  "pmesh": "PMesh Edge",
+  "tiling": [
+   32.0,
+   40.0
+  ],
+  "atlas": "floors",
+  "tex_w": 2048,
+  "tex_h": 1920,
+  "cell": [
+   64.0,
+   48.0
+  ]
+ },
+ "block_fake": {
+  "class": "RenderDataTile",
+  "meshpass": "pass tile_block",
+  "pmesh": "PMesh Block",
+  "tiling": [
+   32.0,
+   32.0
+  ],
+  "atlas": "blocks",
+  "tex_w": 2048,
+  "tex_h": 2048,
+  "cell": [
+   64.0,
+   64.0
+  ]
+ },
+ "block_thin": {
+  "class": "RenderDataTile",
+  "meshpass": "pass tile_block",
+  "pmesh": "PMesh Block",
+  "tiling": [
+   32.0,
+   32.0
+  ],
+  "atlas": "blocks",
+  "tex_w": 2048,
+  "tex_h": 2048,
+  "cell": [
+   64.0,
+   64.0
+  ]
+ },
+ "block_thinEx": {
+  "class": "RenderDataTile",
+  "meshpass": "pass tile_blockEx",
+  "pmesh": "PMesh Block",
+  "tiling": [
+   32.0,
+   32.0
+  ],
+  "atlas": "blocks",
+  "tex_w": 2048,
+  "tex_h": 2048,
+  "cell": [
+   64.0,
+   64.0
+  ]
+ },
+ "block_thinFake": {
+  "class": "RenderDataTile",
+  "meshpass": "pass tile_block",
+  "pmesh": "PMesh Block",
+  "tiling": [
+   32.0,
+   32.0
+  ],
+  "atlas": "blocks",
+  "tex_w": 2048,
+  "tex_h": 2048,
+  "cell": [
+   64.0,
+   64.0
+  ]
+ },
+ "chara": {
+  "class": "RenderDataObj",
+  "meshpass": "pass chara",
+  "pmesh": "PMesh Chara",
+  "tiling": [
+   32.0,
+   32.0
+  ],
+  "atlas": "objs_C",
+  "tex_w": 4096,
+  "tex_h": 4096,
+  "cell": [
+   128.0,
+   128.0
+  ]
+ },
+ "chara_L": {
+  "class": "RenderDataObj",
+  "meshpass": "pass charaL",
+  "pmesh": "PMesh CharaL",
+  "tiling": [
+   32.0,
+   16.0
+  ],
+  "atlas": "objs_CL",
+  "tex_w": 4096,
+  "tex_h": 4096,
+  "cell": [
+   128.0,
+   256.0
+  ]
+ },
+ "chara_LL": {
+  "class": "RenderDataObj",
+  "meshpass": "pass charaLL",
+  "pmesh": "PMesh CharaLL",
+  "tiling": [
+   8.0,
+   8.0
+  ],
+  "atlas": "objs_CLL",
+  "tex_w": 2048,
+  "tex_h": 2048,
+  "cell": [
+   256.0,
+   256.0
+  ]
+ },
+ "chara_LW": {
+  "class": "RenderDataObj",
+  "meshpass": "pass charaLW",
+  "pmesh": "PMesh CharaLW",
+  "tiling": [
+   16.0,
+   16.0
+  ],
+  "atlas": "objs_CL",
+  "tex_w": 4096,
+  "tex_h": 4096,
+  "cell": [
+   256.0,
+   256.0
+  ]
+ },
+ "chara_custom_128": {
+  "class": "RenderDataChara",
+  "meshpass": null
+ },
+ "chara_custom_256": {
+  "class": "RenderDataChara",
+  "meshpass": null
+ },
+ "chimney": {
+  "class": "RenderDataObj",
+  "meshpass": "pass obj",
+  "pmesh": "PMesh Obj",
+  "tiling": [
+   64.0,
+   64.0
+  ],
+  "atlas": "objs",
+  "tex_w": 4096,
+  "tex_h": 4096,
+  "cell": [
+   64.0,
+   64.0
+  ]
+ },
+ "crate": {
+  "class": "RenderDataCrate",
+  "meshpass": "pass obj",
+  "pmesh": "PMesh Obj",
+  "tiling": [
+   64.0,
+   64.0
+  ],
+  "atlas": "objs",
+  "tex_w": 4096,
+  "tex_h": 4096,
+  "cell": [
+   64.0,
+   64.0
+  ]
+ },
+ "effect_bubble": {
+  "class": "RenderDataLiquid",
+  "meshpass": "pass tile_liquid",
+  "pmesh": "PMesh Liquid",
+  "tiling": [
+   32.0,
+   32.0
+  ],
+  "atlas": "blocks",
+  "tex_w": 2048,
+  "tex_h": 2048,
+  "cell": [
+   64.0,
+   64.0
+  ]
+ },
+ "effect_default": {
+  "class": "RenderDataLiquid",
+  "meshpass": "pass obj",
+  "pmesh": "PMesh Obj",
+  "tiling": [
+   64.0,
+   64.0
+  ],
+  "atlas": "objs",
+  "tex_w": 4096,
+  "tex_h": 4096,
+  "cell": [
+   64.0,
+   64.0
+  ]
+ },
+ "fence": {
+  "class": "RenderDataTile",
+  "meshpass": "pass tile_block",
+  "pmesh": "PMesh Block",
+  "tiling": [
+   32.0,
+   32.0
+  ],
+  "atlas": "blocks",
+  "tex_w": 2048,
+  "tex_h": 2048,
+  "cell": [
+   64.0,
+   64.0
+  ]
+ },
+ "floor": {
+  "class": "RenderDataTile",
+  "meshpass": "pass tile_floor",
+  "pmesh": "PMesh Floor",
+  "tiling": [
+   32.0,
+   40.0
+  ],
+  "atlas": "floors",
+  "tex_w": 2048,
+  "tex_h": 1920,
+  "cell": [
+   64.0,
+   48.0
+  ]
+ },
+ "floorEx": {
+  "class": "RenderDataTile",
+  "meshpass": "pass tile_floorEx",
+  "pmesh": "PMesh Floor",
+  "tiling": [
+   32.0,
+   40.0
+  ],
+  "atlas": "floors",
+  "tex_w": 2048,
+  "tex_h": 1920,
+  "cell": [
+   64.0,
+   48.0
+  ]
+ },
+ "floorWater": {
+  "class": "RenderDataTile",
+  "meshpass": "pass tile_floorWater",
+  "pmesh": "PMesh Floor",
+  "tiling": [
+   32.0,
+   40.0
+  ],
+  "atlas": "floors",
+  "tex_w": 2048,
+  "tex_h": 1920,
+  "cell": [
+   64.0,
+   48.0
+  ]
+ },
+ "floor_obj": {
+  "class": "RenderDataTile",
+  "meshpass": "pass tile_floor",
+  "pmesh": "PMesh Floor",
+  "tiling": [
+   32.0,
+   40.0
+  ],
+  "atlas": "floors",
+  "tex_w": 2048,
+  "tex_h": 1920,
+  "cell": [
+   64.0,
+   48.0
+  ]
+ },
+ "fog block": {
+  "class": "RenderDataTile",
+  "meshpass": "pass fog",
+  "pmesh": "PMesh Fog",
+  "tiling": [
+   32.0,
+   32.0
+  ],
+  "atlas": "blocks",
+  "tex_w": 2048,
+  "tex_h": 2048,
+  "cell": [
+   64.0,
+   64.0
+  ]
+ },
+ "fog floor": {
+  "class": "RenderDataTile",
+  "meshpass": "pass fog",
+  "pmesh": "PMesh Fog",
+  "tiling": [
+   32.0,
+   32.0
+  ],
+  "atlas": "blocks",
+  "tex_w": 2048,
+  "tex_h": 2048,
+  "cell": [
+   64.0,
+   64.0
+  ]
+ },
+ "fogRoom wall": {
+  "class": "RenderDataTile",
+  "meshpass": "pass fog",
+  "pmesh": "PMesh Fog",
+  "tiling": [
+   32.0,
+   32.0
+  ],
+  "atlas": "blocks",
+  "tex_w": 2048,
+  "tex_h": 2048,
+  "cell": [
+   64.0,
+   64.0
+  ]
+ },
+ "fogRoom": {
+  "class": "RenderDataTile",
+  "meshpass": "pass fog",
+  "pmesh": "PMesh Fog",
+  "tiling": [
+   32.0,
+   32.0
+  ],
+  "atlas": "blocks",
+  "tex_w": 2048,
+  "tex_h": 2048,
+  "cell": [
+   64.0,
+   64.0
+  ]
+ },
+ "halfblock": {
+  "class": "RenderDataHalfBlock",
+  "meshpass": "pass tile_block",
+  "pmesh": "PMesh Block",
+  "tiling": [
+   32.0,
+   32.0
+  ],
+  "atlas": "blocks",
+  "tex_w": 2048,
+  "tex_h": 2048,
+  "cell": [
+   64.0,
+   64.0
+  ]
+ },
+ "innerblock_low": {
+  "class": "RenderDataTile",
+  "meshpass": "pass tile_floor",
+  "pmesh": "PMesh Floor",
+  "tiling": [
+   32.0,
+   40.0
+  ],
+  "atlas": "floors",
+  "tex_w": 2048,
+  "tex_h": 1920,
+  "cell": [
+   64.0,
+   48.0
+  ]
+ },
+ "innos2": {
+  "class": "RenderDataChara",
+  "meshpass": null
+ },
+ "ladder": {
+  "class": "RenderDataTile",
+  "meshpass": "pass tile_block",
+  "pmesh": "PMesh Block",
+  "tiling": [
+   32.0,
+   32.0
+  ],
+  "atlas": "blocks",
+  "tex_w": 2048,
+  "tex_h": 2048,
+  "cell": [
+   64.0,
+   64.0
+  ]
+ },
+ "liquid": {
+  "class": "RenderDataLiquid",
+  "meshpass": "pass tile_liquid",
+  "pmesh": "PMesh Liquid",
+  "tiling": [
+   32.0,
+   32.0
+  ],
+  "atlas": "blocks",
+  "tex_w": 2048,
+  "tex_h": 2048,
+  "cell": [
+   64.0,
+   64.0
+  ]
+ },
+ "obj EQ": {
+  "class": "RenderDataObj",
+  "meshpass": "pass obj",
+  "pmesh": "PMesh Obj",
+  "tiling": [
+   64.0,
+   64.0
+  ],
+  "atlas": "objs",
+  "tex_w": 4096,
+  "tex_h": 4096,
+  "cell": [
+   64.0,
+   64.0
+  ]
+ },
+ "obj add": {
+  "class": "RenderDataObjAdd",
+  "meshpass": "pass obj",
+  "pmesh": "PMesh Obj",
+  "tiling": [
+   64.0,
+   64.0
+  ],
+  "atlas": "objs",
+  "tex_w": 4096,
+  "tex_h": 4096,
+  "cell": [
+   64.0,
+   64.0
+  ]
+ },
+ "obj addElevetor": {
+  "class": "RenderDataObjAdd",
+  "meshpass": "pass obj",
+  "pmesh": "PMesh Obj",
+  "tiling": [
+   64.0,
+   64.0
+  ],
+  "atlas": "objs",
+  "tex_w": 4096,
+  "tex_h": 4096,
+  "cell": [
+   64.0,
+   64.0
+  ]
+ },
+ "obj addStall": {
+  "class": "RenderDataObjAdd",
+  "meshpass": "pass obj",
+  "pmesh": "PMesh Obj",
+  "tiling": [
+   64.0,
+   64.0
+  ],
+  "atlas": "objs",
+  "tex_w": 4096,
+  "tex_h": 4096,
+  "cell": [
+   64.0,
+   64.0
+  ]
+ },
+ "obj ceil": {
+  "class": "RenderDataObj",
+  "meshpass": "pass obj",
+  "pmesh": "PMesh Obj",
+  "tiling": [
+   64.0,
+   64.0
+  ],
+  "atlas": "objs",
+  "tex_w": 4096,
+  "tex_h": 4096,
+  "cell": [
+   64.0,
+   64.0
+  ]
+ },
+ "obj counter bk": {
+  "class": "RenderDataObj",
+  "meshpass": "pass obj",
+  "pmesh": "PMesh Obj",
+  "tiling": [
+   64.0,
+   64.0
+  ],
+  "atlas": "objs",
+  "tex_w": 4096,
+  "tex_h": 4096,
+  "cell": [
+   64.0,
+   64.0
+  ]
+ },
+ "obj counter": {
+  "class": "RenderDataObj",
+  "meshpass": "pass obj",
+  "pmesh": "PMesh Obj",
+  "tiling": [
+   64.0,
+   64.0
+  ],
+  "atlas": "objs",
+  "tex_w": 4096,
+  "tex_h": 4096,
+  "cell": [
+   64.0,
+   64.0
+  ]
+ },
+ "obj counterCorner": {
+  "class": "RenderDataObj",
+  "meshpass": "pass obj",
+  "pmesh": "PMesh Obj",
+  "tiling": [
+   64.0,
+   64.0
+  ],
+  "atlas": "objs",
+  "tex_w": 4096,
+  "tex_h": 4096,
+  "cell": [
+   64.0,
+   64.0
+  ]
+ },
+ "obj door": {
+  "class": "RenderDataObj",
+  "meshpass": "pass obj",
+  "pmesh": "PMesh Obj",
+  "tiling": [
+   64.0,
+   64.0
+  ],
+  "atlas": "objs",
+  "tex_w": 4096,
+  "tex_h": 4096,
+  "cell": [
+   64.0,
+   64.0
+  ]
+ },
+ "obj doorBoat": {
+  "class": "RenderDataObj",
+  "meshpass": "pass obj",
+  "pmesh": "PMesh Obj",
+  "tiling": [
+   64.0,
+   64.0
+  ],
+  "atlas": "objs",
+  "tex_w": 4096,
+  "tex_h": 4096,
+  "cell": [
+   64.0,
+   64.0
+  ]
+ },
+ "obj doorCurtain": {
+  "class": "RenderDataObj",
+  "meshpass": "pass obj",
+  "pmesh": "PMesh Obj",
+  "tiling": [
+   64.0,
+   64.0
+  ],
+  "atlas": "objs",
+  "tex_w": 4096,
+  "tex_h": 4096,
+  "cell": [
+   64.0,
+   64.0
+  ]
+ },
+ "obj doorframe": {
+  "class": "RenderDataObjAdd",
+  "meshpass": "pass obj",
+  "pmesh": "PMesh Obj",
+  "tiling": [
+   64.0,
+   64.0
+  ],
+  "atlas": "objs",
+  "tex_w": 4096,
+  "tex_h": 4096,
+  "cell": [
+   64.0,
+   64.0
+  ]
+ },
+ "obj flat": {
+  "class": "RenderDataObj",
+  "meshpass": "pass obj",
+  "pmesh": "PMesh Obj",
+  "tiling": [
+   64.0,
+   64.0
+  ],
+  "atlas": "objs",
+  "tex_w": 4096,
+  "tex_h": 4096,
+  "cell": [
+   64.0,
+   64.0
+  ]
+ },
+ "obj float": {
+  "class": "RenderDataObj",
+  "meshpass": "pass obj",
+  "pmesh": "PMesh Obj",
+  "tiling": [
+   64.0,
+   64.0
+  ],
+  "atlas": "objs",
+  "tex_w": 4096,
+  "tex_h": 4096,
+  "cell": [
+   64.0,
+   64.0
+  ]
+ },
+ "obj hang": {
+  "class": "RenderDataObj",
+  "meshpass": "pass obj",
+  "pmesh": "PMesh Obj",
+  "tiling": [
+   64.0,
+   64.0
+  ],
+  "atlas": "objs",
+  "tex_w": 4096,
+  "tex_h": 4096,
+  "cell": [
+   64.0,
+   64.0
+  ]
+ },
+ "obj hangBig": {
+  "class": "RenderDataObj",
+  "meshpass": "pass obj",
+  "pmesh": "PMesh Obj",
+  "tiling": [
+   64.0,
+   64.0
+  ],
+  "atlas": "objs",
+  "tex_w": 4096,
+  "tex_h": 4096,
+  "cell": [
+   64.0,
+   64.0
+  ]
+ },
+ "obj hangBoard": {
+  "class": "RenderDataObj",
+  "meshpass": "pass obj",
+  "pmesh": "PMesh Obj",
+  "tiling": [
+   64.0,
+   64.0
+  ],
+  "atlas": "objs",
+  "tex_w": 4096,
+  "tex_h": 4096,
+  "cell": [
+   64.0,
+   64.0
+  ]
+ },
+ "obj hangRoof": {
+  "class": "RenderDataObj",
+  "meshpass": "pass obj",
+  "pmesh": "PMesh Obj",
+  "tiling": [
+   64.0,
+   64.0
+  ],
+  "atlas": "objs",
+  "tex_w": 4096,
+  "tex_h": 4096,
+  "cell": [
+   64.0,
+   64.0
+  ]
+ },
+ "obj mount": {
+  "class": "RenderDataObj",
+  "meshpass": "pass obj",
+  "pmesh": "PMesh Obj",
+  "tiling": [
+   64.0,
+   64.0
+  ],
+  "atlas": "objs",
+  "tex_w": 4096,
+  "tex_h": 4096,
+  "cell": [
+   64.0,
+   64.0
+  ]
+ },
+ "obj parasol": {
+  "class": "RenderDataObj",
+  "meshpass": "pass obj",
+  "pmesh": "PMesh Obj",
+  "tiling": [
+   64.0,
+   64.0
+  ],
+  "atlas": "objs",
+  "tex_w": 4096,
+  "tex_h": 4096,
+  "cell": [
+   64.0,
+   64.0
+  ]
+ },
+ "obj road chasm": {
+  "class": "RenderDataObj",
+  "meshpass": "pass tile_floor",
+  "pmesh": "PMesh Floor",
+  "tiling": [
+   32.0,
+   40.0
+  ],
+  "atlas": "floors",
+  "tex_w": 2048,
+  "tex_h": 1920,
+  "cell": [
+   64.0,
+   48.0
+  ]
+ },
+ "obj road": {
+  "class": "RenderDataObj",
+  "meshpass": "pass tile_floor",
+  "pmesh": "PMesh Floor",
+  "tiling": [
+   32.0,
+   40.0
+  ],
+  "atlas": "floors",
+  "tex_w": 2048,
+  "tex_h": 1920,
+  "cell": [
+   64.0,
+   48.0
+  ]
+ },
+ "obj tall": {
+  "class": "RenderDataObj",
+  "meshpass": "pass obj",
+  "pmesh": "PMesh Obj",
+  "tiling": [
+   64.0,
+   64.0
+  ],
+  "atlas": "objs",
+  "tex_w": 4096,
+  "tex_h": 4096,
+  "cell": [
+   64.0,
+   64.0
+  ]
+ },
+ "obj vine": {
+  "class": "RenderDataObj",
+  "meshpass": "pass obj",
+  "pmesh": "PMesh Obj",
+  "tiling": [
+   64.0,
+   64.0
+  ],
+  "atlas": "objs",
+  "tex_w": 4096,
+  "tex_h": 4096,
+  "cell": [
+   64.0,
+   64.0
+  ]
+ },
+ "obj": {
+  "class": "RenderDataTile",
+  "meshpass": "pass obj",
+  "pmesh": "PMesh Obj",
+  "tiling": [
+   64.0,
+   64.0
+  ],
+  "atlas": "objs",
+  "tex_w": 4096,
+  "tex_h": 4096,
+  "cell": [
+   64.0,
+   64.0
+  ]
+ },
+ "obj_L bridge": {
+  "class": "RenderDataObj",
+  "meshpass": "pass obj_L",
+  "pmesh": "PMesh Obj v",
+  "tiling": [
+   24.0,
+   32.0
+  ],
+  "atlas": "objs_L",
+  "tex_w": 1920,
+  "tex_h": 2048,
+  "cell": [
+   80.0,
+   64.0
+  ]
+ },
+ "obj_L door": {
+  "class": "RenderDataObj",
+  "meshpass": "pass obj_L",
+  "pmesh": "PMesh Obj v",
+  "tiling": [
+   24.0,
+   32.0
+  ],
+  "atlas": "objs_L",
+  "tex_w": 1920,
+  "tex_h": 2048,
+  "cell": [
+   80.0,
+   64.0
+  ]
+ },
+ "obj_L flat": {
+  "class": "RenderDataObj",
+  "meshpass": "pass obj_L",
+  "pmesh": "PMesh Obj v",
+  "tiling": [
+   24.0,
+   32.0
+  ],
+  "atlas": "objs_L",
+  "tex_w": 1920,
+  "tex_h": 2048,
+  "cell": [
+   80.0,
+   64.0
+  ]
+ },
+ "obj_L": {
+  "class": "RenderDataTile",
+  "meshpass": "pass obj_L",
+  "pmesh": "PMesh Obj v",
+  "tiling": [
+   24.0,
+   32.0
+  ],
+  "atlas": "objs_L",
+  "tex_w": 1920,
+  "tex_h": 2048,
+  "cell": [
+   80.0,
+   64.0
+  ]
+ },
+ "obj_LV hang": {
+  "class": "RenderDataObjV",
+  "meshpass": "pass obj_L",
+  "pmesh": "PMesh Obj v",
+  "tiling": [
+   24.0,
+   32.0
+  ],
+  "atlas": "objs_L",
+  "tex_w": 1920,
+  "tex_h": 2048,
+  "cell": [
+   80.0,
+   64.0
+  ]
+ },
+ "obj_LV tall": {
+  "class": "RenderDataObjV",
+  "meshpass": "pass obj_L",
+  "pmesh": "PMesh Obj v",
+  "tiling": [
+   24.0,
+   32.0
+  ],
+  "atlas": "objs_L",
+  "tex_w": 1920,
+  "tex_h": 2048,
+  "cell": [
+   80.0,
+   64.0
+  ]
+ },
+ "obj_LV": {
+  "class": "RenderDataObjV",
+  "meshpass": "pass obj_L",
+  "pmesh": "PMesh Obj v",
+  "tiling": [
+   24.0,
+   32.0
+  ],
+  "atlas": "objs_L",
+  "tex_w": 1920,
+  "tex_h": 2048,
+  "cell": [
+   80.0,
+   64.0
+  ]
+ },
+ "obj_S air": {
+  "class": "RenderDataObj",
+  "meshpass": "pass obj_S",
+  "pmesh": "PMesh Obj S",
+  "tiling": [
+   64.0,
+   64.0
+  ],
+  "atlas": "objs_S",
+  "tex_w": 2048,
+  "tex_h": 2048,
+  "cell": [
+   32.0,
+   32.0
+  ]
+ },
+ "obj_S fish": {
+  "class": "RenderDataFish",
+  "meshpass": "pass obj_S",
+  "pmesh": "PMesh Obj S",
+  "tiling": [
+   64.0,
+   64.0
+  ],
+  "atlas": "objs_S",
+  "tex_w": 2048,
+  "tex_h": 2048,
+  "cell": [
+   32.0,
+   32.0
+  ]
+ },
+ "obj_S hang": {
+  "class": "RenderDataObj",
+  "meshpass": "pass obj_S",
+  "pmesh": "PMesh Obj S",
+  "tiling": [
+   64.0,
+   64.0
+  ],
+  "atlas": "objs_S",
+  "tex_w": 2048,
+  "tex_h": 2048,
+  "cell": [
+   32.0,
+   32.0
+  ]
+ },
+ "obj_S hangR": {
+  "class": "RenderDataObj",
+  "meshpass": "pass obj_S",
+  "pmesh": "PMesh Obj S",
+  "tiling": [
+   64.0,
+   64.0
+  ],
+  "atlas": "objs_S",
+  "tex_w": 2048,
+  "tex_h": 2048,
+  "cell": [
+   32.0,
+   32.0
+  ]
+ },
+ "obj_S hat": {
+  "class": "RenderDataObj",
+  "meshpass": "pass obj_S",
+  "pmesh": "PMesh Obj S",
+  "tiling": [
+   64.0,
+   64.0
+  ],
+  "atlas": "objs_S",
+  "tex_w": 2048,
+  "tex_h": 2048,
+  "cell": [
+   32.0,
+   32.0
+  ]
+ },
+ "obj_S mount": {
+  "class": "RenderDataObj",
+  "meshpass": "pass obj_S",
+  "pmesh": "PMesh Obj S",
+  "tiling": [
+   64.0,
+   64.0
+  ],
+  "atlas": "objs_S",
+  "tex_w": 2048,
+  "tex_h": 2048,
+  "cell": [
+   32.0,
+   32.0
+  ]
+ },
+ "obj_S platform": {
+  "class": "RenderDataObj",
+  "meshpass": "pass obj_S",
+  "pmesh": "PMesh Obj S",
+  "tiling": [
+   64.0,
+   64.0
+  ],
+  "atlas": "objs_S",
+  "tex_w": 2048,
+  "tex_h": 2048,
+  "cell": [
+   32.0,
+   32.0
+  ]
+ },
+ "obj_S short": {
+  "class": "RenderDataObj",
+  "meshpass": "pass obj_S",
+  "pmesh": "PMesh Obj S",
+  "tiling": [
+   64.0,
+   64.0
+  ],
+  "atlas": "objs_S",
+  "tex_w": 2048,
+  "tex_h": 2048,
+  "cell": [
+   32.0,
+   32.0
+  ]
+ },
+ "pillar": {
+  "class": "RenderDataTile",
+  "meshpass": "pass tile_block",
+  "pmesh": "PMesh Block",
+  "tiling": [
+   32.0,
+   32.0
+  ],
+  "atlas": "blocks",
+  "tex_w": 2048,
+  "tex_h": 2048,
+  "cell": [
+   64.0,
+   64.0
+  ]
+ },
+ "ramp cover half": {
+  "class": "RenderDataTile",
+  "meshpass": "pass tile_ramp",
+  "pmesh": "PMesh Ramp",
+  "tiling": [
+   32.0,
+   32.0
+  ],
+  "atlas": "blocks",
+  "tex_w": 2048,
+  "tex_h": 2048,
+  "cell": [
+   64.0,
+   64.0
+  ]
+ },
+ "ramp cover": {
+  "class": "RenderDataTile",
+  "meshpass": "pass tile_ramp",
+  "pmesh": "PMesh Ramp",
+  "tiling": [
+   32.0,
+   32.0
+  ],
+  "atlas": "blocks",
+  "tex_w": 2048,
+  "tex_h": 2048,
+  "cell": [
+   64.0,
+   64.0
+  ]
+ },
+ "ramp thing": {
+  "class": "RenderDataTile",
+  "meshpass": "pass tile_ramp",
+  "pmesh": "PMesh Ramp",
+  "tiling": [
+   32.0,
+   32.0
+  ],
+  "atlas": "blocks",
+  "tex_w": 2048,
+  "tex_h": 2048,
+  "cell": [
+   64.0,
+   64.0
+  ]
+ },
+ "ramp": {
+  "class": "RenderDataTile",
+  "meshpass": "pass tile_ramp",
+  "pmesh": "PMesh Ramp",
+  "tiling": [
+   32.0,
+   32.0
+  ],
+  "atlas": "blocks",
+  "tex_w": 2048,
+  "tex_h": 2048,
+  "cell": [
+   64.0,
+   64.0
+  ]
+ },
+ "roof bk": {
+  "class": "RenderDataRoof",
+  "meshpass": "pass tile_roof",
+  "pmesh": "PMesh Roof",
+  "tiling": [
+   12.0,
+   25.0
+  ],
+  "atlas": "roofs",
+  "tex_w": 1152,
+  "tex_h": 2000,
+  "cell": [
+   96.0,
+   80.0
+  ]
+ },
+ "roof": {
+  "class": "RenderDataRoof",
+  "meshpass": "pass tile_roof",
+  "pmesh": "PMesh Roof",
+  "tiling": [
+   12.0,
+   25.0
+  ],
+  "atlas": "roofs",
+  "tex_w": 1152,
+  "tex_h": 2000,
+  "cell": [
+   96.0,
+   80.0
+  ]
+ },
+ "rooftop": {
+  "class": "RenderDataTile",
+  "meshpass": "pass tile_roof",
+  "pmesh": "PMesh Roof",
+  "tiling": [
+   12.0,
+   25.0
+  ],
+  "atlas": "roofs",
+  "tex_w": 1152,
+  "tex_h": 2000,
+  "cell": [
+   96.0,
+   80.0
+  ]
+ },
+ "scaffold": {
+  "class": "RenderDataTile",
+  "meshpass": "pass tile_block",
+  "pmesh": "PMesh Block",
+  "tiling": [
+   32.0,
+   32.0
+  ],
+  "atlas": "blocks",
+  "tex_w": 2048,
+  "tex_h": 2048,
+  "cell": [
+   64.0,
+   64.0
+  ]
+ },
+ "support": {
+  "class": "RenderDataTile",
+  "meshpass": "pass tile_block",
+  "pmesh": "PMesh Block",
+  "tiling": [
+   32.0,
+   32.0
+  ],
+  "atlas": "blocks",
+  "tex_w": 2048,
+  "tex_h": 2048,
+  "cell": [
+   64.0,
+   64.0
+  ]
+ },
+ "test_chicken": {
+  "class": "RenderDataChara",
+  "meshpass": null
+ },
+ "waterfall": {
+  "class": "RenderDataTile",
+  "meshpass": "pass tile_liquid",
+  "pmesh": "PMesh Liquid",
+  "tiling": [
+   32.0,
+   32.0
+  ],
+  "atlas": "blocks",
+  "tex_w": 2048,
+  "tex_h": 2048,
+  "cell": [
+   64.0,
+   64.0
+  ]
+ },
+ "block in water": {
+  "class": "RenderDataTile",
+  "meshpass": "pass tile_block in water",
+  "pmesh": "PMesh Block",
+  "tiling": [
+   32.0,
+   32.0
+  ],
+  "atlas": "blocks",
+  "tex_w": 2048,
+  "tex_h": 2048,
+  "cell": [
+   64.0,
+   64.0
+  ]
+ },
+ "blockMarker": {
+  "class": "RenderDataTile",
+  "meshpass": "pass tile_block marker",
+  "pmesh": "PMesh Block Marker",
+  "tiling": [
+   32.0,
+   32.0
+  ],
+  "atlas": "blocks",
+  "tex_w": 2048,
+  "tex_h": 2048,
+  "cell": [
+   64.0,
+   64.0
+  ]
+ },
+ "border": {
+  "class": "RenderDataTile",
+  "meshpass": "pass tile_edge",
+  "pmesh": "PMesh Edge",
+  "tiling": [
+   32.0,
+   40.0
+  ],
+  "atlas": "floors",
+  "tex_w": 2048,
+  "tex_h": 1920,
+  "cell": [
+   64.0,
+   48.0
+  ]
+ },
+ "effect fire": {
+  "class": "RenderDataEffect",
+  "meshpass": "pass effect",
+  "pmesh": "PMesh Effect",
+  "tiling": [
+   8.0,
+   4.0
+  ],
+  "atlas": "effects",
+  "tex_w": 512,
+  "tex_h": 480,
+  "cell": [
+   64.0,
+   120.0
+  ]
+ },
+ "floorMarker": {
+  "class": "RenderDataTile",
+  "meshpass": "pass tile_floor marker",
+  "pmesh": "PMesh Floor",
+  "tiling": [
+   32.0,
+   40.0
+  ],
+  "atlas": "floors",
+  "tex_w": 2048,
+  "tex_h": 1920,
+  "cell": [
+   64.0,
+   48.0
+  ]
+ },
+ "fog block solid": {
+  "class": "RenderDataTile",
+  "meshpass": "pass fog",
+  "pmesh": "PMesh Fog",
+  "tiling": [
+   32.0,
+   32.0
+  ],
+  "atlas": "blocks",
+  "tex_w": 2048,
+  "tex_h": 2048,
+  "cell": [
+   64.0,
+   64.0
+  ]
+ },
+ "fog floor solid": {
+  "class": "RenderDataTile",
+  "meshpass": "pass fog",
+  "pmesh": "PMesh Fog",
+  "tiling": [
+   32.0,
+   32.0
+  ],
+  "atlas": "blocks",
+  "tex_w": 2048,
+  "tex_h": 2048,
+  "cell": [
+   64.0,
+   64.0
+  ]
+ },
+ "fogRoom Solid": {
+  "class": "RenderDataTile",
+  "meshpass": "pass tile_block inner",
+  "pmesh": "PMesh Block",
+  "tiling": [
+   32.0,
+   32.0
+  ],
+  "atlas": "blocks",
+  "tex_w": 2048,
+  "tex_h": 2048,
+  "cell": [
+   64.0,
+   64.0
+  ]
+ },
+ "fogRoom block solid": {
+  "class": "RenderDataTile",
+  "meshpass": "pass tile_block inner",
+  "pmesh": "PMesh Block",
+  "tiling": [
+   32.0,
+   32.0
+  ],
+  "atlas": "blocks",
+  "tex_w": 2048,
+  "tex_h": 2048,
+  "cell": [
+   64.0,
+   64.0
+  ]
+ },
+ "fogRoom wall Solid": {
+  "class": "RenderDataTile",
+  "meshpass": "pass tile_block inner",
+  "pmesh": "PMesh Block",
+  "tiling": [
+   32.0,
+   32.0
+  ],
+  "atlas": "blocks",
+  "tex_w": 2048,
+  "tex_h": 2048,
+  "cell": [
+   64.0,
+   64.0
+  ]
+ },
+ "fov 2": {
+  "class": "RenderDataTile",
+  "meshpass": "pass fog edge",
+  "pmesh": "PMesh Fov",
+  "tiling": [
+   3.0,
+   1.0
+  ],
+  "atlas": "fov 2",
+  "tex_w": 480,
+  "tex_h": 200,
+  "cell": [
+   160.0,
+   200.0
+  ]
+ },
+ "fov": {
+  "class": "RenderDataTile",
+  "meshpass": "pass fov",
+  "pmesh": "PMesh Fov",
+  "tiling": [
+   3.0,
+   1.0
+  ],
+  "atlas": "fov",
+  "tex_w": 480,
+  "tex_h": 200,
+  "cell": [
+   160.0,
+   200.0
+  ]
+ },
+ "innerblock": {
+  "class": "RenderDataTile",
+  "meshpass": "pass tile_block inner",
+  "pmesh": "PMesh Block",
+  "tiling": [
+   32.0,
+   32.0
+  ],
+  "atlas": "blocks",
+  "tex_w": 2048,
+  "tex_h": 2048,
+  "cell": [
+   64.0,
+   64.0
+  ]
+ },
+ "obj dummy": {
+  "class": "RenderDataObjDummy",
+  "meshpass": "pass obj_S",
+  "pmesh": "PMesh Obj S",
+  "tiling": [
+   64.0,
+   64.0
+  ],
+  "atlas": "objs_S",
+  "tex_w": 2048,
+  "tex_h": 2048,
+  "cell": [
+   32.0,
+   32.0
+  ]
+ },
+ "obj paint": {
+  "class": "RenderDataObj",
+  "meshpass": "pass obj",
+  "pmesh": "PMesh Obj",
+  "tiling": [
+   64.0,
+   64.0
+  ],
+  "atlas": "objs",
+  "tex_w": 4096,
+  "tex_h": 4096,
+  "cell": [
+   64.0,
+   64.0
+  ]
+ },
+ "obj wheat": {
+  "class": "RenderDataObj",
+  "meshpass": "pass obj",
+  "pmesh": "PMesh Obj",
+  "tiling": [
+   64.0,
+   64.0
+  ],
+  "atlas": "objs",
+  "tex_w": 4096,
+  "tex_h": 4096,
+  "cell": [
+   64.0,
+   64.0
+  ]
+ },
+ "obj_LV harvest": {
+  "class": "RenderDataObjV",
+  "meshpass": "pass obj_L",
+  "pmesh": "PMesh Obj v",
+  "tiling": [
+   24.0,
+   32.0
+  ],
+  "atlas": "objs_L",
+  "tex_w": 1920,
+  "tex_h": 2048,
+  "cell": [
+   80.0,
+   64.0
+  ]
+ },
+ "obj_S EQ": {
+  "class": "RenderDataObj",
+  "meshpass": "pass obj_S",
+  "pmesh": "PMesh Obj S",
+  "tiling": [
+   64.0,
+   64.0
+  ],
+  "atlas": "objs_S",
+  "tex_w": 2048,
+  "tex_h": 2048,
+  "cell": [
+   32.0,
+   32.0
+  ]
+ },
+ "obj_S flat": {
+  "class": "RenderDataObj",
+  "meshpass": "pass obj_S",
+  "pmesh": "PMesh Obj S",
+  "tiling": [
+   64.0,
+   64.0
+  ],
+  "atlas": "objs_S",
+  "tex_w": 2048,
+  "tex_h": 2048,
+  "cell": [
+   32.0,
+   32.0
+  ]
+ },
+ "obj_S": {
+  "class": "RenderDataObj",
+  "meshpass": "pass obj_S",
+  "pmesh": "PMesh Obj S",
+  "tiling": [
+   64.0,
+   64.0
+  ],
+  "atlas": "objs_S",
+  "tex_w": 2048,
+  "tex_h": 2048,
+  "cell": [
+   32.0,
+   32.0
+  ]
+ },
+ "pcc": {
+  "class": "RenderDataPcc",
+  "meshpass": null
+ },
+ "pcc_L": {
+  "class": "RenderDataPcc",
+  "meshpass": null
+ },
+ "shore": {
+  "class": "RenderDataTile",
+  "meshpass": "pass tile_floor",
+  "pmesh": "PMesh Floor",
+  "tiling": [
+   32.0,
+   40.0
+  ],
+  "atlas": "floors",
+  "tex_w": 2048,
+  "tex_h": 1920,
+  "cell": [
+   64.0,
+   48.0
+  ]
+ },
+ "wall deco": {
+  "class": "RenderDataTile",
+  "meshpass": "pass tile_block",
+  "pmesh": "PMesh Block",
+  "tiling": [
+   32.0,
+   32.0
+  ],
+  "atlas": "blocks",
+  "tex_w": 2048,
+  "tex_h": 2048,
+  "cell": [
+   64.0,
+   64.0
+  ]
+ }
+}

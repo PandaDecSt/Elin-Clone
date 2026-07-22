@@ -1,120 +1,120 @@
 {
  "OBJ_ID_RECT": {
   "145": {
-   "tex": "blocks",
+   "tex": "objs_L",
    "rect": [
-    1345,
-    256,
-    62,
-    63
+    641,
+    129,
+    76,
+    40
    ],
    "flip": false,
-   "how": "rescue(off 64.0)",
+   "how": "exact",
    "name": "egg"
   },
   "0": {
-   "tex": "objs_S",
+   "tex": "objs",
    "rect": [
-    165,
-    8,
-    21,
-    17
+    332,
+    6,
+    34,
+    53
    ],
    "flip": false,
-   "how": "rescue(off 31.5)",
+   "how": "rescue(off 0,-1)",
    "name": "momiji"
   },
   "1": {
-   "tex": "objs_S",
+   "tex": "objs",
    "rect": [
-    79,
-    79,
-    17,
-    13
+    130,
+    139,
+    59,
+    52
    ],
    "flip": false,
    "how": "exact",
    "name": "flower"
   },
   "2": {
-   "tex": "objs_S",
+   "tex": "objs",
    "rect": [
-    227,
-    96,
-    26,
-    30
+    450,
+    132,
+    62,
+    54
    ],
    "flip": false,
-   "how": "exact",
+   "how": "rescue(off 0,-1)",
    "name": "blue flower"
   },
   "3": {
    "tex": "objs_S",
    "rect": [
-    550,
-    70,
-    18,
-    20
+    513,
+    37,
+    23,
+    25
    ],
    "flip": false,
-   "how": "exact",
+   "how": "rescue(off -1,-1)",
    "name": "yellow flower"
   },
   "4": {
-   "tex": "objs_S",
+   "tex": "objs",
    "rect": [
-    386,
-    72,
-    27,
-    20
+    777,
+    197,
+    46,
+    50
    ],
    "flip": false,
-   "how": "exact",
+   "how": "rescue(off 0,1)",
    "name": "white flower"
   },
   "115": {
-   "tex": "objs_S",
+   "tex": "objs",
    "rect": [
-    1510,
-    42,
-    23,
-    18
+    3082,
+    134,
+    51,
+    54
    ],
    "flip": false,
-   "how": "exact",
+   "how": "rescue(off 1,1)",
    "name": "red grass"
   },
   "116": {
-   "tex": "objs_S",
+   "tex": "objs",
    "rect": [
-    1510,
-    70,
-    20,
-    22
+    3082,
+    134,
+    51,
+    54
    ],
    "flip": false,
-   "how": "exact",
+   "how": "rescue(off 1,0)",
    "name": "blue grass"
   },
   "117": {
-   "tex": "objs_S",
+   "tex": "objs",
    "rect": [
-    1510,
-    102,
-    20,
-    22
+    3082,
+    134,
+    51,
+    54
    ],
    "flip": false,
-   "how": "exact",
+   "how": "rescue(off 1,-1)",
    "name": "purple grass"
   },
   "127": {
-   "tex": "objs_S",
+   "tex": "objs",
    "rect": [
-    1510,
-    10,
-    23,
-    18
+    3027,
+    18,
+    29,
+    34
    ],
    "flip": false,
    "how": "exact",
@@ -133,24 +133,24 @@
    "name": "white flower"
   },
   "5": {
-   "tex": "objs_S",
+   "tex": "objs",
    "rect": [
-    78,
-    102,
-    14,
-    12
+    130,
+    139,
+    59,
+    52
    ],
    "flip": false,
-   "how": "exact",
+   "how": "rescue(off 0,-1)",
    "name": "weed"
   },
   "6": {
-   "tex": "objs_S",
+   "tex": "objs",
    "rect": [
-    402,
-    100,
-    11,
-    10
+    777,
+    197,
+    46,
+    50
    ],
    "flip": false,
    "how": "exact",
@@ -159,97 +159,97 @@
   "7": {
    "tex": "objs_S",
    "rect": [
-    841,
-    11,
-    15,
-    11
+    833,
+    32,
+    30,
+    31
    ],
    "flip": false,
-   "how": "exact",
+   "how": "rescue(off 0,1)",
    "name": "weed"
   },
   "99": {
    "tex": "objs",
    "rect": [
-    1160,
-    22,
+    1225,
+    16,
     48,
-    34
+    40
    ],
    "flip": false,
-   "how": "exact",
+   "how": "rescue(off 1,0)",
    "name": "cattail"
   },
   "121": {
    "tex": "objs",
    "rect": [
-    1353,
-    17,
-    47,
-    37
+    1289,
+    16,
+    48,
+    40
    ],
    "flip": false,
-   "how": "exact",
+   "how": "rescue(off -1,0)",
    "name": "fern"
   },
   "8": {
-   "tex": "objs_S",
+   "tex": "objs",
    "rect": [
-    613,
-    8,
-    21,
-    18
+    1225,
+    16,
+    48,
+    40
    ],
    "flip": false,
    "how": "exact",
    "name": "rafflesia"
   },
   "9": {
-   "tex": "objs_S",
+   "tex": "objs",
    "rect": [
-    493,
-    55,
-    7,
-    5
+    713,
+    135,
+    45,
+    49
    ],
    "flip": false,
-   "how": "exact",
+   "how": "rescue(off -1,1)",
    "name": "pebble"
   },
   "48": {
-   "tex": "objs_S",
+   "tex": "objs",
    "rect": [
-    197,
-    7,
-    22,
-    19
+    332,
+    6,
+    34,
+    53
    ],
    "flip": false,
    "how": "exact",
    "name": "bird's nest"
   },
   "10": {
-   "tex": "objs_S",
+   "tex": "objs",
    "rect": [
-    195,
-    35,
-    26,
-    29
+    450,
+    132,
+    62,
+    54
    ],
    "flip": false,
-   "how": "exact",
+   "how": "rescue(off 1,1)",
    "name": "crystal"
   },
   "11": {
-   "tex": "objs_S",
+   "tex": "objs",
    "rect": [
-    323,
-    38,
-    20,
-    11
+    450,
+    132,
+    62,
+    54
    ],
    "flip": false,
-   "how": "exact",
+   "how": "rescue(off -1,1)",
    "name": "stone"
   },
   "16": {
@@ -277,27 +277,27 @@
    "name": "rainbow fruit"
   },
   "14": {
-   "tex": "objs_S",
+   "tex": "objs",
    "rect": [
-    709,
-    73,
-    24,
-    21
+    1421,
+    207,
+    43,
+    41
    ],
    "flip": false,
-   "how": "exact",
+   "how": "rescue(off 0,1)",
    "name": "crim"
   },
   "104": {
    "tex": "objs",
    "rect": [
-    2577,
-    205,
-    32,
-    38
+    2510,
+    133,
+    33,
+    48
    ],
    "flip": false,
-   "how": "exact",
+   "how": "rescue(off -1,-1)",
    "name": "api"
   },
   "122": {
@@ -313,30 +313,42 @@
    "name": "coffee"
   },
   "50": {
-   "tex": "objs_S",
+   "tex": "objs",
    "rect": [
-    709,
-    73,
-    24,
-    21
+    1421,
+    207,
+    43,
+    41
    ],
    "flip": false,
-   "how": "exact",
+   "how": "rescue(off 0,1)",
    "name": "berry"
   },
   "61": {
-   "tex": "objs_S",
+   "tex": "objs",
    "rect": [
-    801,
-    65,
-    16,
-    30
+    1601,
+    193,
+    62,
+    62
    ],
    "flip": false,
-   "how": "exact",
+   "how": "rescue(off 0,1)",
    "name": "vine bush"
   },
   "73": {
+   "tex": "objs",
+   "rect": [
+    1922,
+    201,
+    59,
+    48
+   ],
+   "flip": false,
+   "how": "rescue(off 0,1)",
+   "name": "seaweed"
+  },
+  "74": {
    "tex": "objs_S",
    "rect": [
     993,
@@ -345,31 +357,19 @@
     32
    ],
    "flip": false,
-   "how": "exact",
-   "name": "seaweed"
-  },
-  "74": {
-   "tex": "objs_S",
-   "rect": [
-    968,
-    48,
-    16,
-    12
-   ],
-   "flip": false,
-   "how": "exact",
+   "how": "rescue(off 1,1)",
    "name": "shell"
   },
   "75": {
-   "tex": "objs_S",
+   "tex": "objs",
    "rect": [
-    1121,
-    65,
-    29,
-    31
+    2255,
+    193,
+    35,
+    52
    ],
    "flip": false,
-   "how": "exact",
+   "how": "rescue(off 0,1)",
    "name": "coral"
   },
   "136": {
@@ -381,52 +381,52 @@
     48
    ],
    "flip": false,
-   "how": "exact",
+   "how": "rescue(off 1,0)",
    "name": "coral reef"
   },
   "12": {
-   "tex": "objs_L",
+   "tex": "objs",
    "rect": [
-    576,
-    348,
-    48,
-    64
+    531,
+    452,
+    27,
+    59
    ],
    "flip": false,
-   "how": "exact",
+   "how": "rescue(off 1,1)",
    "name": "mushroom tree"
   },
   "15": {
-   "tex": "objs_L",
+   "tex": "objs",
    "rect": [
-    576,
-    348,
-    48,
-    64
+    531,
+    452,
+    27,
+    59
    ],
    "flip": false,
-   "how": "exact",
+   "how": "rescue(off 1,1)",
    "name": "mushroom tree"
   },
   "47": {
-   "tex": "objs_L",
+   "tex": "objs",
    "rect": [
-    576,
-    348,
-    48,
-    64
+    531,
+    452,
+    27,
+    59
    ],
    "flip": false,
-   "how": "exact",
+   "how": "rescue(off 1,1)",
    "name": "mushroom tree"
   },
   "118": {
    "tex": "objs_L",
    "rect": [
-    1378,
-    87,
-    54,
-    70
+    498,
+    42,
+    53,
+    80
    ],
    "flip": false,
    "how": "exact",
@@ -435,10 +435,10 @@
   "119": {
    "tex": "objs_L",
    "rect": [
-    1682,
-    70,
-    77,
-    88
+    641,
+    8,
+    75,
+    96
    ],
    "flip": false,
    "how": "exact",
@@ -447,22 +447,22 @@
   "53": {
    "tex": "objs_L",
    "rect": [
-    978,
-    475,
-    44,
-    66
+    326,
+    277,
+    70,
+    41
    ],
    "flip": false,
    "how": "exact",
    "name": "rosewood tree"
   },
   "69": {
-   "tex": "objs_L",
+   "tex": "objs",
    "rect": [
-    173,
-    478,
-    53,
-    63
+    146,
+    521,
+    25,
+    35
    ],
    "flip": false,
    "how": "exact",
@@ -471,136 +471,40 @@
   "70": {
    "tex": "objs_L",
    "rect": [
-    1367,
-    735,
-    62,
+    576,
+    348,
+    48,
     64
    ],
    "flip": false,
-   "how": "exact",
+   "how": "rescue(off 1,-2)",
    "name": "acacia tree"
   },
   "54": {
-   "tex": "objs_L",
+   "tex": "objs",
    "rect": [
-    1380,
-    342,
-    43,
-    70
+    1090,
+    465,
+    33,
+    35
    ],
    "flip": false,
-   "how": "exact",
+   "how": "rescue(off 0,1)",
    "name": "fir tree"
   },
   "55": {
-   "tex": "objs_L",
+   "tex": "objs",
    "rect": [
-    1380,
-    476,
-    39,
-    64
+    1097,
+    580,
+    49,
+    60
    ],
    "flip": false,
-   "how": "exact",
+   "how": "rescue(off 0,1)",
    "name": "cedar tree"
   },
   "76": {
-   "tex": "objs_L",
-   "rect": [
-    572,
-    599,
-    58,
-    71
-   ],
-   "flip": false,
-   "how": "exact",
-   "name": "willow tree"
-  },
-  "103": {
-   "tex": "objs_L",
-   "rect": [
-    987,
-    591,
-    32,
-    98
-   ],
-   "flip": false,
-   "how": "exact",
-   "name": "bamboo"
-  },
-  "77": {
-   "tex": "objs_L",
-   "rect": [
-    173,
-    594,
-    62,
-    75
-   ],
-   "flip": false,
-   "how": "exact",
-   "name": "cherry blossom tree"
-  },
-  "56": {
-   "tex": "objs_L",
-   "rect": [
-    181,
-    729,
-    38,
-    66
-   ],
-   "flip": false,
-   "how": "exact",
-   "name": "birch tree"
-  },
-  "57": {
-   "tex": "objs_L",
-   "rect": [
-    581,
-    733,
-    39,
-    64
-   ],
-   "flip": false,
-   "how": "exact",
-   "name": "pine tree"
-  },
-  "58": {
-   "tex": "objs_L",
-   "rect": [
-    972,
-    725,
-    56,
-    70
-   ],
-   "flip": false,
-   "how": "exact",
-   "name": "oak tree"
-  },
-  "17": {
-   "tex": "objs_L",
-   "rect": [
-    978,
-    347,
-    49,
-    65
-   ],
-   "flip": false,
-   "how": "exact",
-   "name": "palulu tree"
-  },
-  "112": {
-   "tex": "objs_L",
-   "rect": [
-    1373,
-    212,
-    56,
-    69
-   ],
-   "flip": false,
-   "how": "exact",
-   "name": "banana tree"
-  },
-  "13": {
    "tex": "objs_L",
    "rect": [
     175,
@@ -610,39 +514,135 @@
    ],
    "flip": false,
    "how": "exact",
+   "name": "willow tree"
+  },
+  "103": {
+   "tex": "objs",
+   "rect": [
+    833,
+    658,
+    62,
+    41
+   ],
+   "flip": false,
+   "how": "rescue(off 1,0)",
+   "name": "bamboo"
+  },
+  "77": {
+   "tex": "objs",
+   "rect": [
+    128,
+    721,
+    64,
+    39
+   ],
+   "flip": false,
+   "how": "rescue(off 0,1)",
+   "name": "cherry blossom tree"
+  },
+  "56": {
+   "tex": "objs_L",
+   "rect": [
+    97,
+    355,
+    46,
+    58
+   ],
+   "flip": false,
+   "how": "rescue(off 1,-1)",
+   "name": "birch tree"
+  },
+  "57": {
+   "tex": "objs_L",
+   "rect": [
+    175,
+    343,
+    53,
+    70
+   ],
+   "flip": false,
+   "how": "exact",
+   "name": "pine tree"
+  },
+  "58": {
+   "tex": "objs",
+   "rect": [
+    837,
+    833,
+    56,
+    63
+   ],
+   "flip": false,
+   "how": "rescue(off 1,1)",
+   "name": "oak tree"
+  },
+  "17": {
+   "tex": "objs",
+   "rect": [
+    713,
+    339,
+    43,
+    28
+   ],
+   "flip": false,
+   "how": "rescue(off -1,-1)",
+   "name": "palulu tree"
+  },
+  "112": {
+   "tex": "objs_L",
+   "rect": [
+    582,
+    136,
+    38,
+    34
+   ],
+   "flip": false,
+   "how": "rescue(off 1,0)",
+   "name": "banana tree"
+  },
+  "13": {
+   "tex": "objs_L",
+   "rect": [
+    96,
+    148,
+    47,
+    73
+   ],
+   "flip": false,
+   "how": "rescue(off 1,-2)",
    "name": "christmas tree"
   },
   "49": {
-   "tex": "objs_L",
+   "tex": "objs",
    "rect": [
-    173,
-    478,
-    53,
-    63
+    146,
+    521,
+    25,
+    35
    ],
    "flip": false,
    "how": "exact",
    "name": "apple tree"
   },
   "113": {
-   "tex": "objs_L",
+   "tex": "objs",
    "rect": [
-    173,
-    478,
-    53,
-    63
+    146,
+    521,
+    25,
+    35
    ],
    "flip": false,
    "how": "exact",
    "name": "orange tree"
   },
   "114": {
-   "tex": "objs_L",
+   "tex": "objs",
    "rect": [
-    173,
-    478,
-    53,
-    63
+    146,
+    521,
+    25,
+    35
    ],
    "flip": false,
    "how": "exact",
@@ -651,466 +651,466 @@
   "59": {
    "tex": "objs_L",
    "rect": [
-    903,
-    23,
-    33,
-    69
+    245,
+    40,
+    79,
+    83
    ],
    "flip": false,
    "how": "exact",
    "name": "burnt tree"
   },
   "18": {
-   "tex": "blocks",
+   "tex": "objs",
    "rect": [
-    26,
-    389,
-    8,
-    10
+    1,
+    321,
+    62,
+    61
    ],
    "flip": false,
-   "how": "exact",
+   "how": "rescue(off 0,-1)",
    "name": "ore"
   },
   "19": {
-   "tex": "blocks",
+   "tex": "objs",
    "rect": [
-    90,
-    389,
-    8,
-    10
+    1,
+    321,
+    62,
+    61
    ],
    "flip": false,
-   "how": "exact",
+   "how": "rescue(off -1,-1)",
    "name": "gem ore"
   },
   "20": {
    "tex": "objs_S",
    "rect": [
-    806,
-    6,
-    19,
-    19
+    833,
+    32,
+    30,
+    31
    ],
    "flip": false,
-   "how": "exact",
+   "how": "rescue(off 1,1)",
    "name": "water lily"
   },
   "21": {
-   "tex": "blocks",
+   "tex": "objs_L",
    "rect": [
-    283,
-    415,
-    10,
-    33
+    96,
+    148,
+    47,
+    73
    ],
    "flip": false,
    "how": "exact",
    "name": "wall support"
   },
   "23": {
-   "tex": "blocks",
+   "tex": "objs",
    "rect": [
-    347,
-    415,
-    10,
-    33
+    261,
+    322,
+    55,
+    49
    ],
    "flip": false,
-   "how": "exact",
+   "how": "rescue(off -1,-1)",
    "name": "window"
   },
   "24": {
-   "tex": "blocks",
+   "tex": "objs",
    "rect": [
-    897,
-    256,
-    62,
-    64
+    899,
+    340,
+    56,
+    43
    ],
    "flip": false,
-   "how": "exact",
+   "how": "rescue(off 0,1)",
    "name": "wooden frame"
   },
   "101": {
-   "tex": "blocks",
+   "tex": "objs",
    "rect": [
-    193,
-    129,
-    62,
-    62
+    130,
+    139,
+    59,
+    52
    ],
    "flip": false,
-   "how": "exact",
+   "how": "rescue(off -1,0)",
    "name": "wooden frame"
   },
   "106": {
-   "tex": "blocks",
+   "tex": "objs_L",
    "rect": [
-    1089,
-    256,
-    62,
-    63
+    641,
+    129,
+    76,
+    40
    ],
    "flip": false,
    "how": "exact",
    "name": "metal frame"
   },
   "25": {
-   "tex": "floors",
+   "tex": "objs",
    "rect": [
-    965,
-    496,
-    42,
-    25
+    897,
+    652,
+    63,
+    47
    ],
    "flip": false,
-   "how": "exact",
+   "how": "rescue(off 1,0)",
    "name": "road"
   },
   "144": {
-   "tex": "floors",
+   "tex": "objs",
    "rect": [
-    1089,
-    587,
-    62,
-    35
+    1285,
+    768,
+    53,
+    62
    ],
    "flip": false,
-   "how": "rescue(off 52.5)",
+   "how": "rescue(off 1,1)",
    "name": "stepping stone"
   },
   "71": {
-   "tex": "floors",
+   "tex": "objs",
    "rect": [
-    661,
-    495,
-    26,
-    22
+    450,
+    706,
+    60,
+    53
    ],
    "flip": false,
-   "how": "exact",
+   "how": "rescue(off 0,1)",
    "name": "cracked floor"
   },
   "107": {
-   "tex": "floors",
+   "tex": "objs",
    "rect": [
-    1172,
-    451,
-    27,
-    17
+    1223,
+    512,
+    51,
+    64
    ],
    "flip": false,
-   "how": "exact",
+   "how": "rescue(off 1,-1)",
    "name": "chemicals"
   },
   "109": {
-   "tex": "floors",
+   "tex": "objs",
    "rect": [
-    1291,
-    496,
-    16,
-    16
+    1097,
+    580,
+    49,
+    60
    ],
    "flip": false,
-   "how": "exact",
+   "how": "rescue(off -1,-1)",
    "name": "debris"
   },
   "111": {
-   "tex": "floors",
+   "tex": "objs",
    "rect": [
-    1616,
-    503,
-    10,
-    11
+    1736,
+    704,
+    56,
+    64
    ],
    "flip": false,
-   "how": "exact",
+   "how": "rescue(off 1,1)",
    "name": "fragments"
   },
   "22": {
-   "tex": "roofs",
+   "tex": "objs",
    "rect": [
-    15,
-    85,
-    77,
-    72
+    450,
+    132,
+    62,
+    54
    ],
    "flip": false,
-   "how": "exact",
+   "how": "rescue(off -1,1)",
    "name": "roof"
   },
   "26": {
-   "tex": "roofs",
+   "tex": "objs",
    "rect": [
-    15,
-    165,
-    77,
-    72
+    450,
+    132,
+    62,
+    54
    ],
    "flip": false,
-   "how": "exact",
+   "how": "rescue(off -1,0)",
    "name": "roof2"
   },
   "27": {
-   "tex": "roofs",
+   "tex": "objs",
    "rect": [
-    15,
-    245,
-    77,
-    72
+    450,
+    132,
+    62,
+    54
    ],
    "flip": false,
-   "how": "exact",
+   "how": "rescue(off -1,-1)",
    "name": "roof3"
   },
   "28": {
-   "tex": "roofs",
+   "tex": "objs",
    "rect": [
-    15,
-    325,
-    77,
-    72
+    1,
+    321,
+    62,
+    61
    ],
    "flip": false,
-   "how": "exact",
+   "how": "rescue(off 0,1)",
    "name": "roof4"
   },
   "29": {
-   "tex": "roofs",
+   "tex": "objs",
    "rect": [
-    15,
-    404,
-    77,
-    75
+    1,
+    321,
+    62,
+    61
    ],
    "flip": false,
    "how": "exact",
    "name": "roof5"
   },
   "30": {
-   "tex": "roofs",
+   "tex": "objs",
    "rect": [
-    15,
-    485,
-    77,
-    72
+    1,
+    321,
+    62,
+    61
    ],
    "flip": false,
-   "how": "exact",
+   "how": "rescue(off 0,-1)",
    "name": "roof6"
   },
   "67": {
-   "tex": "roofs",
+   "tex": "objs",
    "rect": [
-    15,
-    565,
-    77,
-    72
+    76,
+    384,
+    37,
+    64
    ],
    "flip": false,
-   "how": "exact",
+   "how": "rescue(off 1,-1)",
    "name": "roof7"
   },
   "124": {
-   "tex": "roofs",
+   "tex": "objs",
    "rect": [
-    15,
-    645,
-    77,
-    72
+    531,
+    452,
+    27,
+    59
    ],
    "flip": false,
-   "how": "exact",
+   "how": "rescue(off 0,-1)",
    "name": "roof8"
   },
   "125": {
-   "tex": "roofs",
+   "tex": "objs",
    "rect": [
-    15,
-    725,
-    77,
-    72
+    270,
+    648,
+    36,
+    51
    ],
    "flip": false,
-   "how": "exact",
+   "how": "rescue(off 1,1)",
    "name": "roof9"
   },
   "126": {
-   "tex": "roofs",
+   "tex": "objs",
    "rect": [
-    15,
-    805,
-    77,
-    72
+    450,
+    706,
+    60,
+    53
    ],
    "flip": false,
-   "how": "exact",
+   "how": "rescue(off -1,1)",
    "name": "roof10"
   },
   "128": {
-   "tex": "roofs",
+   "tex": "objs",
    "rect": [
-    15,
-    885,
-    77,
-    72
+    513,
+    772,
+    62,
+    52
    ],
    "flip": false,
-   "how": "exact",
+   "how": "rescue(off 0,1)",
    "name": "roof11"
   },
   "129": {
-   "tex": "roofs",
+   "tex": "objs",
    "rect": [
-    14,
-    965,
-    78,
-    72
+    513,
+    772,
+    62,
+    52
    ],
    "flip": false,
    "how": "exact",
    "name": "roof12"
   },
   "130": {
-   "tex": "roofs",
+   "tex": "objs",
    "rect": [
-    15,
-    1045,
-    77,
-    72
+    513,
+    772,
+    62,
+    52
    ],
    "flip": false,
-   "how": "exact",
+   "how": "rescue(off 0,-1)",
    "name": "roof13"
   },
   "131": {
-   "tex": "roofs",
+   "tex": "objs",
    "rect": [
-    15,
-    1124,
-    77,
-    73
+    9,
+    838,
+    48,
+    54
    ],
    "flip": false,
-   "how": "exact",
+   "how": "rescue(off 0,-1)",
    "name": "roof14"
   },
   "132": {
-   "tex": "roofs",
+   "tex": "objs",
    "rect": [
-    15,
-    1204,
-    77,
-    73
+    451,
+    1025,
+    55,
+    59
    ],
    "flip": false,
-   "how": "exact",
+   "how": "rescue(off -1,1)",
    "name": "roof15"
   },
   "133": {
-   "tex": "roofs",
+   "tex": "objs",
    "rect": [
-    15,
-    1284,
-    77,
-    73
+    515,
+    1025,
+    55,
+    59
    ],
    "flip": false,
    "how": "exact",
    "name": "roof16"
   },
   "134": {
-   "tex": "roofs",
+   "tex": "objs",
    "rect": [
-    15,
-    1364,
-    77,
-    73
+    451,
+    1025,
+    55,
+    59
    ],
    "flip": false,
-   "how": "exact",
+   "how": "rescue(off -1,-1)",
    "name": "roof17"
   },
   "31": {
-   "tex": "floors",
+   "tex": "objs",
    "rect": [
-    6,
-    1740,
-    53,
-    26
+    17,
+    2304,
+    46,
+    61
    ],
    "flip": false,
    "how": "exact",
    "name": "track"
   },
   "110": {
-   "tex": "floors",
+   "tex": "objs_S",
    "rect": [
-    9,
-    1835,
-    46,
-    28
+    36,
+    1225,
+    24,
+    17
    ],
    "flip": false,
-   "how": "exact",
+   "how": "rescue(off 1,0)",
    "name": "conveyor belt"
   },
   "97": {
-   "tex": "blocks",
+   "tex": "objs",
    "rect": [
-    1030,
-    1042,
-    51,
-    40
+    1031,
+    1091,
+    50,
+    48
    ],
    "flip": false,
-   "how": "exact",
+   "how": "rescue(off 0,1)",
    "name": "track"
   },
   "98": {
-   "tex": "blocks",
+   "tex": "objs",
    "rect": [
-    1159,
-    1028,
-    52,
-    55
+    1167,
+    1033,
+    42,
+    46
    ],
    "flip": false,
    "how": "exact",
    "name": "track"
   },
   "92": {
-   "tex": "floors",
+   "tex": "objs_S",
    "rect": [
-    1048,
-    1811,
-    15,
-    8
+    516,
+    1160,
+    20,
+    20
    ],
    "flip": false,
-   "how": "exact",
+   "how": "rescue(off 0,-1)",
    "name": "border"
   },
   "32": {
-   "tex": "floors",
+   "tex": "objs",
    "rect": [
-    8,
-    1789,
+    17,
+    2304,
     46,
-    25
+    61
    ],
    "flip": false,
-   "how": "exact",
+   "how": "rescue(off 0,-1)",
    "name": "chasm"
   },
   "33": {
-   "tex": "floors",
+   "tex": "objs_S",
    "rect": [
-    1034,
-    1740,
-    46,
-    26
+    516,
+    1160,
+    20,
+    20
    ],
    "flip": false,
    "how": "exact",
@@ -1119,49 +1119,49 @@
   "34": {
    "tex": "objs",
    "rect": [
-    3915,
-    478,
-    44,
-    28
-   ],
-   "flip": false,
-   "how": "exact",
-   "name": "wreck"
-  },
-  "85": {
-   "tex": "objs",
-   "rect": [
     3977,
     470,
     47,
     36
    ],
    "flip": false,
-   "how": "exact",
+   "how": "rescue(off 1,0)",
+   "name": "wreck"
+  },
+  "85": {
+   "tex": "objs",
+   "rect": [
+    4042,
+    385,
+    44,
+    62
+   ],
+   "flip": false,
+   "how": "rescue(off 1,-1)",
    "name": "wreck"
   },
   "86": {
    "tex": "objs",
    "rect": [
-    3785,
-    479,
-    48,
-    26
+    3846,
+    407,
+    51,
+    31
    ],
    "flip": false,
-   "how": "exact",
+   "how": "rescue(off 1,-1)",
    "name": "wreck"
   },
   "87": {
    "tex": "objs",
    "rect": [
-    3722,
-    480,
-    23,
-    22
+    3648,
+    448,
+    64,
+    64
    ],
    "flip": false,
-   "how": "exact",
+   "how": "rescue(off -1,0)",
    "name": "wreck"
   },
   "105": {
@@ -1203,10 +1203,10 @@
   "140": {
    "tex": "objs",
    "rect": [
-    3927,
-    15,
-    38,
-    43
+    3913,
+    23,
+    17,
+    25
    ],
    "flip": false,
    "how": "exact",
@@ -1215,13 +1215,13 @@
   "137": {
    "tex": "objs",
    "rect": [
-    3395,
-    67,
-    59,
-    59
+    3264,
+    3,
+    256,
+    61
    ],
    "flip": false,
-   "how": "exact",
+   "how": "rescue(off -2,-1)",
    "name": "deep seaweed"
   },
   "35": {
@@ -1249,39 +1249,39 @@
    "name": "rice"
   },
   "36": {
-   "tex": "objs",
+   "tex": "objs_S",
    "rect": [
-    982,
-    218,
-    15,
-    12
+    518,
+    70,
+    18,
+    20
    ],
    "flip": false,
-   "how": "exact",
+   "how": "rescue(off 1,-1)",
    "name": "radish"
   },
   "37": {
    "tex": "objs",
    "rect": [
-    220,
-    99,
-    7,
-    6
+    130,
+    139,
+    59,
+    52
    ],
    "flip": false,
-   "how": "exact",
+   "how": "rescue(off -1,1)",
    "name": "test"
   },
   "38": {
    "tex": "objs",
    "rect": [
-    1369,
-    217,
-    16,
-    32
+    1421,
+    207,
+    43,
+    41
    ],
    "flip": false,
-   "how": "exact",
+   "how": "rescue(off 1,0)",
    "name": "cabbage"
   },
   "138": {
@@ -1299,13 +1299,13 @@
   "39": {
    "tex": "objs",
    "rect": [
-    649,
-    198,
-    45,
+    578,
+    137,
+    62,
     49
    ],
    "flip": false,
-   "how": "exact",
+   "how": "rescue(off -1,-1)",
    "name": "tomato"
   },
   "141": {
@@ -1321,51 +1321,51 @@
    "name": "red pepper"
   },
   "40": {
-   "tex": "objs",
+   "tex": "objs_S",
    "rect": [
-    1053,
-    219,
-    12,
-    12
+    549,
+    99,
+    21,
+    27
    ],
    "flip": false,
-   "how": "exact",
+   "how": "rescue(off 1,0)",
    "name": "carrot"
   },
   "41": {
-   "tex": "objs",
+   "tex": "objs_S",
    "rect": [
-    1304,
-    222,
-    16,
-    13
+    679,
+    79,
+    18,
+    16
    ],
    "flip": false,
-   "how": "exact",
+   "how": "rescue(off 1,-1)",
    "name": "imo"
   },
   "123": {
    "tex": "objs",
    "rect": [
-    2582,
-    151,
-    22,
-    28
+    2510,
+    133,
+    33,
+    48
    ],
    "flip": false,
-   "how": "exact",
+   "how": "rescue(off -1,0)",
    "name": "tobacc"
   },
   "42": {
    "tex": "objs",
    "rect": [
-    713,
-    199,
+    777,
+    197,
     46,
-    49
+    50
    ],
    "flip": false,
-   "how": "exact",
+   "how": "rescue(off 1,0)",
    "name": "corn"
   },
   "78": {
@@ -1393,90 +1393,54 @@
    "name": "cotton"
   },
   "43": {
-   "tex": "floors",
+   "tex": "objs",
    "rect": [
-    8,
-    1692,
-    52,
-    27
+    17,
+    2304,
+    46,
+    61
    ],
    "flip": false,
-   "how": "exact",
+   "how": "rescue(off 0,1)",
    "name": "road"
   },
   "44": {
-   "tex": "floors",
+   "tex": "objs_S",
    "rect": [
-    1033,
-    1691,
-    46,
-    26
+    485,
+    1096,
+    23,
+    23
    ],
    "flip": false,
-   "how": "exact",
+   "how": "rescue(off -1,-1)",
    "name": "narrow road"
   },
   "89": {
-   "tex": "floors",
+   "tex": "objs_S",
    "rect": [
-    1038,
-    1649,
-    36,
-    19
+    485,
+    1096,
+    23,
+    23
    ],
    "flip": false,
-   "how": "exact",
+   "how": "rescue(off -1,0)",
    "name": "white line"
   },
   "135": {
-   "tex": "floors",
+   "tex": "objs",
    "rect": [
-    1039,
-    1602,
-    34,
-    17
+    973,
+    2057,
+    39,
+    51
    ],
    "flip": false,
-   "how": "exact",
+   "how": "rescue(off -1,-1)",
    "name": "neon line"
   },
   "45": {
-   "tex": "objs_S",
-   "rect": [
-    871,
-    14,
-    16,
-    12
-   ],
-   "flip": false,
-   "how": "exact",
-   "name": "chunk"
-  },
-  "84": {
-   "tex": "floors",
-   "rect": [
-    271,
-    540,
-    33,
-    25
-   ],
-   "flip": false,
-   "how": "exact",
-   "name": "mound"
-  },
-  "46": {
-   "tex": "objs",
-   "rect": [
-    3848,
-    474,
-    48,
-    31
-   ],
-   "flip": false,
-   "how": "exact",
-   "name": "wreck"
-  },
-  "51": {
    "tex": "objs_S",
    "rect": [
     833,
@@ -1485,7 +1449,43 @@
     31
    ],
    "flip": false,
-   "how": "exact",
+   "how": "rescue(off -1,1)",
+   "name": "chunk"
+  },
+  "84": {
+   "tex": "objs",
+   "rect": [
+    270,
+    648,
+    36,
+    51
+   ],
+   "flip": false,
+   "how": "rescue(off 0,-1)",
+   "name": "mound"
+  },
+  "46": {
+   "tex": "objs",
+   "rect": [
+    3846,
+    407,
+    51,
+    31
+   ],
+   "flip": false,
+   "how": "rescue(off 0,-1)",
+   "name": "wreck"
+  },
+  "51": {
+   "tex": "objs",
+   "rect": [
+    1665,
+    129,
+    62,
+    62
+   ],
+   "flip": false,
+   "how": "rescue(off 1,1)",
    "name": "big rock"
   },
   "100": {
@@ -1510,42 +1510,42 @@
    ],
    "flip": false,
    "how": "exact",
-   "name": "stalagmite"
+   "name": "stalagmite "
   },
   "91": {
-   "tex": "objs_S",
+   "tex": "objs",
    "rect": [
-    1217,
-    34,
-    28,
-    30
+    2448,
+    131,
+    33,
+    50
    ],
    "flip": false,
-   "how": "exact",
+   "how": "rescue(off 1,1)",
    "name": "salt rock"
   },
   "102": {
-   "tex": "objs_S",
+   "tex": "objs",
    "rect": [
-    1313,
-    34,
-    28,
-    30
+    2448,
+    131,
+    33,
+    50
    ],
    "flip": false,
-   "how": "exact",
+   "how": "rescue(off -1,1)",
    "name": "sulfur rock"
   },
   "52": {
-   "tex": "objs_S",
+   "tex": "objs",
    "rect": [
-    513,
-    37,
-    23,
-    25
+    1225,
+    16,
+    48,
+    40
    ],
    "flip": false,
-   "how": "exact",
+   "how": "rescue(off 1,-1)",
    "name": "bone"
   },
   "142": {
@@ -1557,115 +1557,127 @@
     47
    ],
    "flip": false,
-   "how": "rescue(off 61.0)",
+   "how": "rescue(off 1,-1)",
    "name": "bone mound"
   },
-  "62": {
+  "143": {
    "tex": "objs_L",
    "rect": [
-    88,
-    1109,
-    56,
-    74
+    261,
+    1931,
+    13,
+    13
    ],
    "flip": false,
-   "how": "exact",
+   "how": "rescue(off 1,-1)",
+   "name": "bone"
+  },
+  "62": {
+   "tex": "objs",
+   "rect": [
+    259,
+    1088,
+    58,
+    51
+   ],
+   "flip": false,
+   "how": "rescue(off 1,-1)",
    "name": "decayed fossil tree"
   },
   "63": {
    "tex": "objs_L",
    "rect": [
-    485,
-    1092,
-    73,
-    90
+    173,
+    594,
+    62,
+    75
    ],
    "flip": false,
    "how": "exact",
    "name": "fossil tree"
   },
   "64": {
-   "tex": "objs_L",
+   "tex": "objs",
    "rect": [
-    161,
+    208,
     1094,
-    77,
-    94
+    38,
+    53
    ],
    "flip": false,
-   "how": "exact",
+   "how": "rescue(off 1,-1)",
    "name": "big fossil tree"
   },
   "60": {
-   "tex": "floors",
+   "tex": "objs",
    "rect": [
-    17,
-    499,
-    13,
-    11
+    128,
+    721,
+    64,
+    39
    ],
    "flip": false,
-   "how": "exact",
+   "how": "rescue(off 1,1)",
    "name": "moss"
   },
   "79": {
-   "tex": "floors",
+   "tex": "objs",
    "rect": [
-    27,
-    547,
-    11,
-    7
+    128,
+    721,
+    64,
+    39
    ],
    "flip": false,
-   "how": "exact",
+   "how": "rescue(off 1,0)",
    "name": "pile of fallen leaves"
   },
   "65": {
-   "tex": "floors",
+   "tex": "objs",
    "rect": [
-    270,
-    502,
-    17,
-    11
+    128,
+    721,
+    64,
+    39
    ],
    "flip": false,
-   "how": "exact",
+   "how": "rescue(off -1,1)",
    "name": "decayed fossil"
   },
   "66": {
-   "tex": "objs_S",
+   "tex": "objs",
    "rect": [
-    901,
-    41,
-    22,
-    22
+    1665,
+    129,
+    62,
+    62
    ],
    "flip": false,
-   "how": "exact",
+   "how": "rescue(off -1,1)",
    "name": "bollard"
   },
   "68": {
-   "tex": "objs_S",
+   "tex": "objs",
    "rect": [
-    9,
-    237,
-    14,
-    8
+    76,
+    384,
+    37,
+    64
    ],
    "flip": false,
-   "how": "exact",
-   "name": "fish silhouette"
+   "how": "rescue(off 1,-1)",
+   "name": "fish silhouette "
   },
   "72": {
-   "tex": "objs_S",
+   "tex": "objs",
    "rect": [
-    929,
-    37,
-    29,
-    25
+    1793,
+    129,
+    62,
+    62
    ],
    "flip": false,
-   "how": "exact",
+   "how": "rescue(off -1,1)",
    "name": "stump"
   },
   "94": {
@@ -1681,63 +1693,63 @@
    "name": "decayed tree"
   },
   "80": {
-   "tex": "objs_S",
+   "tex": "objs",
    "rect": [
-    288,
-    0,
-    32,
-    32
+    198,
+    23,
+    54,
+    36
    ],
    "flip": false,
-   "how": "exact",
+   "how": "rescue(off 1,0)",
    "name": "For Test"
   },
   "82": {
    "tex": "objs",
    "rect": [
-    3598,
-    413,
-    44,
-    31
+    3648,
+    448,
+    64,
+    64
    ],
    "flip": false,
-   "how": "exact",
+   "how": "rescue(off 1,1)",
    "name": "remain"
   },
   "83": {
    "tex": "objs",
    "rect": [
-    3846,
-    407,
-    51,
-    31
+    3789,
+    324,
+    39,
+    58
    ],
    "flip": false,
-   "how": "exact",
+   "how": "rescue(off -1,-1)",
    "name": "wreck"
   },
   "95": {
-   "tex": "blocks",
+   "tex": "objs",
    "rect": [
-    1,
-    833,
-    26,
-    55
+    9,
+    838,
+    48,
+    54
    ],
    "flip": false,
    "how": "exact",
    "name": "decayed wall"
   },
   "96": {
-   "tex": "blocks",
+   "tex": "objs",
    "rect": [
-    449,
-    834,
-    40,
-    60
+    513,
+    772,
+    62,
+    52
    ],
    "flip": false,
-   "how": "exact",
+   "how": "rescue(off 1,-1)",
    "name": "decayed wall"
   }
  }

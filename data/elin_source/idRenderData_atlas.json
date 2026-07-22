@@ -1,0 +1,818 @@
+{
+ "block": {
+  "atlas": "blocks",
+  "cell": [
+   64,
+   64
+  ],
+  "meshpass": "pass tile_block"
+ },
+ "block in water": {
+  "atlas": "blocks",
+  "cell": [
+   64,
+   64
+  ],
+  "meshpass": "pass tile_block in water"
+ },
+ "block mount": {
+  "atlas": "blocks",
+  "cell": [
+   64,
+   64
+  ],
+  "meshpass": "pass tile_block"
+ },
+ "blockEx": {
+  "atlas": "blocks",
+  "cell": [
+   64,
+   64
+  ],
+  "meshpass": "pass tile_blockEx"
+ },
+ "blockMarker": {
+  "atlas": "blocks",
+  "cell": [
+   64,
+   64
+  ],
+  "meshpass": "pass tile_block marker"
+ },
+ "blockShadow": {
+  "atlas": "floors",
+  "cell": [
+   64,
+   48
+  ],
+  "meshpass": "pass tile_edge"
+ },
+ "block_fake": {
+  "atlas": "blocks",
+  "cell": [
+   64,
+   64
+  ],
+  "meshpass": "pass tile_block"
+ },
+ "block_thin": {
+  "atlas": "blocks",
+  "cell": [
+   64,
+   64
+  ],
+  "meshpass": "pass tile_block"
+ },
+ "block_thinEx": {
+  "atlas": "blocks",
+  "cell": [
+   64,
+   64
+  ],
+  "meshpass": "pass tile_blockEx"
+ },
+ "block_thinFake": {
+  "atlas": "blocks",
+  "cell": [
+   64,
+   64
+  ],
+  "meshpass": "pass tile_block"
+ },
+ "border": {
+  "atlas": "floors",
+  "cell": [
+   64,
+   48
+  ],
+  "meshpass": "pass tile_edge"
+ },
+ "chara": {
+  "atlas": "objs_C",
+  "cell": [
+   128,
+   128
+  ],
+  "meshpass": "pass chara"
+ },
+ "chara_L": {
+  "atlas": "objs_CL",
+  "cell": [
+   128,
+   256
+  ],
+  "meshpass": "pass charaL"
+ },
+ "chara_LL": {
+  "atlas": "objs_CLL",
+  "cell": [
+   256,
+   256
+  ],
+  "meshpass": "pass charaLL"
+ },
+ "chara_LW": {
+  "atlas": "objs_CL",
+  "cell": [
+   256,
+   256
+  ],
+  "meshpass": "pass charaLW"
+ },
+ "chimney": {
+  "atlas": "objs",
+  "cell": [
+   64,
+   64
+  ],
+  "meshpass": "pass obj"
+ },
+ "crate": {
+  "atlas": "objs",
+  "cell": [
+   64,
+   64
+  ],
+  "meshpass": "pass obj"
+ },
+ "effect fire": {
+  "atlas": "effects",
+  "cell": [
+   64,
+   120
+  ],
+  "meshpass": "pass effect"
+ },
+ "effect_bubble": {
+  "atlas": "blocks",
+  "cell": [
+   64,
+   64
+  ],
+  "meshpass": "pass tile_liquid"
+ },
+ "effect_default": {
+  "atlas": "objs",
+  "cell": [
+   64,
+   64
+  ],
+  "meshpass": "pass obj"
+ },
+ "fence": {
+  "atlas": "blocks",
+  "cell": [
+   64,
+   64
+  ],
+  "meshpass": "pass tile_block"
+ },
+ "floor": {
+  "atlas": "floors",
+  "cell": [
+   64,
+   48
+  ],
+  "meshpass": "pass tile_floor"
+ },
+ "floorEx": {
+  "atlas": "floors",
+  "cell": [
+   64,
+   48
+  ],
+  "meshpass": "pass tile_floorEx"
+ },
+ "floorMarker": {
+  "atlas": "floors",
+  "cell": [
+   64,
+   48
+  ],
+  "meshpass": "pass tile_floor marker"
+ },
+ "floorWater": {
+  "atlas": "floors",
+  "cell": [
+   64,
+   48
+  ],
+  "meshpass": "pass tile_floorWater"
+ },
+ "floor_obj": {
+  "atlas": "floors",
+  "cell": [
+   64,
+   48
+  ],
+  "meshpass": "pass tile_floor"
+ },
+ "fog block": {
+  "atlas": "blocks",
+  "cell": [
+   64,
+   64
+  ],
+  "meshpass": "pass fog"
+ },
+ "fog block solid": {
+  "atlas": "blocks",
+  "cell": [
+   64,
+   64
+  ],
+  "meshpass": "pass fog"
+ },
+ "fog floor": {
+  "atlas": "blocks",
+  "cell": [
+   64,
+   64
+  ],
+  "meshpass": "pass fog"
+ },
+ "fog floor solid": {
+  "atlas": "blocks",
+  "cell": [
+   64,
+   64
+  ],
+  "meshpass": "pass fog"
+ },
+ "fogRoom": {
+  "atlas": "blocks",
+  "cell": [
+   64,
+   64
+  ],
+  "meshpass": "pass fog"
+ },
+ "fogRoom Solid": {
+  "atlas": "blocks",
+  "cell": [
+   64,
+   64
+  ],
+  "meshpass": "pass tile_block inner"
+ },
+ "fogRoom block solid": {
+  "atlas": "blocks",
+  "cell": [
+   64,
+   64
+  ],
+  "meshpass": "pass tile_block inner"
+ },
+ "fogRoom wall": {
+  "atlas": "blocks",
+  "cell": [
+   64,
+   64
+  ],
+  "meshpass": "pass fog"
+ },
+ "fogRoom wall Solid": {
+  "atlas": "blocks",
+  "cell": [
+   64,
+   64
+  ],
+  "meshpass": "pass tile_block inner"
+ },
+ "fov": {
+  "atlas": "fov",
+  "cell": [
+   160,
+   200
+  ],
+  "meshpass": "pass fov"
+ },
+ "fov 2": {
+  "atlas": "fov 2",
+  "cell": [
+   160,
+   200
+  ],
+  "meshpass": "pass fog edge"
+ },
+ "halfblock": {
+  "atlas": "blocks",
+  "cell": [
+   64,
+   64
+  ],
+  "meshpass": "pass tile_block"
+ },
+ "innerblock": {
+  "atlas": "blocks",
+  "cell": [
+   64,
+   64
+  ],
+  "meshpass": "pass tile_block inner"
+ },
+ "innerblock_low": {
+  "atlas": "floors",
+  "cell": [
+   64,
+   48
+  ],
+  "meshpass": "pass tile_floor"
+ },
+ "ladder": {
+  "atlas": "blocks",
+  "cell": [
+   64,
+   64
+  ],
+  "meshpass": "pass tile_block"
+ },
+ "liquid": {
+  "atlas": "blocks",
+  "cell": [
+   64,
+   64
+  ],
+  "meshpass": "pass tile_liquid"
+ },
+ "obj": {
+  "atlas": "objs",
+  "cell": [
+   64,
+   64
+  ],
+  "meshpass": "pass obj"
+ },
+ "obj EQ": {
+  "atlas": "objs",
+  "cell": [
+   64,
+   64
+  ],
+  "meshpass": "pass obj"
+ },
+ "obj add": {
+  "atlas": "objs",
+  "cell": [
+   64,
+   64
+  ],
+  "meshpass": "pass obj"
+ },
+ "obj addElevetor": {
+  "atlas": "objs",
+  "cell": [
+   64,
+   64
+  ],
+  "meshpass": "pass obj"
+ },
+ "obj addStall": {
+  "atlas": "objs",
+  "cell": [
+   64,
+   64
+  ],
+  "meshpass": "pass obj"
+ },
+ "obj ceil": {
+  "atlas": "objs",
+  "cell": [
+   64,
+   64
+  ],
+  "meshpass": "pass obj"
+ },
+ "obj counter": {
+  "atlas": "objs",
+  "cell": [
+   64,
+   64
+  ],
+  "meshpass": "pass obj"
+ },
+ "obj counter bk": {
+  "atlas": "objs",
+  "cell": [
+   64,
+   64
+  ],
+  "meshpass": "pass obj"
+ },
+ "obj counterCorner": {
+  "atlas": "objs",
+  "cell": [
+   64,
+   64
+  ],
+  "meshpass": "pass obj"
+ },
+ "obj door": {
+  "atlas": "objs",
+  "cell": [
+   64,
+   64
+  ],
+  "meshpass": "pass obj"
+ },
+ "obj doorBoat": {
+  "atlas": "objs",
+  "cell": [
+   64,
+   64
+  ],
+  "meshpass": "pass obj"
+ },
+ "obj doorCurtain": {
+  "atlas": "objs",
+  "cell": [
+   64,
+   64
+  ],
+  "meshpass": "pass obj"
+ },
+ "obj doorframe": {
+  "atlas": "objs",
+  "cell": [
+   64,
+   64
+  ],
+  "meshpass": "pass obj"
+ },
+ "obj dummy": {
+  "atlas": "objs_S",
+  "cell": [
+   32,
+   32
+  ],
+  "meshpass": "pass obj_S"
+ },
+ "obj flat": {
+  "atlas": "objs",
+  "cell": [
+   64,
+   64
+  ],
+  "meshpass": "pass obj"
+ },
+ "obj float": {
+  "atlas": "objs",
+  "cell": [
+   64,
+   64
+  ],
+  "meshpass": "pass obj"
+ },
+ "obj hang": {
+  "atlas": "objs",
+  "cell": [
+   64,
+   64
+  ],
+  "meshpass": "pass obj"
+ },
+ "obj hangBig": {
+  "atlas": "objs",
+  "cell": [
+   64,
+   64
+  ],
+  "meshpass": "pass obj"
+ },
+ "obj hangBoard": {
+  "atlas": "objs",
+  "cell": [
+   64,
+   64
+  ],
+  "meshpass": "pass obj"
+ },
+ "obj hangRoof": {
+  "atlas": "objs",
+  "cell": [
+   64,
+   64
+  ],
+  "meshpass": "pass obj"
+ },
+ "obj mount": {
+  "atlas": "objs",
+  "cell": [
+   64,
+   64
+  ],
+  "meshpass": "pass obj"
+ },
+ "obj paint": {
+  "atlas": "objs",
+  "cell": [
+   64,
+   64
+  ],
+  "meshpass": "pass obj"
+ },
+ "obj parasol": {
+  "atlas": "objs",
+  "cell": [
+   64,
+   64
+  ],
+  "meshpass": "pass obj"
+ },
+ "obj road": {
+  "atlas": "floors",
+  "cell": [
+   64,
+   48
+  ],
+  "meshpass": "pass tile_floor"
+ },
+ "obj road chasm": {
+  "atlas": "floors",
+  "cell": [
+   64,
+   48
+  ],
+  "meshpass": "pass tile_floor"
+ },
+ "obj tall": {
+  "atlas": "objs",
+  "cell": [
+   64,
+   64
+  ],
+  "meshpass": "pass obj"
+ },
+ "obj vine": {
+  "atlas": "objs",
+  "cell": [
+   64,
+   64
+  ],
+  "meshpass": "pass obj"
+ },
+ "obj wheat": {
+  "atlas": "objs",
+  "cell": [
+   64,
+   64
+  ],
+  "meshpass": "pass obj"
+ },
+ "obj_L": {
+  "atlas": "objs_L",
+  "cell": [
+   80,
+   64
+  ],
+  "meshpass": "pass obj_L"
+ },
+ "obj_L bridge": {
+  "atlas": "objs_L",
+  "cell": [
+   80,
+   64
+  ],
+  "meshpass": "pass obj_L"
+ },
+ "obj_L door": {
+  "atlas": "objs_L",
+  "cell": [
+   80,
+   64
+  ],
+  "meshpass": "pass obj_L"
+ },
+ "obj_L flat": {
+  "atlas": "objs_L",
+  "cell": [
+   80,
+   64
+  ],
+  "meshpass": "pass obj_L"
+ },
+ "obj_LV": {
+  "atlas": "objs_L",
+  "cell": [
+   80,
+   64
+  ],
+  "meshpass": "pass obj_L"
+ },
+ "obj_LV hang": {
+  "atlas": "objs_L",
+  "cell": [
+   80,
+   64
+  ],
+  "meshpass": "pass obj_L"
+ },
+ "obj_LV harvest": {
+  "atlas": "objs_L",
+  "cell": [
+   80,
+   64
+  ],
+  "meshpass": "pass obj_L"
+ },
+ "obj_LV tall": {
+  "atlas": "objs_L",
+  "cell": [
+   80,
+   64
+  ],
+  "meshpass": "pass obj_L"
+ },
+ "obj_S": {
+  "atlas": "objs_S",
+  "cell": [
+   32,
+   32
+  ],
+  "meshpass": "pass obj_S"
+ },
+ "obj_S EQ": {
+  "atlas": "objs_S",
+  "cell": [
+   32,
+   32
+  ],
+  "meshpass": "pass obj_S"
+ },
+ "obj_S air": {
+  "atlas": "objs_S",
+  "cell": [
+   32,
+   32
+  ],
+  "meshpass": "pass obj_S"
+ },
+ "obj_S fish": {
+  "atlas": "objs_S",
+  "cell": [
+   32,
+   32
+  ],
+  "meshpass": "pass obj_S"
+ },
+ "obj_S flat": {
+  "atlas": "objs_S",
+  "cell": [
+   32,
+   32
+  ],
+  "meshpass": "pass obj_S"
+ },
+ "obj_S hang": {
+  "atlas": "objs_S",
+  "cell": [
+   32,
+   32
+  ],
+  "meshpass": "pass obj_S"
+ },
+ "obj_S hangR": {
+  "atlas": "objs_S",
+  "cell": [
+   32,
+   32
+  ],
+  "meshpass": "pass obj_S"
+ },
+ "obj_S hat": {
+  "atlas": "objs_S",
+  "cell": [
+   32,
+   32
+  ],
+  "meshpass": "pass obj_S"
+ },
+ "obj_S mount": {
+  "atlas": "objs_S",
+  "cell": [
+   32,
+   32
+  ],
+  "meshpass": "pass obj_S"
+ },
+ "obj_S platform": {
+  "atlas": "objs_S",
+  "cell": [
+   32,
+   32
+  ],
+  "meshpass": "pass obj_S"
+ },
+ "obj_S short": {
+  "atlas": "objs_S",
+  "cell": [
+   32,
+   32
+  ],
+  "meshpass": "pass obj_S"
+ },
+ "pillar": {
+  "atlas": "blocks",
+  "cell": [
+   64,
+   64
+  ],
+  "meshpass": "pass tile_block"
+ },
+ "ramp": {
+  "atlas": "blocks",
+  "cell": [
+   64,
+   64
+  ],
+  "meshpass": "pass tile_ramp"
+ },
+ "ramp cover": {
+  "atlas": "blocks",
+  "cell": [
+   64,
+   64
+  ],
+  "meshpass": "pass tile_ramp"
+ },
+ "ramp cover half": {
+  "atlas": "blocks",
+  "cell": [
+   64,
+   64
+  ],
+  "meshpass": "pass tile_ramp"
+ },
+ "ramp thing": {
+  "atlas": "blocks",
+  "cell": [
+   64,
+   64
+  ],
+  "meshpass": "pass tile_ramp"
+ },
+ "roof": {
+  "atlas": "roofs",
+  "cell": [
+   96,
+   80
+  ],
+  "meshpass": "pass tile_roof"
+ },
+ "roof bk": {
+  "atlas": "roofs",
+  "cell": [
+   96,
+   80
+  ],
+  "meshpass": "pass tile_roof"
+ },
+ "rooftop": {
+  "atlas": "roofs",
+  "cell": [
+   96,
+   80
+  ],
+  "meshpass": "pass tile_roof"
+ },
+ "scaffold": {
+  "atlas": "blocks",
+  "cell": [
+   64,
+   64
+  ],
+  "meshpass": "pass tile_block"
+ },
+ "shore": {
+  "atlas": "floors",
+  "cell": [
+   64,
+   48
+  ],
+  "meshpass": "pass tile_floor"
+ },
+ "support": {
+  "atlas": "blocks",
+  "cell": [
+   64,
+   64
+  ],
+  "meshpass": "pass tile_block"
+ },
+ "wall deco": {
+  "atlas": "blocks",
+  "cell": [
+   64,
+   64
+  ],
+  "meshpass": "pass tile_block"
+ },
+ "waterfall": {
+  "atlas": "blocks",
+  "cell": [
+   64,
+   64
+  ],
+  "meshpass": "pass tile_liquid"
+ }
+}

@@ -113,6 +113,7 @@ export class IsoRenderer{
       'objs_snow':    'assets/elin/objs_snow.png',
       'objs_S_snow':  'assets/elin/objs_S_snow.png',
       'objs_L_snow':  'assets/elin/objs_L_snow.png',
+      'roofs':   'assets/elin/roofs.png',   // 新增：obj 22/26-30/67/124-134 等 roof 类物件真值图集
     };
     for(const [key, url] of Object.entries(elinAtlasMap)){
       const img = new Image();

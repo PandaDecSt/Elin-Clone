@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Elin obj 图集判定调试工具</title>
+<style>
+  :root { --bg:#0f1115; --card:#1a1d24; --line:#2a2f3a; --txt:#e6e6e6; --mut:#8a93a6; --hl:#4da3ff; --ok:#3fb950; --warn:#f0883e; --bad:#f85149; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--txt); font:14px/1.5 system-ui,"Segoe UI",sans-serif; }
+  header { position:sticky; top:0; z-index:10; background:#14171d; border-bottom:1px solid var(--line); padding:10px 16px; }
+  header h1 { margin:0 0 6px; font-size:16px; }
+  .bar { display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
+  .bar input[type=text]{ background:#0c0e12; border:1px solid var(--line); color:var(--txt); padding:6px 9px; border-radius:6px; min-width:200px; }
+  .bar label{ color:var(--mut); display:flex; gap:5px; align-items:center; }
+  .bar button{ background:var(--hl); border:0; color:#04121f; font-weight:600; padding:6px 12px; border-radius:6px; cursor:pointer; }
+  .bar .count{ color:var(--mut); margin-left:auto; }
+  .chips{ display:flex; gap:6px; flex-wrap:wrap; margin-top:8px; }
+  .chip{ font-size:12px; padding:3px 10px; border-radius:20px; border:1px solid var(--line); color:var(--mut); cursor:pointer; user-select:none; }
+  .chip.on{ background:var(--hl); color:#04121f; border-color:var(--hl); font-weight:600; }
+  .legend{ color:var(--mut); font-size:12px; padding:6px 16px 0; }
+  .legend b.hl{ color:var(--hl); } .legend b.warn{ color:var(--warn); } .legend b.bad{ color:var(--bad); }
+  #list{ padding:14px 16px 60px; display:grid; gap:12px; grid-template-columns:repeat(auto-fill,minmax(460px,1fr)); }
+  .card{ background:var(--card); border:1px solid var(--line); border-radius:10px; padding:12px; }
+  .card.high{ border-color:var(--bad); }
+  .hd{ display:flex; align-items:baseline; gap:8px; margin-bottom:8px; flex-wrap:wrap; }
+  .hd .nm{ font-weight:700; font-size:15px; }
+  .hd .id{ color:var(--mut); font-size:12px; }
+  .hd .rd{ color:var(--mut); font-size:12px; }
+  .hd .tag{ font-size:11px; padding:1px 7px; border-radius:20px; }
+  .tag.high{ background:rgba(248,81,73,.18); color:var(--bad); }
+  .tag.med{ background:rgba(240,136,62,.18); color:var(--warn); }
+  .tag.ok{ background:rgba(63,185,80,.15); color:var(--ok); }
+  .cells{ display:flex; gap:8px; flex-wrap:wrap; overflow-x:auto; padding-bottom:4px; }
+  .acell{ text-align:center; flex:0 0 auto; }
+  .acell .cap{ font-size:11px; color:var(--mut); margin-bottom:3px; white-space:nowrap; }
+  .acell .cap b{ color:var(--txt); }
+  .acell .cap .cs{ font-size:10px; color:var(--mut); margin-left:6px; font-weight:400; }
+  .crop{ border:2px solid var(--line); border-radius:6px; background-color:#000; background-repeat:no-repeat; cursor:pointer; position:relative; }
+  .acell.pick .crop{ border-color:var(--ok); box-shadow:0 0 0 2px rgba(63,185,80,.35); }
+  .acell.cur .cap b{ color:var(--hl); }
+  .acell.cur .crop{ outline:2px dashed var(--hl); outline-offset:1px; }
+  .acell.oor .crop::after{ content:"超出范围"; position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-size:10px; color:var(--bad); background:rgba(0,0,0,.55); }
+  .acell .row{ font-size:10px; color:var(--mut); margin-top:2px; }
+  #export{ position:fixed; left:50%; bottom:18px; transform:translateX(-50%); background:var(--ok); color:#04121f; font-weight:700; border:0; padding:10px 20px; border-radius:30px; cursor:pointer; box-shadow:0 4px 16px rgba(0,0,0,.4); display:none; }
+  #result{ display:none; position:fixed; inset:0; background:rgba(0,0,0,.7); z-index:50; padding:40px; }
+  #result pre{ background:#0c0e12; border:1px solid var(--line); border-radius:8px; padding:16px; color:var(--txt); height:100%; overflow:auto; }
+  #result .x{ position:absolute; top:20px; right:30px; color:#fff; font-size:22px; cursor:pointer; }
+  .empty{ color:var(--mut); padding:30px; text-align:center; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Elin obj 图集判定调试工具</h1>
+  <div class="bar">
+    <input id="q" type="text" placeholder="搜索 id / 名称 / _idRenderData …">
+    <label><input id="onlyRisk" type="checkbox" checked> 仅显示可疑</label>
+    <label>每格 <input id="cell" type="number" value="72" min="36" max="180" style="width:58px"> px</label>
+    <button id="exportBtn">导出确认结果</button>
+    <span class="count" id="cnt"></span>
+  </div>
+  <div class="chips" id="chips"></div>
+</header>
+<div class="legend">
+  同 <b class="hl">tile 值</b> 不变，各图集裁同一 (行,列) 格子。看哪个图集里的精灵名字对得上，点那格标记为「正确图集」。
+  <b class="bad">红框</b>=前缀约定图集落空(真实可疑)；<b class="warn">橙标</b>=约定图集≠当前加载；蓝虚线=当前 H5 实际加载图集。
+  遮罩图集(objs_C/CL/CLL)显示灰度剪影仅供对照。roofs/shadows/world/fov/bird1 非等格 obj 图集，已排除。
+</div>
+<div id="list"></div>
+<button id="export">导出确认结果</button>
+<div id="result"><span class="x" onclick="document.getElementById('result').style.display='none'">×</span><pre id="resultTxt"></pre></div>
+
+<script>
+const OBJS = [{"id": 0, "name": "momiji", "_idRenderData": "obj_S", "tile": 105, "guess": "objs_S", "cur": "objs", "risk": "high"}, {"id": 1, "name": "flower", "_idRenderData": "obj_S flat", "tile": 202, "guess": "objs_S", "cur": "objs_S", "risk": "ok"}, {"id": 2, "name": "blue flower", "_idRenderData": "obj_S", "tile": 307, "guess": "objs_S", "cur": "objs_S", "risk": "ok"}, {"id": 3, "name": "yellow flower", "_idRenderData": "obj_S flat", "tile": 217, "guess": "objs_S", "cur": "objs_S", "risk": "ok"}, {"id": 4, "name": "white flower", "_idRenderData": "obj_S flat", "tile": 212, "guess": "objs_S", "cur": "objs_S", "risk": "ok"}, {"id": 5, "name": "weed", "_idRenderData": "obj_S flat", "tile": 302, "guess": "objs_S", "cur": "objs_S", "risk": "ok"}, {"id": 6, "name": "mushroom", "_idRenderData": "obj_S flat", "tile": 312, "guess": "objs_S", "cur": "objs_S", "risk": "ok"}, {"id": 7, "name": "weed", "_idRenderData": "obj_S flat", "tile": 26, "guess": "objs_S", "cur": "objs_S", "risk": "ok"}, {"id": 8, "name": "rafflesia", "_idRenderData": "obj_S flat", "tile": 19, "guess": "objs_S", "cur": "objs_S", "risk": "ok"}, {"id": 9, "name": "pebble", "_idRenderData": "obj_S flat", "tile": 112, "guess": "objs_S", "cur": "objs", "risk": "med"}, {"id": 10, "name": "crystal", "_idRenderData": "obj_S", "tile": 106, "guess": "objs_S", "cur": "objs_S", "risk": "ok"}, {"id": 11, "name": "stone", "_idRenderData": "obj_S flat", "tile": 108, "guess": "objs_S", "cur": "objs_S", "risk": "ok"}, {"id": 12, "name": "mushroom tree", "_idRenderData": "obj_LV", "tile": 607, "guess": "objs_S", "cur": "objs_S", "risk": "ok"}, {"id": 13, "name": "christmas tree", "_idRenderData": "obj_LV", "tile": 602, "guess": "objs_S", "cur": "objs_S", "risk": "ok"}, {"id": 14, "name": "crim", "_idRenderData": "obj_S", "tile": 222, "guess": "objs_S", "cur": "objs_S", "risk": "ok"}, {"id": 15, "name": "mushroom tree", "_idRenderData": "obj_LV", "tile": 607, "guess": "objs_S", "cur": "objs_S", "risk": "ok"}, {"id": 16, "name": "cactus", "_idRenderData": "obj wheat", "tile": 335, "guess": "objs", "cur": "objs", "risk": "ok"}, {"id": 17, "name": "palulu tree", "_idRenderData": "obj_LV", "tile": 612, "guess": "objs_S", "cur": "objs", "risk": "med"}, {"id": 18, "name": "ore", "_idRenderData": "block mount", "tile": 600, "guess": "blocks", "cur": "blocks", "risk": "ok"}, {"id": 19, "name": "gem ore", "_idRenderData": "block mount", "tile": 601, "guess": "blocks", "cur": "blocks", "risk": "ok"}, {"id": 20, "name": "water lily", "_idRenderData": "obj_S flat", "tile": 24, "guess": "objs_S", "cur": "objs_S", "risk": "ok"}, {"id": 21, "name": "wall support", "_idRenderData": "support", "tile": 604, "guess": "objs_S", "cur": "objs_S", "risk": "ok"}, {"id": 22, "name": "roof", "_idRenderData": "roof", "tile": 100, "guess": "objs_S", "cur": "objs_S", "risk": "ok"}, {"id": 23, "name": "window", "_idRenderData": "block mount", "tile": 605, "guess": "blocks", "cur": "blocks", "risk": "ok"}, {"id": 24, "name": "wooden frame", "_idRenderData": "support", "tile": 414, "guess": "objs_S", "cur": "objs", "risk": "high"}, {"id": 25, "name": "road", "_idRenderData": "floor_obj", "tile": 1013, "guess": "objs_S", "cur": "objs", "risk": "med"}, {"id": 26, "name": "roof2", "_idRenderData": "roof", "tile": 200, "guess": "objs_S", "cur": "objs_S", "risk": "ok"}, {"id": 27, "name": "roof3", "_idRenderData": "roof", "tile": 300, "guess": "objs_S", "cur": "objs_S", "risk": "ok"}, {"id": 28, "name": "roof4", "_idRenderData": "roof", "tile": 400, "guess": "objs_S", "cur": "objs_S", "risk": "ok"}, {"id": 29, "name": "roof5", "_idRenderData": "roof", "tile": 500, "guess": "objs_S", "cur": "objs_S", "risk": "ok"}, {"id": 30, "name": "roof6", "_idRenderData": "roof", "tile": 600, "guess": "objs_S", "cur": "objs_S", "risk": "ok"}, {"id": 31, "name": "track", "_idRenderData": "obj road", "tile": 3600, "guess": "objs", "cur": "objs", "risk": "ok"}, {"id": 32, "name": "chasm", "_idRenderData": "obj road chasm", "tile": 3700, "guess": "objs", "cur": "objs", "risk": "ok"}, {"id": 33, "name": "stone road", "_idRenderData": "obj road", "tile": 3616, "guess": "objs", "cur": "objs_S", "risk": "high"}, {"id": 34, "name": "wreck", "_idRenderData": "obj", "tile": 761, "guess": "objs", "cur": "objs", "risk": "ok"}, {"id": 35, "name": "wheat", "_idRenderData": "obj wheat", "tile": 300, "guess": "objs", "cur": "objs", "risk": "ok"}, {"id": 36, "name": "radish", "_idRenderData": "obj wheat", "tile": 315, "guess": "objs", "cur": "objs_S", "risk": "med"}, {"id": 37, "name": "test", "_idRenderData": "obj wheat", "tile": 103, "guess": "objs", "cur": "objs", "risk": "ok"}, {"id": 38, "name": "cabbage", "_idRenderData": "obj wheat", "tile": 321, "guess": "objs", "cur": "objs", "risk": "ok"}, {"id": 39, "name": "tomato", "_idRenderData": "obj wheat", "tile": 310, "guess": "objs", "cur": "objs", "risk": "ok"}, {"id": 40, "name": "carrot", "_idRenderData": "obj wheat", "tile": 316, "guess": "objs", "cur": "objs", "risk": "ok"}, {"id": 41, "name": "imo", "_idRenderData": "obj wheat", "tile": 320, "guess": "objs", "cur": "objs_S", "risk": "med"}, {"id": 42, "name": "corn", "_idRenderData": "obj wheat", "tile": 311, "guess": "objs", "cur": "objs", "risk": "ok"}, {"id": 43, "name": "road", "_idRenderData": "obj road", "tile": 3500, "guess": "objs", "cur": "objs", "risk": "ok"}, {"id": 44, "name": "narrow road", "_idRenderData": "obj road", "tile": 3516, "guess": "objs", "cur": "objs_S", "risk": "high"}, {"id": 45, "name": "chunk", "_idRenderData": "obj_S flat", "tile": 27, "guess": "objs_S", "cur": "objs_S", "risk": "ok"}, {"id": 46, "name": "wreck", "_idRenderData": "obj", "tile": 760, "guess": "objs", "cur": "objs", "risk": "ok"}, {"id": 47, "name": "mushroom tree", "_idRenderData": "obj_LV", "tile": 607, "guess": "objs_S", "cur": "objs_S", "risk": "ok"}, {"id": 48, "name": "bird's nest", "_idRenderData": "obj_S flat", "tile": 5, "guess": "objs_S", "cur": "objs_S", "risk": "ok"}, {"id": 49, "name": "apple tree", "_idRenderData": "obj_LV", "tile": 802, "guess": "objs_S", "cur": "objs_S", "risk": "ok"}, {"id": 50, "name": "berry", "_idRenderData": "obj_S", "tile": 222, "guess": "objs_S", "cur": "objs_S", "risk": "ok"}, {"id": 51, "name": "big rock", "_idRenderData": "obj_S flat", "tile": 124, "guess": "objs_S", "cur": "objs_S", "risk": "ok"}, {"id": 52, "name": "bone", "_idRenderData": "obj_S flat", "tile": 116, "guess": "objs_S", "cur": "objs_S", "risk": "ok"}, {"id": 53, "name": "rosewood tree", "_idRenderData": "obj_LV", "tile": 812, "guess": "objs_S", "cur": "objs_L", "risk": "high"}, {"id": 54, "name": "fir tree", "_idRenderData": "obj_LV", "tile": 617, "guess": "objs_S", "cur": "objs", "risk": "high"}, {"id": 55, "name": "cedar tree", "_idRenderData": "obj_LV", "tile": 817, "guess": "objs_S", "cur": "objs_S", "risk": "ok"}, {"id": 56, "name": "birch tree", "_idRenderData": "obj_LV", "tile": 1202, "guess": "objs_S", "cur": "objs_L", "risk": "med"}, {"id": 57, "name": "pine tree", "_idRenderData": "obj_LV", "tile": 1207, "guess": "objs_S", "cur": "objs_S", "risk": "ok"}, {"id": 58, "name": "oak tree", "_idRenderData": "obj_LV", "tile": 1212, "guess": "objs_S", "cur": "objs", "risk": "med"}, {"id": 59, "name": "burnt tree", "_idRenderData": "obj_LV", "tile": 110, "guess": "objs_S", "cur": "objs_L", "risk": "med"}, {"id": 60, "name": "moss", "_idRenderData": "floor_obj", "tile": 1000, "guess": "objs_S", "cur": "objs_S", "risk": "ok"}, {"id": 61, "name": "vine bush", "_idRenderData": "obj_S", "tile": 225, "guess": "objs_S", "cur": "objs_S", "risk": "ok"}, {"id": 62, "name": "decayed fossil tree", "_idRenderData": "obj_LV", "tile": 1800, "guess": "objs_S", "cur": "objs", "risk": "med"}, {"id": 63, "name": "fossil tree", "_idRenderData": "obj_LV", "tile": 1805, "guess": "objs_S", "cur": "objs_L", "risk": "med"}, {"id": 64, "name": "big fossil tree", "_idRenderData": "obj_LV", "tile": 1802, "guess": "objs_S", "cur": "objs", "risk": "med"}, {"id": 65, "name": "decayed fossil", "_idRenderData": "floor_obj", "tile": 1003, "guess": "objs_S", "cur": "objs_S", "risk": "ok"}, {"id": 66, "name": "bollard", "_idRenderData": "obj_S", "tile": 127, "guess": "objs_S", "cur": "objs_S", "risk": "ok"}, {"id": 67, "name": "roof7", "_idRenderData": "roof", "tile": 700, "guess": "objs_S", "cur": "objs_S", "risk": "ok"}, {"id": 68, "name": "fish silhouette", "_idRenderData": "obj_S fish", "tile": 700, "guess": "objs_S", "cur": "objs_S", "risk": "ok"}, {"id": 69, "name": "mahogany tree", "_idRenderData": "obj_LV", "tile": 802, "guess": "objs_S", "cur": "objs_S", "risk": "ok"}, {"id": 70, "name": "acacia tree", "_idRenderData": "obj_LV", "tile": 1217, "guess": "objs_S", "cur": "objs_L", "risk": "med"}, {"id": 71, "name": "cracked floor", "_idRenderData": "floor_obj", "tile": 1007, "guess": "objs_S", "cur": "objs_S", "risk": "ok"}, {"id": 72, "name": "stump", "_idRenderData": "obj_S flat", "tile": 129, "guess": "objs_S", "cur": "objs", "risk": "med"}, {"id": 73, "name": "seaweed", "_idRenderData": "obj_S", "tile": 230, "guess": "objs_S", "cur": "objs_S", "risk": "ok"}, {"id": 74, "name": "shell", "_idRenderData": "obj_S flat", "tile": 130, "guess": "objs_S", "cur": "objs_S", "risk": "ok"}, {"id": 75, "name": "coral", "_idRenderData": "obj_S", "tile": 235, "guess": "objs_S", "cur": "objs_S", "risk": "ok"}, {"id": 76, "name": "willow tree", "_idRenderData": "obj_LV", "tile": 1007, "guess": "objs_S", "cur": "objs_S", "risk": "ok"}, {"id": 77, "name": "cherry blossom tree", "_idRenderData": "obj_LV", "tile": 1002, "guess": "objs_S", "cur": "objs_S", "risk": "ok"}, {"id": 78, "name": "grape", "_idRenderData": "obj wheat", "tile": 325, "guess": "objs", "cur": "objs", "risk": "ok"}, {"id": 79, "name": "pile of fallen leaves", "_idRenderData": "floor_obj", "tile": 1100, "guess": "objs_S", "cur": "objs_S", "risk": "ok"}, {"id": 80, "name": "For Test", "_idRenderData": "obj_S flat", "tile": 2, "guess": "objs_S", "cur": "objs", "risk": "med"}, {"id": 81, "name": "cotton", "_idRenderData": "obj wheat", "tile": 330, "guess": "objs", "cur": "objs", "risk": "ok"}, {"id": 82, "name": "remain", "_idRenderData": "obj", "tile": 653, "guess": "objs", "cur": "objs", "risk": "ok"}, {"id": 83, "name": "wreck", "_idRenderData": "obj", "tile": 660, "guess": "objs", "cur": "objs", "risk": "ok"}, {"id": 84, "name": "mound", "_idRenderData": "floor_obj", "tile": 1104, "guess": "objs_S", "cur": "objs_S", "risk": "ok"}, {"id": 85, "name": "wreck", "_idRenderData": "obj", "tile": 762, "guess": "objs", "cur": "objs", "risk": "ok"}, {"id": 86, "name": "wreck", "_idRenderData": "obj", "tile": 759, "guess": "objs", "cur": "objs", "risk": "ok"}, {"id": 87, "name": "wreck", "_idRenderData": "obj", "tile": 758, "guess": "objs", "cur": "objs", "risk": "ok"}, {"id": 88, "name": "rice", "_idRenderData": "obj wheat", "tile": 305, "guess": "objs", "cur": "objs", "risk": "ok"}, {"id": 89, "name": "white line", "_idRenderData": "obj road", "tile": 3416, "guess": "objs", "cur": "objs_S", "risk": "high"}, {"id": 90, "name": "rainbow fruit", "_idRenderData": "obj wheat", "tile": 345, "guess": "objs", "cur": "objs", "risk": "ok"}, {"id": 91, "name": "salt rock", "_idRenderData": "obj_S flat", "tile": 136, "guess": "objs_S", "cur": "objs_S", "risk": "ok"}, {"id": 92, "name": "border", "_idRenderData": "obj road", "tile": 3716, "guess": "objs", "cur": "objs_S", "risk": "high"}, {"id": 93, "name": "stalagmite", "_idRenderData": "obj", "tile": 5, "guess": "objs", "cur": "objs", "risk": "ok"}, {"id": 94, "name": "decayed tree", "_idRenderData": "obj", "tile": 15, "guess": "objs", "cur": "objs", "risk": "ok"}, {"id": 95, "name": "decayed wall", "_idRenderData": "block", "tile": 1300, "guess": "blocks", "cur": "blocks", "risk": "ok"}, {"id": 96, "name": "decayed wall", "_idRenderData": "block", "tile": 1304, "guess": "blocks", "cur": "blocks", "risk": "ok"}, {"id": 97, "name": "track", "_idRenderData": "ramp", "tile": 1616, "guess": "objs", "cur": "objs", "risk": "ok"}, {"id": 98, "name": "track", "_idRenderData": "ramp", "tile": 1618, "guess": "objs", "cur": "objs", "risk": "ok"}, {"id": 99, "name": "cattail", "_idRenderData": "obj", "tile": 18, "guess": "objs", "cur": "objs", "risk": "ok"}, {"id": 100, "name": "huge rock", "_idRenderData": "obj", "tile": 757, "guess": "objs", "cur": "objs", "risk": "ok"}, {"id": 101, "name": "wooden frame", "_idRenderData": "support", "tile": 203, "guess": "objs_S", "cur": "objs_S", "risk": "ok"}, {"id": 102, "name": "sulfur rock", "_idRenderData": "obj_S flat", "tile": 139, "guess": "objs_S", "cur": "objs_S", "risk": "ok"}, {"id": 103, "name": "bamboo", "_idRenderData": "obj_LV", "tile": 1012, "guess": "objs_S", "cur": "objs", "risk": "med"}, {"id": 104, "name": "api", "_idRenderData": "obj wheat", "tile": 340, "guess": "objs", "cur": "objs", "risk": "ok"}, {"id": 105, "name": "pasture", "_idRenderData": "obj wheat", "tile": 253, "guess": "objs", "cur": "objs", "risk": "ok"}, {"id": 106, "name": "metal frame", "_idRenderData": "support", "tile": 417, "guess": "objs_S", "cur": "objs_L", "risk": "high"}, {"id": 107, "name": "chemicals", "_idRenderData": "floor_obj", "tile": 918, "guess": "objs_S", "cur": "objs", "risk": "med"}, {"id": 108, "name": "silver grass", "_idRenderData": "obj wheat", "tile": 53, "guess": "objs", "cur": "objs", "risk": "ok"}, {"id": 109, "name": "debris", "_idRenderData": "floor_obj", "tile": 1018, "guess": "objs_S", "cur": "objs_S", "risk": "ok"}, {"id": 110, "name": "conveyor belt", "_idRenderData": "obj road", "tile": 3800, "guess": "objs", "cur": "objs_S", "risk": "med"}, {"id": 111, "name": "fragments", "_idRenderData": "floor_obj", "tile": 1024, "guess": "objs_S", "cur": "objs", "risk": "med"}, {"id": 112, "name": "banana tree", "_idRenderData": "obj_LV", "tile": 417, "guess": "objs_S", "cur": "objs_L", "risk": "high"}, {"id": 113, "name": "orange tree", "_idRenderData": "obj_LV", "tile": 802, "guess": "objs_S", "cur": "objs_S", "risk": "ok"}, {"id": 114, "name": "pear tree", "_idRenderData": "obj_LV", "tile": 802, "guess": "objs_S", "cur": "objs_S", "risk": "ok"}, {"id": 115, "name": "red grass", "_idRenderData": "obj_S flat", "tile": 147, "guess": "objs_S", "cur": "objs_S", "risk": "ok"}, {"id": 116, "name": "blue grass", "_idRenderData": "obj_S flat", "tile": 247, "guess": "objs_S", "cur": "objs_S", "risk": "ok"}, {"id": 117, "name": "purple grass", "_idRenderData": "obj_S flat", "tile": 347, "guess": "objs_S", "cur": "objs_S", "risk": "ok"}, {"id": 118, "name": "feywood tree", "_idRenderData": "obj_LV", "tile": 217, "guess": "objs_S", "cur": "objs_L", "risk": "med"}, {"id": 119, "name": "coralwood tree", "_idRenderData": "obj_LV", "tile": 220, "guess": "objs_S", "cur": "objs_L", "risk": "med"}, {"id": 120, "name": "white flower", "_idRenderData": "obj_S flat", "tile": 317, "guess": "objs_S", "cur": "objs_S", "risk": "ok"}, {"id": 121, "name": "fern", "_idRenderData": "obj", "tile": 21, "guess": "objs", "cur": "objs", "risk": "ok"}, {"id": 122, "name": "coffee", "_idRenderData": "obj wheat", "tile": 145, "guess": "objs", "cur": "objs", "risk": "ok"}, {"id": 123, "name": "tobacc", "_idRenderData": "obj wheat", "tile": 240, "guess": "objs", "cur": "objs", "risk": "ok"}, {"id": 124, "name": "roof8", "_idRenderData": "roof", "tile": 800, "guess": "objs_S", "cur": "objs_S", "risk": "ok"}, {"id": 125, "name": "roof9", "_idRenderData": "roof", "tile": 900, "guess": "objs_S", "cur": "objs_S", "risk": "ok"}, {"id": 126, "name": "roof10", "_idRenderData": "roof", "tile": 1000, "guess": "objs_S", "cur": "objs_S", "risk": "ok"}, {"id": 127, "name": "green grass", "_idRenderData": "obj_S flat", "tile": 47, "guess": "objs_S", "cur": "objs", "risk": "med"}, {"id": 128, "name": "roof11", "_idRenderData": "roof", "tile": 1100, "guess": "objs_S", "cur": "objs_S", "risk": "ok"}, {"id": 129, "name": "roof12", "_idRenderData": "roof", "tile": 1200, "guess": "objs_S", "cur": "objs_S", "risk": "ok"}, {"id": 130, "name": "roof13", "_idRenderData": "roof", "tile": 1300, "guess": "objs_S", "cur": "objs_S", "risk": "ok"}, {"id": 131, "name": "roof14", "_idRenderData": "roof", "tile": 1400, "guess": "objs_S", "cur": "objs_S", "risk": "ok"}, {"id": 132, "name": "roof15", "_idRenderData": "roof", "tile": 1500, "guess": "objs_S", "cur": "objs_S", "risk": "ok"}, {"id": 133, "name": "roof16", "_idRenderData": "roof", "tile": 1600, "guess": "objs_S", "cur": "objs", "risk": "med"}, {"id": 134, "name": "roof17", "_idRenderData": "roof", "tile": 1700, "guess": "objs_S", "cur": "objs_S", "risk": "ok"}, {"id": 135, "name": "neon line", "_idRenderData": "obj road", "tile": 3316, "guess": "objs", "cur": "objs", "risk": "ok"}, {"id": 136, "name": "coral reef", "_idRenderData": "obj", "tile": 3220, "guess": "objs", "cur": "objs", "risk": "ok"}, {"id": 137, "name": "deep seaweed", "_idRenderData": "obj wheat", "tile": 153, "guess": "objs", "cur": "objs", "risk": "ok"}, {"id": 138, "name": "cabocchi", "_idRenderData": "obj wheat", "tile": 322, "guess": "objs", "cur": "objs", "risk": "ok"}, {"id": 139, "name": "sunflower", "_idRenderData": "obj wheat", "tile": 57, "guess": "objs", "cur": "objs", "risk": "ok"}, {"id": 140, "name": "tulip", "_idRenderData": "obj wheat", "tile": 61, "guess": "objs", "cur": "objs", "risk": "ok"}, {"id": 141, "name": "red pepper", "_idRenderData": "obj wheat", "tile": 312, "guess": "objs", "cur": "objs", "risk": "ok"}, {"id": 142, "name": "bone mound", "_idRenderData": "obj flat", "tile": 6100, "guess": "objs_L", "cur": "objs", "risk": "high"}, {"id": 143, "name": "bone", "_idRenderData": "obj tall", "tile": 6106, "guess": "objs_L", "cur": "objs_L", "risk": "high"}, {"id": 144, "name": "stepping stone", "_idRenderData": "floor_obj", "tile": 1113, "guess": "objs_S", "cur": "objs", "risk": "med"}, {"id": 145, "name": "egg", "_idRenderData": "support", "tile": 422, "guess": "objs_S", "cur": "objs_L", "risk": "high"}];
+const ATLAS = {"objs": {"png": "objs.png", "cw": 64, "ch": 64, "cols": 64, "rows": 64, "group": "core", "label": "objs"}, "objs_S": {"png": "objs_S.png", "cw": 32, "ch": 32, "cols": 64, "rows": 64, "group": "core", "label": "objs_S"}, "objs_L": {"png": "objs_L.png", "cw": 80, "ch": 64, "cols": 24, "rows": 32, "group": "core", "label": "objs_L"}, "objs_SS": {"png": "objs_SS.png", "cw": 32, "ch": 32, "cols": 16, "rows": 16, "group": "core", "label": "objs_SS(未用)"}, "blocks": {"png": "blocks.png", "cw": 64, "ch": 64, "cols": 32, "rows": 32, "group": "core", "label": "blocks"}, "roofs": {"png": "roofs.png", "cw": 96, "ch": 80, "cols": 12, "rows": 25, "group": "core", "label": "roofs"}, "objs_snow": {"png": "objs_snow.png", "cw": 64, "ch": 64, "cols": 64, "rows": 64, "group": "snow", "label": "objs_snow"}, "objs_S_snow": {"png": "objs_S_snow.png", "cw": 32, "ch": 32, "cols": 64, "rows": 64, "group": "snow", "label": "objs_S_snow"}, "objs_L_snow": {"png": "objs_L_snow.png", "cw": 80, "ch": 64, "cols": 24, "rows": 32, "group": "snow", "label": "objs_L_snow"}, "blocks_snow": {"png": "blocks_snow.png", "cw": 64, "ch": 64, "cols": 32, "rows": 32, "group": "snow", "label": "blocks_snow"}, "objs_C": {"png": "objs_C.png", "cw": 128, "ch": 128, "cols": 32, "rows": 32, "group": "chara", "label": "objs_C(角色)"}, "objs_CL": {"png": "objs_CL.png", "cw": 128, "ch": 256, "cols": 32, "rows": 16, "group": "chara", "label": "objs_CL(角色)"}, "objs_CLL": {"png": "objs_CLL.png", "cw": 256, "ch": 256, "cols": 8, "rows": 8, "group": "chara", "label": "objs_CLL(角色)"}, "floors": {"png": "floors.png", "cw": 64, "ch": 48, "cols": 32, "rows": 40, "group": "floor", "label": "floors"}, "floors_snow": {"png": "floors_snow.png", "cw": 64, "ch": 48, "cols": 32, "rows": 40, "group": "floor", "label": "floors_snow"}};
+const GROUPS = ["core", "snow", "mask", "floor"];
+const GROUP_LABEL = {core:'核心', snow:'雪变体', mask:'遮罩', floor:'地板'};
+const ON_GROUPS = new Set(GROUPS); // 默认全开
+
+function atlasKeys(){
+  return Object.keys(ATLAS).filter(k => ON_GROUPS.has(ATLAS[k].group));
+}
+function decodeCell(key, tile){
+  const a = ATLAS[key];
+  const col = tile % 100, row = Math.floor(tile/100);
+  const oor = (row >= a.rows) || (col >= a.cols);
+  return { col, row, oor };
+}
+function cellHTML(o, key, size){
+  const a = ATLAS[key];
+  const {col,row,oor} = decodeCell(key, o.tile);
+  const bgw = a.cols*size, bgh = a.rows*size;
+  const bx = -col*size, by = -row*size;
+  const isCur = (o.cur === key);
+  const isPick = (o._pick === key);
+  const cls = ['acell'] + (oor?' oor':'') + (isCur?' cur':'') + (isPick?' pick':'');
+  const tag = isCur ? ' (当前)' : '';
+  return `<div class="${cls}" data-atlas="${key}" title="${a.label} cell=${a.cw}x${a.ch} 行${row}列${col} tile=${o.tile}">
+    <div class="cap"><b>${a.label}${tag}</b><span class="cs">${a.cw}×${a.ch}</span></div>
+    <div class="crop" style="width:${size}px;height:${size}px;background-image:url('assets/elin/${a.png}');background-size:${bgw}px ${bgh}px;background-position:${bx}px ${by}px;"></div>
+    <div class="row">行${row} 列${col}</div>
+  </div>`;
+}
+function cardHTML(o, size){
+  const tagMap = {high:'真实可疑', med:'约定≠当前', ok:'一致'};
+  const cells = atlasKeys().map(k=>cellHTML(o,k,size)).join('');
+  return `<div class="card ${o.risk}" data-id="${o.id}" data-name="${(o.name||'').toLowerCase()}" data-rd="${(o._idRenderData||'').toLowerCase()}">
+    <div class="hd">
+      <span class="nm">${o.name||('id'+o.id)}</span>
+      <span class="id">#${o.id}</span>
+      <span class="rd">${o._idRenderData}</span>
+      <span class="tag ${o.risk}">${tagMap[o.risk]}</span>
+      <span class="id">tile=${o.tile}</span>
+    </div>
+    <div class="cells">${cells}</div>
+  </div>`;
+}
+function renderChips(){
+  const el = document.getElementById('chips');
+  el.innerHTML = GROUPS.map(g=>`<span class="chip ${ON_GROUPS.has(g)?'on':''}" data-g="${g}">${GROUP_LABEL[g]}</span>`).join('');
+}
+function render(){
+  const size = parseInt(document.getElementById('cell').value)||72;
+  const q = document.getElementById('q').value.trim().toLowerCase();
+  const onlyRisk = document.getElementById('onlyRisk').checked;
+  const list = document.getElementById('list');
+  const vis = OBJS.filter(o=>{
+    if(onlyRisk && o.risk==='ok') return false;
+    if(q){ return ((''+o.id)===q) || (o.name&&o.name.toLowerCase().includes(q)) || (o._idRenderData&&o._idRenderData.toLowerCase().includes(q)); }
+    return true;
+  });
+  list.innerHTML = vis.length ? vis.map(o=>cardHTML(o,size)).join('') : '<div class="empty">无匹配</div>';
+  document.getElementById('cnt').textContent = `显示 ${vis.length} / ${OBJS.length}`;
+}
+document.getElementById('chips').addEventListener('click', e=>{
+  const c = e.target.closest('.chip'); if(!c) return;
+  const g = c.dataset.g;
+  if(ON_GROUPS.has(g)) ON_GROUPS.delete(g); else ON_GROUPS.add(g);
+  renderChips(); render();
+});
+document.getElementById('list').addEventListener('click', e=>{
+  const crop = e.target.closest('.acell .crop');
+  if(!crop) return;
+  const acell = crop.closest('.acell');
+  const card = crop.closest('.card');
+  const id = +card.dataset.id;
+  const atlas = acell.dataset.atlas;
+  const o = OBJS.find(x=>x.id===id);
+  if(o._pick === atlas){ o._pick = undefined; }
+  else { o._pick = atlas; }
+  render();
+  syncExport();
+});
+function syncExport(){
+  const picks = OBJS.filter(o=>o._pick);
+  document.getElementById('export').style.display = picks.length? 'block':'none';
+}
+function doExport(){
+  const picks = OBJS.filter(o=>o._pick).map(o=>({id:o.id, name:o.name, _idRenderData:o._idRenderData, tile:o.tile, confirmedAtlas:o._pick, prevAtlas:o.cur}));
+  const txt = JSON.stringify(picks, null, 2);
+  document.getElementById('resultTxt').textContent = txt;
+  document.getElementById('result').style.display = 'block';
+  const blob = new Blob([txt], {type:'application/json'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'obj_atlas_confirm.json';
+  a.click();
+}
+document.getElementById('exportBtn').addEventListener('click', doExport);
+document.getElementById('export').addEventListener('click', doExport);
+document.getElementById('q').addEventListener('input', render);
+document.getElementById('onlyRisk').addEventListener('change', render);
+document.getElementById('cell').addEventListener('input', render);
+renderChips();
+render();
+</script>
+</body>
+</html>

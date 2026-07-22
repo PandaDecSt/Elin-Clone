@@ -850,13 +850,14 @@ export function generateTown(rng, depth = 0){
   // ---- 生成建筑群 ----
   const buildings = [];
   const buildingDefs = [
-    { name:'酒馆',   w:7, h:5, floor:'floor',      npc:'innkeeper',  items:['ration','bread','meat'] },
-    { name:'商店',   w:6, h:5, floor:'floor',      npc:'merchant',   items:['potion_heal','torch','arrow'] },
-    { name:'祭坛',   w:5, h:5, floor:'stone_path', npc:'priest',     items:[] },
-    { name:'铁匠铺', w:6, h:4, floor:'dirt',       npc:'guard',      items:['ore'] },
-    { name:'民居A',  w:5, h:4, floor:'floor',      npc:'citizen',    items:['bread'] },
-    { name:'民居B',  w:5, h:4, floor:'floor',      npc:'citizen',    items:['ration'] },
-    { name:'仓库',   w:4, h:4, floor:'dirt',       npc:null,         items:['herb','ore','seed'] },
+    { name:'酒馆',   w:7, h:5, floor:'floor',      npc:'innkeeper',  items:['ration','bread','meat'], kind:'inn' },
+    { name:'商店',   w:6, h:5, floor:'floor',      npc:'merchant',   items:['potion_heal','torch','arrow'], kind:'shop' },
+    { name:'祭坛',   w:5, h:5, floor:'stone_path', npc:'priest',     items:[], kind:'altar' },
+    { name:'铁匠铺', w:6, h:4, floor:'dirt',       npc:'guard',      items:['ore'], kind:'store' },
+    { name:'民居A',  w:5, h:4, floor:'floor',      npc:'citizen',    items:['bread'], kind:'home' },
+    { name:'民居B',  w:5, h:4, floor:'floor',      npc:'citizen',    items:['ration'], kind:'home' },
+    { name:'仓库',   w:4, h:4, floor:'dirt',       npc:null,         items:['herb','ore','seed'], kind:'store' },
+    { name:'农田',   w:7, h:5, floor:'dirt',       npc:null,         items:[], kind:'farm', farm:true },
   ];
 
   // 放置建筑（避免重叠）
@@ -886,22 +887,24 @@ export function generateTown(rng, depth = 0){
         }
       }
 
-      // 墙壁
-      for(let y = by - 1; y <= by + def.h; y++){
-        map.setBlocks(bx - 1, y, ['wood_wall']);
-        map.setBlocks(bx + def.w, y, ['wood_wall']);
-      }
-      for(let x = bx - 1; x <= bx + def.w; x++){
-        map.setBlocks(x, by - 1, ['wood_wall']);
-        map.setBlocks(x, by + def.h, ['wood_wall']);
-      }
+      // 墙壁 + 门（农田为开放地块，无需围墙）
+      if(!def.farm){
+        for(let y = by - 1; y <= by + def.h; y++){
+          map.setBlocks(bx - 1, y, ['wood_wall']);
+          map.setBlocks(bx + def.w, y, ['wood_wall']);
+        }
+        for(let x = bx - 1; x <= bx + def.w; x++){
+          map.setBlocks(x, by - 1, ['wood_wall']);
+          map.setBlocks(x, by + def.h, ['wood_wall']);
+        }
 
-      // 门
-      const doorX = bx + Math.floor(def.w / 2);
-      const doorY = by + def.h;
-      map.setTile(doorX, doorY, 'door');
-      map.clearBlocks(doorX, doorY);
-      building.door = {x: doorX, y: doorY};
+        // 门
+        const doorX = bx + Math.floor(def.w / 2);
+        const doorY = by + def.h;
+        map.setTile(doorX, doorY, 'door');
+        map.clearBlocks(doorX, doorY);
+        building.door = {x: doorX, y: doorY};
+      }
 
       // 祭坛特殊处理
       if(def.name === '祭坛'){
@@ -1215,29 +1218,192 @@ function _validObjIds(ids){
   for(const id of ids){ if(MAT.obj[id]) out.push(id); }
   return out;
 }
-const DECOR_POOL = {
-  tree:        _validObjIds([58,56,57,77,76,49,113,114,0,53,55,54,69,70,118,119,112,17,94,63,64]),
-  flower:      _validObjIds([1,2,3,4,120,139,140,141,115,116,117,5,7,127,108,105,60,61,121,138]),
+// ===== 装饰物规则系统（参考 Elin BiomeProfile.Cluster.Type）=====
+// Cluster 类型语义：
+//   exterior     仅室外(非室内、非水域)可生成
+//   interior     仅室内(房间内部)可生成
+//   nonObstacle  四邻无遮挡(无方块/物品/实体/装饰)才可生成
+//   wall         紧邻墙体(方块)才可生成（路灯/壁灯）
+//   spaceByWall  室内且紧邻墙体（靠墙家具）
+//   onWater      仅在水域格生成（水草/芦苇）
+// density=出现概率；spacing=同组最小间隔(格)，避免拥挤杂乱。
+const P = {
+  tree:        _validObjIds([58,56,76,0,113,17,69,49,50,53,55,54,94,63,64,118,119,112]),
+  flower:      _validObjIds([1,2,3,4,120,139,140,141,115,116,117,5,7,127,108,121,138]),
   mushroom:    _validObjIds([6,12,15,47]),
   grass_tuft:  _validObjIds([115,116,117,5,7,105,127,108]),
   rock:        _validObjIds([9,11,144,91,102]),
   boulder:     _validObjIds([51,100,93,62,64,94]),
   crystal:     _validObjIds([10]),
   cactus:      _validObjIds([16,17,9,11,51,91,74]),
-  snow_tree:   _validObjIds([57,54,13,11,52,142,143]),
+  snow_tree:   _validObjIds([54,13,11,52,142,143]),
   water_edge:  _validObjIds([20,99,73,74,75]),
-  furniture:   _validObjIds([72,48,66,84,145,35,36,38,39,40,139,140]),
-  facility:    _validObjIds([66,100,51,48,79,84]),
-  garden:      _validObjIds([1,2,3,4,120,139,140,141,35,36,38,39,40,78,88,104,105,121,122,138]),
-  street_tree: _validObjIds([17,58,77,76,0,56,113]),
-  dungeon:     _validObjIds([52,142,143,10,93,100,51,145,84,62,64,94,18,19]),
+  lamp:        _validObjIds([66]),                 // bollard 路灯柱
+  street_tree: _validObjIds([17,58,113,0,56,69,49]),
+  garden:      _validObjIds([1,2,3,4,120,139,140,141,35,36,38,39,40,78,88,104,121,122,138]),
+  monument:    _validObjIds([51,100]),             // 公共石碑/巨岩
+  // 室内家具近似（H5 仅有 obj 层，无 Thing 家具）→ 用自然/道具obj占位
+  table_prop:  _validObjIds([72,84,101]),          // 树桩/土堆/木框
+  shelf_prop:  _validObjIds([101,84,72]),          // 木框/土堆/树桩
+  bed_prop:    _validObjIds([48,72]),              // 鸟巢/树桩
+  crop:        _validObjIds([35,36,38,39,40,42,78,88,104,105,121,122,138,49,50]),
+  fence:       _validObjIds([92]),                 // border 围栏
+  bone:        _validObjIds([52,142,143,145,84,62,64,94,18,19]),
 };
+
+// 野外：每个 biome 一组 Cluster 规则
+const BIOME_DECOR = {
+  grass: [
+    {type:'exterior',    density:0.045, pool:P.tree,       spacing:2, group:'tree',  opts:{scaleMin:0.95,scaleRange:0.35}},
+    {type:'nonObstacle', density:0.10,  pool:P.flower,     spacing:1, group:'flower'},
+    {type:'exterior',    density:0.025, pool:P.mushroom,   spacing:1, group:'mush'},
+    {type:'exterior',    density:0.05,  pool:P.grass_tuft, spacing:1, group:'grass'},
+  ],
+  sand: [
+    {type:'exterior', density:0.03, pool:P.cactus, spacing:2, group:'cactus'},
+    {type:'exterior', density:0.04, pool:P.rock,   spacing:1, group:'rock'},
+  ],
+  snow: [
+    {type:'exterior', density:0.04, pool:P.snow_tree, spacing:2, group:'snowtree'},
+    {type:'exterior', density:0.05, pool:P.rock,      spacing:1, group:'rock'},
+  ],
+  stone: [
+    {type:'exterior', density:0.04, pool:P.boulder, spacing:1, group:'boulder'},
+    {type:'exterior', density:0.05, pool:P.rock,    spacing:1, group:'rock'},
+    {type:'exterior', density:0.03, pool:P.crystal, spacing:2, group:'crystal'},
+  ],
+  wood: [
+    {type:'exterior', density:0.04, pool:P.boulder, spacing:1, group:'boulder'},
+    {type:'exterior', density:0.05, pool:P.rock,    spacing:1, group:'rock'},
+  ],
+  factory: [
+    {type:'exterior', density:0.04, pool:P.boulder, spacing:1, group:'boulder'},
+    {type:'exterior', density:0.05, pool:P.rock,    spacing:1, group:'rock'},
+  ],
+  water: [
+    {type:'exterior', density:0.08, pool:P.water_edge, spacing:1, group:'water', onWater:true},
+  ],
+};
+
+// 城镇室外：少量行道树、花园、公共石碑（路灯改为每栋门口立 1 根，避免杂乱）
+const TOWN_OUTDOOR = [
+  {type:'exterior',    density:0.022, pool:P.street_tree, spacing:3, group:'stree', opts:{scaleMin:0.95,scaleRange:0.3}},
+  {type:'nonObstacle', density:0.05,  pool:P.garden,      spacing:1, group:'garden'},
+  {type:'exterior',    density:0.012, pool:P.monument,    spacing:6, group:'monu'},
+];
+
+// 室内房间家具（按房间类型；数组为 obj id，运行时校验）
+const ROOM_FURNITURE = {
+  inn:    {table:[72,84],   shelf:[101,84], bed:[48],  lamp:true},
+  shop:   {table:[84,72],   shelf:[101,84], bed:[],    lamp:true},
+  altar:  {table:[],        shelf:[],      bed:[],     lamp:true},
+  store:  {table:[84],      shelf:[101,72], bed:[],    lamp:false},
+  home:   {table:[72,84],   shelf:[101],   bed:[48],   lamp:false},
+  farm:   {table:[],        shelf:[],      bed:[],     lamp:false},
+  default:{table:[72,84],   shelf:[101,84], bed:[48],  lamp:false},
+};
+
+// ---- Cluster 规则引擎辅助 ----
+function _hasWallNeighbor(map,x,y){
+  return (x>0 && map.hasSolidBlocks(x-1,y)) || (x<map.w-1 && map.hasSolidBlocks(x+1,y)) ||
+         (y>0 && map.hasSolidBlocks(x,y-1)) || (y<map.h-1 && map.hasSolidBlocks(x,y+1));
+}
+function _hasObstacleNeighbor(map,x,y){
+  for(const [dx,dy] of [[-1,0],[1,0],[0,-1],[0,1]]){
+    const nx=x+dx, ny=y+dy;
+    if(nx<0||ny<0||nx>=map.w||ny>=map.h) continue;
+    if(map.hasSolidBlocks(nx,ny)||map.itemAt(nx,ny)||map.entityAt(nx,ny)||map.specialAt(nx,ny)) return true;
+  }
+  return false;
+}
+function _spaced(occ,x,y,group,minDist){
+  for(let dy=-minDist;dy<=minDist;dy++)
+    for(let dx=-minDist;dx<=minDist;dx++){
+      if(occ.get((x+dx)+','+(y+dy))===group) return false;
+    }
+  occ.set(x+','+y,group);
+  return true;
+}
+function _applyRules(map,rng,rules,x,y,ctx){
+  if(!rules) return;
+  for(const rule of rules) _applyRule(map,rng,rule,x,y,ctx);
+}
+function _applyRule(map,rng,rule,x,y,ctx){
+  if(map._decoPlaced && map._decoPlaced.has(x+','+y)) return;
+  const {type,density,pool,spacing,group,opts,onWater}=rule;
+  if(!density||density<=0||!pool||!pool.length) return;
+  if(onWater && !ctx.onWater) return;
+  if(!onWater && ctx.onWater) return;
+  if(type==='exterior'    && ctx.interior) return;
+  if(type==='interior'    && !ctx.interior) return;
+  if(type==='spaceByWall' && (!ctx.interior || !_hasWallNeighbor(map,x,y))) return;
+  if(type==='wall'        && !_hasWallNeighbor(map,x,y)) return;
+  if(type==='nonObstacle' && _hasObstacleNeighbor(map,x,y)) return;
+  if(rng.float() > density) return;
+  const g = group || (pool[0]+':'+type);
+  if(spacing && !_spaced(ctx.occupied,x,y,g,spacing)) return;
+  _pushDeco(map,x,y,rng.pick(pool),rng,opts);
+}
+// 室内可放置判定（不含间距，供房间布局函数用）
+function _canIndoor(map,x,y){
+  if(x<0||y<0||x>=map.w||y>=map.h) return false;
+  if(map.hasSolidBlocks(x,y)||map.itemAt(x,y)||map.entityAt(x,y)||map.specialAt(x,y)) return false;
+  if(map._decoPlaced && map._decoPlaced.has(x+','+y)) return false;
+  return true;
+}
+// 单栋建筑房间：结构化家具（中心桌 + 靠墙架 + 墙角床 + 壁灯）
+function _decorateRoom(map, rng, b, occ){
+  const x0=b.x, y0=b.y, x1=b.x+b.w-1, y1=b.y+b.h-1;
+  const cx=Math.floor((x0+x1)/2), cy=Math.floor((y0+y1)/2);
+  const fr = ROOM_FURNITURE[b.kind] || ROOM_FURNITURE['default'];
+  const table = _validObjIds(fr.table);
+  const shelf = _validObjIds(fr.shelf);
+  const bed   = _validObjIds(fr.bed);
+  // 中央桌子（若被 NPC 占用则跳过）
+  if(table.length && _canIndoor(map,cx,cy)) _pushDeco(map,cx,cy,rng.pick(table),rng,{scaleMin:0.9,scaleRange:0.2});
+  // 靠墙家具（spaceByWall 语义）
+  if(shelf.length){
+    for(let y=y0;y<=y1;y++) for(let x=x0;x<=x1;x++){
+      if(_hasWallNeighbor(map,x,y) && rng.chance(0.22) && _canIndoor(map,x,y))
+        _pushDeco(map,x,y,rng.pick(shelf),rng,{scaleMin:0.8,scaleRange:0.2});
+    }
+  }
+  // 床（墙角）
+  if(bed.length && rng.chance(0.6)){
+    const corners=[[x0,y0],[x1,y0],[x0,y1],[x1,y1]];
+    for(const c of corners){ if(_canIndoor(map,c[0],c[1])){ _pushDeco(map,c[0],c[1],rng.pick(bed),rng,{scaleMin:0.85,scaleRange:0.15}); break; } }
+  }
+  // 壁灯（靠墙，每房间至多 1 盏）
+  if(fr.lamp){
+    let placedLamp = false;
+    for(let y=y0;y<=y1 && !placedLamp;y++) for(let x=x0;x<=x1;x++){
+      if(_hasWallNeighbor(map,x,y) && _canIndoor(map,x,y)){ _pushDeco(map,x,y,66,rng,{scaleMin:0.9,scaleRange:0.2}); placedLamp=true; break; }
+    }
+  }
+}
+// 农田：围栏 + 成行作物
+function _decorateFarm(map, rng, b, occ){
+  const x0=b.x, y0=b.y, x1=b.x+b.w-1, y1=b.y+b.h-1;
+  const fence = P.fence[0];
+  for(let x=x0-1;x<=x1+1;x++){
+    if(_canIndoor(map,x,y0-1)) _pushDeco(map,x,y0-1,fence,rng,{});
+    if(_canIndoor(map,x,y1+1)) _pushDeco(map,x,y1+1,fence,rng,{});
+  }
+  for(let y=y0-1;y<=y1+1;y++){
+    if(_canIndoor(map,x0-1,y)) _pushDeco(map,x0-1,y,fence,rng,{});
+    if(_canIndoor(map,x1+1,y)) _pushDeco(map,x1+1,y,fence,rng,{});
+  }
+  for(let y=y0;y<=y1;y++) for(let x=x0;x<=x1;x++){
+    if(rng.chance(0.7) && _canIndoor(map,x,y)) _pushDeco(map,x,y,rng.pick(P.crop),rng,{scaleMin:0.8,scaleRange:0.25});
+  }
+}
 function _decoBlocked(map, x, y){
   if(x<0||y<0||x>=map.w||y>=map.h) return true;
   if(map.hasSolidBlocks(x,y)) return true;
   if(map.itemAt(x,y)) return true;
   if(map.entityAt(x,y)) return true;
   if(map.specialAt(x,y)) return true;
+  if(map._decoPlaced && map._decoPlaced.has(x+','+y)) return true;
   return false;
 }
 function _pushDeco(map, x, y, oid, rng, opts){
@@ -1246,6 +1412,8 @@ function _pushDeco(map, x, y, oid, rng, opts){
   const oy = (rng.float() - 0.5) * (opts.oy || 12);
   const phase = rng.float() * Math.PI * 2;
   const scale = (opts.scaleMin || 0.85) + rng.float() * (opts.scaleRange || 0.3);
+  if(!map._decoPlaced) map._decoPlaced = new Set();
+  map._decoPlaced.add(x+','+y);
   map.decorations.push({x, y, type: oid, ox, oy, scale, phase, face: opts.face || null});
 }
 function _finalizeDecoGrid(map){
@@ -1262,89 +1430,75 @@ function generateDecorations(map, rng, buildings){
   if(map.generator === 'dungeon') return generateDungeonDecorations(map, rng);
   return generateWildDecorations(map, rng);
 }
-// 野外：按 biome 选 obj 簇（参考 BiomeProfile.cluster.obj）
+// 野外：按 biome 套用 Cluster 规则（参考 BiomeProfile.cluster.obj）
 function generateWildDecorations(map, rng){
+  map._decoPlaced = new Set();
+  const occ = new Map();
   for(let y=0;y<map.h;y++){
     for(let x=0;x<map.w;x++){
-      if(_decoBlocked(map,x,y)) continue;
       const gid = map.tileId(x,y);
       const gkey = FLOOR_GROUP[gid];
       if(!gkey) continue;
-      if(isWaterFloor(gid)){
-        if(rng.chance(0.10) && DECOR_POOL.water_edge.length)
-          _pushDeco(map, x, y, rng.pick(DECOR_POOL.water_edge), rng);
+      const water = isWaterFloor(gid);
+      if(water){
+        if(_decoBlocked(map,x,y)) continue;
+        _applyRules(map, rng, BIOME_DECOR['water'], x, y, {interior:false, occupied:occ, onWater:true});
         continue;
       }
-      if(gkey === 'grass'){
-        const r = rng.float();
-        if(r < 0.07 && DECOR_POOL.tree.length)          _pushDeco(map,x,y,rng.pick(DECOR_POOL.tree),rng,{scaleMin:0.95,scaleRange:0.35});
-        else if(r < 0.25 && DECOR_POOL.flower.length)   _pushDeco(map,x,y,rng.pick(DECOR_POOL.flower),rng);
-        else if(r < 0.31 && DECOR_POOL.mushroom.length) _pushDeco(map,x,y,rng.pick(DECOR_POOL.mushroom),rng);
-        else if(r < 0.39 && DECOR_POOL.grass_tuft.length) _pushDeco(map,x,y,rng.pick(DECOR_POOL.grass_tuft),rng);
-      } else if(gkey === 'sand'){
-        const r = rng.float();
-        if(r < 0.05 && DECOR_POOL.cactus.length) _pushDeco(map,x,y,rng.pick(DECOR_POOL.cactus),rng);
-        else if(r < 0.09 && DECOR_POOL.rock.length) _pushDeco(map,x,y,rng.pick(DECOR_POOL.rock),rng);
-      } else if(gkey === 'snow'){
-        const r = rng.float();
-        if(r < 0.06 && DECOR_POOL.snow_tree.length) _pushDeco(map,x,y,rng.pick(DECOR_POOL.snow_tree),rng);
-        else if(r < 0.11 && DECOR_POOL.rock.length) _pushDeco(map,x,y,rng.pick(DECOR_POOL.rock),rng);
-      } else if(gkey === 'stone' || gkey === 'wood' || gkey === 'factory'){
-        const r = rng.float();
-        if(r < 0.06 && DECOR_POOL.boulder.length) _pushDeco(map,x,y,rng.pick(DECOR_POOL.boulder),rng);
-        else if(r < 0.11 && DECOR_POOL.rock.length) _pushDeco(map,x,y,rng.pick(DECOR_POOL.rock),rng);
-        else if(gkey === 'stone' && r < 0.14 && DECOR_POOL.crystal.length) _pushDeco(map,x,y,rng.pick(DECOR_POOL.crystal),rng);
-      }
+      if(map.hasSolidBlocks(x,y)) continue;
+      if(_decoBlocked(map,x,y)) continue;
+      const rules = BIOME_DECOR[gkey] || BIOME_DECOR['grass'];
+      _applyRules(map, rng, rules, x, y, {interior:false, occupied:occ, onWater:false});
     }
   }
   _finalizeDecoGrid(map);
 }
-// 城镇：室内稀疏家具感物件，室外公共设施/花木/行道树
+// 城镇：室内结构化房间 + 室外路灯/行道树/花园/公共石碑 + 农田
 function generateTownDecorations(map, buildings, rng){
+  map._decoPlaced = new Set();
+  const occ = new Map();
   const indoor = new Set();
-  if(buildings){
-    for(const b of buildings){
-      for(let yy=b.y; yy<b.y+b.h; yy++)
-        for(let xx=b.x; xx<b.x+b.w; xx++)
-          indoor.add(xx+','+yy);
-    }
+  for(const b of buildings||[]){
+    for(let yy=b.y; yy<b.y+b.h; yy++)
+      for(let xx=b.x; xx<b.x+b.w; xx++)
+        indoor.add(xx+','+yy);
   }
+  // 室内：每栋建筑房间结构化家具
+  for(const b of buildings||[]){
+    if(b.farm){ _decorateFarm(map, rng, b, occ); continue; }
+    _decorateRoom(map, rng, b, occ);
+  }
+  // 室外：道路/墙路灯、行道树、花园、公共石碑
   for(let y=0;y<map.h;y++){
     for(let x=0;x<map.w;x++){
       if(_decoBlocked(map,x,y)) continue;
-      const key = x+','+y;
-      if(indoor.has(key)){
-        // 室内：极低概率放一件家具感物件，避免拥挤
-        if(rng.chance(0.06) && DECOR_POOL.furniture.length)
-          _pushDeco(map,x,y,rng.pick(DECOR_POOL.furniture),rng,{scaleMin:0.8,scaleRange:0.25});
-      } else {
-        const r = rng.float();
-        if(r < 0.06 && DECOR_POOL.street_tree.length) _pushDeco(map,x,y,rng.pick(DECOR_POOL.street_tree),rng,{scaleMin:0.95,scaleRange:0.3});
-        else if(r < 0.18 && DECOR_POOL.garden.length)  _pushDeco(map,x,y,rng.pick(DECOR_POOL.garden),rng);
-        else if(r < 0.22 && DECOR_POOL.facility.length) _pushDeco(map,x,y,rng.pick(DECOR_POOL.facility),rng);
-      }
+      if(indoor.has(x+','+y)) continue;
+      _applyRules(map, rng, TOWN_OUTDOOR, x, y, {interior:false, occupied:occ, onWater:false});
     }
   }
-  // 每栋建筑门口放一根“行道桩/灯柱”作为公共标识
-  if(buildings){
-    for(const b of buildings){
-      if(!b.door) continue;
-      const px = b.door.x, py = b.door.y + 1;
-      if(!_decoBlocked(map,px,py) && DECOR_POOL.facility.length)
-        _pushDeco(map, px, py, 66, rng, {scaleMin:0.9, scaleRange:0.2});
-    }
+  // 每栋建筑门口立一盏路灯柱（公共照明标识）
+  for(const b of buildings||[]){
+    if(!b.door) continue;
+    const px = b.door.x, py = b.door.y + 1;
+    if(!_decoBlocked(map,px,py) && P.lamp.length)
+      _pushDeco(map, px, py, P.lamp[0], rng, {scaleMin:0.9, scaleRange:0.2});
   }
   _finalizeDecoGrid(map);
 }
-// 地牢：骸骨/晶/废墟/岩，低密度
+// 地牢：骸骨/晶/巨岩/矿，低密度 + 间距
 function generateDungeonDecorations(map, rng){
+  map._decoPlaced = new Set();
+  const occ = new Map();
+  const rules = [
+    {type:'exterior', density:0.04, pool:P.boulder, spacing:1, group:'boul'},
+    {type:'exterior', density:0.05, pool:P.rock,    spacing:1, group:'rock'},
+    {type:'exterior', density:0.02, pool:P.crystal, spacing:2, group:'crys'},
+    {type:'exterior', density:0.03, pool:P.bone,    spacing:1, group:'bone'},
+  ];
   for(let y=0;y<map.h;y++){
     for(let x=0;x<map.w;x++){
       if(_decoBlocked(map,x,y)) continue;
-      const gid = map.tileId(x,y);
-      if(isWaterFloor(gid)) continue;
-      if(rng.chance(0.05) && DECOR_POOL.dungeon.length)
-        _pushDeco(map,x,y,rng.pick(DECOR_POOL.dungeon),rng,{scaleMin:0.8,scaleRange:0.3});
+      _applyRules(map, rng, rules, x, y, {interior:false, occupied:occ, onWater:false});
     }
   }
   _finalizeDecoGrid(map);

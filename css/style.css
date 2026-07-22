@@ -243,8 +243,8 @@ body.touch-device .help-tip{display:none!important}
   #panel-content{padding:12px;max-width:100vw;max-height:100vh;overflow-y:auto}
   .inv-grid{grid-template-columns:repeat(auto-fill,minmax(110px,1fr))}
   #build-panel{width:100vw;max-width:100vw;top:auto;bottom:0;left:0;transform:none;
-    border-radius:8px 8px 0 0;max-height:50vh}
-  .build-grid{max-height:200px;grid-template-columns:repeat(auto-fill,minmax(60px,1fr))}
+    border-radius:8px 8px 0 0;max-height:55vh}
+  .build-grid{grid-template-columns:repeat(auto-fill,minmax(58px,1fr))}
   .build-item{padding:4px 2px}
   .build-item-icon{width:24px;height:24px;font-size:14px}
   .build-item-name{font-size:10px}
@@ -346,73 +346,130 @@ body.touch-device .help-tip{display:none!important}
 }
 
 /* ===== 建造模式面板 ===== */
+/* 建造模式：左侧中间侧边栏（不遮挡顶部信息栏与底部状态栏）*/
 #build-panel{
-  position:absolute;
-  top:50px;left:50%;transform:translateX(-50%);
-  width:520px;max-width:90vw;
-  background:rgba(20,24,32,0.95);
+  position:fixed;
+  left:12px; top:54px; bottom:224px;
+  width:262px; max-width:42vw;
+  display:flex; flex-direction:column;
+  background:rgba(20,24,32,0.96);
   border:1px solid var(--border);
   border-radius:8px;
   z-index:100;
   padding:0;
   backdrop-filter:blur(8px);
   box-shadow:0 4px 20px rgba(0,0,0,0.5);
+  overflow:hidden;
 }
 .build-header{
-  display:flex;align-items:center;gap:10px;
-  padding:8px 12px;
+  display:flex;align-items:center;gap:8px;
+  padding:7px 10px;
   border-bottom:1px solid var(--border);
-  border-radius:8px 8px 0 0;
   background:var(--panel-2);
+  flex:0 0 auto;
 }
-.build-title{font-size:14px;font-weight:bold;color:var(--accent);white-space:nowrap}
-.build-tool-group{display:flex;gap:4px;flex:1}
+.build-title{font-size:13px;font-weight:bold;color:var(--accent);white-space:nowrap}
+.build-tool-group{display:flex;gap:4px;flex:1;justify-content:center}
 .build-tool-btn{
-  padding:3px 12px;font-size:12px;
+  padding:3px 10px;font-size:12px;
   background:var(--panel);border:1px solid var(--border);
   color:var(--text);border-radius:4px;cursor:pointer;
 }
 .build-tool-btn.active{background:var(--accent);color:#0d0f14;border-color:var(--accent)}
 .build-close-btn{
-  padding:3px 10px;font-size:12px;
+  padding:3px 9px;font-size:12px;
   background:#c9404a;border:none;color:#fff;
-  border-radius:4px;cursor:pointer;white-space:nowrap;
+  border-radius:4px;cursor:pointer;white-space:nowrap;flex:0 0 auto;
 }
+/* 搜索栏 */
+.build-search-row{
+  display:flex;align-items:center;gap:6px;
+  padding:7px 10px;border-bottom:1px solid var(--border);
+  flex:0 0 auto;background:rgba(13,15,20,0.4);
+}
+#build-search{
+  flex:1;min-width:0;
+  background:var(--panel);border:1px solid var(--border);
+  color:var(--text);border-radius:4px;
+  padding:4px 8px;font-size:12px;outline:none;
+}
+#build-search:focus{border-color:var(--accent)}
+.build-count{font-size:11px;color:var(--text-dim);white-space:nowrap;flex:0 0 auto}
 .build-tabs{
   display:flex;gap:0;
   border-bottom:1px solid var(--border);
+  flex:0 0 auto;
 }
 .build-tab{
   flex:1;text-align:center;padding:6px 0;
-  font-size:13px;color:var(--text-muted);
+  font-size:12px;color:var(--text-muted);
   cursor:pointer;border-bottom:2px solid transparent;
-  transition:all 0.15s;
+  transition:all 0.15s;white-space:nowrap;
 }
 .build-tab:hover{color:var(--text)}
 .build-tab.active{color:var(--accent);border-bottom-color:var(--accent)}
+.tab-n{font-size:10px;color:var(--text-dim);margin-left:3px}
 .build-grid{
+  flex:1 1 auto;
   display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(72px,1fr));
-  gap:6px;padding:10px;
-  max-height:240px;overflow-y:auto;
+  grid-template-columns:repeat(auto-fill,minmax(62px,1fr));
+  align-content:start;
+  gap:5px;padding:8px;
+  overflow-y:auto;
+}
+.build-group-header{
+  grid-column:1 / -1;
+  position:sticky;top:0;z-index:2;
+  font-size:11px;color:var(--accent);
+  padding:5px 3px 2px;margin-top:3px;
+  border-bottom:1px dashed var(--border);
+  background:rgba(20,24,32,0.98);
 }
 .build-item{
-  display:flex;flex-direction:column;align-items:center;gap:3px;
-  padding:6px 4px;
+  display:flex;flex-direction:column;align-items:center;gap:2px;
+  padding:5px 3px;
   background:var(--panel);border:1px solid var(--border);
   border-radius:6px;cursor:pointer;
-  transition:all 0.15s;font-size:11px;
+  transition:all 0.12s;font-size:10px;
 }
 .build-item:hover{border-color:var(--accent);background:var(--panel-2)}
 .build-item.selected{border-color:var(--accent);background:rgba(127,209,196,0.15);box-shadow:0 0 6px rgba(127,209,196,0.3)}
 .build-item-icon{
-  width:28px;height:28px;border-radius:4px;
+  width:30px;height:30px;border-radius:4px;
   display:flex;align-items:center;justify-content:center;
-  font-size:16px;
+  font-size:16px;background:rgba(0,0,0,0.25);
 }
-.build-item-name{color:var(--text-muted);text-align:center;line-height:1.2}
-.build-hint{
-  padding:6px 12px;font-size:11px;color:var(--text-muted);
-  text-align:center;border-top:1px solid var(--border);
-  border-radius:0 0 8px 8px;background:var(--panel-2);
+.build-item-name{color:var(--text-muted);text-align:center;line-height:1.15;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.build-item-id{font-size:9px;color:var(--text-faint,#555);line-height:1}
+.build-footer{
+  display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+  padding:6px 10px;border-top:1px solid var(--border);
+  background:var(--panel-2);flex:0 0 auto;
 }
+.build-check{font-size:11px;color:var(--text-dim);cursor:pointer;display:flex;align-items:center;gap:4px;user-select:none}
+.build-check input{accent-color:var(--accent)}
+.build-hint{font-size:10px;color:var(--text-muted);margin-left:auto}
+
+/* 建造元素悬停信息卡（独立 body 子节点，避免被 #build-panel 的 backdrop-filter 裁剪）*/
+#build-tooltip{
+  position:fixed;
+  z-index:200;
+  max-width:270px;
+  background:rgba(16,20,28,0.97);
+  border:1px solid var(--accent);
+  border-radius:8px;
+  padding:8px 10px;
+  box-shadow:0 6px 24px rgba(0,0,0,0.6);
+  pointer-events:none;
+  font-family:Consolas,"Microsoft YaHei",monospace;
+  font-size:11px;
+  line-height:1.5;
+  color:var(--text,#c7d0da);
+}
+#build-tooltip.hidden{display:none}
+.bt-title{font-size:13px;font-weight:bold;color:#fff;margin-bottom:2px;word-break:break-all}
+.bt-sub{font-size:10px;color:var(--text-dim,#889);margin-bottom:6px}
+.bt-row{display:flex;justify-content:space-between;gap:14px}
+.bt-k{color:#8a93a0;flex:0 0 auto}
+.bt-v{color:#c7d0da;text-align:right;word-break:break-all}
+.bt-v.atlas{color:#7fd1c4}

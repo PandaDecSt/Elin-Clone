@@ -1,21 +1,21 @@
 [
  {
   "id": 145,
-  "name": null,
-  "renderData": null,
+  "name": "egg",
+  "renderData": "support",
   "tiles": [
    {
-    "tile": 0,
-    "tex": "objs",
+    "tile": 422,
+    "tex": "blocks",
     "rect": [
-     79,
-     29,
-     35,
-     18
+     1345,
+     256,
+     62,
+     63
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 1,0)"
+    "how": "rescue(off 64.0)"
    }
   ]
  },
@@ -26,16 +26,16 @@
   "tiles": [
    {
     "tile": 105,
-    "tex": "objs",
+    "tex": "objs_S",
     "rect": [
-     332,
-     6,
-     34,
-     53
+     165,
+     8,
+     21,
+     17
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 0,-1)"
+    "how": "rescue(off 31.5)"
    }
   ]
  },
@@ -46,12 +46,12 @@
   "tiles": [
    {
     "tile": 202,
-    "tex": "objs",
+    "tex": "objs_S",
     "rect": [
-     130,
-     139,
-     59,
-     52
+     79,
+     79,
+     17,
+     13
     ],
     "flip": false,
     "found": true,
@@ -66,16 +66,16 @@
   "tiles": [
    {
     "tile": 307,
-    "tex": "objs",
+    "tex": "objs_S",
     "rect": [
-     450,
-     132,
-     62,
-     54
+     227,
+     96,
+     26,
+     30
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 0,-1)"
+    "how": "exact"
    }
   ]
  },
@@ -88,14 +88,14 @@
     "tile": 217,
     "tex": "objs_S",
     "rect": [
-     513,
-     37,
-     23,
-     25
+     550,
+     70,
+     18,
+     20
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off -1,-1)"
+    "how": "exact"
    }
   ]
  },
@@ -106,16 +106,16 @@
   "tiles": [
    {
     "tile": 212,
-    "tex": "objs",
+    "tex": "objs_S",
     "rect": [
-     777,
-     197,
-     46,
-     50
+     386,
+     72,
+     27,
+     20
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 0,1)"
+    "how": "exact"
    }
   ]
  },
@@ -126,16 +126,16 @@
   "tiles": [
    {
     "tile": 147,
-    "tex": "objs",
+    "tex": "objs_S",
     "rect": [
-     3082,
-     134,
-     51,
-     54
+     1510,
+     42,
+     23,
+     18
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 1,1)"
+    "how": "exact"
    }
   ]
  },
@@ -146,16 +146,16 @@
   "tiles": [
    {
     "tile": 247,
-    "tex": "objs",
+    "tex": "objs_S",
     "rect": [
-     3082,
-     134,
-     51,
-     54
+     1510,
+     70,
+     20,
+     22
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 1,0)"
+    "how": "exact"
    }
   ]
  },
@@ -166,16 +166,16 @@
   "tiles": [
    {
     "tile": 347,
-    "tex": "objs",
+    "tex": "objs_S",
     "rect": [
-     3082,
-     134,
-     51,
-     54
+     1510,
+     102,
+     20,
+     22
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 1,-1)"
+    "how": "exact"
    }
   ]
  },
@@ -186,12 +186,12 @@
   "tiles": [
    {
     "tile": 47,
-    "tex": "objs",
+    "tex": "objs_S",
     "rect": [
-     3027,
-     18,
-     29,
-     34
+     1510,
+     10,
+     23,
+     18
     ],
     "flip": false,
     "found": true,
@@ -226,16 +226,16 @@
   "tiles": [
    {
     "tile": 302,
-    "tex": "objs",
+    "tex": "objs_S",
     "rect": [
-     130,
-     139,
-     59,
-     52
+     78,
+     102,
+     14,
+     12
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 0,-1)"
+    "how": "exact"
    }
   ]
  },
@@ -246,12 +246,12 @@
   "tiles": [
    {
     "tile": 312,
-    "tex": "objs",
+    "tex": "objs_S",
     "rect": [
-     777,
-     197,
-     46,
-     50
+     402,
+     100,
+     11,
+     10
     ],
     "flip": false,
     "found": true,
@@ -268,14 +268,14 @@
     "tile": 26,
     "tex": "objs_S",
     "rect": [
-     833,
-     32,
-     30,
-     31
+     841,
+     11,
+     15,
+     11
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 0,1)"
+    "how": "exact"
    }
   ]
  },
@@ -288,14 +288,14 @@
     "tile": 18,
     "tex": "objs",
     "rect": [
-     1225,
-     16,
+     1160,
+     22,
      48,
-     40
+     34
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 1,0)"
+    "how": "exact"
    }
   ]
  },
@@ -308,19 +308,6 @@
     "tile": 21,
     "tex": "objs",
     "rect": [
-     1289,
-     16,
-     48,
-     40
-    ],
-    "flip": false,
-    "found": true,
-    "how": "rescue(off -1,0)"
-   },
-   {
-    "tile": 22,
-    "tex": "objs",
-    "rect": [
      1353,
      17,
      47,
@@ -328,7 +315,20 @@
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off -1,0)"
+    "how": "exact"
+   },
+   {
+    "tile": 22,
+    "tex": "objs",
+    "rect": [
+     1430,
+     28,
+     20,
+     23
+    ],
+    "flip": false,
+    "found": true,
+    "how": "exact"
    }
   ]
  },
@@ -339,12 +339,12 @@
   "tiles": [
    {
     "tile": 19,
-    "tex": "objs",
+    "tex": "objs_S",
     "rect": [
-     1225,
-     16,
-     48,
-     40
+     613,
+     8,
+     21,
+     18
     ],
     "flip": false,
     "found": true,
@@ -359,55 +359,55 @@
   "tiles": [
    {
     "tile": 112,
-    "tex": "objs",
+    "tex": "objs_S",
     "rect": [
-     713,
-     135,
-     45,
-     49
+     401,
+     55,
+     6,
+     4
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off -1,1)"
+    "how": "exact"
    },
    {
     "tile": 113,
-    "tex": "objs",
+    "tex": "objs_S",
     "rect": [
-     912,
-     22,
-     30,
-     36
+     420,
+     53,
+     6,
+     4
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 1,-1)"
+    "how": "exact"
    },
    {
     "tile": 114,
-    "tex": "objs",
+    "tex": "objs_S",
     "rect": [
-     912,
-     22,
-     30,
-     36
+     466,
+     45,
+     6,
+     5
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 0,-1)"
+    "how": "exact"
    },
    {
     "tile": 115,
-    "tex": "objs",
+    "tex": "objs_S",
     "rect": [
-     912,
-     22,
-     30,
-     36
+     493,
+     55,
+     7,
+     5
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off -1,-1)"
+    "how": "exact"
    }
   ]
  },
@@ -418,12 +418,12 @@
   "tiles": [
    {
     "tile": 5,
-    "tex": "objs",
+    "tex": "objs_S",
     "rect": [
-     332,
-     6,
-     34,
-     53
+     165,
+     8,
+     21,
+     17
     ],
     "flip": false,
     "found": true,
@@ -431,16 +431,16 @@
    },
    {
     "tile": 6,
-    "tex": "objs",
+    "tex": "objs_S",
     "rect": [
-     332,
-     6,
-     34,
-     53
+     197,
+     7,
+     22,
+     19
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off -1,0)"
+    "how": "exact"
    }
   ]
  },
@@ -451,29 +451,29 @@
   "tiles": [
    {
     "tile": 106,
-    "tex": "objs",
+    "tex": "objs_S",
     "rect": [
-     450,
-     132,
-     62,
-     54
+     195,
+     35,
+     26,
+     29
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 1,1)"
+    "how": "exact"
    },
    {
     "tile": 107,
-    "tex": "objs",
+    "tex": "objs_S",
     "rect": [
-     450,
-     132,
-     62,
-     54
+     228,
+     41,
+     24,
+     23
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 0,1)"
+    "how": "exact"
    }
   ]
  },
@@ -484,55 +484,55 @@
   "tiles": [
    {
     "tile": 108,
-    "tex": "objs",
+    "tex": "objs_S",
     "rect": [
-     450,
-     132,
-     62,
-     54
+     265,
+     42,
+     14,
+     15
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off -1,1)"
+    "how": "exact"
    },
    {
     "tile": 109,
-    "tex": "objs",
+    "tex": "objs_S",
     "rect": [
-     578,
-     137,
-     62,
-     49
+     297,
+     44,
+     13,
+     9
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 0,1)"
+    "how": "exact"
    },
    {
     "tile": 110,
-    "tex": "objs",
+    "tex": "objs_S",
     "rect": [
-     578,
-     137,
-     62,
-     49
+     323,
+     38,
+     20,
+     11
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off -1,1)"
+    "how": "exact"
    },
    {
     "tile": 111,
-    "tex": "objs",
+    "tex": "objs_S",
     "rect": [
-     713,
-     135,
-     45,
-     49
+     358,
+     38,
+     11,
+     9
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 0,1)"
+    "how": "exact"
    }
   ]
  },
@@ -583,16 +583,16 @@
   "tiles": [
    {
     "tile": 222,
-    "tex": "objs",
+    "tex": "objs_S",
     "rect": [
-     1421,
-     207,
-     43,
-     41
+     709,
+     73,
+     24,
+     21
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 0,1)"
+    "how": "exact"
    }
   ]
  },
@@ -605,14 +605,14 @@
     "tile": 340,
     "tex": "objs",
     "rect": [
-     2510,
-     133,
-     33,
-     48
+     2577,
+     205,
+     32,
+     38
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off -1,-1)"
+    "how": "exact"
    }
   ]
  },
@@ -643,16 +643,16 @@
   "tiles": [
    {
     "tile": 222,
-    "tex": "objs",
+    "tex": "objs_S",
     "rect": [
-     1421,
-     207,
-     43,
-     41
+     709,
+     73,
+     24,
+     21
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 0,1)"
+    "how": "exact"
    }
   ]
  },
@@ -663,16 +663,16 @@
   "tiles": [
    {
     "tile": 225,
-    "tex": "objs",
+    "tex": "objs_S",
     "rect": [
-     1601,
-     193,
-     62,
-     62
+     801,
+     65,
+     16,
+     30
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 0,1)"
+    "how": "exact"
    }
   ]
  },
@@ -683,32 +683,19 @@
   "tiles": [
    {
     "tile": 230,
-    "tex": "objs",
+    "tex": "objs_S",
     "rect": [
-     1922,
-     201,
-     59,
-     48
+     966,
+     69,
+     22,
+     23
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 0,1)"
+    "how": "exact"
    },
    {
     "tile": 231,
-    "tex": "objs",
-    "rect": [
-     1922,
-     201,
-     59,
-     48
-    ],
-    "flip": false,
-    "found": true,
-    "how": "rescue(off -1,1)"
-   },
-   {
-    "tile": 232,
     "tex": "objs_S",
     "rect": [
      993,
@@ -718,10 +705,36 @@
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off -1,0)"
+    "how": "exact"
+   },
+   {
+    "tile": 232,
+    "tex": "objs_S",
+    "rect": [
+     1024,
+     70,
+     31,
+     26
+    ],
+    "flip": false,
+    "found": true,
+    "how": "exact"
    },
    {
     "tile": 233,
+    "tex": "objs_S",
+    "rect": [
+     1058,
+     71,
+     29,
+     25
+    ],
+    "flip": false,
+    "found": true,
+    "how": "exact"
+   },
+   {
+    "tile": 234,
     "tex": "objs_S",
     "rect": [
      1090,
@@ -731,20 +744,7 @@
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 1,0)"
-   },
-   {
-    "tile": 234,
-    "tex": "objs",
-    "rect": [
-     2255,
-     193,
-     35,
-     52
-    ],
-    "flip": false,
-    "found": true,
-    "how": "rescue(off 1,1)"
+    "how": "exact"
    }
   ]
  },
@@ -757,79 +757,79 @@
     "tile": 130,
     "tex": "objs_S",
     "rect": [
-     993,
-     64,
-     29,
-     32
+     968,
+     48,
+     16,
+     12
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 1,1)"
+    "how": "exact"
    },
    {
     "tile": 131,
     "tex": "objs_S",
     "rect": [
-     993,
-     64,
-     29,
-     32
+     1005,
+     38,
+     16,
+     10
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 0,1)"
+    "how": "exact"
    },
    {
     "tile": 132,
     "tex": "objs_S",
     "rect": [
-     993,
-     64,
-     29,
-     32
+     1030,
+     41,
+     11,
+     11
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off -1,1)"
+    "how": "exact"
    },
    {
     "tile": 133,
     "tex": "objs_S",
     "rect": [
-     1090,
-     66,
-     29,
-     29
+     1065,
+     47,
+     16,
+     12
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 1,1)"
+    "how": "exact"
    },
    {
     "tile": 134,
     "tex": "objs_S",
     "rect": [
-     1121,
-     65,
-     29,
-     31
+     1095,
+     43,
+     17,
+     10
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 1,1)"
+    "how": "exact"
    },
    {
     "tile": 135,
     "tex": "objs_S",
     "rect": [
-     1121,
-     65,
-     29,
-     31
+     1127,
+     43,
+     16,
+     11
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 0,1)"
+    "how": "exact"
    }
   ]
  },
@@ -840,51 +840,51 @@
   "tiles": [
    {
     "tile": 235,
-    "tex": "objs",
+    "tex": "objs_S",
     "rect": [
-     2255,
-     193,
-     35,
-     52
+     1121,
+     65,
+     29,
+     31
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 0,1)"
+    "how": "exact"
    },
    {
     "tile": 236,
-    "tex": "objs",
+    "tex": "objs_S",
     "rect": [
-     2255,
-     193,
-     35,
-     52
+     1153,
+     73,
+     30,
+     23
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off -1,1)"
+    "how": "exact"
    },
    {
     "tile": 237,
-    "tex": "objs",
+    "tex": "objs_S",
     "rect": [
-     2448,
-     131,
-     33,
-     50
+     1184,
+     70,
+     32,
+     26
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 1,0)"
+    "how": "exact"
    },
    {
     "tile": 238,
-    "tex": "objs",
+    "tex": "objs_S",
     "rect": [
-     2448,
-     131,
-     33,
-     50
+     1217,
+     68,
+     31,
+     27
     ],
     "flip": false,
     "found": true,
@@ -892,42 +892,42 @@
    },
    {
     "tile": 239,
-    "tex": "objs",
+    "tex": "objs_S",
     "rect": [
-     2448,
-     131,
-     33,
-     50
+     1250,
+     72,
+     28,
+     24
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off -1,0)"
+    "how": "exact"
    },
    {
     "tile": 240,
-    "tex": "objs",
+    "tex": "objs_S",
     "rect": [
-     2510,
-     133,
-     33,
-     48
+     1285,
+     70,
+     22,
+     26
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off -1,0)"
+    "how": "exact"
    },
    {
     "tile": 241,
-    "tex": "objs",
+    "tex": "objs_S",
     "rect": [
-     2577,
-     205,
-     32,
-     38
+     1315,
+     74,
+     27,
+     21
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off -1,1)"
+    "how": "exact"
    }
   ]
  },
@@ -940,6 +940,19 @@
     "tile": 3220,
     "tex": "objs",
     "rect": [
+     1286,
+     2067,
+     50,
+     33
+    ],
+    "flip": false,
+    "found": true,
+    "how": "exact"
+   },
+   {
+    "tile": 3221,
+    "tex": "objs",
+    "rect": [
      1350,
      2064,
      51,
@@ -947,10 +960,10 @@
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 1,0)"
+    "how": "exact"
    },
    {
-    "tile": 3221,
+    "tile": 3222,
     "tex": "objs",
     "rect": [
      1408,
@@ -960,20 +973,7 @@
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 1,0)"
-   },
-   {
-    "tile": 3222,
-    "tex": "objs",
-    "rect": [
-     1473,
-     2052,
-     60,
-     48
-    ],
-    "flip": false,
-    "found": true,
-    "how": "rescue(off 1,0)"
+    "how": "exact"
    },
    {
     "tile": 3223,
@@ -997,16 +997,16 @@
   "tiles": [
    {
     "tile": 607,
-    "tex": "objs",
+    "tex": "objs_L",
     "rect": [
-     531,
-     452,
-     27,
-     59
+     576,
+     348,
+     48,
+     64
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 1,1)"
+    "how": "exact"
    }
   ]
  },
@@ -1017,16 +1017,16 @@
   "tiles": [
    {
     "tile": 607,
-    "tex": "objs",
+    "tex": "objs_L",
     "rect": [
-     531,
-     452,
-     27,
-     59
+     576,
+     348,
+     48,
+     64
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 1,1)"
+    "how": "exact"
    }
   ]
  },
@@ -1037,16 +1037,16 @@
   "tiles": [
    {
     "tile": 607,
-    "tex": "objs",
+    "tex": "objs_L",
     "rect": [
-     531,
-     452,
-     27,
-     59
+     576,
+     348,
+     48,
+     64
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 1,1)"
+    "how": "exact"
    }
   ]
  },
@@ -1059,10 +1059,10 @@
     "tile": 217,
     "tex": "objs_L",
     "rect": [
-     498,
-     42,
-     53,
-     80
+     1378,
+     87,
+     54,
+     70
     ],
     "flip": false,
     "found": true,
@@ -1079,10 +1079,10 @@
     "tile": 220,
     "tex": "objs_L",
     "rect": [
-     641,
-     8,
-     75,
-     96
+     1606,
+     78,
+     69,
+     82
     ],
     "flip": false,
     "found": true,
@@ -1092,10 +1092,10 @@
     "tile": 221,
     "tex": "objs_L",
     "rect": [
-     641,
-     8,
-     75,
-     96
+     1682,
+     70,
+     77,
+     88
     ],
     "flip": false,
     "found": true,
@@ -1105,10 +1105,10 @@
     "tile": 222,
     "tex": "objs_L",
     "rect": [
-     641,
-     8,
-     75,
-     96
+     1768,
+     72,
+     66,
+     85
     ],
     "flip": false,
     "found": true,
@@ -1116,16 +1116,16 @@
    },
    {
     "tile": 223,
-    "tex": "objs",
+    "tex": "objs_L",
     "rect": [
-     1421,
-     207,
-     43,
-     41
+     1857,
+     75,
+     47,
+     83
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off -1,1)"
+    "how": "exact"
    }
   ]
  },
@@ -1138,10 +1138,10 @@
     "tile": 812,
     "tex": "objs_L",
     "rect": [
-     326,
-     277,
-     70,
-     41
+     978,
+     475,
+     44,
+     66
     ],
     "flip": false,
     "found": true,
@@ -1156,12 +1156,12 @@
   "tiles": [
    {
     "tile": 802,
-    "tex": "objs",
+    "tex": "objs_L",
     "rect": [
-     146,
-     521,
-     25,
-     35
+     173,
+     478,
+     53,
+     63
     ],
     "flip": false,
     "found": true,
@@ -1178,14 +1178,14 @@
     "tile": 1217,
     "tex": "objs_L",
     "rect": [
-     576,
-     348,
-     48,
+     1367,
+     735,
+     62,
      64
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 1,-2)"
+    "how": "exact"
    }
   ]
  },
@@ -1196,16 +1196,16 @@
   "tiles": [
    {
     "tile": 617,
-    "tex": "objs",
+    "tex": "objs_L",
     "rect": [
-     1090,
-     465,
-     33,
-     35
+     1380,
+     342,
+     43,
+     70
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 0,1)"
+    "how": "exact"
    }
   ]
  },
@@ -1216,16 +1216,16 @@
   "tiles": [
    {
     "tile": 817,
-    "tex": "objs",
+    "tex": "objs_L",
     "rect": [
-     1097,
-     580,
-     49,
-     60
+     1380,
+     476,
+     39,
+     64
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 0,1)"
+    "how": "exact"
    }
   ]
  },
@@ -1238,10 +1238,10 @@
     "tile": 1007,
     "tex": "objs_L",
     "rect": [
-     175,
-     343,
-     53,
-     70
+     572,
+     599,
+     58,
+     71
     ],
     "flip": false,
     "found": true,
@@ -1256,16 +1256,16 @@
   "tiles": [
    {
     "tile": 1012,
-    "tex": "objs",
+    "tex": "objs_L",
     "rect": [
-     833,
-     658,
-     62,
-     41
+     987,
+     591,
+     32,
+     98
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 1,0)"
+    "how": "exact"
    }
   ]
  },
@@ -1276,16 +1276,16 @@
   "tiles": [
    {
     "tile": 1002,
-    "tex": "objs",
+    "tex": "objs_L",
     "rect": [
-     128,
-     721,
-     64,
-     39
+     173,
+     594,
+     62,
+     75
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 0,1)"
+    "how": "exact"
    }
   ]
  },
@@ -1298,14 +1298,14 @@
     "tile": 1202,
     "tex": "objs_L",
     "rect": [
-     97,
-     355,
-     46,
-     58
+     181,
+     729,
+     38,
+     66
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 1,-1)"
+    "how": "exact"
    }
   ]
  },
@@ -1318,10 +1318,10 @@
     "tile": 1207,
     "tex": "objs_L",
     "rect": [
-     175,
-     343,
-     53,
-     70
+     581,
+     733,
+     39,
+     64
     ],
     "flip": false,
     "found": true,
@@ -1336,16 +1336,16 @@
   "tiles": [
    {
     "tile": 1212,
-    "tex": "objs",
+    "tex": "objs_L",
     "rect": [
-     837,
-     833,
+     972,
+     725,
      56,
-     63
+     70
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 1,1)"
+    "how": "exact"
    }
   ]
  },
@@ -1356,16 +1356,16 @@
   "tiles": [
    {
     "tile": 612,
-    "tex": "objs",
+    "tex": "objs_L",
     "rect": [
-     713,
-     339,
-     43,
-     28
+     978,
+     347,
+     49,
+     65
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off -1,-1)"
+    "how": "exact"
    }
   ]
  },
@@ -1378,14 +1378,14 @@
     "tile": 417,
     "tex": "objs_L",
     "rect": [
-     582,
-     136,
-     38,
-     34
+     1373,
+     212,
+     56,
+     69
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 1,0)"
+    "how": "exact"
    }
   ]
  },
@@ -1398,14 +1398,14 @@
     "tile": 602,
     "tex": "objs_L",
     "rect": [
-     96,
-     148,
-     47,
-     73
+     175,
+     343,
+     53,
+     70
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 1,-2)"
+    "how": "exact"
    }
   ]
  },
@@ -1416,12 +1416,12 @@
   "tiles": [
    {
     "tile": 802,
-    "tex": "objs",
+    "tex": "objs_L",
     "rect": [
-     146,
-     521,
-     25,
-     35
+     173,
+     478,
+     53,
+     63
     ],
     "flip": false,
     "found": true,
@@ -1436,12 +1436,12 @@
   "tiles": [
    {
     "tile": 802,
-    "tex": "objs",
+    "tex": "objs_L",
     "rect": [
-     146,
-     521,
-     25,
-     35
+     173,
+     478,
+     53,
+     63
     ],
     "flip": false,
     "found": true,
@@ -1456,12 +1456,12 @@
   "tiles": [
    {
     "tile": 802,
-    "tex": "objs",
+    "tex": "objs_L",
     "rect": [
-     146,
-     521,
-     25,
-     35
+     173,
+     478,
+     53,
+     63
     ],
     "flip": false,
     "found": true,
@@ -1478,10 +1478,10 @@
     "tile": 110,
     "tex": "objs_L",
     "rect": [
-     245,
-     40,
-     79,
-     83
+     832,
+     47,
+     17,
+     48
     ],
     "flip": false,
     "found": true,
@@ -1491,36 +1491,36 @@
     "tile": 111,
     "tex": "objs_L",
     "rect": [
-     340,
-     64,
-     46,
-     58
+     903,
+     23,
+     33,
+     69
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off -1,1)"
+    "how": "exact"
    },
    {
     "tile": 310,
-    "tex": "objs",
+    "tex": "objs_L",
     "rect": [
-     578,
-     137,
-     62,
-     49
+     831,
+     192,
+     14,
+     31
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off -1,-1)"
+    "how": "exact"
    },
    {
     "tile": 311,
     "tex": "objs_L",
     "rect": [
-     340,
-     64,
-     46,
-     58
+     909,
+     194,
+     19,
+     27
     ],
     "flip": false,
     "found": true,
@@ -1535,16 +1535,16 @@
   "tiles": [
    {
     "tile": 600,
-    "tex": "objs",
+    "tex": "blocks",
     "rect": [
-     1,
-     321,
-     62,
-     61
+     26,
+     389,
+     8,
+     10
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 0,-1)"
+    "how": "exact"
    }
   ]
  },
@@ -1555,16 +1555,16 @@
   "tiles": [
    {
     "tile": 601,
-    "tex": "objs",
+    "tex": "blocks",
     "rect": [
-     1,
-     321,
-     62,
-     61
+     90,
+     389,
+     8,
+     10
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off -1,-1)"
+    "how": "exact"
    }
   ]
  },
@@ -1577,27 +1577,27 @@
     "tile": 24,
     "tex": "objs_S",
     "rect": [
-     771,
-     36,
-     25,
-     26
+     776,
+     12,
+     16,
+     12
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 0,1)"
+    "how": "exact"
    },
    {
     "tile": 25,
     "tex": "objs_S",
     "rect": [
-     833,
-     32,
-     30,
-     31
+     806,
+     6,
+     19,
+     19
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 1,1)"
+    "how": "exact"
    }
   ]
  },
@@ -1608,12 +1608,12 @@
   "tiles": [
    {
     "tile": 604,
-    "tex": "objs_L",
+    "tex": "blocks",
     "rect": [
-     96,
-     148,
-     47,
-     73
+     283,
+     415,
+     10,
+     33
     ],
     "flip": false,
     "found": true,
@@ -1621,42 +1621,42 @@
    },
    {
     "tile": 605,
-    "tex": "objs",
+    "tex": "blocks",
     "rect": [
-     261,
-     322,
-     55,
-     49
+     347,
+     415,
+     10,
+     33
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off -1,-1)"
+    "how": "exact"
    },
    {
     "tile": 606,
-    "tex": "objs",
+    "tex": "blocks",
     "rect": [
-     331,
-     331,
-     41,
-     39
+     384,
+     402,
+     6,
+     34
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off -1,-1)"
+    "how": "exact"
    },
    {
     "tile": -606,
-    "tex": "objs",
+    "tex": "blocks",
     "rect": [
-     331,
-     331,
-     41,
-     39
+     384,
+     402,
+     6,
+     34
     ],
     "flip": true,
     "found": true,
-    "how": "rescue(off -1,-1)"
+    "how": "exact"
    }
   ]
  },
@@ -1667,16 +1667,16 @@
   "tiles": [
    {
     "tile": 605,
-    "tex": "objs",
+    "tex": "blocks",
     "rect": [
-     261,
-     322,
-     55,
-     49
+     347,
+     415,
+     10,
+     33
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off -1,-1)"
+    "how": "exact"
    }
   ]
  },
@@ -1687,42 +1687,42 @@
   "tiles": [
    {
     "tile": 414,
-    "tex": "objs",
+    "tex": "blocks",
     "rect": [
-     899,
-     340,
-     56,
-     43
+     897,
+     256,
+     62,
+     64
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 0,1)"
+    "how": "exact"
    },
    {
     "tile": 415,
-    "tex": "objs_S",
+    "tex": "blocks",
     "rect": [
-     519,
-     104,
-     17,
-     18
+     961,
+     256,
+     62,
+     64
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 1,-1)"
+    "how": "exact"
    },
    {
     "tile": 416,
-    "tex": "objs_S",
+    "tex": "blocks",
     "rect": [
-     549,
-     99,
-     21,
-     27
+     1025,
+     256,
+     62,
+     64
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 1,-1)"
+    "how": "exact"
    }
   ]
  },
@@ -1733,16 +1733,16 @@
   "tiles": [
    {
     "tile": 203,
-    "tex": "objs",
+    "tex": "blocks",
     "rect": [
-     130,
-     139,
-     59,
-     52
+     193,
+     129,
+     62,
+     62
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off -1,0)"
+    "how": "exact"
    }
   ]
  },
@@ -1753,25 +1753,25 @@
   "tiles": [
    {
     "tile": 417,
-    "tex": "objs_L",
+    "tex": "blocks",
     "rect": [
-     582,
-     136,
-     38,
-     34
+     1089,
+     256,
+     62,
+     63
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 1,0)"
+    "how": "exact"
    },
    {
     "tile": 418,
-    "tex": "objs_L",
+    "tex": "blocks",
     "rect": [
-     582,
-     136,
-     38,
-     34
+     1153,
+     256,
+     62,
+     63
     ],
     "flip": false,
     "found": true,
@@ -1779,12 +1779,12 @@
    },
    {
     "tile": 419,
-    "tex": "objs_L",
+    "tex": "blocks",
     "rect": [
-     582,
-     136,
-     38,
-     34
+     1216,
+     256,
+     64,
+     61
     ],
     "flip": false,
     "found": true,
@@ -1792,12 +1792,12 @@
    },
    {
     "tile": 420,
-    "tex": "objs_L",
+    "tex": "blocks",
     "rect": [
-     641,
-     129,
-     76,
-     40
+     1289,
+     261,
+     46,
+     57
     ],
     "flip": false,
     "found": true,
@@ -1805,32 +1805,12 @@
    },
    {
     "tile": 421,
-    "tex": "objs_L",
+    "tex": "blocks",
     "rect": [
-     641,
-     129,
-     76,
-     40
-    ],
-    "flip": false,
-    "found": true,
-    "how": "exact"
-   }
-  ]
- },
- {
-  "id": 145,
-  "name": "egg",
-  "renderData": "support",
-  "tiles": [
-   {
-    "tile": 422,
-    "tex": "objs_L",
-    "rect": [
-     641,
-     129,
-     76,
-     40
+     1345,
+     256,
+     62,
+     63
     ],
     "flip": false,
     "found": true,
@@ -1845,25 +1825,25 @@
   "tiles": [
    {
     "tile": 1013,
-    "tex": "objs",
+    "tex": "floors",
     "rect": [
-     897,
-     652,
-     63,
-     47
+     848,
+     500,
+     22,
+     16
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 1,0)"
+    "how": "exact"
    },
    {
     "tile": 1014,
-    "tex": "objs",
+    "tex": "floors",
     "rect": [
-     897,
-     652,
-     63,
-     47
+     914,
+     493,
+     34,
+     30
     ],
     "flip": false,
     "found": true,
@@ -1871,29 +1851,29 @@
    },
    {
     "tile": 1015,
-    "tex": "objs",
+    "tex": "floors",
     "rect": [
-     897,
-     652,
-     63,
-     47
+     965,
+     496,
+     42,
+     25
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off -1,0)"
+    "how": "exact"
    },
    {
     "tile": 1016,
-    "tex": "objs",
+    "tex": "floors",
     "rect": [
-     1097,
-     580,
-     49,
-     60
+     1040,
+     506,
+     33,
+     17
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 1,-1)"
+    "how": "exact"
    }
   ]
  },
@@ -1904,107 +1884,107 @@
   "tiles": [
    {
     "tile": 1113,
-    "tex": "objs",
+    "tex": "floors",
     "rect": [
-     897,
-     652,
-     63,
-     47
+     848,
+     500,
+     22,
+     16
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 1,-1)"
+    "how": "rescue(off 44.3)"
    },
    {
     "tile": 1114,
-    "tex": "objs",
+    "tex": "floors",
     "rect": [
-     897,
-     652,
-     63,
-     47
+     914,
+     493,
+     34,
+     30
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 0,-1)"
+    "how": "rescue(off 44.1)"
    },
    {
     "tile": 1115,
-    "tex": "objs",
+    "tex": "floors",
     "rect": [
-     897,
-     652,
-     63,
-     47
+     965,
+     496,
+     42,
+     25
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off -1,-1)"
+    "how": "rescue(off 43.9)"
    },
    {
     "tile": 1116,
-    "tex": "objs",
+    "tex": "floors",
     "rect": [
-     1036,
-     644,
-     45,
-     52
+     1040,
+     506,
+     33,
+     17
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 0,-1)"
+    "how": "rescue(off 37.5)"
    },
    {
     "tile": 1117,
-    "tex": "objs",
+    "tex": "floors",
     "rect": [
-     1036,
-     644,
-     45,
-     52
+     1089,
+     587,
+     62,
+     35
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off -1,-1)"
+    "how": "rescue(off 52.5)"
    },
    {
     "tile": 1118,
-    "tex": "objs",
+    "tex": "floors",
     "rect": [
-     1171,
-     768,
-     39,
-     57
+     1153,
+     539,
+     62,
+     34
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 0,1)"
+    "how": "exact"
    },
    {
     "tile": 1119,
-    "tex": "objs",
+    "tex": "floors",
     "rect": [
-     1285,
-     768,
-     53,
-     62
+     1217,
+     587,
+     62,
+     35
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 1,1)"
+    "how": "rescue(off 52.5)"
    },
    {
     "tile": 1120,
-    "tex": "objs",
+    "tex": "floors",
     "rect": [
-     1285,
-     768,
-     53,
-     62
+     1291,
+     496,
+     16,
+     16
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 0,1)"
+    "how": "rescue(off 49.7)"
    }
   ]
  },
@@ -2015,55 +1995,55 @@
   "tiles": [
    {
     "tile": 1007,
-    "tex": "objs",
+    "tex": "floors",
     "rect": [
-     450,
-     706,
-     60,
-     53
+     468,
+     502,
+     18,
+     16
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 0,1)"
+    "how": "exact"
    },
    {
     "tile": 1008,
-    "tex": "objs",
+    "tex": "floors",
     "rect": [
-     450,
-     706,
-     60,
-     53
+     554,
+     503,
+     7,
+     7
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off -1,1)"
+    "how": "exact"
    },
    {
     "tile": 1009,
-    "tex": "objs",
+    "tex": "floors",
     "rect": [
-     520,
-     660,
-     47,
-     38
+     600,
+     500,
+     15,
+     12
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off -1,0)"
+    "how": "exact"
    },
    {
     "tile": 1010,
-    "tex": "objs",
+    "tex": "floors",
     "rect": [
-     718,
-     648,
-     39,
-     48
+     661,
+     495,
+     26,
+     22
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 1,0)"
+    "how": "exact"
    }
   ]
  },
@@ -2074,68 +2054,68 @@
   "tiles": [
    {
     "tile": 918,
-    "tex": "objs",
+    "tex": "floors",
     "rect": [
-     1223,
-     512,
-     51,
-     64
+     1172,
+     451,
+     27,
+     17
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 1,-1)"
+    "how": "exact"
    },
    {
     "tile": 919,
-    "tex": "objs",
+    "tex": "floors",
     "rect": [
-     1223,
-     512,
-     51,
-     64
+     1244,
+     450,
+     8,
+     9
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 0,-1)"
+    "how": "exact"
    },
    {
     "tile": 920,
-    "tex": "objs",
+    "tex": "floors",
     "rect": [
-     1223,
-     512,
-     51,
-     64
+     1316,
+     459,
+     10,
+     5
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off -1,-1)"
+    "how": "exact"
    },
    {
     "tile": 921,
-    "tex": "objs",
+    "tex": "floors",
     "rect": [
-     1424,
-     520,
-     28,
-     35
+     1355,
+     458,
+     7,
+     5
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 1,-1)"
+    "how": "exact"
    },
    {
     "tile": 922,
-    "tex": "objs",
+    "tex": "floors",
     "rect": [
-     1482,
-     640,
-     51,
-     60
+     1453,
+     452,
+     4,
+     4
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 1,1)"
+    "how": "exact"
    }
   ]
  },
@@ -2146,55 +2126,55 @@
   "tiles": [
    {
     "tile": 1018,
-    "tex": "objs",
+    "tex": "floors",
     "rect": [
-     1097,
-     580,
-     49,
-     60
+     1173,
+     495,
+     11,
+     9
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off -1,-1)"
+    "how": "exact"
    },
    {
     "tile": 1019,
-    "tex": "objs",
+    "tex": "floors",
     "rect": [
-     1161,
-     580,
-     49,
-     60
+     1254,
+     501,
+     5,
+     5
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off -1,-1)"
+    "how": "exact"
    },
    {
     "tile": 1020,
-    "tex": "objs",
+    "tex": "floors",
     "rect": [
-     1285,
-     721,
-     44,
-     40
+     1291,
+     496,
+     16,
+     16
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 0,1)"
+    "how": "exact"
    },
    {
     "tile": 1021,
-    "tex": "objs",
+    "tex": "floors",
     "rect": [
-     1358,
-     723,
-     38,
-     39
+     1369,
+     510,
+     12,
+     9
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 0,1)"
+    "how": "exact"
    }
   ]
  },
@@ -2205,42 +2185,42 @@
   "tiles": [
    {
     "tile": 1024,
-    "tex": "objs",
+    "tex": "floors",
     "rect": [
-     1482,
-     640,
-     51,
-     60
+     1571,
+     500,
+     8,
+     13
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off -1,0)"
+    "how": "exact"
    },
    {
     "tile": 1025,
-    "tex": "objs",
+    "tex": "floors",
     "rect": [
-     1545,
-     645,
-     48,
-     55
+     1616,
+     503,
+     10,
+     11
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off -1,0)"
+    "how": "exact"
    },
    {
     "tile": 1026,
-    "tex": "objs",
+    "tex": "floors",
     "rect": [
-     1736,
-     704,
-     56,
-     64
+     1695,
+     504,
+     7,
+     9
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 1,1)"
+    "how": "exact"
    }
   ]
  },
@@ -2251,81 +2231,81 @@
   "tiles": [
    {
     "tile": 100,
-    "tex": "objs",
+    "tex": "roofs",
     "rect": [
-     79,
-     29,
-     35,
-     18
+     15,
+     85,
+     77,
+     72
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 1,-1)"
+    "how": "exact"
    },
    {
     "tile": 101,
-    "tex": "objs",
+    "tex": "roofs",
     "rect": [
-     130,
-     139,
-     59,
-     52
+     100,
+     85,
+     77,
+     72
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 1,1)"
+    "how": "exact"
    },
    {
     "tile": 102,
-    "tex": "objs",
+    "tex": "roofs",
     "rect": [
-     130,
-     139,
-     59,
-     52
+     192,
+     98,
+     69,
+     36
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 0,1)"
+    "how": "exact"
    },
    {
     "tile": 103,
-    "tex": "objs",
+    "tex": "roofs",
     "rect": [
-     130,
-     139,
-     59,
-     52
+     315,
+     98,
+     69,
+     36
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off -1,1)"
+    "how": "exact"
    },
    {
     "tile": 108,
-    "tex": "objs",
+    "tex": "roofs",
     "rect": [
-     450,
-     132,
-     62,
-     54
+     793,
+     84,
+     69,
+     71
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off -1,1)"
+    "how": "exact"
    },
    {
     "tile": 109,
-    "tex": "objs",
+    "tex": "roofs",
     "rect": [
-     578,
-     137,
-     62,
-     49
+     866,
+     84,
+     69,
+     71
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 0,1)"
+    "how": "exact"
    }
   ]
  },
@@ -2336,38 +2316,38 @@
   "tiles": [
    {
     "tile": 200,
-    "tex": "objs",
+    "tex": "roofs",
     "rect": [
-     2,
-     203,
-     59,
-     52
+     15,
+     165,
+     77,
+     72
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 0,1)"
+    "how": "exact"
    },
    {
     "tile": 201,
-    "tex": "objs",
+    "tex": "roofs",
     "rect": [
-     2,
-     203,
-     59,
-     52
+     100,
+     165,
+     77,
+     72
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off -1,1)"
+    "how": "exact"
    },
    {
     "tile": 202,
-    "tex": "objs",
+    "tex": "roofs",
     "rect": [
-     130,
-     139,
-     59,
-     52
+     192,
+     178,
+     69,
+     36
     ],
     "flip": false,
     "found": true,
@@ -2375,38 +2355,38 @@
    },
    {
     "tile": 203,
-    "tex": "objs",
+    "tex": "roofs",
     "rect": [
-     130,
-     139,
-     59,
-     52
+     315,
+     178,
+     69,
+     36
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off -1,0)"
+    "how": "exact"
    },
    {
     "tile": 208,
-    "tex": "objs",
+    "tex": "roofs",
     "rect": [
-     450,
-     132,
-     62,
-     54
+     793,
+     164,
+     69,
+     71
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off -1,0)"
+    "how": "exact"
    },
    {
     "tile": 209,
-    "tex": "objs",
+    "tex": "roofs",
     "rect": [
-     578,
-     137,
-     62,
-     49
+     866,
+     164,
+     69,
+     71
     ],
     "flip": false,
     "found": true,
@@ -2421,12 +2401,12 @@
   "tiles": [
    {
     "tile": 300,
-    "tex": "objs",
+    "tex": "roofs",
     "rect": [
-     2,
-     203,
-     59,
-     52
+     15,
+     245,
+     77,
+     72
     ],
     "flip": false,
     "found": true,
@@ -2434,68 +2414,68 @@
    },
    {
     "tile": 301,
-    "tex": "objs",
+    "tex": "roofs",
     "rect": [
-     2,
-     203,
-     59,
-     52
+     100,
+     245,
+     77,
+     72
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off -1,0)"
+    "how": "exact"
    },
    {
     "tile": 302,
-    "tex": "objs",
+    "tex": "roofs",
     "rect": [
-     130,
-     139,
-     59,
-     52
+     192,
+     258,
+     69,
+     36
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 0,-1)"
+    "how": "exact"
    },
    {
     "tile": 303,
-    "tex": "objs",
+    "tex": "roofs",
     "rect": [
-     130,
-     139,
-     59,
-     52
+     315,
+     258,
+     69,
+     36
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off -1,-1)"
+    "how": "exact"
    },
    {
     "tile": 308,
-    "tex": "objs",
+    "tex": "roofs",
     "rect": [
-     450,
-     132,
-     62,
-     54
+     791,
+     244,
+     71,
+     71
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off -1,-1)"
+    "how": "exact"
    },
    {
     "tile": 309,
-    "tex": "objs",
+    "tex": "roofs",
     "rect": [
-     578,
-     137,
-     62,
-     49
+     866,
+     244,
+     71,
+     71
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 0,-1)"
+    "how": "exact"
    }
   ]
  },
@@ -2506,81 +2486,81 @@
   "tiles": [
    {
     "tile": 400,
-    "tex": "objs",
+    "tex": "roofs",
     "rect": [
-     1,
-     321,
-     62,
-     61
+     15,
+     325,
+     77,
+     72
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 0,1)"
+    "how": "exact"
    },
    {
     "tile": 401,
-    "tex": "objs",
+    "tex": "roofs",
     "rect": [
-     1,
-     321,
-     62,
-     61
+     100,
+     325,
+     77,
+     72
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off -1,1)"
+    "how": "exact"
    },
    {
     "tile": 402,
-    "tex": "objs",
+    "tex": "roofs",
     "rect": [
-     73,
-     330,
-     47,
-     41
+     192,
+     338,
+     69,
+     36
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off -1,1)"
+    "how": "exact"
    },
    {
     "tile": 403,
-    "tex": "objs",
+    "tex": "roofs",
     "rect": [
-     261,
-     322,
-     55,
-     49
+     315,
+     338,
+     69,
+     36
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 1,1)"
+    "how": "exact"
    },
    {
     "tile": 408,
-    "tex": "objs_S",
+    "tex": "roofs",
     "rect": [
-     227,
-     96,
-     26,
-     30
+     793,
+     324,
+     69,
+     71
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off -1,-1)"
+    "how": "exact"
    },
    {
     "tile": 409,
-    "tex": "objs",
+    "tex": "roofs",
     "rect": [
-     649,
-     198,
-     45,
-     49
+     866,
+     324,
+     69,
+     71
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 1,-1)"
+    "how": "exact"
    }
   ]
  },
@@ -2591,12 +2571,12 @@
   "tiles": [
    {
     "tile": 500,
-    "tex": "objs",
+    "tex": "roofs",
     "rect": [
-     1,
-     321,
-     62,
-     61
+     15,
+     404,
+     77,
+     75
     ],
     "flip": false,
     "found": true,
@@ -2604,68 +2584,68 @@
    },
    {
     "tile": 501,
-    "tex": "objs",
+    "tex": "roofs",
     "rect": [
-     1,
-     321,
-     62,
-     61
+     100,
+     404,
+     77,
+     75
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off -1,0)"
+    "how": "exact"
    },
    {
     "tile": 502,
-    "tex": "objs",
+    "tex": "roofs",
     "rect": [
-     76,
-     384,
-     37,
-     64
-    ],
-    "flip": false,
-    "found": true,
-    "how": "rescue(off -1,1)"
-   },
-   {
-    "tile": 503,
-    "tex": "objs",
-    "rect": [
-     261,
-     322,
-     55,
-     49
-    ],
-    "flip": false,
-    "found": true,
-    "how": "rescue(off 1,0)"
-   },
-   {
-    "tile": 508,
-    "tex": "objs",
-    "rect": [
-     534,
-     408,
-     20,
+     192,
+     418,
+     69,
      38
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 0,1)"
+    "how": "exact"
    },
    {
-    "tile": 509,
-    "tex": "objs",
+    "tile": 503,
+    "tex": "roofs",
     "rect": [
-     649,
-     339,
-     43,
-     28
+     315,
+     418,
+     69,
+     38
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 1,0)"
+    "how": "exact"
+   },
+   {
+    "tile": 508,
+    "tex": "roofs",
+    "rect": [
+     793,
+     404,
+     69,
+     71
+    ],
+    "flip": false,
+    "found": true,
+    "how": "exact"
+   },
+   {
+    "tile": 509,
+    "tex": "roofs",
+    "rect": [
+     866,
+     404,
+     69,
+     71
+    ],
+    "flip": false,
+    "found": true,
+    "how": "exact"
    }
   ]
  },
@@ -2676,81 +2656,81 @@
   "tiles": [
    {
     "tile": 600,
-    "tex": "objs",
+    "tex": "roofs",
     "rect": [
-     1,
-     321,
-     62,
-     61
+     15,
+     485,
+     77,
+     72
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 0,-1)"
+    "how": "exact"
    },
    {
     "tile": 601,
-    "tex": "objs",
+    "tex": "roofs",
     "rect": [
-     1,
-     321,
-     62,
-     61
+     100,
+     485,
+     77,
+     72
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off -1,-1)"
+    "how": "exact"
    },
    {
     "tile": 602,
-    "tex": "objs",
+    "tex": "roofs",
     "rect": [
-     76,
-     384,
-     37,
-     64
+     192,
+     498,
+     69,
+     36
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off -1,0)"
+    "how": "exact"
    },
    {
     "tile": 603,
-    "tex": "objs",
+    "tex": "roofs",
     "rect": [
-     261,
-     322,
-     55,
-     49
+     315,
+     498,
+     69,
+     36
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 1,-1)"
+    "how": "exact"
    },
    {
     "tile": 608,
-    "tex": "objs",
+    "tex": "roofs",
     "rect": [
-     531,
-     452,
-     27,
-     59
+     793,
+     484,
+     69,
+     71
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 0,1)"
+    "how": "exact"
    },
    {
     "tile": 609,
-    "tex": "objs",
+    "tex": "roofs",
     "rect": [
-     531,
-     452,
-     27,
-     59
+     866,
+     484,
+     69,
+     71
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off -1,1)"
+    "how": "exact"
    }
   ]
  },
@@ -2761,64 +2741,64 @@
   "tiles": [
    {
     "tile": 700,
-    "tex": "objs",
+    "tex": "roofs",
     "rect": [
-     76,
-     384,
-     37,
-     64
+     15,
+     565,
+     77,
+     72
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 1,-1)"
+    "how": "exact"
    },
    {
     "tile": 701,
-    "tex": "objs",
+    "tex": "roofs",
     "rect": [
-     76,
-     384,
-     37,
-     64
+     100,
+     565,
+     77,
+     72
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 0,-1)"
+    "how": "exact"
    },
    {
     "tile": 702,
-    "tex": "objs",
+    "tex": "roofs",
     "rect": [
-     76,
-     384,
-     37,
-     64
+     192,
+     578,
+     69,
+     36
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off -1,-1)"
+    "how": "exact"
    },
    {
     "tile": 703,
-    "tex": "objs",
+    "tex": "roofs",
     "rect": [
-     270,
-     454,
-     31,
-     41
+     315,
+     578,
+     69,
+     36
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 1,0)"
+    "how": "exact"
    },
    {
     "tile": 708,
-    "tex": "objs",
+    "tex": "roofs",
     "rect": [
-     531,
-     452,
-     27,
-     59
+     793,
+     564,
+     69,
+     71
     ],
     "flip": false,
     "found": true,
@@ -2826,16 +2806,16 @@
    },
    {
     "tile": 709,
-    "tex": "objs",
+    "tex": "roofs",
     "rect": [
-     531,
-     452,
-     27,
-     59
+     866,
+     564,
+     69,
+     71
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off -1,0)"
+    "how": "exact"
    }
   ]
  },
@@ -2846,38 +2826,38 @@
   "tiles": [
    {
     "tile": 800,
-    "tex": "objs",
+    "tex": "roofs",
     "rect": [
-     20,
-     462,
-     32,
-     40
+     15,
+     645,
+     77,
+     72
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 0,-1)"
+    "how": "exact"
    },
    {
     "tile": 801,
-    "tex": "objs",
+    "tex": "roofs",
     "rect": [
-     20,
-     462,
-     32,
-     40
+     100,
+     645,
+     77,
+     72
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off -1,-1)"
+    "how": "exact"
    },
    {
     "tile": 802,
-    "tex": "objs",
+    "tex": "roofs",
     "rect": [
-     146,
-     521,
-     25,
-     35
+     192,
+     658,
+     69,
+     36
     ],
     "flip": false,
     "found": true,
@@ -2885,42 +2865,42 @@
    },
    {
     "tile": 803,
-    "tex": "objs",
+    "tex": "roofs",
     "rect": [
-     270,
-     454,
-     31,
-     41
+     315,
+     658,
+     69,
+     36
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 1,-1)"
+    "how": "exact"
    },
    {
     "tile": 808,
-    "tex": "objs",
+    "tex": "roofs",
     "rect": [
-     531,
-     452,
-     27,
-     59
+     793,
+     644,
+     69,
+     71
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 0,-1)"
+    "how": "exact"
    },
    {
     "tile": 809,
-    "tex": "objs",
+    "tex": "roofs",
     "rect": [
-     531,
-     452,
-     27,
-     59
+     866,
+     644,
+     69,
+     71
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off -1,-1)"
+    "how": "exact"
    }
   ]
  },
@@ -2931,38 +2911,38 @@
   "tiles": [
    {
     "tile": 900,
-    "tex": "objs",
+    "tex": "roofs",
     "rect": [
-     19,
-     666,
-     32,
-     36
+     15,
+     725,
+     77,
+     72
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 0,1)"
+    "how": "exact"
    },
    {
     "tile": 901,
-    "tex": "objs",
+    "tex": "roofs",
     "rect": [
-     83,
-     666,
-     32,
-     36
+     100,
+     725,
+     77,
+     72
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 0,1)"
+    "how": "exact"
    },
    {
     "tile": 902,
-    "tex": "objs",
+    "tex": "roofs",
     "rect": [
-     146,
-     585,
-     25,
-     35
+     192,
+     738,
+     69,
+     36
     ],
     "flip": false,
     "found": true,
@@ -2970,42 +2950,42 @@
    },
    {
     "tile": 903,
-    "tex": "objs",
+    "tex": "roofs",
     "rect": [
-     270,
-     648,
-     36,
-     51
+     315,
+     738,
+     69,
+     36
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 1,1)"
+    "how": "exact"
    },
    {
     "tile": 908,
-    "tex": "objs",
+    "tex": "roofs",
     "rect": [
-     520,
-     660,
-     47,
-     38
+     792,
+     724,
+     70,
+     71
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 0,1)"
+    "how": "exact"
    },
    {
     "tile": 909,
-    "tex": "objs",
+    "tex": "roofs",
     "rect": [
-     520,
-     660,
-     47,
-     38
+     866,
+     724,
+     70,
+     71
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off -1,1)"
+    "how": "exact"
    }
   ]
  },
@@ -3016,12 +2996,12 @@
   "tiles": [
    {
     "tile": 1000,
-    "tex": "objs",
+    "tex": "roofs",
     "rect": [
-     19,
-     666,
-     32,
-     36
+     15,
+     805,
+     77,
+     72
     ],
     "flip": false,
     "found": true,
@@ -3029,68 +3009,68 @@
    },
    {
     "tile": 1001,
-    "tex": "objs",
+    "tex": "roofs",
     "rect": [
-     128,
-     721,
-     64,
-     39
+     100,
+     805,
+     77,
+     72
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 1,1)"
+    "how": "exact"
    },
    {
     "tile": 1002,
-    "tex": "objs",
+    "tex": "roofs",
     "rect": [
-     128,
-     721,
-     64,
-     39
+     192,
+     818,
+     69,
+     36
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 0,1)"
+    "how": "exact"
    },
    {
     "tile": 1003,
-    "tex": "objs",
+    "tex": "roofs",
     "rect": [
-     128,
-     721,
-     64,
-     39
+     315,
+     818,
+     69,
+     36
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off -1,1)"
+    "how": "exact"
    },
    {
     "tile": 1008,
-    "tex": "objs",
+    "tex": "roofs",
     "rect": [
-     450,
-     706,
-     60,
-     53
+     793,
+     804,
+     69,
+     71
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off -1,1)"
+    "how": "exact"
    },
    {
     "tile": 1009,
-    "tex": "objs",
+    "tex": "roofs",
     "rect": [
-     520,
-     660,
-     47,
-     38
+     866,
+     804,
+     69,
+     71
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off -1,0)"
+    "how": "exact"
    }
   ]
  },
@@ -3101,38 +3081,38 @@
   "tiles": [
    {
     "tile": 1100,
-    "tex": "objs",
+    "tex": "roofs",
     "rect": [
-     12,
-     778,
-     38,
-     41
+     15,
+     885,
+     77,
+     72
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 0,1)"
+    "how": "exact"
    },
    {
     "tile": 1101,
-    "tex": "objs",
+    "tex": "roofs",
     "rect": [
-     128,
-     721,
-     64,
-     39
+     100,
+     885,
+     77,
+     72
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 1,0)"
+    "how": "exact"
    },
    {
     "tile": 1102,
-    "tex": "objs",
+    "tex": "roofs",
     "rect": [
-     128,
-     721,
-     64,
-     39
+     192,
+     898,
+     69,
+     36
     ],
     "flip": false,
     "found": true,
@@ -3140,42 +3120,42 @@
    },
    {
     "tile": 1103,
-    "tex": "objs",
+    "tex": "roofs",
     "rect": [
-     128,
-     721,
-     64,
-     39
+     315,
+     898,
+     69,
+     36
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off -1,0)"
+    "how": "exact"
    },
    {
     "tile": 1108,
-    "tex": "objs",
+    "tex": "roofs",
     "rect": [
-     513,
-     772,
-     62,
-     52
+     792,
+     884,
+     70,
+     71
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 0,1)"
+    "how": "exact"
    },
    {
     "tile": 1109,
-    "tex": "objs",
+    "tex": "roofs",
     "rect": [
-     513,
-     772,
-     62,
-     52
+     866,
+     884,
+     70,
+     71
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off -1,1)"
+    "how": "exact"
    }
   ]
  },
@@ -3186,64 +3166,64 @@
   "tiles": [
    {
     "tile": 1200,
-    "tex": "objs",
+    "tex": "roofs",
     "rect": [
-     9,
-     838,
-     48,
-     54
+     14,
+     965,
+     78,
+     72
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 0,1)"
+    "how": "exact"
    },
    {
     "tile": 1201,
-    "tex": "objs",
+    "tex": "roofs",
     "rect": [
-     9,
-     838,
-     48,
-     54
+     100,
+     965,
+     78,
+     72
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off -1,1)"
+    "how": "exact"
    },
    {
     "tile": 1202,
-    "tex": "objs",
+    "tex": "roofs",
     "rect": [
-     128,
-     721,
-     64,
-     39
+     192,
+     978,
+     69,
+     36
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 0,-1)"
+    "how": "exact"
    },
    {
     "tile": 1203,
-    "tex": "objs",
+    "tex": "roofs",
     "rect": [
-     128,
-     721,
-     64,
-     39
+     315,
+     978,
+     69,
+     36
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off -1,-1)"
+    "how": "exact"
    },
    {
     "tile": 1208,
-    "tex": "objs",
+    "tex": "roofs",
     "rect": [
-     513,
-     772,
-     62,
-     52
+     793,
+     964,
+     69,
+     71
     ],
     "flip": false,
     "found": true,
@@ -3251,12 +3231,12 @@
    },
    {
     "tile": 1209,
-    "tex": "objs",
+    "tex": "roofs",
     "rect": [
-     577,
-     772,
-     62,
-     52
+     866,
+     964,
+     69,
+     71
     ],
     "flip": false,
     "found": true,
@@ -3271,12 +3251,12 @@
   "tiles": [
    {
     "tile": 1300,
-    "tex": "objs",
+    "tex": "roofs",
     "rect": [
-     9,
-     838,
-     48,
-     54
+     15,
+     1045,
+     77,
+     72
     ],
     "flip": false,
     "found": true,
@@ -3284,38 +3264,38 @@
    },
    {
     "tile": 1301,
-    "tex": "objs",
+    "tex": "roofs",
     "rect": [
-     9,
-     838,
-     48,
-     54
+     100,
+     1045,
+     77,
+     72
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off -1,0)"
+    "how": "exact"
    },
    {
     "tile": 1302,
-    "tex": "objs",
+    "tex": "roofs",
     "rect": [
-     203,
-     845,
-     48,
-     48
+     192,
+     1058,
+     69,
+     36
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 1,0)"
+    "how": "exact"
    },
    {
     "tile": 1303,
-    "tex": "objs",
+    "tex": "roofs",
     "rect": [
-     203,
-     845,
-     48,
-     48
+     315,
+     1058,
+     69,
+     36
     ],
     "flip": false,
     "found": true,
@@ -3323,29 +3303,29 @@
    },
    {
     "tile": 1308,
-    "tex": "objs",
+    "tex": "roofs",
     "rect": [
-     513,
-     772,
-     62,
-     52
+     793,
+     1044,
+     69,
+     71
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 0,-1)"
+    "how": "exact"
    },
    {
     "tile": 1309,
-    "tex": "objs",
+    "tex": "roofs",
     "rect": [
-     513,
-     772,
-     62,
-     52
+     866,
+     1044,
+     69,
+     71
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off -1,-1)"
+    "how": "exact"
    }
   ]
  },
@@ -3356,81 +3336,81 @@
   "tiles": [
    {
     "tile": 1400,
-    "tex": "objs",
+    "tex": "roofs",
     "rect": [
-     9,
-     838,
-     48,
-     54
+     15,
+     1124,
+     77,
+     73
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 0,-1)"
+    "how": "exact"
    },
    {
     "tile": 1401,
-    "tex": "objs",
+    "tex": "roofs",
     "rect": [
-     9,
-     838,
-     48,
-     54
+     100,
+     1124,
+     77,
+     73
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off -1,-1)"
+    "how": "exact"
    },
    {
     "tile": 1402,
-    "tex": "objs",
+    "tex": "roofs",
     "rect": [
-     203,
-     845,
-     48,
-     48
+     192,
+     1137,
+     69,
+     37
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 1,-1)"
+    "how": "exact"
    },
    {
     "tile": 1403,
-    "tex": "objs",
+    "tex": "roofs",
     "rect": [
-     203,
-     845,
-     48,
-     48
+     315,
+     1137,
+     69,
+     37
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 0,-1)"
+    "how": "exact"
    },
    {
     "tile": 1408,
-    "tex": "objs",
+    "tex": "roofs",
     "rect": [
-     461,
-     911,
-     42,
-     38
+     792,
+     1122,
+     71,
+     73
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off -1,0)"
+    "how": "exact"
    },
    {
     "tile": 1409,
-    "tex": "objs",
+    "tex": "roofs",
     "rect": [
-     647,
-     978,
-     46,
-     34
+     865,
+     1122,
+     71,
+     73
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 1,1)"
+    "how": "exact"
    }
   ]
  },
@@ -3441,81 +3421,81 @@
   "tiles": [
    {
     "tile": 1500,
-    "tex": "objs",
+    "tex": "roofs",
     "rect": [
-     9,
-     910,
-     48,
-     46
+     15,
+     1204,
+     77,
+     73
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 0,-1)"
+    "how": "exact"
    },
    {
     "tile": 1501,
-    "tex": "objs",
+    "tex": "roofs",
     "rect": [
-     9,
-     910,
-     48,
-     46
+     100,
+     1204,
+     77,
+     73
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off -1,-1)"
+    "how": "exact"
    },
    {
     "tile": 1502,
-    "tex": "objs",
+    "tex": "roofs",
     "rect": [
-     203,
-     909,
-     48,
-     44
+     192,
+     1217,
+     69,
+     37
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 1,-1)"
+    "how": "exact"
    },
    {
     "tile": 1503,
-    "tex": "objs",
+    "tex": "roofs",
     "rect": [
-     261,
-     1027,
-     54,
-     44
+     315,
+     1217,
+     69,
+     37
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 1,1)"
+    "how": "exact"
    },
    {
     "tile": 1508,
-    "tex": "objs",
+    "tex": "roofs",
     "rect": [
-     451,
-     1025,
-     55,
-     59
+     792,
+     1202,
+     71,
+     73
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off -1,1)"
+    "how": "exact"
    },
    {
     "tile": 1509,
-    "tex": "objs",
+    "tex": "roofs",
     "rect": [
-     515,
-     1025,
-     55,
-     59
+     865,
+     1202,
+     71,
+     73
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off -1,1)"
+    "how": "exact"
    }
   ]
  },
@@ -3526,64 +3506,64 @@
   "tiles": [
    {
     "tile": 1600,
-    "tex": "objs",
+    "tex": "roofs",
     "rect": [
-     71,
-     967,
-     36,
-     55
+     15,
+     1284,
+     77,
+     73
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 1,-1)"
+    "how": "exact"
    },
    {
     "tile": 1601,
-    "tex": "objs",
+    "tex": "roofs",
     "rect": [
-     71,
-     967,
-     36,
-     55
+     100,
+     1284,
+     77,
+     73
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 0,-1)"
+    "how": "exact"
    },
    {
     "tile": 1602,
-    "tex": "objs",
+    "tex": "roofs",
     "rect": [
-     208,
-     1094,
-     38,
-     53
+     192,
+     1297,
+     69,
+     38
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 1,1)"
+    "how": "exact"
    },
    {
     "tile": 1603,
-    "tex": "objs",
+    "tex": "roofs",
     "rect": [
-     259,
-     1088,
-     58,
-     51
+     315,
+     1297,
+     69,
+     38
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 1,1)"
+    "how": "exact"
    },
    {
     "tile": 1608,
-    "tex": "objs",
+    "tex": "roofs",
     "rect": [
-     515,
-     1025,
-     55,
-     59
+     791,
+     1282,
+     71,
+     73
     ],
     "flip": false,
     "found": true,
@@ -3591,16 +3571,16 @@
    },
    {
     "tile": 1609,
-    "tex": "objs",
+    "tex": "roofs",
     "rect": [
-     515,
-     1025,
-     55,
-     59
+     866,
+     1282,
+     71,
+     73
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off -1,0)"
+    "how": "exact"
    }
   ]
  },
@@ -3611,81 +3591,81 @@
   "tiles": [
    {
     "tile": 1700,
-    "tex": "objs",
+    "tex": "roofs",
     "rect": [
-     73,
-     1028,
-     36,
-     52
+     15,
+     1364,
+     77,
+     73
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 1,-1)"
+    "how": "exact"
    },
    {
     "tile": 1701,
-    "tex": "objs",
+    "tex": "roofs",
     "rect": [
-     73,
-     1028,
-     36,
-     52
+     100,
+     1364,
+     77,
+     73
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 0,-1)"
+    "how": "exact"
    },
    {
     "tile": 1702,
-    "tex": "objs",
+    "tex": "roofs",
     "rect": [
-     208,
-     1094,
-     38,
-     53
+     192,
+     1377,
+     69,
+     38
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 1,0)"
+    "how": "exact"
    },
    {
     "tile": 1703,
-    "tex": "objs",
+    "tex": "roofs",
     "rect": [
-     259,
-     1088,
-     58,
-     51
+     315,
+     1377,
+     69,
+     38
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 1,0)"
+    "how": "exact"
    },
    {
     "tile": 1708,
-    "tex": "objs",
+    "tex": "roofs",
     "rect": [
-     451,
-     1025,
-     55,
-     59
+     791,
+     1362,
+     71,
+     73
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off -1,-1)"
+    "how": "exact"
    },
    {
     "tile": 1709,
-    "tex": "objs",
+    "tex": "roofs",
     "rect": [
-     515,
-     1025,
-     55,
-     59
+     866,
+     1362,
+     71,
+     73
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off -1,-1)"
+    "how": "exact"
    }
   ]
  },
@@ -3696,12 +3676,12 @@
   "tiles": [
    {
     "tile": 3600,
-    "tex": "objs",
+    "tex": "floors",
     "rect": [
-     17,
-     2304,
-     46,
-     61
+     6,
+     1740,
+     53,
+     26
     ],
     "flip": false,
     "found": true,
@@ -3716,16 +3696,16 @@
   "tiles": [
    {
     "tile": 3800,
-    "tex": "objs_S",
+    "tex": "floors",
     "rect": [
-     36,
-     1225,
-     24,
-     17
+     9,
+     1835,
+     46,
+     28
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 1,0)"
+    "how": "exact"
    }
   ]
  },
@@ -3736,55 +3716,55 @@
   "tiles": [
    {
     "tile": 1616,
-    "tex": "objs",
+    "tex": "blocks",
     "rect": [
-     1031,
-     1091,
-     50,
-     48
+     1030,
+     1042,
+     51,
+     40
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 0,1)"
+    "how": "exact"
    },
    {
     "tile": -1616,
-    "tex": "objs",
+    "tex": "blocks",
     "rect": [
-     1031,
-     1091,
-     50,
-     48
+     1030,
+     1042,
+     51,
+     40
     ],
     "flip": true,
     "found": true,
-    "how": "rescue(off 0,1)"
+    "how": "exact"
    },
    {
     "tile": 1617,
-    "tex": "objs",
+    "tex": "blocks",
     "rect": [
-     1031,
-     1091,
-     50,
-     48
+     1095,
+     1056,
+     48,
+     14
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off -1,1)"
+    "how": "exact"
    },
    {
     "tile": -1617,
-    "tex": "objs",
+    "tex": "blocks",
     "rect": [
-     1031,
-     1091,
-     50,
-     48
+     1095,
+     1056,
+     48,
+     14
     ],
     "flip": true,
     "found": true,
-    "how": "rescue(off -1,1)"
+    "how": "exact"
    }
   ]
  },
@@ -3795,12 +3775,12 @@
   "tiles": [
    {
     "tile": 1618,
-    "tex": "objs",
+    "tex": "blocks",
     "rect": [
-     1167,
-     1033,
-     42,
-     46
+     1159,
+     1028,
+     52,
+     55
     ],
     "flip": false,
     "found": true,
@@ -3808,12 +3788,12 @@
    },
    {
     "tile": -1618,
-    "tex": "objs",
+    "tex": "blocks",
     "rect": [
-     1167,
-     1033,
-     42,
-     46
+     1159,
+     1028,
+     52,
+     55
     ],
     "flip": true,
     "found": true,
@@ -3821,29 +3801,29 @@
    },
    {
     "tile": 1619,
-    "tex": "objs",
+    "tex": "blocks",
     "rect": [
-     1167,
-     1033,
-     42,
-     46
+     1225,
+     1041,
+     55,
+     29
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off -1,0)"
+    "how": "exact"
    },
    {
     "tile": -1619,
-    "tex": "objs",
+    "tex": "blocks",
     "rect": [
-     1167,
-     1033,
-     42,
-     46
+     1225,
+     1041,
+     55,
+     29
     ],
     "flip": true,
     "found": true,
-    "how": "rescue(off -1,0)"
+    "how": "exact"
    }
   ]
  },
@@ -3854,16 +3834,16 @@
   "tiles": [
    {
     "tile": 3716,
-    "tex": "objs_S",
+    "tex": "floors",
     "rect": [
-     516,
-     1160,
-     20,
-     20
+     1048,
+     1811,
+     15,
+     8
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 0,-1)"
+    "how": "exact"
    }
   ]
  },
@@ -3874,16 +3854,16 @@
   "tiles": [
    {
     "tile": 3700,
-    "tex": "objs",
+    "tex": "floors",
     "rect": [
-     17,
-     2304,
+     8,
+     1789,
      46,
-     61
+     25
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 0,-1)"
+    "how": "exact"
    }
   ]
  },
@@ -3894,12 +3874,12 @@
   "tiles": [
    {
     "tile": 3616,
-    "tex": "objs_S",
+    "tex": "floors",
     "rect": [
-     516,
-     1160,
-     20,
-     20
+     1034,
+     1740,
+     46,
+     26
     ],
     "flip": false,
     "found": true,
@@ -3916,14 +3896,14 @@
     "tile": 761,
     "tex": "objs",
     "rect": [
-     3977,
-     470,
-     47,
-     36
+     3915,
+     478,
+     44,
+     28
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 1,0)"
+    "how": "exact"
    }
   ]
  },
@@ -3936,14 +3916,14 @@
     "tile": 762,
     "tex": "objs",
     "rect": [
-     4042,
-     385,
-     44,
-     62
+     3977,
+     470,
+     47,
+     36
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 1,-1)"
+    "how": "exact"
    }
   ]
  },
@@ -3956,14 +3936,14 @@
     "tile": 759,
     "tex": "objs",
     "rect": [
-     3846,
-     407,
-     51,
-     31
+     3785,
+     479,
+     48,
+     26
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 1,-1)"
+    "how": "exact"
    }
   ]
  },
@@ -3976,14 +3956,14 @@
     "tile": 758,
     "tex": "objs",
     "rect": [
-     3648,
-     448,
-     64,
-     64
+     3722,
+     480,
+     23,
+     22
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off -1,0)"
+    "how": "exact"
    }
   ]
  },
@@ -4056,10 +4036,10 @@
     "tile": 61,
     "tex": "objs",
     "rect": [
-     3913,
-     23,
-     17,
-     25
+     3927,
+     15,
+     38,
+     43
     ],
     "flip": false,
     "found": true,
@@ -4076,14 +4056,14 @@
     "tile": 153,
     "tex": "objs",
     "rect": [
-     3264,
-     3,
-     256,
-     61
+     3395,
+     67,
+     59,
+     59
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off -2,-1)"
+    "how": "exact"
    }
   ]
  },
@@ -4134,16 +4114,16 @@
   "tiles": [
    {
     "tile": 315,
-    "tex": "objs_S",
+    "tex": "objs",
     "rect": [
-     518,
-     70,
-     18,
-     20
+     982,
+     218,
+     15,
+     12
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 1,-1)"
+    "how": "exact"
    }
   ]
  },
@@ -4156,14 +4136,14 @@
     "tile": 103,
     "tex": "objs",
     "rect": [
-     130,
-     139,
-     59,
-     52
+     220,
+     99,
+     7,
+     6
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off -1,1)"
+    "how": "exact"
    }
   ]
  },
@@ -4176,14 +4156,14 @@
     "tile": 321,
     "tex": "objs",
     "rect": [
-     1421,
-     207,
-     43,
-     41
+     1369,
+     217,
+     16,
+     32
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 1,0)"
+    "how": "exact"
    }
   ]
  },
@@ -4216,14 +4196,14 @@
     "tile": 310,
     "tex": "objs",
     "rect": [
-     578,
-     137,
-     62,
+     649,
+     198,
+     45,
      49
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off -1,-1)"
+    "how": "exact"
    }
   ]
  },
@@ -4254,16 +4234,16 @@
   "tiles": [
    {
     "tile": 316,
-    "tex": "objs_S",
+    "tex": "objs",
     "rect": [
-     549,
-     99,
-     21,
-     27
+     1053,
+     219,
+     12,
+     12
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 1,0)"
+    "how": "exact"
    }
   ]
  },
@@ -4274,16 +4254,16 @@
   "tiles": [
    {
     "tile": 320,
-    "tex": "objs_S",
+    "tex": "objs",
     "rect": [
-     679,
-     79,
-     18,
-     16
+     1304,
+     222,
+     16,
+     13
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 1,-1)"
+    "how": "exact"
    }
   ]
  },
@@ -4296,14 +4276,14 @@
     "tile": 240,
     "tex": "objs",
     "rect": [
-     2510,
-     133,
-     33,
-     48
+     2582,
+     151,
+     22,
+     28
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off -1,0)"
+    "how": "exact"
    }
   ]
  },
@@ -4316,14 +4296,14 @@
     "tile": 311,
     "tex": "objs",
     "rect": [
-     777,
-     197,
+     713,
+     199,
      46,
-     50
+     49
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 1,0)"
+    "how": "exact"
    }
   ]
  },
@@ -4374,16 +4354,16 @@
   "tiles": [
    {
     "tile": 3500,
-    "tex": "objs",
+    "tex": "floors",
     "rect": [
-     17,
-     2304,
-     46,
-     61
+     8,
+     1692,
+     52,
+     27
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 0,1)"
+    "how": "exact"
    }
   ]
  },
@@ -4394,16 +4374,16 @@
   "tiles": [
    {
     "tile": 3516,
-    "tex": "objs_S",
+    "tex": "floors",
     "rect": [
-     485,
-     1096,
-     23,
-     23
+     1033,
+     1691,
+     46,
+     26
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off -1,-1)"
+    "how": "exact"
    }
   ]
  },
@@ -4414,16 +4394,16 @@
   "tiles": [
    {
     "tile": 3416,
-    "tex": "objs_S",
+    "tex": "floors",
     "rect": [
-     485,
-     1096,
-     23,
-     23
+     1038,
+     1649,
+     36,
+     19
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off -1,0)"
+    "how": "exact"
    }
   ]
  },
@@ -4434,16 +4414,16 @@
   "tiles": [
    {
     "tile": 3316,
-    "tex": "objs",
+    "tex": "floors",
     "rect": [
-     973,
-     2057,
-     39,
-     51
+     1039,
+     1602,
+     34,
+     17
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off -1,-1)"
+    "how": "exact"
    }
   ]
  },
@@ -4456,40 +4436,40 @@
     "tile": 27,
     "tex": "objs_S",
     "rect": [
-     833,
-     32,
-     30,
-     31
+     871,
+     14,
+     16,
+     12
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off -1,1)"
+    "how": "exact"
    },
    {
     "tile": 28,
     "tex": "objs_S",
     "rect": [
-     929,
-     37,
-     29,
-     25
+     905,
+     14,
+     15,
+     12
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 1,1)"
+    "how": "exact"
    },
    {
     "tile": 29,
     "tex": "objs_S",
     "rect": [
-     929,
-     37,
-     29,
-     25
+     939,
+     14,
+     14,
+     11
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 0,1)"
+    "how": "exact"
    }
   ]
  },
@@ -4500,16 +4480,16 @@
   "tiles": [
    {
     "tile": 1104,
-    "tex": "objs",
+    "tex": "floors",
     "rect": [
-     270,
-     648,
-     36,
-     51
+     271,
+     540,
+     33,
+     25
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 0,-1)"
+    "how": "exact"
    }
   ]
  },
@@ -4522,14 +4502,14 @@
     "tile": 760,
     "tex": "objs",
     "rect": [
-     3846,
-     407,
-     51,
+     3848,
+     474,
+     48,
      31
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 0,-1)"
+    "how": "exact"
    }
   ]
  },
@@ -4553,29 +4533,29 @@
    },
    {
     "tile": 125,
-    "tex": "objs",
+    "tex": "objs_S",
     "rect": [
-     1665,
-     129,
-     62,
-     62
+     801,
+     33,
+     31,
+     27
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 1,1)"
+    "how": "exact"
    },
    {
     "tile": 126,
-    "tex": "objs",
+    "tex": "objs_S",
     "rect": [
-     1665,
-     129,
-     62,
-     62
+     833,
+     32,
+     30,
+     31
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 0,1)"
+    "how": "exact"
    }
   ]
  },
@@ -4601,7 +4581,7 @@
  },
  {
   "id": 93,
-  "name": "stalagmite ",
+  "name": "stalagmite",
   "renderData": "obj",
   "tiles": [
    {
@@ -4621,23 +4601,23 @@
     "tile": 6,
     "tex": "objs",
     "rect": [
-     332,
-     6,
-     34,
-     53
+     396,
+     16,
+     29,
+     42
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off -1,0)"
+    "how": "exact"
    },
    {
     "tile": 7,
     "tex": "objs",
     "rect": [
-     460,
-     20,
-     21,
-     37
+     485,
+     1,
+     19,
+     57
     ],
     "flip": false,
     "found": true,
@@ -4652,42 +4632,42 @@
   "tiles": [
    {
     "tile": 136,
-    "tex": "objs",
+    "tex": "objs_S",
     "rect": [
-     2386,
-     141,
-     29,
-     40
+     1155,
+     35,
+     23,
+     24
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 1,1)"
+    "how": "exact"
    },
    {
     "tile": 137,
-    "tex": "objs",
+    "tex": "objs_S",
     "rect": [
-     2448,
-     131,
-     33,
-     50
+     1186,
+     44,
+     17,
+     17
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 1,1)"
+    "how": "exact"
    },
    {
     "tile": 138,
-    "tex": "objs",
+    "tex": "objs_S",
     "rect": [
-     2448,
-     131,
-     33,
-     50
+     1217,
+     34,
+     28,
+     30
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 0,1)"
+    "how": "exact"
    }
   ]
  },
@@ -4698,42 +4678,42 @@
   "tiles": [
    {
     "tile": 139,
-    "tex": "objs",
+    "tex": "objs_S",
     "rect": [
-     2448,
-     131,
-     33,
-     50
+     1251,
+     35,
+     23,
+     24
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off -1,1)"
+    "how": "exact"
    },
    {
     "tile": 140,
-    "tex": "objs",
+    "tex": "objs_S",
     "rect": [
-     2510,
-     133,
-     33,
-     48
+     1282,
+     44,
+     17,
+     17
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off -1,1)"
+    "how": "exact"
    },
    {
     "tile": 141,
-    "tex": "objs",
+    "tex": "objs_S",
     "rect": [
-     2705,
-     144,
-     32,
-     34
+     1313,
+     34,
+     28,
+     30
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 1,1)"
+    "how": "exact"
    }
   ]
  },
@@ -4744,68 +4724,68 @@
   "tiles": [
    {
     "tile": 116,
-    "tex": "objs",
+    "tex": "objs_S",
     "rect": [
-     976,
-     22,
-     30,
-     36
+     513,
+     37,
+     23,
+     25
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off -1,-1)"
+    "how": "exact"
    },
    {
     "tile": 117,
-    "tex": "objs",
+    "tex": "objs_S",
     "rect": [
-     1160,
-     22,
-     48,
-     34
+     551,
+     33,
+     17,
+     27
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 1,-1)"
+    "how": "exact"
    },
    {
     "tile": 118,
-    "tex": "objs",
+    "tex": "objs_S",
     "rect": [
-     1225,
-     16,
-     48,
-     40
+     581,
+     33,
+     25,
+     19
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 1,-1)"
+    "how": "exact"
    },
    {
     "tile": 119,
-    "tex": "objs",
+    "tex": "objs_S",
     "rect": [
-     1225,
-     16,
-     48,
-     40
+     618,
+     42,
+     15,
+     14
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 0,-1)"
+    "how": "exact"
    },
    {
     "tile": 120,
-    "tex": "objs",
+    "tex": "objs_S",
     "rect": [
-     1225,
-     16,
-     48,
-     40
+     648,
+     39,
+     13,
+     14
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off -1,-1)"
+    "how": "exact"
    }
   ]
  },
@@ -4818,14 +4798,14 @@
     "tile": 6100,
     "tex": "objs",
     "rect": [
-     71,
+     7,
      3852,
-     34,
-     47
+     28,
+     46
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 1,-1)"
+    "how": "rescue(off 62.0)"
    },
    {
     "tile": 6101,
@@ -4838,20 +4818,20 @@
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 0,-1)"
+    "how": "rescue(off 61.0)"
    },
    {
     "tile": 6102,
     "tex": "objs",
     "rect": [
-     71,
-     3852,
-     34,
+     137,
+     3853,
+     24,
      47
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off -1,-1)"
+    "how": "rescue(off 60.5)"
    },
    {
     "tile": 6103,
@@ -4864,7 +4844,7 @@
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 0,-1)"
+    "how": "rescue(off 59.3)"
    }
   ]
  },
@@ -4875,68 +4855,23 @@
   "tiles": [
    {
     "tile": 6106,
-    "tex": "objs_L",
-    "rect": [
-     182,
-     1932,
-     11,
-     13
-    ],
-    "flip": false,
-    "found": true,
-    "how": "rescue(off -1,-1)"
+    "found": false
    },
    {
     "tile": 6107,
-    "tex": "objs_L",
-    "rect": [
-     261,
-     1931,
-     13,
-     13
-    ],
-    "flip": false,
-    "found": true,
-    "how": "rescue(off 1,-1)"
+    "found": false
    },
    {
     "tile": 6108,
-    "tex": "objs_L",
-    "rect": [
-     261,
-     1931,
-     13,
-     13
-    ],
-    "flip": false,
-    "found": true,
-    "how": "rescue(off 0,-1)"
+    "found": false
    },
    {
     "tile": 6109,
-    "tex": "objs_L",
-    "rect": [
-     261,
-     1931,
-     13,
-     13
-    ],
-    "flip": false,
-    "found": true,
-    "how": "rescue(off -1,-1)"
+    "found": false
    },
    {
     "tile": 6110,
-    "tex": "objs_L",
-    "rect": [
-     341,
-     1931,
-     13,
-     13
-    ],
-    "flip": false,
-    "found": true,
-    "how": "rescue(off 0,-1)"
+    "found": false
    }
   ]
  },
@@ -4947,55 +4882,55 @@
   "tiles": [
    {
     "tile": 1800,
-    "tex": "objs",
+    "tex": "objs_L",
     "rect": [
-     15,
-     1222,
-     43,
-     54
+     23,
+     1101,
+     37,
+     80
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 0,1)"
+    "how": "exact"
    },
    {
     "tile": 1801,
-    "tex": "objs",
+    "tex": "objs_L",
     "rect": [
-     15,
-     1222,
-     43,
-     54
+     88,
+     1109,
+     56,
+     74
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off -1,1)"
+    "how": "exact"
    },
    {
     "tile": 1803,
-    "tex": "objs",
+    "tex": "objs_L",
     "rect": [
-     259,
-     1088,
-     58,
-     51
+     251,
+     1147,
+     65,
+     33
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 1,-1)"
+    "how": "exact"
    },
    {
     "tile": 1804,
-    "tex": "objs",
+    "tex": "objs_L",
     "rect": [
-     259,
-     1088,
+     330,
+     1111,
      58,
-     51
+     68
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 0,-1)"
+    "how": "exact"
    }
   ]
  },
@@ -5008,10 +4943,10 @@
     "tile": 1805,
     "tex": "objs_L",
     "rect": [
-     173,
-     594,
-     62,
-     75
+     405,
+     1099,
+     73,
+     84
     ],
     "flip": false,
     "found": true,
@@ -5021,10 +4956,10 @@
     "tile": 1806,
     "tex": "objs_L",
     "rect": [
-     173,
-     594,
-     62,
-     75
+     485,
+     1092,
+     73,
+     90
     ],
     "flip": false,
     "found": true,
@@ -5039,16 +4974,16 @@
   "tiles": [
    {
     "tile": 1802,
-    "tex": "objs",
+    "tex": "objs_L",
     "rect": [
-     208,
+     161,
      1094,
-     38,
-     53
+     77,
+     94
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 1,-1)"
+    "how": "exact"
    }
   ]
  },
@@ -5059,12 +4994,12 @@
   "tiles": [
    {
     "tile": 1000,
-    "tex": "objs",
+    "tex": "floors",
     "rect": [
-     19,
-     666,
-     32,
-     36
+     17,
+     499,
+     13,
+     11
     ],
     "flip": false,
     "found": true,
@@ -5072,16 +5007,16 @@
    },
    {
     "tile": 1001,
-    "tex": "objs",
+    "tex": "floors",
     "rect": [
-     128,
-     721,
-     64,
-     39
+     106,
+     501,
+     4,
+     6
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 1,1)"
+    "how": "exact"
    }
   ]
  },
@@ -5092,38 +5027,38 @@
   "tiles": [
    {
     "tile": 1100,
-    "tex": "objs",
+    "tex": "floors",
     "rect": [
-     12,
-     778,
-     38,
-     41
+     27,
+     547,
+     11,
+     7
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 0,1)"
+    "how": "exact"
    },
    {
     "tile": 1101,
-    "tex": "objs",
+    "tex": "floors",
     "rect": [
-     128,
-     721,
-     64,
-     39
+     92,
+     553,
+     7,
+     5
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 1,0)"
+    "how": "exact"
    },
    {
     "tile": 1102,
-    "tex": "objs",
+    "tex": "floors",
     "rect": [
-     128,
-     721,
-     64,
-     39
+     155,
+     547,
+     6,
+     6
     ],
     "flip": false,
     "found": true,
@@ -5131,16 +5066,16 @@
    },
    {
     "tile": 1103,
-    "tex": "objs",
+    "tex": "floors",
     "rect": [
-     128,
-     721,
-     64,
-     39
+     221,
+     550,
+     6,
+     6
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off -1,0)"
+    "how": "exact"
    }
   ]
  },
@@ -5151,25 +5086,25 @@
   "tiles": [
    {
     "tile": 1003,
-    "tex": "objs",
+    "tex": "floors",
     "rect": [
-     128,
-     721,
-     64,
-     39
+     210,
+     504,
+     15,
+     10
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off -1,1)"
+    "how": "exact"
    },
    {
     "tile": 1004,
-    "tex": "objs",
+    "tex": "floors",
     "rect": [
      270,
-     648,
-     36,
-     51
+     502,
+     17,
+     11
     ],
     "flip": false,
     "found": true,
@@ -5177,16 +5112,16 @@
    },
    {
     "tile": 1005,
-    "tex": "objs",
+    "tex": "floors",
     "rect": [
-     270,
-     648,
-     36,
-     51
+     341,
+     501,
+     16,
+     10
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off -1,0)"
+    "how": "exact"
    }
   ]
  },
@@ -5197,49 +5132,49 @@
   "tiles": [
    {
     "tile": 127,
-    "tex": "objs",
+    "tex": "objs_S",
     "rect": [
-     1665,
-     129,
-     62,
-     62
+     869,
+     41,
+     22,
+     21
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off -1,1)"
+    "how": "exact"
    },
    {
     "tile": 128,
-    "tex": "objs",
+    "tex": "objs_S",
     "rect": [
-     1793,
-     129,
-     62,
-     62
+     901,
+     41,
+     22,
+     22
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 0,1)"
+    "how": "exact"
    }
   ]
  },
  {
   "id": 68,
-  "name": "fish silhouette ",
+  "name": "fish silhouette",
   "renderData": "obj_S fish",
   "tiles": [
    {
     "tile": 700,
-    "tex": "objs",
+    "tex": "objs_S",
     "rect": [
-     76,
-     384,
-     37,
-     64
+     9,
+     237,
+     14,
+     8
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 1,-1)"
+    "how": "exact"
    }
   ]
  },
@@ -5250,16 +5185,16 @@
   "tiles": [
    {
     "tile": 129,
-    "tex": "objs",
+    "tex": "objs_S",
     "rect": [
-     1793,
-     129,
-     62,
-     62
+     929,
+     37,
+     29,
+     25
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off -1,1)"
+    "how": "exact"
    }
   ]
  },
@@ -5303,25 +5238,25 @@
   "tiles": [
    {
     "tile": 2,
-    "tex": "objs",
+    "tex": "objs_S",
     "rect": [
-     198,
-     23,
-     54,
-     36
+     64,
+     3,
+     32,
+     28
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 1,0)"
+    "how": "exact"
    },
    {
     "tile": 3,
-    "tex": "objs",
+    "tex": "objs_S",
     "rect": [
-     198,
-     23,
-     54,
-     36
+     104,
+     16,
+     16,
+     12
     ],
     "flip": false,
     "found": true,
@@ -5329,25 +5264,25 @@
    },
    {
     "tile": 4,
-    "tex": "objs",
+    "tex": "objs_S",
     "rect": [
-     198,
-     23,
-     54,
-     36
+     133,
+     10,
+     19,
+     14
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off -1,0)"
+    "how": "exact"
    },
    {
     "tile": 7,
-    "tex": "objs",
+    "tex": "objs_S",
     "rect": [
-     460,
-     20,
-     21,
-     37
+     231,
+     11,
+     18,
+     15
     ],
     "flip": false,
     "found": true,
@@ -5357,14 +5292,14 @@
     "tile": 8,
     "tex": "objs_S",
     "rect": [
-     288,
-     0,
-     32,
-     32
+     274,
+     5,
+     10,
+     7
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 1,0)"
+    "how": "exact"
    },
    {
     "tile": 9,
@@ -5383,27 +5318,27 @@
     "tile": 10,
     "tex": "objs_S",
     "rect": [
-     288,
-     0,
-     32,
-     32
+     336,
+     1,
+     16,
+     15
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off -1,0)"
+    "how": "exact"
    },
    {
     "tile": 11,
     "tex": "objs_S",
     "rect": [
-     336,
-     19,
-     16,
-     13
+     358,
+     11,
+     17,
+     12
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off -1,0)"
+    "how": "exact"
    }
   ]
  },
@@ -5416,79 +5351,79 @@
     "tile": 653,
     "tex": "objs",
     "rect": [
-     3341,
-     452,
-     39,
-     58
+     3410,
+     402,
+     31,
+     37
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off -1,1)"
+    "how": "exact"
    },
    {
     "tile": 652,
     "tex": "objs",
     "rect": [
-     3341,
-     452,
-     39,
-     58
+     3348,
+     402,
+     27,
+     33
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 0,1)"
+    "how": "exact"
    },
    {
     "tile": 656,
     "tex": "objs",
     "rect": [
-     3648,
-     448,
-     64,
-     64
+     3598,
+     413,
+     44,
+     31
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 1,1)"
+    "how": "exact"
    },
    {
     "tile": 657,
     "tex": "objs",
     "rect": [
-     3648,
-     448,
-     64,
-     64
+     3665,
+     405,
+     28,
+     30
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 0,1)"
+    "how": "exact"
    },
    {
     "tile": 658,
     "tex": "objs",
     "rect": [
-     3648,
-     448,
-     64,
-     64
+     3728,
+     420,
+     34,
+     19
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off -1,1)"
+    "how": "exact"
    },
    {
     "tile": 659,
     "tex": "objs",
     "rect": [
-     3725,
-     324,
-     39,
-     58
+     3779,
+     417,
+     47,
+     22
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off -1,-1)"
+    "how": "exact"
    }
   ]
  },
@@ -5501,14 +5436,14 @@
     "tile": 660,
     "tex": "objs",
     "rect": [
-     3789,
-     324,
-     39,
-     58
+     3846,
+     407,
+     51,
+     31
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off -1,-1)"
+    "how": "exact"
    }
   ]
  },
@@ -5519,12 +5454,12 @@
   "tiles": [
    {
     "tile": 1300,
-    "tex": "objs",
+    "tex": "blocks",
     "rect": [
-     9,
-     838,
-     48,
-     54
+     1,
+     833,
+     26,
+     55
     ],
     "flip": false,
     "found": true,
@@ -5532,12 +5467,12 @@
    },
    {
     "tile": -1300,
-    "tex": "objs",
+    "tex": "blocks",
     "rect": [
-     9,
-     838,
-     48,
-     54
+     1,
+     833,
+     26,
+     55
     ],
     "flip": true,
     "found": true,
@@ -5545,55 +5480,55 @@
    },
    {
     "tile": 1301,
-    "tex": "objs",
+    "tex": "blocks",
     "rect": [
-     9,
-     838,
-     48,
-     54
+     75,
+     845,
+     29,
+     49
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off -1,0)"
+    "how": "exact"
    },
    {
     "tile": -1301,
-    "tex": "objs",
+    "tex": "blocks",
     "rect": [
-     9,
-     838,
-     48,
-     54
+     75,
+     845,
+     29,
+     49
     ],
     "flip": true,
     "found": true,
-    "how": "rescue(off -1,0)"
+    "how": "exact"
    },
    {
     "tile": 1302,
-    "tex": "objs",
+    "tex": "blocks",
     "rect": [
-     203,
-     845,
-     48,
-     48
+     129,
+     865,
+     40,
+     28
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 1,0)"
+    "how": "exact"
    },
    {
     "tile": -1302,
-    "tex": "objs",
+    "tex": "blocks",
     "rect": [
-     203,
-     845,
-     48,
-     48
+     129,
+     865,
+     40,
+     28
     ],
     "flip": true,
     "found": true,
-    "how": "rescue(off 1,0)"
+    "how": "exact"
    }
   ]
  },
@@ -5604,107 +5539,107 @@
   "tiles": [
    {
     "tile": 1304,
-    "tex": "objs",
+    "tex": "blocks",
     "rect": [
-     321,
-     786,
-     62,
+     257,
+     839,
+     24,
      44
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 1,-1)"
+    "how": "exact"
    },
    {
     "tile": -1304,
-    "tex": "objs",
+    "tex": "blocks",
     "rect": [
-     321,
-     786,
-     62,
+     257,
+     839,
+     24,
      44
     ],
     "flip": true,
     "found": true,
-    "how": "rescue(off 1,-1)"
+    "how": "exact"
    },
    {
     "tile": 1305,
-    "tex": "objs",
+    "tex": "blocks",
     "rect": [
-     321,
-     786,
-     62,
-     44
+     332,
+     846,
+     29,
+     48
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 0,-1)"
+    "how": "exact"
    },
    {
     "tile": -1305,
-    "tex": "objs",
+    "tex": "blocks",
     "rect": [
-     321,
-     786,
-     62,
-     44
+     332,
+     846,
+     29,
+     48
     ],
     "flip": true,
     "found": true,
-    "how": "rescue(off 0,-1)"
+    "how": "exact"
    },
    {
     "tile": 1306,
-    "tex": "objs",
+    "tex": "blocks",
     "rect": [
-     321,
-     786,
-     62,
-     44
+     385,
+     839,
+     40,
+     55
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off -1,-1)"
+    "how": "exact"
    },
    {
     "tile": -1306,
-    "tex": "objs",
+    "tex": "blocks",
     "rect": [
-     321,
-     786,
-     62,
-     44
+     385,
+     839,
+     40,
+     55
     ],
     "flip": true,
     "found": true,
-    "how": "rescue(off -1,-1)"
+    "how": "exact"
    },
    {
     "tile": 1307,
-    "tex": "objs",
+    "tex": "blocks",
     "rect": [
-     513,
-     772,
-     62,
-     52
+     449,
+     834,
+     40,
+     60
     ],
     "flip": false,
     "found": true,
-    "how": "rescue(off 1,-1)"
+    "how": "exact"
    },
    {
     "tile": -1307,
-    "tex": "objs",
+    "tex": "blocks",
     "rect": [
-     513,
-     772,
-     62,
-     52
+     449,
+     834,
+     40,
+     60
     ],
     "flip": true,
     "found": true,
-    "how": "rescue(off 1,-1)"
+    "how": "exact"
    }
   ]
  }

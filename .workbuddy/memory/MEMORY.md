@@ -2,16 +2,21 @@
 
 ## 关键事实（已验证，勿推翻）
 - **Elin 纹理是规则网格图集**：floors/blocks/objs 全部使用 `tile=行×100+列` 编码（来自 `RenderData.cs::ConvertTile()`）。
-  - floors.png=2048×1920, **cell 64×48**, 32×40 格
-  - blocks.png=2048×2048, **cell 64×64**, 32×32 格
-  - **objs.png**=4096², **cell 64**, 64×64 格；**objs_S.png**=2048² cell 32; **objs_L.png**=1920×2048 cell 32
-  - snow 变体同尺寸；排除 objs_SS(512² mini)/objs_C/CL/CLL(color mask)
-  - 权威 pixel rect 来源：**游戏内 `Esc > 工具 > 纹理查看器`**
+- **cell 尺寸 = 游戏权威值（2026-07-22 直接解析游戏 resources.assets，最终结论，取代此前所有自相关/半满率猜测）**：
+  - 来源链路：`RenderData资产 → pass(MeshPass) → pmesh(ProceduralMesh).tiling` + `mat(Material)主纹理尺寸`；**cell = 纹理尺寸 / tiling**。全表 `data/elin_source/render_atlas_truth.json`（150 条）+ 干净查找表 `data/elin_source/idRenderData_atlas.json`（102 条有图集）。
+  - **objs.png**=4096² cell **64×64**(tiling64×64) / **objs_S.png**=2048² cell **32×32**(64×64) / **objs_L.png**=1920×2048 cell **80×64**(24×32，⚠️此前记 80×32 是错的，自相关被子图案误导) / **blocks.png**=2048² cell **64×64**(32×32) / **floors.png**=2048×1920 cell **64×48**(32×40) / **roofs.png**=1152×2000 cell **96×80**(12×25)。
+  - **objs_C/objs_CL/objs_CLL 是角色贴图集(pass chara/charaL/charaLW/charaLL)，不是 obj 着色遮罩**：objs_C=4096² **128×128**; objs_CL=4096² **128×256**(charaL) 另有 charaLW **256×256** 变体共用同图; objs_CLL=2048² **256×256**(此前记 32×32 错误)。
+  - **objs_SS.png**=512²：游戏无任何 pass 引用，legacy/未用，cell 未知（暂沿用 32×32 猜测）。雪变体(objs_snow/objs_S_snow/objs_L_snow/blocks_snow/floors_snow)同各自基底 cell。
+  - 权威 pixel rect 备用来源：**游戏内 `Esc > 工具 > 纹理查看器`**。
 - **公开映射数据（两层）**：
   1. 逻辑层 SourceBlock!Floor/Block/Obj/Deco（本地 `data/sources/SourceBlock.xlsx`）→ `id→tile序号`+`_idRenderData`(纹理键)。已解析为 data/elin_source/{floor,block,obj,deco}_map.json。
   2. 像素层：tile→rect 由 `build_objs_rects.py` 从 PNG 连通域+网格对齐生成。
-- **_idRenderData → 纹理映射**：`obj`/`obj wheat`→objs; `obj_S`/`obj_S flat`/`floor_obj`/`obj_LV`/`roof`/`block`/`obj road`→objs_S; `obj tall`/`obj flat`→objs_L; `ramp`/`obj road chasm`→objs; `support`→objs(主)。
+- **_idRenderData → 图集：已是游戏级真值（idRenderData_atlas.json），不再是启发式**。Elin 真实逻辑：`idRenderData` 是 ScriptableObject 资产名，`RenderRow.SetRenderData()` 用 `ResourceCache.Load<RenderData>("Scene/Render/Data/"+idRenderData)` 载入，图集由资产 `pass`(MeshPass) 字段决定，**完全不解析字符串**。此前启发式错得很多，已修正：
+  - `obj tall`/`obj flat`→**objs**（非 objs_L）；`obj_LV*`→**objs_L**(80×64)（非 objs_S）；`roof`→**roofs**(96×80)（非 objs_S）；`support`/`scaffold`/`ramp`/`block`→**blocks**（非 objs）；`floor_obj`/`obj road`→**floors**(64×48)（非 objs_S）；`obj`/`obj wheat`/`obj paint`/`obj vine`/`obj mount`→objs ✓；`obj_S*`→objs_S ✓。
+  - 48 个 RenderDataThing/Chara/Pcc 无 pass（用独立网格模型，不走等格图集）。
+- **解析游戏 .assets 方法（可复用，见 extract_render_truth.py）**：游戏是 Mono 后端(有 Managed/Elin.dll+Assembly-CSharp.dll)。用 `UnityPy 1.25.2` + `TypeTreeGeneratorAPI 0.0.10`：`gen=TypeTreeGenerator("2021.3.45f2"); gen.load_local_dll_folder(Managed)`。**关键坑**：① 先在**不设** `env.typetree_generator` 时用 `obj.read(check_read=False).m_Script.read().m_ClassName` 识别 RenderData 子类(设了生成器会导致 read() 取不到 m_Script)；② 之后再设 `env.typetree_generator=gen`，对目标 `obj.read_typetree()` 才吐出 `pass` 等自定义字段；③ **path_id 仅文件内唯一**，跨文件 PPtr 必须按 `assets_file.externals[fid-1].name` + 文件名映射解析(fid=0 才是同文件)。RenderData 都在 resources.assets。
 - **OBJ_ID_RECT 查找表**：`data/elin_source/obj_id_rect.js`，145/147 obj ID 有效（缺 id87 wreck）。生成器 `build_objs_rects.py`（三层查找：精确格340 + 邻居救援20 + missing）。
+- ⚠️ **渲染器接线铁律**：`js/iso.js` 的 `elinAtlasMap` 必须包含 `obj_id_rect` 里出现过的**每一个** atlas 键（现含 floors/blocks/shadows/objs/objs_S/objs_L/{snow 变体}/**roofs**）。缺哪个，对应 obj 就画不出（静默回退灰圆）。roofs 是 2026-07-22 补的——之前漏掉导致 17 个 roof obj(22,26-30,67,124-134) 不显示。cell 尺寸(`game.js _atlasCell()`)与绘制无关，仅影响 F3 面板/悬停行列显示。
 - **elina-modding.net** 是权威 Modding Wiki。
 
 ## tile 编码（2026-07-21 从 Elin-Decompiled 源码破解）

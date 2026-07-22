@@ -3556,12 +3556,12 @@ export const MAT = {
   obj: {
   "145": {
     "id": 145,
-    "atlas": "objs_L",
+    "atlas": "blocks",
     "rect": [
-      641,
-      129,
-      76,
-      40
+      1345,
+      256,
+      62,
+      63
     ],
     "flip": false,
     "alias": null,
@@ -3577,12 +3577,12 @@ export const MAT = {
   },
   "0": {
     "id": 0,
-    "atlas": "objs",
+    "atlas": "objs_S",
     "rect": [
-      332,
-      6,
-      34,
-      53
+      165,
+      8,
+      21,
+      17
     ],
     "flip": false,
     "alias": null,
@@ -3601,12 +3601,12 @@ export const MAT = {
   },
   "1": {
     "id": 1,
-    "atlas": "objs",
+    "atlas": "objs_S",
     "rect": [
-      130,
-      139,
-      59,
-      52
+      79,
+      79,
+      17,
+      13
     ],
     "flip": false,
     "alias": null,
@@ -3623,12 +3623,12 @@ export const MAT = {
   },
   "2": {
     "id": 2,
-    "atlas": "objs",
+    "atlas": "objs_S",
     "rect": [
-      450,
-      132,
-      62,
-      54
+      227,
+      96,
+      26,
+      30
     ],
     "flip": false,
     "alias": null,
@@ -3647,10 +3647,10 @@ export const MAT = {
     "id": 3,
     "atlas": "objs_S",
     "rect": [
-      513,
-      37,
-      23,
-      25
+      550,
+      70,
+      18,
+      20
     ],
     "flip": false,
     "alias": null,
@@ -3672,12 +3672,12 @@ export const MAT = {
   },
   "4": {
     "id": 4,
-    "atlas": "objs",
+    "atlas": "objs_S",
     "rect": [
-      777,
-      197,
-      46,
-      50
+      386,
+      72,
+      27,
+      20
     ],
     "flip": false,
     "alias": null,
@@ -3694,12 +3694,12 @@ export const MAT = {
   },
   "115": {
     "id": 115,
-    "atlas": "objs",
+    "atlas": "objs_S",
     "rect": [
-      3082,
-      134,
-      51,
-      54
+      1510,
+      42,
+      23,
+      18
     ],
     "flip": false,
     "alias": null,
@@ -3716,12 +3716,12 @@ export const MAT = {
   },
   "116": {
     "id": 116,
-    "atlas": "objs",
+    "atlas": "objs_S",
     "rect": [
-      3082,
-      134,
-      51,
-      54
+      1510,
+      70,
+      20,
+      22
     ],
     "flip": false,
     "alias": null,
@@ -3738,12 +3738,12 @@ export const MAT = {
   },
   "117": {
     "id": 117,
-    "atlas": "objs",
+    "atlas": "objs_S",
     "rect": [
-      3082,
-      134,
-      51,
-      54
+      1510,
+      102,
+      20,
+      22
     ],
     "flip": false,
     "alias": null,
@@ -3760,12 +3760,12 @@ export const MAT = {
   },
   "127": {
     "id": 127,
-    "atlas": "objs",
+    "atlas": "objs_S",
     "rect": [
-      3027,
-      18,
-      29,
-      34
+      1510,
+      10,
+      23,
+      18
     ],
     "flip": false,
     "alias": null,
@@ -3804,12 +3804,12 @@ export const MAT = {
   },
   "5": {
     "id": 5,
-    "atlas": "objs",
+    "atlas": "objs_S",
     "rect": [
-      130,
-      139,
-      59,
-      52
+      78,
+      102,
+      14,
+      12
     ],
     "flip": false,
     "alias": null,
@@ -3825,12 +3825,12 @@ export const MAT = {
   },
   "6": {
     "id": 6,
-    "atlas": "objs",
+    "atlas": "objs_S",
     "rect": [
-      777,
-      197,
-      46,
-      50
+      402,
+      100,
+      11,
+      10
     ],
     "flip": false,
     "alias": "kinoko",
@@ -3848,10 +3848,10 @@ export const MAT = {
     "id": 7,
     "atlas": "objs_S",
     "rect": [
-      833,
-      32,
-      30,
-      31
+      841,
+      11,
+      15,
+      11
     ],
     "flip": false,
     "alias": null,
@@ -3872,10 +3872,10 @@ export const MAT = {
     "id": 99,
     "atlas": "objs",
     "rect": [
-      1225,
-      16,
+      1160,
+      22,
       48,
-      40
+      34
     ],
     "flip": false,
     "alias": null,
@@ -3893,10 +3893,10 @@ export const MAT = {
     "id": 121,
     "atlas": "objs",
     "rect": [
-      1289,
-      16,
-      48,
-      40
+      1353,
+      17,
+      47,
+      37
     ],
     "flip": false,
     "alias": null,
@@ -3912,12 +3912,12 @@ export const MAT = {
   },
   "8": {
     "id": 8,
-    "atlas": "objs",
+    "atlas": "objs_S",
     "rect": [
-      1225,
-      16,
-      48,
-      40
+      613,
+      8,
+      21,
+      18
     ],
     "flip": false,
     "alias": null,
@@ -3934,12 +3934,12 @@ export const MAT = {
   },
   "9": {
     "id": 9,
-    "atlas": "objs",
+    "atlas": "objs_S",
     "rect": [
-      713,
-      135,
-      45,
-      49
+      493,
+      55,
+      7,
+      5
     ],
     "flip": false,
     "alias": null,
@@ -3955,12 +3955,12 @@ export const MAT = {
   },
   "48": {
     "id": 48,
-    "atlas": "objs",
+    "atlas": "objs_S",
     "rect": [
-      332,
-      6,
-      34,
-      53
+      197,
+      7,
+      22,
+      19
     ],
     "flip": false,
     "alias": "nest_bird",
@@ -3974,12 +3974,12 @@ export const MAT = {
   },
   "10": {
     "id": 10,
-    "atlas": "objs",
+    "atlas": "objs_S",
     "rect": [
-      450,
-      132,
-      62,
-      54
+      195,
+      35,
+      26,
+      29
     ],
     "flip": false,
     "alias": null,
@@ -3995,12 +3995,12 @@ export const MAT = {
   },
   "11": {
     "id": 11,
-    "atlas": "objs",
+    "atlas": "objs_S",
     "rect": [
-      450,
-      132,
-      62,
-      54
+      323,
+      38,
+      20,
+      11
     ],
     "flip": false,
     "alias": null,
@@ -4059,12 +4059,12 @@ export const MAT = {
   },
   "14": {
     "id": 14,
-    "atlas": "objs",
+    "atlas": "objs_S",
     "rect": [
-      1421,
-      207,
-      43,
-      41
+      709,
+      73,
+      24,
+      21
     ],
     "flip": false,
     "alias": null,
@@ -4083,10 +4083,10 @@ export const MAT = {
     "id": 104,
     "atlas": "objs",
     "rect": [
-      2510,
-      133,
-      33,
-      48
+      2577,
+      205,
+      32,
+      38
     ],
     "flip": false,
     "alias": null,
@@ -4124,12 +4124,12 @@ export const MAT = {
   },
   "50": {
     "id": 50,
-    "atlas": "objs",
+    "atlas": "objs_S",
     "rect": [
-      1421,
-      207,
-      43,
-      41
+      709,
+      73,
+      24,
+      21
     ],
     "flip": false,
     "alias": null,
@@ -4145,12 +4145,12 @@ export const MAT = {
   },
   "61": {
     "id": 61,
-    "atlas": "objs",
+    "atlas": "objs_S",
     "rect": [
-      1601,
-      193,
-      62,
-      62
+      801,
+      65,
+      16,
+      30
     ],
     "flip": false,
     "alias": null,
@@ -4164,12 +4164,12 @@ export const MAT = {
   },
   "73": {
     "id": 73,
-    "atlas": "objs",
+    "atlas": "objs_S",
     "rect": [
-      1922,
-      201,
-      59,
-      48
+      993,
+      64,
+      29,
+      32
     ],
     "flip": false,
     "alias": null,
@@ -4185,10 +4185,10 @@ export const MAT = {
     "id": 74,
     "atlas": "objs_S",
     "rect": [
-      993,
-      64,
-      29,
-      32
+      968,
+      48,
+      16,
+      12
     ],
     "flip": false,
     "alias": null,
@@ -4202,12 +4202,12 @@ export const MAT = {
   },
   "75": {
     "id": 75,
-    "atlas": "objs",
+    "atlas": "objs_S",
     "rect": [
-      2255,
-      193,
-      35,
-      52
+      1121,
+      65,
+      29,
+      31
     ],
     "flip": false,
     "alias": null,
@@ -4240,12 +4240,12 @@ export const MAT = {
   },
   "12": {
     "id": 12,
-    "atlas": "objs",
+    "atlas": "objs_L",
     "rect": [
-      531,
-      452,
-      27,
-      59
+      576,
+      348,
+      48,
+      64
     ],
     "flip": false,
     "alias": null,
@@ -4266,12 +4266,12 @@ export const MAT = {
   },
   "15": {
     "id": 15,
-    "atlas": "objs",
+    "atlas": "objs_L",
     "rect": [
-      531,
-      452,
-      27,
-      59
+      576,
+      348,
+      48,
+      64
     ],
     "flip": false,
     "alias": null,
@@ -4292,12 +4292,12 @@ export const MAT = {
   },
   "47": {
     "id": 47,
-    "atlas": "objs",
+    "atlas": "objs_L",
     "rect": [
-      531,
-      452,
-      27,
-      59
+      576,
+      348,
+      48,
+      64
     ],
     "flip": false,
     "alias": null,
@@ -4320,10 +4320,10 @@ export const MAT = {
     "id": 118,
     "atlas": "objs_L",
     "rect": [
-      498,
-      42,
-      53,
-      80
+      1378,
+      87,
+      54,
+      70
     ],
     "flip": false,
     "alias": "feywood",
@@ -4342,10 +4342,10 @@ export const MAT = {
     "id": 119,
     "atlas": "objs_L",
     "rect": [
-      641,
-      8,
-      75,
-      96
+      1682,
+      70,
+      77,
+      88
     ],
     "flip": false,
     "alias": "coralwood",
@@ -4364,10 +4364,10 @@ export const MAT = {
     "id": 53,
     "atlas": "objs_L",
     "rect": [
-      326,
-      277,
-      70,
-      41
+      978,
+      475,
+      44,
+      66
     ],
     "flip": false,
     "alias": "rosewood",
@@ -4383,12 +4383,12 @@ export const MAT = {
   },
   "69": {
     "id": 69,
-    "atlas": "objs",
+    "atlas": "objs_L",
     "rect": [
-      146,
-      521,
-      25,
-      35
+      173,
+      478,
+      53,
+      63
     ],
     "flip": false,
     "alias": "mahogany",
@@ -4406,9 +4406,9 @@ export const MAT = {
     "id": 70,
     "atlas": "objs_L",
     "rect": [
-      576,
-      348,
-      48,
+      1367,
+      735,
+      62,
       64
     ],
     "flip": false,
@@ -4430,12 +4430,12 @@ export const MAT = {
   },
   "54": {
     "id": 54,
-    "atlas": "objs",
+    "atlas": "objs_L",
     "rect": [
-      1090,
-      465,
-      33,
-      35
+      1380,
+      342,
+      43,
+      70
     ],
     "flip": false,
     "alias": "fir",
@@ -4451,12 +4451,12 @@ export const MAT = {
   },
   "55": {
     "id": 55,
-    "atlas": "objs",
+    "atlas": "objs_L",
     "rect": [
-      1097,
-      580,
-      49,
-      60
+      1380,
+      476,
+      39,
+      64
     ],
     "flip": false,
     "alias": "cedar",
@@ -4474,10 +4474,10 @@ export const MAT = {
     "id": 76,
     "atlas": "objs_L",
     "rect": [
-      175,
-      343,
-      53,
-      70
+      572,
+      599,
+      58,
+      71
     ],
     "flip": false,
     "alias": "willow",
@@ -4498,12 +4498,12 @@ export const MAT = {
   },
   "103": {
     "id": 103,
-    "atlas": "objs",
+    "atlas": "objs_L",
     "rect": [
-      833,
-      658,
-      62,
-      41
+      987,
+      591,
+      32,
+      98
     ],
     "flip": false,
     "alias": "bamboo",
@@ -4524,12 +4524,12 @@ export const MAT = {
   },
   "77": {
     "id": 77,
-    "atlas": "objs",
+    "atlas": "objs_L",
     "rect": [
-      128,
-      721,
-      64,
-      39
+      173,
+      594,
+      62,
+      75
     ],
     "flip": false,
     "alias": "cherry",
@@ -4547,10 +4547,10 @@ export const MAT = {
     "id": 56,
     "atlas": "objs_L",
     "rect": [
-      97,
-      355,
-      46,
-      58
+      181,
+      729,
+      38,
+      66
     ],
     "flip": false,
     "alias": "birch",
@@ -4573,10 +4573,10 @@ export const MAT = {
     "id": 57,
     "atlas": "objs_L",
     "rect": [
-      175,
-      343,
-      53,
-      70
+      581,
+      733,
+      39,
+      64
     ],
     "flip": false,
     "alias": "pine",
@@ -4597,12 +4597,12 @@ export const MAT = {
   },
   "58": {
     "id": 58,
-    "atlas": "objs",
+    "atlas": "objs_L",
     "rect": [
-      837,
-      833,
+      972,
+      725,
       56,
-      63
+      70
     ],
     "flip": false,
     "alias": "oak",
@@ -4618,12 +4618,12 @@ export const MAT = {
   },
   "17": {
     "id": 17,
-    "atlas": "objs",
+    "atlas": "objs_L",
     "rect": [
-      713,
-      339,
-      43,
-      28
+      978,
+      347,
+      49,
+      65
     ],
     "flip": false,
     "alias": "palulu",
@@ -4641,10 +4641,10 @@ export const MAT = {
     "id": 112,
     "atlas": "objs_L",
     "rect": [
-      582,
-      136,
-      38,
-      34
+      1373,
+      212,
+      56,
+      69
     ],
     "flip": false,
     "alias": "banana",
@@ -4662,10 +4662,10 @@ export const MAT = {
     "id": 13,
     "atlas": "objs_L",
     "rect": [
-      96,
-      148,
-      47,
-      73
+      175,
+      343,
+      53,
+      70
     ],
     "flip": false,
     "alias": "christmas",
@@ -4681,12 +4681,12 @@ export const MAT = {
   },
   "49": {
     "id": 49,
-    "atlas": "objs",
+    "atlas": "objs_L",
     "rect": [
-      146,
-      521,
-      25,
-      35
+      173,
+      478,
+      53,
+      63
     ],
     "flip": false,
     "alias": "fruit",
@@ -4702,12 +4702,12 @@ export const MAT = {
   },
   "113": {
     "id": 113,
-    "atlas": "objs",
+    "atlas": "objs_L",
     "rect": [
-      146,
-      521,
-      25,
-      35
+      173,
+      478,
+      53,
+      63
     ],
     "flip": false,
     "alias": "fruit_orange",
@@ -4723,12 +4723,12 @@ export const MAT = {
   },
   "114": {
     "id": 114,
-    "atlas": "objs",
+    "atlas": "objs_L",
     "rect": [
-      146,
-      521,
-      25,
-      35
+      173,
+      478,
+      53,
+      63
     ],
     "flip": false,
     "alias": "fruit_pear",
@@ -4746,10 +4746,10 @@ export const MAT = {
     "id": 59,
     "atlas": "objs_L",
     "rect": [
-      245,
-      40,
-      79,
-      83
+      903,
+      23,
+      33,
+      69
     ],
     "flip": false,
     "alias": "burnt",
@@ -4763,12 +4763,12 @@ export const MAT = {
   },
   "18": {
     "id": 18,
-    "atlas": "objs",
+    "atlas": "blocks",
     "rect": [
-      1,
-      321,
-      62,
-      61
+      26,
+      389,
+      8,
+      10
     ],
     "flip": false,
     "alias": null,
@@ -4785,12 +4785,12 @@ export const MAT = {
   },
   "19": {
     "id": 19,
-    "atlas": "objs",
+    "atlas": "blocks",
     "rect": [
-      1,
-      321,
-      62,
-      61
+      90,
+      389,
+      8,
+      10
     ],
     "flip": false,
     "alias": null,
@@ -4809,10 +4809,10 @@ export const MAT = {
     "id": 20,
     "atlas": "objs_S",
     "rect": [
-      833,
-      32,
-      30,
-      31
+      806,
+      6,
+      19,
+      19
     ],
     "flip": false,
     "alias": null,
@@ -4831,12 +4831,12 @@ export const MAT = {
   },
   "21": {
     "id": 21,
-    "atlas": "objs_L",
+    "atlas": "blocks",
     "rect": [
-      96,
-      148,
-      47,
-      73
+      283,
+      415,
+      10,
+      33
     ],
     "flip": false,
     "alias": null,
@@ -4852,12 +4852,12 @@ export const MAT = {
   },
   "23": {
     "id": 23,
-    "atlas": "objs",
+    "atlas": "blocks",
     "rect": [
-      261,
-      322,
-      55,
-      49
+      347,
+      415,
+      10,
+      33
     ],
     "flip": false,
     "alias": null,
@@ -4873,12 +4873,12 @@ export const MAT = {
   },
   "24": {
     "id": 24,
-    "atlas": "objs",
+    "atlas": "blocks",
     "rect": [
-      899,
-      340,
-      56,
-      43
+      897,
+      256,
+      62,
+      64
     ],
     "flip": false,
     "alias": null,
@@ -4894,12 +4894,12 @@ export const MAT = {
   },
   "101": {
     "id": 101,
-    "atlas": "objs",
+    "atlas": "blocks",
     "rect": [
-      130,
-      139,
-      59,
-      52
+      193,
+      129,
+      62,
+      62
     ],
     "flip": false,
     "alias": null,
@@ -4915,12 +4915,12 @@ export const MAT = {
   },
   "106": {
     "id": 106,
-    "atlas": "objs_L",
+    "atlas": "blocks",
     "rect": [
-      641,
-      129,
-      76,
-      40
+      1089,
+      256,
+      62,
+      63
     ],
     "flip": false,
     "alias": null,
@@ -4936,12 +4936,12 @@ export const MAT = {
   },
   "25": {
     "id": 25,
-    "atlas": "objs",
+    "atlas": "floors",
     "rect": [
-      897,
-      652,
-      63,
-      47
+      965,
+      496,
+      42,
+      25
     ],
     "flip": false,
     "alias": null,
@@ -4959,12 +4959,12 @@ export const MAT = {
   },
   "144": {
     "id": 144,
-    "atlas": "objs",
+    "atlas": "floors",
     "rect": [
-      1285,
-      768,
-      53,
-      62
+      1089,
+      587,
+      62,
+      35
     ],
     "flip": false,
     "alias": null,
@@ -4982,12 +4982,12 @@ export const MAT = {
   },
   "71": {
     "id": 71,
-    "atlas": "objs",
+    "atlas": "floors",
     "rect": [
-      450,
-      706,
-      60,
-      53
+      661,
+      495,
+      26,
+      22
     ],
     "flip": false,
     "alias": null,
@@ -5001,12 +5001,12 @@ export const MAT = {
   },
   "107": {
     "id": 107,
-    "atlas": "objs",
+    "atlas": "floors",
     "rect": [
-      1223,
-      512,
-      51,
-      64
+      1172,
+      451,
+      27,
+      17
     ],
     "flip": false,
     "alias": null,
@@ -5020,12 +5020,12 @@ export const MAT = {
   },
   "109": {
     "id": 109,
-    "atlas": "objs",
+    "atlas": "floors",
     "rect": [
-      1097,
-      580,
-      49,
-      60
+      1291,
+      496,
+      16,
+      16
     ],
     "flip": false,
     "alias": null,
@@ -5039,12 +5039,12 @@ export const MAT = {
   },
   "111": {
     "id": 111,
-    "atlas": "objs",
+    "atlas": "floors",
     "rect": [
-      1736,
-      704,
-      56,
-      64
+      1616,
+      503,
+      10,
+      11
     ],
     "flip": false,
     "alias": null,
@@ -5058,12 +5058,12 @@ export const MAT = {
   },
   "22": {
     "id": 22,
-    "atlas": "objs",
+    "atlas": "roofs",
     "rect": [
-      450,
-      132,
-      62,
-      54
+      15,
+      85,
+      77,
+      72
     ],
     "flip": false,
     "alias": null,
@@ -5077,12 +5077,12 @@ export const MAT = {
   },
   "26": {
     "id": 26,
-    "atlas": "objs",
+    "atlas": "roofs",
     "rect": [
-      450,
-      132,
-      62,
-      54
+      15,
+      165,
+      77,
+      72
     ],
     "flip": false,
     "alias": null,
@@ -5096,12 +5096,12 @@ export const MAT = {
   },
   "27": {
     "id": 27,
-    "atlas": "objs",
+    "atlas": "roofs",
     "rect": [
-      450,
-      132,
-      62,
-      54
+      15,
+      245,
+      77,
+      72
     ],
     "flip": false,
     "alias": null,
@@ -5115,12 +5115,12 @@ export const MAT = {
   },
   "28": {
     "id": 28,
-    "atlas": "objs",
+    "atlas": "roofs",
     "rect": [
-      1,
-      321,
-      62,
-      61
+      15,
+      325,
+      77,
+      72
     ],
     "flip": false,
     "alias": null,
@@ -5134,12 +5134,12 @@ export const MAT = {
   },
   "29": {
     "id": 29,
-    "atlas": "objs",
+    "atlas": "roofs",
     "rect": [
-      1,
-      321,
-      62,
-      61
+      15,
+      404,
+      77,
+      75
     ],
     "flip": false,
     "alias": null,
@@ -5153,12 +5153,12 @@ export const MAT = {
   },
   "30": {
     "id": 30,
-    "atlas": "objs",
+    "atlas": "roofs",
     "rect": [
-      1,
-      321,
-      62,
-      61
+      15,
+      485,
+      77,
+      72
     ],
     "flip": false,
     "alias": null,
@@ -5172,12 +5172,12 @@ export const MAT = {
   },
   "67": {
     "id": 67,
-    "atlas": "objs",
+    "atlas": "roofs",
     "rect": [
-      76,
-      384,
-      37,
-      64
+      15,
+      565,
+      77,
+      72
     ],
     "flip": false,
     "alias": null,
@@ -5191,12 +5191,12 @@ export const MAT = {
   },
   "124": {
     "id": 124,
-    "atlas": "objs",
+    "atlas": "roofs",
     "rect": [
-      531,
-      452,
-      27,
-      59
+      15,
+      645,
+      77,
+      72
     ],
     "flip": false,
     "alias": null,
@@ -5210,12 +5210,12 @@ export const MAT = {
   },
   "125": {
     "id": 125,
-    "atlas": "objs",
+    "atlas": "roofs",
     "rect": [
-      270,
-      648,
-      36,
-      51
+      15,
+      725,
+      77,
+      72
     ],
     "flip": false,
     "alias": null,
@@ -5229,12 +5229,12 @@ export const MAT = {
   },
   "126": {
     "id": 126,
-    "atlas": "objs",
+    "atlas": "roofs",
     "rect": [
-      450,
-      706,
-      60,
-      53
+      15,
+      805,
+      77,
+      72
     ],
     "flip": false,
     "alias": null,
@@ -5248,12 +5248,12 @@ export const MAT = {
   },
   "128": {
     "id": 128,
-    "atlas": "objs",
+    "atlas": "roofs",
     "rect": [
-      513,
-      772,
-      62,
-      52
+      15,
+      885,
+      77,
+      72
     ],
     "flip": false,
     "alias": null,
@@ -5267,12 +5267,12 @@ export const MAT = {
   },
   "129": {
     "id": 129,
-    "atlas": "objs",
+    "atlas": "roofs",
     "rect": [
-      513,
-      772,
-      62,
-      52
+      14,
+      965,
+      78,
+      72
     ],
     "flip": false,
     "alias": null,
@@ -5286,12 +5286,12 @@ export const MAT = {
   },
   "130": {
     "id": 130,
-    "atlas": "objs",
+    "atlas": "roofs",
     "rect": [
-      513,
-      772,
-      62,
-      52
+      15,
+      1045,
+      77,
+      72
     ],
     "flip": false,
     "alias": null,
@@ -5305,12 +5305,12 @@ export const MAT = {
   },
   "131": {
     "id": 131,
-    "atlas": "objs",
+    "atlas": "roofs",
     "rect": [
-      9,
-      838,
-      48,
-      54
+      15,
+      1124,
+      77,
+      73
     ],
     "flip": false,
     "alias": null,
@@ -5324,12 +5324,12 @@ export const MAT = {
   },
   "132": {
     "id": 132,
-    "atlas": "objs",
+    "atlas": "roofs",
     "rect": [
-      451,
-      1025,
-      55,
-      59
+      15,
+      1204,
+      77,
+      73
     ],
     "flip": false,
     "alias": null,
@@ -5343,12 +5343,12 @@ export const MAT = {
   },
   "133": {
     "id": 133,
-    "atlas": "objs",
+    "atlas": "roofs",
     "rect": [
-      515,
-      1025,
-      55,
-      59
+      15,
+      1284,
+      77,
+      73
     ],
     "flip": false,
     "alias": null,
@@ -5362,12 +5362,12 @@ export const MAT = {
   },
   "134": {
     "id": 134,
-    "atlas": "objs",
+    "atlas": "roofs",
     "rect": [
-      451,
-      1025,
-      55,
-      59
+      15,
+      1364,
+      77,
+      73
     ],
     "flip": false,
     "alias": null,
@@ -5381,12 +5381,12 @@ export const MAT = {
   },
   "31": {
     "id": 31,
-    "atlas": "objs",
+    "atlas": "floors",
     "rect": [
-      17,
-      2304,
-      46,
-      61
+      6,
+      1740,
+      53,
+      26
     ],
     "flip": false,
     "alias": null,
@@ -5404,12 +5404,12 @@ export const MAT = {
   },
   "110": {
     "id": 110,
-    "atlas": "objs_S",
+    "atlas": "floors",
     "rect": [
-      36,
-      1225,
-      24,
-      17
+      9,
+      1835,
+      46,
+      28
     ],
     "flip": false,
     "alias": null,
@@ -5427,12 +5427,12 @@ export const MAT = {
   },
   "97": {
     "id": 97,
-    "atlas": "objs",
+    "atlas": "blocks",
     "rect": [
-      1031,
-      1091,
-      50,
-      48
+      1030,
+      1042,
+      51,
+      40
     ],
     "flip": false,
     "alias": null,
@@ -5449,12 +5449,12 @@ export const MAT = {
   },
   "98": {
     "id": 98,
-    "atlas": "objs",
+    "atlas": "blocks",
     "rect": [
-      1167,
-      1033,
-      42,
-      46
+      1159,
+      1028,
+      52,
+      55
     ],
     "flip": false,
     "alias": null,
@@ -5471,12 +5471,12 @@ export const MAT = {
   },
   "92": {
     "id": 92,
-    "atlas": "objs_S",
+    "atlas": "floors",
     "rect": [
-      516,
-      1160,
-      20,
-      20
+      1048,
+      1811,
+      15,
+      8
     ],
     "flip": false,
     "alias": null,
@@ -5492,12 +5492,12 @@ export const MAT = {
   },
   "32": {
     "id": 32,
-    "atlas": "objs",
+    "atlas": "floors",
     "rect": [
-      17,
-      2304,
+      8,
+      1789,
       46,
-      61
+      25
     ],
     "flip": false,
     "alias": null,
@@ -5513,12 +5513,12 @@ export const MAT = {
   },
   "33": {
     "id": 33,
-    "atlas": "objs_S",
+    "atlas": "floors",
     "rect": [
-      516,
-      1160,
-      20,
-      20
+      1034,
+      1740,
+      46,
+      26
     ],
     "flip": false,
     "alias": null,
@@ -5539,10 +5539,10 @@ export const MAT = {
     "id": 34,
     "atlas": "objs",
     "rect": [
-      3977,
-      470,
-      47,
-      36
+      3915,
+      478,
+      44,
+      28
     ],
     "flip": false,
     "alias": "wreck_stone",
@@ -5560,10 +5560,10 @@ export const MAT = {
     "id": 85,
     "atlas": "objs",
     "rect": [
-      4042,
-      385,
-      44,
-      62
+      3977,
+      470,
+      47,
+      36
     ],
     "flip": false,
     "alias": "wreck_scrap",
@@ -5581,10 +5581,10 @@ export const MAT = {
     "id": 86,
     "atlas": "objs",
     "rect": [
-      3846,
-      407,
-      51,
-      31
+      3785,
+      479,
+      48,
+      26
     ],
     "flip": false,
     "alias": "wreck_cloth",
@@ -5602,10 +5602,10 @@ export const MAT = {
     "id": 87,
     "atlas": "objs",
     "rect": [
-      3648,
-      448,
-      64,
-      64
+      3722,
+      480,
+      23,
+      22
     ],
     "flip": false,
     "alias": "wreck_precious",
@@ -5689,10 +5689,10 @@ export const MAT = {
     "id": 140,
     "atlas": "objs",
     "rect": [
-      3913,
-      23,
-      17,
-      25
+      3927,
+      15,
+      38,
+      43
     ],
     "flip": false,
     "alias": "tulip_red",
@@ -5711,10 +5711,10 @@ export const MAT = {
     "id": 137,
     "atlas": "objs",
     "rect": [
-      3264,
-      3,
-      256,
-      61
+      3395,
+      67,
+      59,
+      59
     ],
     "flip": false,
     "alias": null,
@@ -5778,12 +5778,12 @@ export const MAT = {
   },
   "36": {
     "id": 36,
-    "atlas": "objs_S",
+    "atlas": "objs",
     "rect": [
-      518,
-      70,
-      18,
-      20
+      982,
+      218,
+      15,
+      12
     ],
     "flip": false,
     "alias": "raddish",
@@ -5804,10 +5804,10 @@ export const MAT = {
     "id": 37,
     "atlas": "objs",
     "rect": [
-      130,
-      139,
-      59,
-      52
+      220,
+      99,
+      7,
+      6
     ],
     "flip": false,
     "alias": "test",
@@ -5823,10 +5823,10 @@ export const MAT = {
     "id": 38,
     "atlas": "objs",
     "rect": [
-      1421,
-      207,
-      43,
-      41
+      1369,
+      217,
+      16,
+      32
     ],
     "flip": false,
     "alias": "cabbage",
@@ -5871,9 +5871,9 @@ export const MAT = {
     "id": 39,
     "atlas": "objs",
     "rect": [
-      578,
-      137,
-      62,
+      649,
+      198,
+      45,
       49
     ],
     "flip": false,
@@ -5914,12 +5914,12 @@ export const MAT = {
   },
   "40": {
     "id": 40,
-    "atlas": "objs_S",
+    "atlas": "objs",
     "rect": [
-      549,
-      99,
-      21,
-      27
+      1053,
+      219,
+      12,
+      12
     ],
     "flip": false,
     "alias": "carrot",
@@ -5938,12 +5938,12 @@ export const MAT = {
   },
   "41": {
     "id": 41,
-    "atlas": "objs_S",
+    "atlas": "objs",
     "rect": [
-      679,
-      79,
-      18,
-      16
+      1304,
+      222,
+      16,
+      13
     ],
     "flip": false,
     "alias": "potato",
@@ -5964,10 +5964,10 @@ export const MAT = {
     "id": 123,
     "atlas": "objs",
     "rect": [
-      2510,
-      133,
-      33,
-      48
+      2582,
+      151,
+      22,
+      28
     ],
     "flip": false,
     "alias": "tobacco",
@@ -5986,10 +5986,10 @@ export const MAT = {
     "id": 42,
     "atlas": "objs",
     "rect": [
-      777,
-      197,
+      713,
+      199,
       46,
-      50
+      49
     ],
     "flip": false,
     "alias": "corn",
@@ -6054,12 +6054,12 @@ export const MAT = {
   },
   "43": {
     "id": 43,
-    "atlas": "objs",
+    "atlas": "floors",
     "rect": [
-      17,
-      2304,
-      46,
-      61
+      8,
+      1692,
+      52,
+      27
     ],
     "flip": false,
     "alias": null,
@@ -6077,12 +6077,12 @@ export const MAT = {
   },
   "44": {
     "id": 44,
-    "atlas": "objs_S",
+    "atlas": "floors",
     "rect": [
-      485,
-      1096,
-      23,
-      23
+      1033,
+      1691,
+      46,
+      26
     ],
     "flip": false,
     "alias": null,
@@ -6100,12 +6100,12 @@ export const MAT = {
   },
   "89": {
     "id": 89,
-    "atlas": "objs_S",
+    "atlas": "floors",
     "rect": [
-      485,
-      1096,
-      23,
-      23
+      1038,
+      1649,
+      36,
+      19
     ],
     "flip": false,
     "alias": null,
@@ -6123,12 +6123,12 @@ export const MAT = {
   },
   "135": {
     "id": 135,
-    "atlas": "objs",
+    "atlas": "floors",
     "rect": [
-      973,
-      2057,
-      39,
-      51
+      1039,
+      1602,
+      34,
+      17
     ],
     "flip": false,
     "alias": null,
@@ -6148,10 +6148,10 @@ export const MAT = {
     "id": 45,
     "atlas": "objs_S",
     "rect": [
-      833,
-      32,
-      30,
-      31
+      871,
+      14,
+      16,
+      12
     ],
     "flip": false,
     "alias": null,
@@ -6165,12 +6165,12 @@ export const MAT = {
   },
   "84": {
     "id": 84,
-    "atlas": "objs",
+    "atlas": "floors",
     "rect": [
-      270,
-      648,
-      36,
-      51
+      271,
+      540,
+      33,
+      25
     ],
     "flip": false,
     "alias": "mound",
@@ -6188,9 +6188,9 @@ export const MAT = {
     "id": 46,
     "atlas": "objs",
     "rect": [
-      3846,
-      407,
-      51,
+      3848,
+      474,
+      48,
       31
     ],
     "flip": false,
@@ -6207,12 +6207,12 @@ export const MAT = {
   },
   "51": {
     "id": 51,
-    "atlas": "objs",
+    "atlas": "objs_S",
     "rect": [
-      1665,
-      129,
-      62,
-      62
+      833,
+      32,
+      30,
+      31
     ],
     "flip": false,
     "alias": null,
@@ -6271,12 +6271,12 @@ export const MAT = {
   },
   "91": {
     "id": 91,
-    "atlas": "objs",
+    "atlas": "objs_S",
     "rect": [
-      2448,
-      131,
-      33,
-      50
+      1217,
+      34,
+      28,
+      30
     ],
     "flip": false,
     "alias": null,
@@ -6290,12 +6290,12 @@ export const MAT = {
   },
   "102": {
     "id": 102,
-    "atlas": "objs",
+    "atlas": "objs_S",
     "rect": [
-      2448,
-      131,
-      33,
-      50
+      1313,
+      34,
+      28,
+      30
     ],
     "flip": false,
     "alias": null,
@@ -6309,12 +6309,12 @@ export const MAT = {
   },
   "52": {
     "id": 52,
-    "atlas": "objs",
+    "atlas": "objs_S",
     "rect": [
-      1225,
-      16,
-      48,
-      40
+      513,
+      37,
+      23,
+      25
     ],
     "flip": false,
     "alias": null,
@@ -6345,33 +6345,14 @@ export const MAT = {
     "tag": null,
     "defMat": "bone"
   },
-  "143": {
-    "id": 143,
-    "atlas": "objs_L",
-    "rect": [
-      261,
-      1931,
-      13,
-      13
-    ],
-    "flip": false,
-    "alias": null,
-    "name": "bone",
-    "nameJP": "竜骨",
-    "type": null,
-    "render": "obj tall",
-    "objType": null,
-    "tag": null,
-    "defMat": "bone"
-  },
   "62": {
     "id": 62,
-    "atlas": "objs",
+    "atlas": "objs_L",
     "rect": [
-      259,
-      1088,
-      58,
-      51
+      88,
+      1109,
+      56,
+      74
     ],
     "flip": false,
     "alias": null,
@@ -6392,10 +6373,10 @@ export const MAT = {
     "id": 63,
     "atlas": "objs_L",
     "rect": [
-      173,
-      594,
-      62,
-      75
+      485,
+      1092,
+      73,
+      90
     ],
     "flip": false,
     "alias": null,
@@ -6416,12 +6397,12 @@ export const MAT = {
   },
   "64": {
     "id": 64,
-    "atlas": "objs",
+    "atlas": "objs_L",
     "rect": [
-      208,
+      161,
       1094,
-      38,
-      53
+      77,
+      94
     ],
     "flip": false,
     "alias": null,
@@ -6435,12 +6416,12 @@ export const MAT = {
   },
   "60": {
     "id": 60,
-    "atlas": "objs",
+    "atlas": "floors",
     "rect": [
-      128,
-      721,
-      64,
-      39
+      17,
+      499,
+      13,
+      11
     ],
     "flip": false,
     "alias": null,
@@ -6454,12 +6435,12 @@ export const MAT = {
   },
   "79": {
     "id": 79,
-    "atlas": "objs",
+    "atlas": "floors",
     "rect": [
-      128,
-      721,
-      64,
-      39
+      27,
+      547,
+      11,
+      7
     ],
     "flip": false,
     "alias": null,
@@ -6473,12 +6454,12 @@ export const MAT = {
   },
   "65": {
     "id": 65,
-    "atlas": "objs",
+    "atlas": "floors",
     "rect": [
-      128,
-      721,
-      64,
-      39
+      270,
+      502,
+      17,
+      11
     ],
     "flip": false,
     "alias": null,
@@ -6492,12 +6473,12 @@ export const MAT = {
   },
   "66": {
     "id": 66,
-    "atlas": "objs",
+    "atlas": "objs_S",
     "rect": [
-      1665,
-      129,
-      62,
-      62
+      901,
+      41,
+      22,
+      22
     ],
     "flip": false,
     "alias": null,
@@ -6513,12 +6494,12 @@ export const MAT = {
   },
   "68": {
     "id": 68,
-    "atlas": "objs",
+    "atlas": "objs_S",
     "rect": [
-      76,
-      384,
-      37,
-      64
+      9,
+      237,
+      14,
+      8
     ],
     "flip": false,
     "alias": "fish",
@@ -6532,12 +6513,12 @@ export const MAT = {
   },
   "72": {
     "id": 72,
-    "atlas": "objs",
+    "atlas": "objs_S",
     "rect": [
-      1793,
-      129,
-      62,
-      62
+      929,
+      37,
+      29,
+      25
     ],
     "flip": false,
     "alias": null,
@@ -6575,12 +6556,12 @@ export const MAT = {
   },
   "80": {
     "id": 80,
-    "atlas": "objs",
+    "atlas": "objs_S",
     "rect": [
-      198,
-      23,
-      54,
-      36
+      288,
+      0,
+      32,
+      32
     ],
     "flip": false,
     "alias": null,
@@ -6596,10 +6577,10 @@ export const MAT = {
     "id": 82,
     "atlas": "objs",
     "rect": [
-      3648,
-      448,
-      64,
-      64
+      3598,
+      413,
+      44,
+      31
     ],
     "flip": false,
     "alias": null,
@@ -6615,10 +6596,10 @@ export const MAT = {
     "id": 83,
     "atlas": "objs",
     "rect": [
-      3789,
-      324,
-      39,
-      58
+      3846,
+      407,
+      51,
+      31
     ],
     "flip": false,
     "alias": "wreck_junk",
@@ -6634,12 +6615,12 @@ export const MAT = {
   },
   "95": {
     "id": 95,
-    "atlas": "objs",
+    "atlas": "blocks",
     "rect": [
-      9,
-      838,
-      48,
-      54
+      1,
+      833,
+      26,
+      55
     ],
     "flip": false,
     "alias": null,
@@ -6653,12 +6634,12 @@ export const MAT = {
   },
   "96": {
     "id": 96,
-    "atlas": "objs",
+    "atlas": "blocks",
     "rect": [
-      513,
-      772,
-      62,
-      52
+      449,
+      834,
+      40,
+      60
     ],
     "flip": false,
     "alias": null,
@@ -6965,8 +6946,7 @@ export const GROUPS = {
   ],
   "bone": [
     52,
-    142,
-    143
+    142
   ],
   "crystal": [
     10

@@ -142,7 +142,7 @@
       </div>
     </div>
 
-    <!-- 建造模式面板 -->
+    <!-- 建造模式面板（左侧中间侧边栏）-->
     <div id="build-panel" class="hidden">
       <div class="build-header">
         <span class="build-title">🔨 建造模式</span>
@@ -150,15 +150,23 @@
           <button class="build-tool-btn active" data-tool="place" title="放置(左键)">放置</button>
           <button class="build-tool-btn" data-tool="remove" title="拆除(右键)">拆除</button>
         </div>
-        <button class="build-close-btn" id="build-close">✕ 退出(B)</button>
+        <button class="build-close-btn" id="build-close" title="退出(B)">✕</button>
+      </div>
+      <div class="build-search-row">
+        <input id="build-search" type="text" placeholder="搜索 名称 / ID / 类型…" autocomplete="off" spellcheck="false"/>
+        <span id="build-count" class="build-count"></span>
       </div>
       <div class="build-tabs">
-        <div class="build-tab active" data-cat="decor">装饰物</div>
-        <div class="build-tab" data-cat="wall">墙壁</div>
-        <div class="build-tab" data-cat="floor">地板</div>
+        <div class="build-tab active" data-cat="decor">装饰物<span class="tab-n" id="tabn-decor"></span></div>
+        <div class="build-tab" data-cat="wall">墙壁<span class="tab-n" id="tabn-wall"></span></div>
+        <div class="build-tab" data-cat="floor">地板<span class="tab-n" id="tabn-floor"></span></div>
       </div>
       <div class="build-grid" id="build-grid"></div>
-      <div class="build-hint" id="build-hint">左键放置 · 右键拆除 · B退出</div>
+      <div class="build-footer">
+        <label class="build-check" title="全地图去除战争迷雾（完全照亮）"><input type="checkbox" id="build-nofog"/> 去迷雾</label>
+        <label class="build-check" title="直接显示未探索区域"><input type="checkbox" id="build-reveal"/> 显未探索</label>
+        <span class="build-hint">左键放置 · 右键拆除 · B退出</span>
+      </div>
     </div>
   </div>
 
