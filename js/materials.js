@@ -8,9 +8,13 @@ export const MAT = {
   "143": {
     "id": 143,
     "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
     "rect": [
-      0,
-      0,
+      1664,
+      336,
       64,
       48
     ],
@@ -21,12 +25,18 @@ export const MAT = {
     "mat": "glass",
     "type": null,
     "render": null,
+    "colorMod": null,
+    "colorType": null,
     "solid": false,
     "walkable": true
   },
   "0": {
     "id": 0,
     "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
     "rect": [
       384,
       0,
@@ -40,12 +50,18 @@ export const MAT = {
     "mat": null,
     "type": "None",
     "render": null,
+    "colorMod": null,
+    "colorType": null,
     "solid": false,
     "walkable": true
   },
   "90": {
     "id": 90,
     "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
     "rect": [
       704,
       0,
@@ -59,12 +75,18 @@ export const MAT = {
     "mat": null,
     "type": "Sky",
     "render": null,
+    "colorMod": null,
+    "colorType": null,
     "solid": false,
     "walkable": true
   },
   "77": {
     "id": 77,
     "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
     "rect": [
       576,
       0,
@@ -78,12 +100,18 @@ export const MAT = {
     "mat": null,
     "type": "InvisiBlock",
     "render": null,
+    "colorMod": null,
+    "colorType": null,
     "solid": false,
     "walkable": true
   },
   "2": {
     "id": 2,
     "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
     "rect": [
       512,
       0,
@@ -97,12 +125,18 @@ export const MAT = {
     "mat": null,
     "type": "InvisiBlock",
     "render": null,
+    "colorMod": null,
+    "colorType": null,
     "solid": false,
     "walkable": true
   },
   "3": {
     "id": 3,
     "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
     "rect": [
       448,
       0,
@@ -116,12 +150,68 @@ export const MAT = {
     "mat": null,
     "type": null,
     "render": null,
+    "colorMod": null,
+    "colorType": null,
+    "solid": false,
+    "walkable": true
+  },
+  "10": {
+    "id": 10,
+    "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
+    "rect": [
+      448,
+      432,
+      64,
+      48
+    ],
+    "alias": "floor_scaffold",
+    "name": "support floor",
+    "nameJP": "足場の床",
+    "biome": null,
+    "mat": "mahogany",
+    "type": "FloorScaffold",
+    "render": null,
+    "colorMod": null,
+    "colorType": null,
+    "solid": false,
+    "walkable": true
+  },
+  "125": {
+    "id": 125,
+    "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
+    "rect": [
+      704,
+      432,
+      64,
+      48
+    ],
+    "alias": "floor_kinoko",
+    "name": "mushroom floor",
+    "nameJP": "キノコの床",
+    "biome": null,
+    "mat": "cedar",
+    "type": null,
+    "render": null,
+    "colorMod": null,
+    "colorType": null,
     "solid": false,
     "walkable": true
   },
   "126": {
     "id": 126,
     "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
     "rect": [
       832,
       432,
@@ -135,12 +225,18 @@ export const MAT = {
     "mat": "cedar",
     "type": null,
     "render": null,
+    "colorMod": null,
+    "colorType": null,
     "solid": false,
     "walkable": true
   },
   "130": {
     "id": 130,
     "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
     "rect": [
       704,
       528,
@@ -154,12 +250,43 @@ export const MAT = {
     "mat": "cloud",
     "type": null,
     "render": null,
+    "colorMod": null,
+    "colorType": null,
+    "solid": false,
+    "walkable": true
+  },
+  "54": {
+    "id": 54,
+    "atlas": "objs_S",
+    "cell": [
+      32,
+      32
+    ],
+    "rect": [
+      0,
+      1056,
+      32,
+      32
+    ],
+    "alias": "pedestal_deco",
+    "name": "pedestal",
+    "nameJP": "ペデスタル",
+    "biome": null,
+    "mat": "granite",
+    "type": "BridgeDeco",
+    "render": "obj_S platform",
+    "colorMod": null,
+    "colorType": null,
     "solid": false,
     "walkable": true
   },
   "104": {
     "id": 104,
     "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
     "rect": [
       576,
       432,
@@ -173,12 +300,93 @@ export const MAT = {
     "mat": "granite",
     "type": "BridgeDeco",
     "render": null,
+    "colorMod": null,
+    "colorType": null,
+    "solid": false,
+    "walkable": true
+  },
+  "112": {
+    "id": 112,
+    "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
+    "rect": [
+      640,
+      432,
+      64,
+      48
+    ],
+    "alias": "bridge1",
+    "name": "bridge",
+    "nameJP": "橋",
+    "biome": null,
+    "mat": null,
+    "type": null,
+    "render": null,
+    "colorMod": null,
+    "colorType": null,
+    "solid": false,
+    "walkable": true
+  },
+  "1": {
+    "id": 1,
+    "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
+    "rect": [
+      0,
+      96,
+      64,
+      48
+    ],
+    "alias": "floor_raw",
+    "name": "solid soil floor",
+    "nameJP": "固い土の床",
+    "biome": null,
+    "mat": "soil",
+    "type": null,
+    "render": null,
+    "colorMod": null,
+    "colorType": null,
+    "solid": false,
+    "walkable": true
+  },
+  "40": {
+    "id": 40,
+    "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
+    "rect": [
+      64,
+      144,
+      64,
+      48
+    ],
+    "alias": "floor_raw3",
+    "name": "soil floor",
+    "nameJP": "土の床",
+    "biome": null,
+    "mat": "soil",
+    "type": null,
+    "render": null,
+    "colorMod": null,
+    "colorType": null,
     "solid": false,
     "walkable": true
   },
   "99": {
     "id": 99,
     "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
     "rect": [
       128,
       96,
@@ -192,12 +400,18 @@ export const MAT = {
     "mat": "soil",
     "type": null,
     "render": null,
+    "colorMod": null,
+    "colorType": null,
     "solid": false,
     "walkable": true
   },
   "100": {
     "id": 100,
     "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
     "rect": [
       192,
       96,
@@ -211,12 +425,18 @@ export const MAT = {
     "mat": "soil",
     "type": null,
     "render": null,
+    "colorMod": null,
+    "colorType": null,
     "solid": false,
     "walkable": true
   },
   "37": {
     "id": 37,
     "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
     "rect": [
       128,
       144,
@@ -230,12 +450,43 @@ export const MAT = {
     "mat": "soil",
     "type": null,
     "render": null,
+    "colorMod": null,
+    "colorType": null,
+    "solid": false,
+    "walkable": true
+  },
+  "4": {
+    "id": 4,
+    "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
+    "rect": [
+      0,
+      336,
+      64,
+      48
+    ],
+    "alias": "field",
+    "name": "field",
+    "nameJP": "畑",
+    "biome": null,
+    "mat": "soil",
+    "type": null,
+    "render": null,
+    "colorMod": null,
+    "colorType": null,
     "solid": false,
     "walkable": true
   },
   "141": {
     "id": 141,
     "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
     "rect": [
       320,
       336,
@@ -249,12 +500,18 @@ export const MAT = {
     "mat": "soil",
     "type": null,
     "render": null,
+    "colorMod": null,
+    "colorType": null,
     "solid": false,
     "walkable": true
   },
   "33": {
     "id": 33,
     "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
     "rect": [
       0,
       144,
@@ -268,12 +525,18 @@ export const MAT = {
     "mat": "sand",
     "type": null,
     "render": null,
+    "colorMod": null,
+    "colorType": null,
     "solid": false,
     "walkable": true
   },
   "122": {
     "id": 122,
     "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
     "rect": [
       0,
       144,
@@ -287,12 +550,18 @@ export const MAT = {
     "mat": "sand",
     "type": null,
     "render": null,
+    "colorMod": null,
+    "colorType": null,
     "solid": false,
     "walkable": true
   },
   "74": {
     "id": 74,
     "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
     "rect": [
       192,
       144,
@@ -306,12 +575,43 @@ export const MAT = {
     "mat": "sand",
     "type": null,
     "render": null,
+    "colorMod": null,
+    "colorType": null,
+    "solid": false,
+    "walkable": true
+  },
+  "121": {
+    "id": 121,
+    "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
+    "rect": [
+      640,
+      144,
+      64,
+      48
+    ],
+    "alias": "floor_sand3",
+    "name": "red algae floor",
+    "nameJP": "紅藻の床",
+    "biome": "Sand",
+    "mat": "sand",
+    "type": null,
+    "render": null,
+    "colorMod": null,
+    "colorType": null,
     "solid": false,
     "walkable": true
   },
   "113": {
     "id": 113,
     "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
     "rect": [
       1024,
       48,
@@ -325,12 +625,18 @@ export const MAT = {
     "mat": "grass",
     "type": null,
     "render": null,
+    "colorMod": null,
+    "colorType": null,
     "solid": false,
     "walkable": true
   },
   "114": {
     "id": 114,
     "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
     "rect": [
       896,
       48,
@@ -344,12 +650,93 @@ export const MAT = {
     "mat": "grass",
     "type": null,
     "render": null,
+    "colorMod": null,
+    "colorType": null,
+    "solid": false,
+    "walkable": true
+  },
+  "34": {
+    "id": 34,
+    "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
+    "rect": [
+      0,
+      48,
+      64,
+      48
+    ],
+    "alias": "floor_grass",
+    "name": "lawn floor",
+    "nameJP": "芝生の床",
+    "biome": null,
+    "mat": "grass",
+    "type": null,
+    "render": null,
+    "colorMod": null,
+    "colorType": null,
+    "solid": false,
+    "walkable": true
+  },
+  "35": {
+    "id": 35,
+    "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
+    "rect": [
+      0,
+      192,
+      64,
+      48
+    ],
+    "alias": "floor_grassForest",
+    "name": "thick grass floor",
+    "nameJP": "茂みの床",
+    "biome": null,
+    "mat": "grass",
+    "type": null,
+    "render": null,
+    "colorMod": null,
+    "colorType": null,
+    "solid": false,
+    "walkable": true
+  },
+  "42": {
+    "id": 42,
+    "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
+    "rect": [
+      256,
+      192,
+      64,
+      48
+    ],
+    "alias": "floor_grassDeep",
+    "name": "deep grass floor",
+    "nameJP": "深い茂みの床",
+    "biome": null,
+    "mat": "grass",
+    "type": null,
+    "render": null,
+    "colorMod": null,
+    "colorType": null,
     "solid": false,
     "walkable": true
   },
   "36": {
     "id": 36,
     "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
     "rect": [
       384,
       336,
@@ -363,12 +750,18 @@ export const MAT = {
     "mat": "straw",
     "type": null,
     "render": null,
+    "colorMod": null,
+    "colorType": null,
     "solid": false,
     "walkable": true
   },
   "75": {
     "id": 75,
     "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
     "rect": [
       448,
       336,
@@ -382,12 +775,18 @@ export const MAT = {
     "mat": "grass",
     "type": null,
     "render": null,
+    "colorMod": null,
+    "colorType": null,
     "solid": false,
     "walkable": true
   },
   "101": {
     "id": 101,
     "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
     "rect": [
       64,
       96,
@@ -401,12 +800,18 @@ export const MAT = {
     "mat": "grass",
     "type": null,
     "render": null,
+    "colorMod": null,
+    "colorType": null,
     "solid": false,
     "walkable": true
   },
   "39": {
     "id": 39,
     "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
     "rect": [
       640,
       336,
@@ -420,12 +825,43 @@ export const MAT = {
     "mat": "snow",
     "type": null,
     "render": null,
+    "colorMod": null,
+    "colorType": null,
+    "solid": false,
+    "walkable": true
+  },
+  "56": {
+    "id": 56,
+    "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
+    "rect": [
+      640,
+      336,
+      64,
+      48
+    ],
+    "alias": "floor_snow2",
+    "name": "snow floor",
+    "nameJP": "雪の床",
+    "biome": "Snow",
+    "mat": "snow",
+    "type": null,
+    "render": null,
+    "colorMod": null,
+    "colorType": null,
     "solid": false,
     "walkable": true
   },
   "38": {
     "id": 38,
     "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
     "rect": [
       448,
       384,
@@ -439,12 +875,43 @@ export const MAT = {
     "mat": "ice",
     "type": null,
     "render": "floorEx",
+    "colorMod": null,
+    "colorType": null,
+    "solid": false,
+    "walkable": true
+  },
+  "21": {
+    "id": 21,
+    "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
+    "rect": [
+      320,
+      288,
+      64,
+      48
+    ],
+    "alias": "floor_log3",
+    "name": "log floor",
+    "nameJP": "丸太の床",
+    "biome": null,
+    "mat": "oak",
+    "type": null,
+    "render": null,
+    "colorMod": null,
+    "colorType": null,
     "solid": false,
     "walkable": true
   },
   "41": {
     "id": 41,
     "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
     "rect": [
       384,
       288,
@@ -458,12 +925,43 @@ export const MAT = {
     "mat": "oak",
     "type": null,
     "render": null,
+    "colorMod": null,
+    "colorType": null,
+    "solid": false,
+    "walkable": true
+  },
+  "45": {
+    "id": 45,
+    "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
+    "rect": [
+      448,
+      288,
+      64,
+      48
+    ],
+    "alias": "floor_tree",
+    "name": "wooden floor",
+    "nameJP": "いかだの床",
+    "biome": null,
+    "mat": "oak",
+    "type": null,
+    "render": null,
+    "colorMod": null,
+    "colorType": null,
     "solid": false,
     "walkable": true
   },
   "31": {
     "id": 31,
     "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
     "rect": [
       256,
       288,
@@ -477,12 +975,193 @@ export const MAT = {
     "mat": "oak",
     "type": null,
     "render": null,
+    "colorMod": null,
+    "colorType": null,
+    "solid": false,
+    "walkable": true
+  },
+  "46": {
+    "id": 46,
+    "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
+    "rect": [
+      128,
+      288,
+      64,
+      48
+    ],
+    "alias": "floor_log2",
+    "name": "plank floor",
+    "nameJP": "板の床",
+    "biome": null,
+    "mat": "oak",
+    "type": null,
+    "render": null,
+    "colorMod": null,
+    "colorType": null,
+    "solid": false,
+    "walkable": true
+  },
+  "47": {
+    "id": 47,
+    "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
+    "rect": [
+      192,
+      288,
+      64,
+      48
+    ],
+    "alias": "floor_log3",
+    "name": "plank floor",
+    "nameJP": "板の床",
+    "biome": null,
+    "mat": "oak",
+    "type": null,
+    "render": null,
+    "colorMod": null,
+    "colorType": null,
+    "solid": false,
+    "walkable": true
+  },
+  "55": {
+    "id": 55,
+    "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
+    "rect": [
+      0,
+      432,
+      64,
+      48
+    ],
+    "alias": "floor_log4",
+    "name": "plank floor",
+    "nameJP": "板の床",
+    "biome": null,
+    "mat": "oak",
+    "type": null,
+    "render": null,
+    "colorMod": null,
+    "colorType": null,
+    "solid": false,
+    "walkable": true
+  },
+  "5": {
+    "id": 5,
+    "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
+    "rect": [
+      64,
+      288,
+      64,
+      48
+    ],
+    "alias": "floor_log",
+    "name": "plank floor",
+    "nameJP": "板の床",
+    "biome": null,
+    "mat": "oak",
+    "type": null,
+    "render": null,
+    "colorMod": null,
+    "colorType": null,
+    "solid": false,
+    "walkable": true
+  },
+  "57": {
+    "id": 57,
+    "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
+    "rect": [
+      0,
+      288,
+      64,
+      48
+    ],
+    "alias": "floor_log4",
+    "name": "plank floor",
+    "nameJP": "板の床",
+    "biome": null,
+    "mat": "oak",
+    "type": null,
+    "render": null,
+    "colorMod": null,
+    "colorType": null,
+    "solid": false,
+    "walkable": true
+  },
+  "76": {
+    "id": 76,
+    "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
+    "rect": [
+      256,
+      432,
+      64,
+      48
+    ],
+    "alias": "floor_log5",
+    "name": "quality plank floor",
+    "nameJP": "上質板の床",
+    "biome": null,
+    "mat": "oak",
+    "type": null,
+    "render": "floorEx",
+    "colorMod": null,
+    "colorType": null,
+    "solid": false,
+    "walkable": true
+  },
+  "82": {
+    "id": 82,
+    "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
+    "rect": [
+      1024,
+      192,
+      64,
+      48
+    ],
+    "alias": "floor_log6",
+    "name": "plank pattern floor",
+    "nameJP": "木模様の床",
+    "biome": null,
+    "mat": "oak",
+    "type": null,
+    "render": null,
+    "colorMod": null,
+    "colorType": null,
     "solid": false,
     "walkable": true
   },
   "94": {
     "id": 94,
     "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
     "rect": [
       1088,
       288,
@@ -496,12 +1175,43 @@ export const MAT = {
     "mat": "oak",
     "type": null,
     "render": null,
+    "colorMod": null,
+    "colorType": null,
+    "solid": false,
+    "walkable": true
+  },
+  "95": {
+    "id": 95,
+    "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
+    "rect": [
+      1152,
+      288,
+      64,
+      48
+    ],
+    "alias": "floor_log15",
+    "name": "wooden grille floor",
+    "nameJP": "格子板の床",
+    "biome": null,
+    "mat": "oak",
+    "type": null,
+    "render": null,
+    "colorMod": null,
+    "colorType": null,
     "solid": false,
     "walkable": true
   },
   "123": {
     "id": 123,
     "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
     "rect": [
       1088,
       336,
@@ -515,12 +1225,18 @@ export const MAT = {
     "mat": "mud",
     "type": null,
     "render": null,
+    "colorMod": null,
+    "colorType": null,
     "solid": false,
     "walkable": true
   },
   "124": {
     "id": 124,
     "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
     "rect": [
       1152,
       336,
@@ -534,12 +1250,18 @@ export const MAT = {
     "mat": "pine",
     "type": null,
     "render": null,
+    "colorMod": null,
+    "colorType": null,
     "solid": false,
     "walkable": true
   },
   "131": {
     "id": 131,
     "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
     "rect": [
       1216,
       336,
@@ -553,12 +1275,18 @@ export const MAT = {
     "mat": "diorite",
     "type": null,
     "render": null,
+    "colorMod": null,
+    "colorType": null,
     "solid": false,
     "walkable": true
   },
   "134": {
     "id": 134,
     "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
     "rect": [
       1280,
       336,
@@ -572,12 +1300,18 @@ export const MAT = {
     "mat": "diorite",
     "type": null,
     "render": null,
+    "colorMod": null,
+    "colorType": null,
     "solid": false,
     "walkable": true
   },
   "135": {
     "id": 135,
     "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
     "rect": [
       1344,
       336,
@@ -591,12 +1325,18 @@ export const MAT = {
     "mat": "soil_deep",
     "type": null,
     "render": null,
+    "colorMod": null,
+    "colorType": null,
     "solid": false,
     "walkable": true
   },
   "136": {
     "id": 136,
     "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
     "rect": [
       1408,
       336,
@@ -610,12 +1350,18 @@ export const MAT = {
     "mat": "soil_deep",
     "type": null,
     "render": null,
+    "colorMod": null,
+    "colorType": null,
     "solid": false,
     "walkable": true
   },
   "83": {
     "id": 83,
     "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
     "rect": [
       1088,
       192,
@@ -629,12 +1375,118 @@ export const MAT = {
     "mat": "oak",
     "type": null,
     "render": null,
+    "colorMod": null,
+    "colorType": null,
+    "solid": false,
+    "walkable": true
+  },
+  "84": {
+    "id": 84,
+    "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
+    "rect": [
+      1152,
+      192,
+      64,
+      48
+    ],
+    "alias": "floor_log8",
+    "name": "plank pattern floor",
+    "nameJP": "木模様の床",
+    "biome": null,
+    "mat": "oak",
+    "type": null,
+    "render": null,
+    "colorMod": null,
+    "colorType": null,
+    "solid": false,
+    "walkable": true
+  },
+  "85": {
+    "id": 85,
+    "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
+    "rect": [
+      1280,
+      192,
+      64,
+      48
+    ],
+    "alias": "floor_log9",
+    "name": "plank pattern floor",
+    "nameJP": "木模様の床",
+    "biome": null,
+    "mat": "oak",
+    "type": null,
+    "render": null,
+    "colorMod": null,
+    "colorType": null,
+    "solid": false,
+    "walkable": true
+  },
+  "86": {
+    "id": 86,
+    "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
+    "rect": [
+      1408,
+      192,
+      64,
+      48
+    ],
+    "alias": "floor_log10",
+    "name": "plank pattern floor",
+    "nameJP": "木模様の床",
+    "biome": null,
+    "mat": "oak",
+    "type": null,
+    "render": null,
+    "colorMod": null,
+    "colorType": null,
+    "solid": false,
+    "walkable": true
+  },
+  "87": {
+    "id": 87,
+    "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
+    "rect": [
+      1536,
+      192,
+      64,
+      48
+    ],
+    "alias": "floor_log11",
+    "name": "plank pattern floor",
+    "nameJP": "木模様の床",
+    "biome": null,
+    "mat": "oak",
+    "type": null,
+    "render": null,
+    "colorMod": null,
+    "colorType": null,
     "solid": false,
     "walkable": true
   },
   "88": {
     "id": 88,
     "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
     "rect": [
       1664,
       192,
@@ -648,12 +1500,43 @@ export const MAT = {
     "mat": "oak",
     "type": null,
     "render": null,
+    "colorMod": null,
+    "colorType": null,
+    "solid": false,
+    "walkable": true
+  },
+  "89": {
+    "id": 89,
+    "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
+    "rect": [
+      1728,
+      192,
+      64,
+      48
+    ],
+    "alias": "floor_log13",
+    "name": "plank pattern floor",
+    "nameJP": "木模様の床",
+    "biome": null,
+    "mat": "oak",
+    "type": null,
+    "render": null,
+    "colorMod": null,
+    "colorType": null,
     "solid": false,
     "walkable": true
   },
   "30": {
     "id": 30,
     "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
     "rect": [
       512,
       384,
@@ -667,12 +1550,68 @@ export const MAT = {
     "mat": "oak",
     "type": null,
     "render": null,
+    "colorMod": null,
+    "colorType": null,
+    "solid": false,
+    "walkable": true
+  },
+  "27": {
+    "id": 27,
+    "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
+    "rect": [
+      512,
+      240,
+      64,
+      48
+    ],
+    "alias": "floor_brick",
+    "name": "brick floor",
+    "nameJP": "煉瓦の床",
+    "biome": null,
+    "mat": "soil",
+    "type": null,
+    "render": null,
+    "colorMod": null,
+    "colorType": null,
+    "solid": false,
+    "walkable": true
+  },
+  "48": {
+    "id": 48,
+    "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
+    "rect": [
+      512,
+      288,
+      64,
+      48
+    ],
+    "alias": "floor_brick2",
+    "name": "brick floor",
+    "nameJP": "煉瓦の床",
+    "biome": null,
+    "mat": "soil",
+    "type": null,
+    "render": null,
+    "colorMod": null,
+    "colorType": null,
     "solid": false,
     "walkable": true
   },
   "58": {
     "id": 58,
     "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
     "rect": [
       832,
       240,
@@ -686,12 +1625,18 @@ export const MAT = {
     "mat": "soil",
     "type": null,
     "render": null,
+    "colorMod": null,
+    "colorType": null,
     "solid": false,
     "walkable": true
   },
   "102": {
     "id": 102,
     "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
     "rect": [
       832,
       288,
@@ -705,12 +1650,18 @@ export const MAT = {
     "mat": "soil",
     "type": null,
     "render": null,
+    "colorMod": null,
+    "colorType": null,
     "solid": false,
     "walkable": true
   },
   "103": {
     "id": 103,
     "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
     "rect": [
       1088,
       240,
@@ -724,12 +1675,18 @@ export const MAT = {
     "mat": "soil",
     "type": null,
     "render": null,
+    "colorMod": null,
+    "colorType": null,
     "solid": false,
     "walkable": true
   },
   "6": {
     "id": 6,
     "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
     "rect": [
       64,
       240,
@@ -743,12 +1700,18 @@ export const MAT = {
     "mat": "granite",
     "type": null,
     "render": null,
+    "colorMod": 250,
+    "colorType": null,
     "solid": false,
     "walkable": true
   },
   "15": {
     "id": 15,
     "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
     "rect": [
       192,
       240,
@@ -762,12 +1725,18 @@ export const MAT = {
     "mat": "granite",
     "type": null,
     "render": null,
+    "colorMod": null,
+    "colorType": null,
     "solid": false,
     "walkable": true
   },
   "14": {
     "id": 14,
     "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
     "rect": [
       128,
       240,
@@ -781,12 +1750,18 @@ export const MAT = {
     "mat": "granite",
     "type": null,
     "render": null,
+    "colorMod": null,
+    "colorType": null,
     "solid": false,
     "walkable": true
   },
   "29": {
     "id": 29,
     "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
     "rect": [
       64,
       336,
@@ -800,12 +1775,18 @@ export const MAT = {
     "mat": "granite",
     "type": null,
     "render": null,
+    "colorMod": null,
+    "colorType": null,
     "solid": false,
     "walkable": true
   },
   "16": {
     "id": 16,
     "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
     "rect": [
       256,
       240,
@@ -819,12 +1800,18 @@ export const MAT = {
     "mat": "granite",
     "type": null,
     "render": null,
+    "colorMod": null,
+    "colorType": null,
     "solid": false,
     "walkable": true
   },
   "32": {
     "id": 32,
     "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
     "rect": [
       704,
       240,
@@ -838,12 +1825,18 @@ export const MAT = {
     "mat": "granite",
     "type": null,
     "render": null,
+    "colorMod": null,
+    "colorType": null,
     "solid": false,
     "walkable": true
   },
   "19": {
     "id": 19,
     "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
     "rect": [
       448,
       240,
@@ -857,12 +1850,18 @@ export const MAT = {
     "mat": "granite",
     "type": null,
     "render": null,
+    "colorMod": null,
+    "colorType": null,
     "solid": false,
     "walkable": true
   },
   "28": {
     "id": 28,
     "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
     "rect": [
       640,
       240,
@@ -876,12 +1875,18 @@ export const MAT = {
     "mat": "granite",
     "type": null,
     "render": null,
+    "colorMod": null,
+    "colorType": null,
     "solid": false,
     "walkable": true
   },
   "59": {
     "id": 59,
     "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
     "rect": [
       896,
       240,
@@ -895,12 +1900,18 @@ export const MAT = {
     "mat": "granite",
     "type": null,
     "render": null,
+    "colorMod": null,
+    "colorType": null,
     "solid": false,
     "walkable": true
   },
   "64": {
     "id": 64,
     "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
     "rect": [
       1216,
       240,
@@ -914,12 +1925,18 @@ export const MAT = {
     "mat": "granite",
     "type": null,
     "render": null,
+    "colorMod": null,
+    "colorType": null,
     "solid": false,
     "walkable": true
   },
   "61": {
     "id": 61,
     "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
     "rect": [
       896,
       192,
@@ -933,12 +1950,18 @@ export const MAT = {
     "mat": "granite",
     "type": null,
     "render": null,
+    "colorMod": null,
+    "colorType": null,
     "solid": false,
     "walkable": true
   },
   "12": {
     "id": 12,
     "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
     "rect": [
       320,
       384,
@@ -952,12 +1975,18 @@ export const MAT = {
     "mat": "granite",
     "type": null,
     "render": null,
+    "colorMod": null,
+    "colorType": null,
     "solid": false,
     "walkable": true
   },
   "52": {
     "id": 52,
     "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
     "rect": [
       320,
       432,
@@ -971,12 +2000,18 @@ export const MAT = {
     "mat": "granite",
     "type": null,
     "render": "floorEx",
+    "colorMod": null,
+    "colorType": null,
     "solid": false,
     "walkable": true
   },
   "53": {
     "id": 53,
     "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
     "rect": [
       384,
       432,
@@ -990,12 +2025,18 @@ export const MAT = {
     "mat": "granite",
     "type": null,
     "render": null,
+    "colorMod": null,
+    "colorType": null,
     "solid": false,
     "walkable": true
   },
   "106": {
     "id": 106,
     "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
     "rect": [
       1152,
       240,
@@ -1009,12 +2050,18 @@ export const MAT = {
     "mat": "granite",
     "type": null,
     "render": null,
+    "colorMod": null,
+    "colorType": null,
     "solid": false,
     "walkable": true
   },
   "108": {
     "id": 108,
     "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
     "rect": [
       1344,
       240,
@@ -1028,12 +2075,18 @@ export const MAT = {
     "mat": "granite",
     "type": null,
     "render": null,
+    "colorMod": null,
+    "colorType": null,
     "solid": false,
     "walkable": true
   },
   "109": {
     "id": 109,
     "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
     "rect": [
       1408,
       240,
@@ -1047,12 +2100,43 @@ export const MAT = {
     "mat": "granite",
     "type": null,
     "render": null,
+    "colorMod": null,
+    "colorType": null,
+    "solid": false,
+    "walkable": true
+  },
+  "117": {
+    "id": 117,
+    "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
+    "rect": [
+      1472,
+      240,
+      64,
+      48
+    ],
+    "alias": "floor_stone6",
+    "name": "stone floor",
+    "nameJP": "石の床",
+    "biome": null,
+    "mat": "granite",
+    "type": null,
+    "render": null,
+    "colorMod": 20,
+    "colorType": null,
     "solid": false,
     "walkable": true
   },
   "127": {
     "id": 127,
     "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
     "rect": [
       1600,
       240,
@@ -1066,12 +2150,18 @@ export const MAT = {
     "mat": "granite",
     "type": null,
     "render": null,
+    "colorMod": 20,
+    "colorType": null,
     "solid": false,
     "walkable": true
   },
   "128": {
     "id": 128,
     "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
     "rect": [
       1600,
       192,
@@ -1085,12 +2175,43 @@ export const MAT = {
     "mat": "granite",
     "type": null,
     "render": null,
+    "colorMod": 20,
+    "colorType": null,
+    "solid": false,
+    "walkable": true
+  },
+  "129": {
+    "id": 129,
+    "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
+    "rect": [
+      1664,
+      240,
+      64,
+      48
+    ],
+    "alias": "floor_stone9",
+    "name": "stone floor",
+    "nameJP": "石の床",
+    "biome": null,
+    "mat": "granite",
+    "type": null,
+    "render": null,
+    "colorMod": 20,
+    "colorType": null,
     "solid": false,
     "walkable": true
   },
   "17": {
     "id": 17,
     "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
     "rect": [
       320,
       240,
@@ -1104,12 +2225,18 @@ export const MAT = {
     "mat": "iron",
     "type": null,
     "render": null,
+    "colorMod": 250,
+    "colorType": null,
     "solid": false,
     "walkable": true
   },
   "18": {
     "id": 18,
     "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
     "rect": [
       384,
       240,
@@ -1123,12 +2250,18 @@ export const MAT = {
     "mat": "steel",
     "type": null,
     "render": "floorEx",
+    "colorMod": 250,
+    "colorType": null,
     "solid": false,
     "walkable": true
   },
   "115": {
     "id": 115,
     "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
     "rect": [
       1472,
       288,
@@ -1142,12 +2275,18 @@ export const MAT = {
     "mat": "copper",
     "type": null,
     "render": "floorEx",
+    "colorMod": 250,
+    "colorType": null,
     "solid": false,
     "walkable": true
   },
   "116": {
     "id": 116,
     "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
     "rect": [
       1536,
       288,
@@ -1161,12 +2300,18 @@ export const MAT = {
     "mat": "copper",
     "type": null,
     "render": "floorEx",
+    "colorMod": 250,
+    "colorType": null,
     "solid": false,
     "walkable": true
   },
   "118": {
     "id": 118,
     "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
     "rect": [
       1600,
       288,
@@ -1180,12 +2325,18 @@ export const MAT = {
     "mat": "iron",
     "type": null,
     "render": "floorEx",
+    "colorMod": null,
+    "colorType": null,
     "solid": false,
     "walkable": true
   },
   "119": {
     "id": 119,
     "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
     "rect": [
       1664,
       288,
@@ -1199,12 +2350,93 @@ export const MAT = {
     "mat": "iron",
     "type": null,
     "render": "floorEx",
+    "colorMod": null,
+    "colorType": null,
+    "solid": false,
+    "walkable": true
+  },
+  "120": {
+    "id": 120,
+    "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
+    "rect": [
+      1728,
+      288,
+      64,
+      48
+    ],
+    "alias": "floor_metal9",
+    "name": "metal floor",
+    "nameJP": "金属の床",
+    "biome": "Factory",
+    "mat": "iron",
+    "type": null,
+    "render": "floorEx",
+    "colorMod": null,
+    "colorType": null,
+    "solid": false,
+    "walkable": true
+  },
+  "132": {
+    "id": 132,
+    "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
+    "rect": [
+      1856,
+      288,
+      64,
+      48
+    ],
+    "alias": "floor_stage",
+    "name": "stage floor",
+    "nameJP": "ステージの床",
+    "biome": "Factory",
+    "mat": "emerald",
+    "type": null,
+    "render": "floorEx",
+    "colorMod": null,
+    "colorType": null,
+    "solid": false,
+    "walkable": true
+  },
+  "133": {
+    "id": 133,
+    "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
+    "rect": [
+      1856,
+      336,
+      64,
+      48
+    ],
+    "alias": "floor_stage2",
+    "name": "stage floor",
+    "nameJP": "ステージの床",
+    "biome": "Factory",
+    "mat": "emerald",
+    "type": null,
+    "render": "floorEx",
+    "colorMod": null,
+    "colorType": null,
     "solid": false,
     "walkable": true
   },
   "96": {
     "id": 96,
     "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
     "rect": [
       1280,
       288,
@@ -1218,12 +2450,43 @@ export const MAT = {
     "mat": "iron",
     "type": null,
     "render": "floorEx",
+    "colorMod": null,
+    "colorType": null,
+    "solid": false,
+    "walkable": true
+  },
+  "97": {
+    "id": 97,
+    "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
+    "rect": [
+      1344,
+      288,
+      64,
+      48
+    ],
+    "alias": "floor_metal4",
+    "name": "metal grille floor",
+    "nameJP": "金属格子の床",
+    "biome": "Factory",
+    "mat": "iron",
+    "type": null,
+    "render": "floorEx",
+    "colorMod": null,
+    "colorType": null,
     "solid": false,
     "walkable": true
   },
   "7": {
     "id": 7,
     "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
     "rect": [
       64,
       384,
@@ -1237,12 +2500,43 @@ export const MAT = {
     "mat": "rubinus",
     "type": null,
     "render": null,
+    "colorMod": null,
+    "colorType": null,
+    "solid": false,
+    "walkable": true
+  },
+  "9": {
+    "id": 9,
+    "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
+    "rect": [
+      192,
+      432,
+      64,
+      48
+    ],
+    "alias": "floor_carpet2",
+    "name": "carpet",
+    "nameJP": "カーペット",
+    "biome": null,
+    "mat": "cobalt",
+    "type": null,
+    "render": null,
+    "colorMod": null,
+    "colorType": null,
     "solid": false,
     "walkable": true
   },
   "24": {
     "id": 24,
     "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
     "rect": [
       0,
       384,
@@ -1256,12 +2550,18 @@ export const MAT = {
     "mat": "gold",
     "type": null,
     "render": null,
+    "colorMod": null,
+    "colorType": null,
     "solid": false,
     "walkable": true
   },
   "25": {
     "id": 25,
     "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
     "rect": [
       128,
       384,
@@ -1275,12 +2575,18 @@ export const MAT = {
     "mat": "rubinus",
     "type": null,
     "render": null,
+    "colorMod": null,
+    "colorType": null,
     "solid": false,
     "walkable": true
   },
   "26": {
     "id": 26,
     "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
     "rect": [
       128,
       432,
@@ -1294,12 +2600,18 @@ export const MAT = {
     "mat": "limestone",
     "type": null,
     "render": null,
+    "colorMod": null,
+    "colorType": null,
     "solid": false,
     "walkable": true
   },
   "60": {
     "id": 60,
     "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
     "rect": [
       960,
       240,
@@ -1313,12 +2625,18 @@ export const MAT = {
     "mat": "copper",
     "type": null,
     "render": null,
+    "colorMod": null,
+    "colorType": null,
     "solid": false,
     "walkable": true
   },
   "65": {
     "id": 65,
     "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
     "rect": [
       1024,
       240,
@@ -1332,12 +2650,18 @@ export const MAT = {
     "mat": "copper",
     "type": null,
     "render": null,
+    "colorMod": null,
+    "colorType": null,
     "solid": false,
     "walkable": true
   },
   "62": {
     "id": 62,
     "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
     "rect": [
       960,
       192,
@@ -1351,12 +2675,18 @@ export const MAT = {
     "mat": "meteorite",
     "type": null,
     "render": null,
+    "colorMod": null,
+    "colorType": null,
     "solid": false,
     "walkable": true
   },
   "63": {
     "id": 63,
     "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
     "rect": [
       832,
       192,
@@ -1370,12 +2700,18 @@ export const MAT = {
     "mat": "meteorite",
     "type": null,
     "render": null,
+    "colorMod": null,
+    "colorType": null,
     "solid": false,
     "walkable": true
   },
   "139": {
     "id": 139,
     "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
     "rect": [
       320,
       624,
@@ -1389,12 +2725,18 @@ export const MAT = {
     "mat": "rubinus",
     "type": null,
     "render": null,
+    "colorMod": null,
+    "colorType": null,
     "solid": false,
     "walkable": true
   },
   "8": {
     "id": 8,
     "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
     "rect": [
       64,
       432,
@@ -1408,12 +2750,18 @@ export const MAT = {
     "mat": "topaz",
     "type": null,
     "render": null,
+    "colorMod": null,
+    "colorType": null,
     "solid": false,
     "walkable": true
   },
   "105": {
     "id": 105,
     "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
     "rect": [
       1856,
       384,
@@ -1427,12 +2775,18 @@ export const MAT = {
     "mat": "mica",
     "type": null,
     "render": null,
+    "colorMod": null,
+    "colorType": null,
     "solid": false,
     "walkable": true
   },
   "78": {
     "id": 78,
     "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
     "rect": [
       960,
       384,
@@ -1446,12 +2800,18 @@ export const MAT = {
     "mat": "silver",
     "type": null,
     "render": null,
+    "colorMod": null,
+    "colorType": null,
     "solid": false,
     "walkable": true
   },
   "79": {
     "id": 79,
     "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
     "rect": [
       1024,
       384,
@@ -1465,12 +2825,18 @@ export const MAT = {
     "mat": "obsidian",
     "type": null,
     "render": null,
+    "colorMod": null,
+    "colorType": null,
     "solid": false,
     "walkable": true
   },
   "80": {
     "id": 80,
     "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
     "rect": [
       1088,
       384,
@@ -1484,12 +2850,18 @@ export const MAT = {
     "mat": "obsidian",
     "type": null,
     "render": null,
+    "colorMod": null,
+    "colorType": null,
     "solid": false,
     "walkable": true
   },
   "81": {
     "id": 81,
     "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
     "rect": [
       1152,
       384,
@@ -1503,12 +2875,93 @@ export const MAT = {
     "mat": "obsidian",
     "type": null,
     "render": null,
+    "colorMod": null,
+    "colorType": null,
+    "solid": false,
+    "walkable": true
+  },
+  "92": {
+    "id": 92,
+    "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
+    "rect": [
+      1216,
+      384,
+      64,
+      48
+    ],
+    "alias": "floor_carpet14",
+    "name": "modern carpet",
+    "nameJP": "モダンなカーペット",
+    "biome": null,
+    "mat": "slate",
+    "type": null,
+    "render": null,
+    "colorMod": null,
+    "colorType": null,
+    "solid": false,
+    "walkable": true
+  },
+  "93": {
+    "id": 93,
+    "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
+    "rect": [
+      1408,
+      384,
+      64,
+      48
+    ],
+    "alias": "floor_tatami",
+    "name": "Tatami",
+    "nameJP": "畳",
+    "biome": null,
+    "mat": "grass",
+    "type": null,
+    "render": null,
+    "colorMod": null,
+    "colorType": null,
+    "solid": false,
+    "walkable": true
+  },
+  "98": {
+    "id": 98,
+    "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
+    "rect": [
+      1600,
+      384,
+      64,
+      48
+    ],
+    "alias": "floor_tatami2",
+    "name": "Tatami",
+    "nameJP": "畳",
+    "biome": null,
+    "mat": "grass",
+    "type": null,
+    "render": null,
+    "colorMod": null,
+    "colorType": null,
     "solid": false,
     "walkable": true
   },
   "11": {
     "id": 11,
     "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
     "rect": [
       256,
       384,
@@ -1522,12 +2975,18 @@ export const MAT = {
     "mat": "glass",
     "type": null,
     "render": "floorEx",
+    "colorMod": null,
+    "colorType": null,
     "solid": false,
     "walkable": true
   },
   "13": {
     "id": 13,
     "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
     "rect": [
       384,
       384,
@@ -1541,12 +3000,18 @@ export const MAT = {
     "mat": "glass",
     "type": null,
     "render": "floorEx",
+    "colorMod": null,
+    "colorType": null,
     "solid": false,
     "walkable": true
   },
   "23": {
     "id": 23,
     "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
     "rect": [
       192,
       336,
@@ -1560,12 +3025,218 @@ export const MAT = {
     "mat": "marble",
     "type": null,
     "render": null,
+    "colorMod": null,
+    "colorType": null,
+    "solid": false,
+    "walkable": true
+  },
+  "66": {
+    "id": 66,
+    "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
+    "rect": [
+      1536,
+      576,
+      64,
+      48
+    ],
+    "alias": "floor_deco3",
+    "name": "tile floor",
+    "nameJP": "タイルの床",
+    "biome": null,
+    "mat": "marble",
+    "type": null,
+    "render": "floorEx",
+    "colorMod": null,
+    "colorType": null,
+    "solid": false,
+    "walkable": true
+  },
+  "69": {
+    "id": 69,
+    "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
+    "rect": [
+      1024,
+      576,
+      64,
+      48
+    ],
+    "alias": "floor_deco6",
+    "name": "tile floor",
+    "nameJP": "タイルの床",
+    "biome": null,
+    "mat": "silt",
+    "type": null,
+    "render": null,
+    "colorMod": null,
+    "colorType": null,
+    "solid": false,
+    "walkable": true
+  },
+  "67": {
+    "id": 67,
+    "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
+    "rect": [
+      0,
+      576,
+      64,
+      48
+    ],
+    "alias": "floor_deco4",
+    "name": "tile floor",
+    "nameJP": "タイルの床",
+    "biome": null,
+    "mat": "silt",
+    "type": null,
+    "render": null,
+    "colorMod": null,
+    "colorType": null,
+    "solid": false,
+    "walkable": true
+  },
+  "70": {
+    "id": 70,
+    "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
+    "rect": [
+      0,
+      624,
+      64,
+      48
+    ],
+    "alias": "floor_deco7",
+    "name": "tile floor",
+    "nameJP": "タイルの床",
+    "biome": null,
+    "mat": "silt",
+    "type": null,
+    "render": null,
+    "colorMod": null,
+    "colorType": null,
+    "solid": false,
+    "walkable": true
+  },
+  "68": {
+    "id": 68,
+    "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
+    "rect": [
+      512,
+      576,
+      64,
+      48
+    ],
+    "alias": "floor_deco5",
+    "name": "tile floor",
+    "nameJP": "タイルの床",
+    "biome": null,
+    "mat": "silt",
+    "type": null,
+    "render": null,
+    "colorMod": null,
+    "colorType": null,
+    "solid": false,
+    "walkable": true
+  },
+  "91": {
+    "id": 91,
+    "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
+    "rect": [
+      768,
+      576,
+      64,
+      48
+    ],
+    "alias": "floor_deco9",
+    "name": "tile floor",
+    "nameJP": "タイルの床",
+    "biome": null,
+    "mat": "silt",
+    "type": null,
+    "render": "floorEx",
+    "colorMod": null,
+    "colorType": null,
+    "solid": false,
+    "walkable": true
+  },
+  "71": {
+    "id": 71,
+    "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
+    "rect": [
+      512,
+      624,
+      64,
+      48
+    ],
+    "alias": "floor_cute",
+    "name": "cute floor",
+    "nameJP": "かわいい床",
+    "biome": null,
+    "mat": "silt",
+    "type": null,
+    "render": null,
+    "colorMod": null,
+    "colorType": null,
+    "solid": false,
+    "walkable": true
+  },
+  "137": {
+    "id": 137,
+    "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
+    "rect": [
+      768,
+      624,
+      64,
+      48
+    ],
+    "alias": "floor_cute1",
+    "name": "cute floor",
+    "nameJP": "かわいい床",
+    "biome": null,
+    "mat": "silt",
+    "type": null,
+    "render": null,
+    "colorMod": null,
+    "colorType": null,
     "solid": false,
     "walkable": true
   },
   "138": {
     "id": 138,
     "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
     "rect": [
       448,
       576,
@@ -1579,12 +3250,18 @@ export const MAT = {
     "mat": "silt",
     "type": null,
     "render": null,
+    "colorMod": null,
+    "colorType": null,
     "solid": false,
     "walkable": true
   },
   "140": {
     "id": 140,
     "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
     "rect": [
       384,
       624,
@@ -1598,12 +3275,18 @@ export const MAT = {
     "mat": "silt",
     "type": null,
     "render": null,
+    "colorMod": null,
+    "colorType": null,
     "solid": false,
     "walkable": true
   },
   "107": {
     "id": 107,
     "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
     "rect": [
       1280,
       240,
@@ -1617,12 +3300,18 @@ export const MAT = {
     "mat": "silt",
     "type": null,
     "render": null,
+    "colorMod": null,
+    "colorType": null,
     "solid": false,
     "walkable": true
   },
   "110": {
     "id": 110,
     "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
     "rect": [
       1920,
       384,
@@ -1636,12 +3325,18 @@ export const MAT = {
     "mat": "silt",
     "type": null,
     "render": null,
+    "colorMod": null,
+    "colorType": null,
     "solid": false,
     "walkable": true
   },
   "111": {
     "id": 111,
     "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
     "rect": [
       1984,
       384,
@@ -1655,12 +3350,18 @@ export const MAT = {
     "mat": "phyllite",
     "type": null,
     "render": null,
+    "colorMod": null,
+    "colorType": null,
     "solid": false,
     "walkable": true
   },
   "142": {
     "id": 142,
     "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
     "rect": [
       1600,
       336,
@@ -1674,12 +3375,68 @@ export const MAT = {
     "mat": "glass",
     "type": null,
     "render": null,
+    "colorMod": null,
+    "colorType": null,
+    "solid": false,
+    "walkable": true
+  },
+  "50": {
+    "id": 50,
+    "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
+    "rect": [
+      576,
+      384,
+      64,
+      48
+    ],
+    "alias": "floor_aquli1",
+    "name": "modern floor",
+    "nameJP": "モダンな床",
+    "biome": "Factory",
+    "mat": "steel",
+    "type": null,
+    "render": null,
+    "colorMod": null,
+    "colorType": null,
+    "solid": false,
+    "walkable": true
+  },
+  "51": {
+    "id": 51,
+    "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
+    "rect": [
+      640,
+      384,
+      64,
+      48
+    ],
+    "alias": "floor_aquli2",
+    "name": "modern floor",
+    "nameJP": "モダンな床",
+    "biome": "Factory",
+    "mat": "steel",
+    "type": null,
+    "render": null,
+    "colorMod": null,
+    "colorType": null,
     "solid": false,
     "walkable": true
   },
   "22": {
     "id": 22,
     "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
     "rect": [
       128,
       336,
@@ -1693,12 +3450,18 @@ export const MAT = {
     "mat": "glass",
     "type": null,
     "render": "floorEx",
+    "colorMod": null,
+    "colorType": null,
     "solid": false,
     "walkable": true
   },
   "49": {
     "id": 49,
     "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
     "rect": [
       576,
       336,
@@ -1712,12 +3475,18 @@ export const MAT = {
     "mat": "gold",
     "type": null,
     "render": null,
+    "colorMod": 0,
+    "colorType": null,
     "solid": false,
     "walkable": true
   },
   "73": {
     "id": 73,
     "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
     "rect": [
       576,
       144,
@@ -1731,12 +3500,18 @@ export const MAT = {
     "mat": "water",
     "type": "FloorWaterShallow",
     "render": "floorWater",
+    "colorMod": null,
+    "colorType": null,
     "solid": false,
     "walkable": false
   },
   "44": {
     "id": 44,
     "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
     "rect": [
       512,
       144,
@@ -1750,12 +3525,18 @@ export const MAT = {
     "mat": "water",
     "type": "FloorWaterShallow",
     "render": "floorWater",
+    "colorMod": null,
+    "colorType": null,
     "solid": false,
     "walkable": false
   },
   "43": {
     "id": 43,
     "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
     "rect": [
       448,
       144,
@@ -1769,12 +3550,18 @@ export const MAT = {
     "mat": "water",
     "type": "FloorWater",
     "render": "floorWater",
+    "colorMod": null,
+    "colorType": null,
     "solid": false,
     "walkable": false
   },
   "72": {
     "id": 72,
     "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
     "rect": [
       384,
       144,
@@ -1788,12 +3575,18 @@ export const MAT = {
     "mat": "water",
     "type": "FloorWaterDeep",
     "render": "floorWater",
+    "colorMod": null,
+    "colorType": null,
     "solid": false,
     "walkable": false
   },
   "20": {
     "id": 20,
     "atlas": "floors",
+    "cell": [
+      64,
+      48
+    ],
     "rect": [
       0,
       1056,
@@ -1807,6 +3600,8 @@ export const MAT = {
     "mat": "magma",
     "type": null,
     "render": null,
+    "colorMod": null,
+    "colorType": null,
     "solid": false,
     "walkable": true
   }
@@ -1815,6 +3610,10 @@ export const MAT = {
   "213": {
     "id": 213,
     "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
     "rect": [
       1728,
       1664,
@@ -1828,6 +3627,8 @@ export const MAT = {
     "type": "Pillar",
     "render": "pillar",
     "transparent": true,
+    "colorMod": null,
+    "colorType": null,
     "h": 1.0,
     "solid": false,
     "walkable": false
@@ -1835,6 +3636,10 @@ export const MAT = {
   "0": {
     "id": 0,
     "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
     "rect": [
       448,
       64,
@@ -1848,6 +3653,8 @@ export const MAT = {
     "type": "None",
     "render": null,
     "transparent": null,
+    "colorMod": null,
+    "colorType": null,
     "h": 1.0,
     "solid": true,
     "walkable": false
@@ -1855,6 +3662,10 @@ export const MAT = {
   "128": {
     "id": 128,
     "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
     "rect": [
       704,
       0,
@@ -1868,6 +3679,8 @@ export const MAT = {
     "type": "InvisiBlock",
     "render": null,
     "transparent": null,
+    "colorMod": null,
+    "colorType": null,
     "h": 1.0,
     "solid": true,
     "walkable": false
@@ -1875,6 +3688,10 @@ export const MAT = {
   "149": {
     "id": 149,
     "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
     "rect": [
       768,
       0,
@@ -1888,6 +3705,8 @@ export const MAT = {
     "type": null,
     "render": null,
     "transparent": null,
+    "colorMod": null,
+    "colorType": null,
     "h": 1.0,
     "solid": true,
     "walkable": false
@@ -1895,6 +3714,10 @@ export const MAT = {
   "150": {
     "id": 150,
     "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
     "rect": [
       832,
       0,
@@ -1908,6 +3731,138 @@ export const MAT = {
     "type": null,
     "render": null,
     "transparent": null,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": true,
+    "walkable": false
+  },
+  "13": {
+    "id": 13,
+    "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
+    "rect": [
+      256,
+      448,
+      64,
+      64
+    ],
+    "alias": "scaffold",
+    "name": "scaffold",
+    "nameJP": "足場",
+    "mat": "oak",
+    "type": "Scaffold",
+    "render": "scaffold",
+    "transparent": null,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": true,
+    "walkable": false
+  },
+  "28": {
+    "id": 28,
+    "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
+    "rect": [
+      512,
+      448,
+      64,
+      64
+    ],
+    "alias": "block_pillar",
+    "name": "scaffold",
+    "nameJP": "足場",
+    "mat": "granite",
+    "type": "Scaffold",
+    "render": "scaffold",
+    "transparent": null,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": true,
+    "walkable": false
+  },
+  "45": {
+    "id": 45,
+    "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
+    "rect": [
+      128,
+      448,
+      64,
+      64
+    ],
+    "alias": "ladder",
+    "name": "ladder",
+    "nameJP": "ハシゴ",
+    "mat": "oak",
+    "type": "Ladder",
+    "render": "ladder",
+    "transparent": null,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": true,
+    "walkable": false
+  },
+  "159": {
+    "id": 159,
+    "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
+    "rect": [
+      64,
+      448,
+      64,
+      64
+    ],
+    "alias": "ladder2",
+    "name": "ladder",
+    "nameJP": "ハシゴ",
+    "mat": "oak",
+    "type": "Ladder",
+    "render": "ladder",
+    "transparent": null,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": true,
+    "walkable": false
+  },
+  "1": {
+    "id": 1,
+    "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
+    "rect": [
+      0,
+      64,
+      64,
+      64
+    ],
+    "alias": "block_raw",
+    "name": "soil block",
+    "nameJP": "土のブロック",
+    "mat": "soil",
+    "type": null,
+    "render": null,
+    "transparent": null,
+    "colorMod": null,
+    "colorType": null,
     "h": 1.0,
     "solid": true,
     "walkable": false
@@ -1915,6 +3870,10 @@ export const MAT = {
   "205": {
     "id": 205,
     "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
     "rect": [
       448,
       128,
@@ -1928,6 +3887,86 @@ export const MAT = {
     "type": null,
     "render": null,
     "transparent": null,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": true,
+    "walkable": false
+  },
+  "167": {
+    "id": 167,
+    "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
+    "rect": [
+      576,
+      192,
+      64,
+      64
+    ],
+    "alias": "block_raw2",
+    "name": "soil block covered with vines",
+    "nameJP": "蔦の生えた土のブロック",
+    "mat": "soil",
+    "type": null,
+    "render": null,
+    "transparent": null,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": true,
+    "walkable": false
+  },
+  "114": {
+    "id": 114,
+    "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
+    "rect": [
+      0,
+      192,
+      64,
+      64
+    ],
+    "alias": "block_raw_vine",
+    "name": "soil block covered with roots",
+    "nameJP": "根に覆われた土のブロック",
+    "mat": "soil",
+    "type": null,
+    "render": null,
+    "transparent": null,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": true,
+    "walkable": false
+  },
+  "165": {
+    "id": 165,
+    "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
+    "rect": [
+      896,
+      192,
+      64,
+      64
+    ],
+    "alias": "block_natural",
+    "name": "grass block",
+    "nameJP": "草のブロック",
+    "mat": "grass",
+    "type": null,
+    "render": null,
+    "transparent": null,
+    "colorMod": null,
+    "colorType": null,
     "h": 1.0,
     "solid": true,
     "walkable": false
@@ -1935,6 +3974,10 @@ export const MAT = {
   "33": {
     "id": 33,
     "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
     "rect": [
       256,
       64,
@@ -1948,6 +3991,8 @@ export const MAT = {
     "type": null,
     "render": null,
     "transparent": null,
+    "colorMod": null,
+    "colorType": null,
     "h": 1.0,
     "solid": true,
     "walkable": false
@@ -1955,6 +4000,10 @@ export const MAT = {
   "34": {
     "id": 34,
     "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
     "rect": [
       384,
       128,
@@ -1968,6 +4017,8 @@ export const MAT = {
     "type": null,
     "render": null,
     "transparent": null,
+    "colorMod": null,
+    "colorType": null,
     "h": 1.0,
     "solid": true,
     "walkable": false
@@ -1975,6 +4026,10 @@ export const MAT = {
   "36": {
     "id": 36,
     "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
     "rect": [
       896,
       64,
@@ -1988,6 +4043,8 @@ export const MAT = {
     "type": null,
     "render": null,
     "transparent": null,
+    "colorMod": null,
+    "colorType": null,
     "h": 1.0,
     "solid": true,
     "walkable": false
@@ -1995,6 +4052,10 @@ export const MAT = {
   "35": {
     "id": 35,
     "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
     "rect": [
       896,
       128,
@@ -2008,6 +4069,8 @@ export const MAT = {
     "type": null,
     "render": "blockEx",
     "transparent": null,
+    "colorMod": null,
+    "colorType": null,
     "h": 1.0,
     "solid": true,
     "walkable": false
@@ -2015,6 +4078,10 @@ export const MAT = {
   "8": {
     "id": 8,
     "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
     "rect": [
       384,
       64,
@@ -2028,6 +4095,8 @@ export const MAT = {
     "type": null,
     "render": null,
     "transparent": null,
+    "colorMod": null,
+    "colorType": null,
     "h": 1.0,
     "solid": true,
     "walkable": false
@@ -2035,6 +4104,10 @@ export const MAT = {
   "30": {
     "id": 30,
     "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
     "rect": [
       512,
       128,
@@ -2048,6 +4121,8 @@ export const MAT = {
     "type": null,
     "render": null,
     "transparent": null,
+    "colorMod": null,
+    "colorType": null,
     "h": 1.0,
     "solid": true,
     "walkable": false
@@ -2055,6 +4130,10 @@ export const MAT = {
   "31": {
     "id": 31,
     "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
     "rect": [
       640,
       128,
@@ -2068,6 +4147,8 @@ export const MAT = {
     "type": null,
     "render": null,
     "transparent": null,
+    "colorMod": null,
+    "colorType": null,
     "h": 1.0,
     "solid": true,
     "walkable": false
@@ -2075,6 +4156,10 @@ export const MAT = {
   "32": {
     "id": 32,
     "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
     "rect": [
       768,
       128,
@@ -2088,6 +4173,8 @@ export const MAT = {
     "type": null,
     "render": null,
     "transparent": null,
+    "colorMod": null,
+    "colorType": null,
     "h": 1.0,
     "solid": true,
     "walkable": false
@@ -2095,6 +4182,10 @@ export const MAT = {
   "145": {
     "id": 145,
     "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
     "rect": [
       320,
       64,
@@ -2108,6 +4199,8 @@ export const MAT = {
     "type": null,
     "render": "blockEx",
     "transparent": null,
+    "colorMod": null,
+    "colorType": null,
     "h": 1.0,
     "solid": true,
     "walkable": false
@@ -2115,6 +4208,10 @@ export const MAT = {
   "146": {
     "id": 146,
     "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
     "rect": [
       320,
       128,
@@ -2128,6 +4225,8 @@ export const MAT = {
     "type": null,
     "render": "blockEx",
     "transparent": null,
+    "colorMod": null,
+    "colorType": null,
     "h": 1.0,
     "solid": true,
     "walkable": false
@@ -2135,6 +4234,10 @@ export const MAT = {
   "17": {
     "id": 17,
     "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
     "rect": [
       64,
       256,
@@ -2148,6 +4251,8 @@ export const MAT = {
     "type": null,
     "render": null,
     "transparent": null,
+    "colorMod": null,
+    "colorType": null,
     "h": 1.0,
     "solid": true,
     "walkable": false
@@ -2155,6 +4260,10 @@ export const MAT = {
   "22": {
     "id": 22,
     "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
     "rect": [
       384,
       256,
@@ -2168,13 +4277,97 @@ export const MAT = {
     "type": null,
     "render": null,
     "transparent": null,
+    "colorMod": null,
+    "colorType": null,
     "h": 1.0,
     "solid": true,
+    "walkable": false
+  },
+  "187": {
+    "id": 187,
+    "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
+    "rect": [
+      960,
+      128,
+      64,
+      64
+    ],
+    "alias": "block_undersea",
+    "name": "undersea block",
+    "nameJP": "海底のブロック",
+    "mat": "granite",
+    "type": "BlockOpen",
+    "render": null,
+    "transparent": true,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": false,
+    "walkable": false
+  },
+  "188": {
+    "id": 188,
+    "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
+    "rect": [
+      1280,
+      128,
+      64,
+      64
+    ],
+    "alias": "block_undersea2",
+    "name": "undersea block",
+    "nameJP": "海底のブロック",
+    "mat": "granite",
+    "type": "BlockOpen",
+    "render": null,
+    "transparent": true,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": false,
+    "walkable": false
+  },
+  "189": {
+    "id": 189,
+    "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
+    "rect": [
+      1088,
+      192,
+      64,
+      64
+    ],
+    "alias": "block_coal",
+    "name": "coral block",
+    "nameJP": "珊瑚のブロック",
+    "mat": "coral",
+    "type": "BlockOpen",
+    "render": null,
+    "transparent": true,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": false,
     "walkable": false
   },
   "9": {
     "id": 9,
     "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
     "rect": [
       128,
       64,
@@ -2188,6 +4381,8 @@ export const MAT = {
     "type": null,
     "render": null,
     "transparent": null,
+    "colorMod": null,
+    "colorType": null,
     "h": 1.0,
     "solid": true,
     "walkable": false
@@ -2195,6 +4390,10 @@ export const MAT = {
   "143": {
     "id": 143,
     "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
     "rect": [
       192,
       64,
@@ -2208,6 +4407,8 @@ export const MAT = {
     "type": null,
     "render": null,
     "transparent": null,
+    "colorMod": null,
+    "colorType": null,
     "h": 1.0,
     "solid": true,
     "walkable": false
@@ -2215,6 +4416,10 @@ export const MAT = {
   "16": {
     "id": 16,
     "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
     "rect": [
       0,
       256,
@@ -2228,6 +4433,8 @@ export const MAT = {
     "type": null,
     "render": null,
     "transparent": null,
+    "colorMod": null,
+    "colorType": null,
     "h": 1.0,
     "solid": true,
     "walkable": false
@@ -2235,6 +4442,10 @@ export const MAT = {
   "19": {
     "id": 19,
     "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
     "rect": [
       192,
       256,
@@ -2248,6 +4459,8 @@ export const MAT = {
     "type": null,
     "render": null,
     "transparent": null,
+    "colorMod": null,
+    "colorType": null,
     "h": 1.0,
     "solid": true,
     "walkable": false
@@ -2255,6 +4468,10 @@ export const MAT = {
   "20": {
     "id": 20,
     "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
     "rect": [
       256,
       256,
@@ -2268,6 +4485,8 @@ export const MAT = {
     "type": null,
     "render": null,
     "transparent": null,
+    "colorMod": null,
+    "colorType": null,
     "h": 1.0,
     "solid": true,
     "walkable": false
@@ -2275,6 +4494,10 @@ export const MAT = {
   "21": {
     "id": 21,
     "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
     "rect": [
       320,
       256,
@@ -2288,6 +4511,34 @@ export const MAT = {
     "type": null,
     "render": null,
     "transparent": null,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": true,
+    "walkable": false
+  },
+  "129": {
+    "id": 129,
+    "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
+    "rect": [
+      1152,
+      64,
+      64,
+      64
+    ],
+    "alias": "block_rock6",
+    "name": "stone block",
+    "nameJP": "石のブロック",
+    "mat": "granite",
+    "type": null,
+    "render": null,
+    "transparent": null,
+    "colorMod": null,
+    "colorType": null,
     "h": 1.0,
     "solid": true,
     "walkable": false
@@ -2295,6 +4546,10 @@ export const MAT = {
   "140": {
     "id": 140,
     "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
     "rect": [
       320,
       192,
@@ -2308,6 +4563,34 @@ export const MAT = {
     "type": null,
     "render": null,
     "transparent": null,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": true,
+    "walkable": false
+  },
+  "171": {
+    "id": 171,
+    "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
+    "rect": [
+      1152,
+      128,
+      64,
+      64
+    ],
+    "alias": "block_metal",
+    "name": "metal block",
+    "nameJP": "金属のブロック",
+    "mat": "copper",
+    "type": null,
+    "render": null,
+    "transparent": null,
+    "colorMod": null,
+    "colorType": null,
     "h": 1.0,
     "solid": true,
     "walkable": false
@@ -2315,6 +4598,10 @@ export const MAT = {
   "124": {
     "id": 124,
     "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
     "rect": [
       64,
       64,
@@ -2328,6 +4615,8 @@ export const MAT = {
     "type": null,
     "render": null,
     "transparent": null,
+    "colorMod": null,
+    "colorType": null,
     "h": 1.0,
     "solid": true,
     "walkable": false
@@ -2335,6 +4624,10 @@ export const MAT = {
   "141": {
     "id": 141,
     "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
     "rect": [
       64,
       128,
@@ -2348,6 +4641,8 @@ export const MAT = {
     "type": null,
     "render": null,
     "transparent": null,
+    "colorMod": null,
+    "colorType": null,
     "h": 1.0,
     "solid": true,
     "walkable": false
@@ -2355,6 +4650,10 @@ export const MAT = {
   "10": {
     "id": 10,
     "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
     "rect": [
       512,
       64,
@@ -2368,6 +4667,8 @@ export const MAT = {
     "type": null,
     "render": null,
     "transparent": null,
+    "colorMod": null,
+    "colorType": null,
     "h": 1.0,
     "solid": true,
     "walkable": false
@@ -2375,6 +4676,10 @@ export const MAT = {
   "12": {
     "id": 12,
     "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
     "rect": [
       640,
       64,
@@ -2388,6 +4693,8 @@ export const MAT = {
     "type": null,
     "render": "blockEx",
     "transparent": null,
+    "colorMod": null,
+    "colorType": null,
     "h": 1.0,
     "solid": true,
     "walkable": false
@@ -2395,6 +4702,10 @@ export const MAT = {
   "14": {
     "id": 14,
     "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
     "rect": [
       768,
       64,
@@ -2408,6 +4719,8 @@ export const MAT = {
     "type": null,
     "render": null,
     "transparent": null,
+    "colorMod": null,
+    "colorType": null,
     "h": 1.0,
     "solid": true,
     "walkable": false
@@ -2415,6 +4728,10 @@ export const MAT = {
   "15": {
     "id": 15,
     "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
     "rect": [
       256,
       128,
@@ -2428,6 +4745,8 @@ export const MAT = {
     "type": null,
     "render": "blockEx",
     "transparent": true,
+    "colorMod": null,
+    "colorType": null,
     "h": 1.0,
     "solid": false,
     "walkable": false
@@ -2435,6 +4754,10 @@ export const MAT = {
   "18": {
     "id": 18,
     "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
     "rect": [
       128,
       256,
@@ -2448,6 +4771,8 @@ export const MAT = {
     "type": null,
     "render": null,
     "transparent": null,
+    "colorMod": null,
+    "colorType": null,
     "h": 1.0,
     "solid": true,
     "walkable": false
@@ -2455,6 +4780,10 @@ export const MAT = {
   "201": {
     "id": 201,
     "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
     "rect": [
       128,
       192,
@@ -2468,6 +4797,8 @@ export const MAT = {
     "type": null,
     "render": null,
     "transparent": null,
+    "colorMod": null,
+    "colorType": null,
     "h": 1.0,
     "solid": true,
     "walkable": false
@@ -2475,6 +4806,10 @@ export const MAT = {
   "23": {
     "id": 23,
     "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
     "rect": [
       448,
       256,
@@ -2488,6 +4823,8 @@ export const MAT = {
     "type": null,
     "render": "blockEx",
     "transparent": null,
+    "colorMod": null,
+    "colorType": null,
     "h": 1.0,
     "solid": true,
     "walkable": false
@@ -2495,6 +4832,10 @@ export const MAT = {
   "24": {
     "id": 24,
     "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
     "rect": [
       512,
       256,
@@ -2508,6 +4849,8 @@ export const MAT = {
     "type": null,
     "render": null,
     "transparent": null,
+    "colorMod": null,
+    "colorType": null,
     "h": 1.0,
     "solid": true,
     "walkable": false
@@ -2515,6 +4858,10 @@ export const MAT = {
   "191": {
     "id": 191,
     "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
     "rect": [
       1280,
       64,
@@ -2528,6 +4875,8 @@ export const MAT = {
     "type": null,
     "render": null,
     "transparent": null,
+    "colorMod": null,
+    "colorType": null,
     "h": 1.0,
     "solid": true,
     "walkable": false
@@ -2535,6 +4884,10 @@ export const MAT = {
   "192": {
     "id": 192,
     "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
     "rect": [
       1472,
       64,
@@ -2548,6 +4901,8 @@ export const MAT = {
     "type": null,
     "render": null,
     "transparent": null,
+    "colorMod": null,
+    "colorType": null,
     "h": 1.0,
     "solid": true,
     "walkable": false
@@ -2555,6 +4910,10 @@ export const MAT = {
   "196": {
     "id": 196,
     "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
     "rect": [
       1600,
       64,
@@ -2568,6 +4927,34 @@ export const MAT = {
     "type": null,
     "render": null,
     "transparent": null,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": true,
+    "walkable": false
+  },
+  "193": {
+    "id": 193,
+    "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
+    "rect": [
+      1344,
+      64,
+      64,
+      64
+    ],
+    "alias": "block_sponge2",
+    "name": "sponage block",
+    "nameJP": "スポンジのブロック",
+    "mat": "cream",
+    "type": null,
+    "render": null,
+    "transparent": null,
+    "colorMod": null,
+    "colorType": null,
     "h": 1.0,
     "solid": true,
     "walkable": false
@@ -2575,6 +4962,10 @@ export const MAT = {
   "194": {
     "id": 194,
     "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
     "rect": [
       1536,
       64,
@@ -2588,6 +4979,8 @@ export const MAT = {
     "type": null,
     "render": null,
     "transparent": null,
+    "colorMod": null,
+    "colorType": null,
     "h": 1.0,
     "solid": true,
     "walkable": false
@@ -2595,6 +4988,10 @@ export const MAT = {
   "25": {
     "id": 25,
     "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
     "rect": [
       576,
       256,
@@ -2608,6 +5005,34 @@ export const MAT = {
     "type": null,
     "render": null,
     "transparent": null,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": true,
+    "walkable": false
+  },
+  "206": {
+    "id": 206,
+    "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
+    "rect": [
+      1536,
+      128,
+      64,
+      64
+    ],
+    "alias": "block_alien",
+    "name": "alien block",
+    "nameJP": "エイリアンのブロック",
+    "mat": "slate",
+    "type": null,
+    "render": null,
+    "transparent": null,
+    "colorMod": null,
+    "colorType": null,
     "h": 1.0,
     "solid": true,
     "walkable": false
@@ -2615,6 +5040,10 @@ export const MAT = {
   "207": {
     "id": 207,
     "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
     "rect": [
       1664,
       128,
@@ -2628,6 +5057,8 @@ export const MAT = {
     "type": null,
     "render": null,
     "transparent": null,
+    "colorMod": null,
+    "colorType": null,
     "h": 1.0,
     "solid": true,
     "walkable": false
@@ -2635,6 +5066,10 @@ export const MAT = {
   "138": {
     "id": 138,
     "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
     "rect": [
       704,
       256,
@@ -2648,6 +5083,8 @@ export const MAT = {
     "type": null,
     "render": null,
     "transparent": null,
+    "colorMod": null,
+    "colorType": null,
     "h": 1.0,
     "solid": true,
     "walkable": false
@@ -2655,6 +5092,10 @@ export const MAT = {
   "50": {
     "id": 50,
     "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
     "rect": [
       640,
       256,
@@ -2668,6 +5109,8 @@ export const MAT = {
     "type": null,
     "render": null,
     "transparent": null,
+    "colorMod": null,
+    "colorType": null,
     "h": 1.0,
     "solid": true,
     "walkable": false
@@ -2675,6 +5118,10 @@ export const MAT = {
   "151": {
     "id": 151,
     "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
     "rect": [
       768,
       256,
@@ -2688,6 +5135,8 @@ export const MAT = {
     "type": null,
     "render": null,
     "transparent": null,
+    "colorMod": null,
+    "colorType": null,
     "h": 1.0,
     "solid": true,
     "walkable": false
@@ -2695,6 +5144,10 @@ export const MAT = {
   "152": {
     "id": 152,
     "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
     "rect": [
       832,
       256,
@@ -2708,6 +5161,8 @@ export const MAT = {
     "type": null,
     "render": null,
     "transparent": null,
+    "colorMod": null,
+    "colorType": null,
     "h": 1.0,
     "solid": true,
     "walkable": false
@@ -2715,6 +5170,10 @@ export const MAT = {
   "53": {
     "id": 53,
     "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
     "rect": [
       192,
       320,
@@ -2728,6 +5187,8 @@ export const MAT = {
     "type": null,
     "render": "liquid",
     "transparent": null,
+    "colorMod": null,
+    "colorType": null,
     "h": 1.0,
     "solid": true,
     "walkable": false
@@ -2735,6 +5196,10 @@ export const MAT = {
   "97": {
     "id": 97,
     "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
     "rect": [
       1024,
       64,
@@ -2748,6 +5213,502 @@ export const MAT = {
     "type": null,
     "render": null,
     "transparent": null,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": true,
+    "walkable": false
+  },
+  "132": {
+    "id": 132,
+    "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
+    "rect": [
+      1664,
+      128,
+      64,
+      64
+    ],
+    "alias": "block_ship",
+    "name": "ship block",
+    "nameJP": "船のブロック1",
+    "mat": null,
+    "type": "BlockShip",
+    "render": "ramp",
+    "transparent": null,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": true,
+    "walkable": false
+  },
+  "133": {
+    "id": 133,
+    "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
+    "rect": [
+      1536,
+      64,
+      64,
+      64
+    ],
+    "alias": "block_ship2",
+    "name": "ship block",
+    "nameJP": "船のブロック2",
+    "mat": null,
+    "type": "BlockShip",
+    "render": "ramp",
+    "transparent": null,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": true,
+    "walkable": false
+  },
+  "134": {
+    "id": 134,
+    "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
+    "rect": [
+      1792,
+      64,
+      64,
+      64
+    ],
+    "alias": "block_ship3",
+    "name": "ship block",
+    "nameJP": "船のブロック3",
+    "mat": null,
+    "type": "BlockShip",
+    "render": "ramp",
+    "transparent": null,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": true,
+    "walkable": false
+  },
+  "3": {
+    "id": 3,
+    "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
+    "rect": [
+      0,
+      1024,
+      64,
+      64
+    ],
+    "alias": "ramp",
+    "name": "natural ramp",
+    "nameJP": "自然の傾斜",
+    "mat": "soil",
+    "type": "Slope",
+    "render": "ramp",
+    "transparent": null,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": true,
+    "walkable": false
+  },
+  "6": {
+    "id": 6,
+    "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
+    "rect": [
+      256,
+      1024,
+      64,
+      64
+    ],
+    "alias": "ramp2",
+    "name": "stone ramp",
+    "nameJP": "石の傾斜",
+    "mat": "granite",
+    "type": "Slope",
+    "render": "ramp",
+    "transparent": null,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": true,
+    "walkable": false
+  },
+  "29": {
+    "id": 29,
+    "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
+    "rect": [
+      768,
+      1024,
+      64,
+      64
+    ],
+    "alias": "ramp3",
+    "name": "plank ramp",
+    "nameJP": "板の傾斜",
+    "mat": "oak",
+    "type": "Slope",
+    "render": "ramp",
+    "transparent": null,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": true,
+    "walkable": false
+  },
+  "4": {
+    "id": 4,
+    "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
+    "rect": [
+      256,
+      1152,
+      64,
+      64
+    ],
+    "alias": "stairs",
+    "name": "stone stairs",
+    "nameJP": "石の階段",
+    "mat": "granite",
+    "type": "Stairs",
+    "render": "ramp",
+    "transparent": null,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": true,
+    "walkable": false
+  },
+  "46": {
+    "id": 46,
+    "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
+    "rect": [
+      512,
+      1152,
+      64,
+      64
+    ],
+    "alias": "stairs_plank",
+    "name": "plank stairs",
+    "nameJP": "板の階段",
+    "mat": "oak",
+    "type": "Stairs",
+    "render": "ramp",
+    "transparent": null,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": true,
+    "walkable": false
+  },
+  "106": {
+    "id": 106,
+    "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
+    "rect": [
+      1024,
+      1152,
+      64,
+      64
+    ],
+    "alias": "stairs_stone",
+    "name": "stone stairs",
+    "nameJP": "石の階段",
+    "mat": "granite",
+    "type": "Stairs",
+    "render": "ramp",
+    "transparent": null,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": true,
+    "walkable": false
+  },
+  "172": {
+    "id": 172,
+    "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
+    "rect": [
+      1024,
+      1280,
+      64,
+      64
+    ],
+    "alias": "stairs_factory",
+    "name": "skeleton stairs",
+    "nameJP": "スケルトン階段",
+    "mat": "oak",
+    "type": "Stairs",
+    "render": "ramp",
+    "transparent": null,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": true,
+    "walkable": false
+  },
+  "173": {
+    "id": 173,
+    "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
+    "rect": [
+      1024,
+      1344,
+      64,
+      64
+    ],
+    "alias": "stairs_factory2",
+    "name": "skeleton stairs",
+    "nameJP": "スケルトン階段",
+    "mat": "oak",
+    "type": "Stairs",
+    "render": "ramp",
+    "transparent": null,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": true,
+    "walkable": false
+  },
+  "174": {
+    "id": 174,
+    "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
+    "rect": [
+      1280,
+      1280,
+      64,
+      64
+    ],
+    "alias": "stairs_shelf",
+    "name": "shelf stairs",
+    "nameJP": "箪笥階段",
+    "mat": "oak",
+    "type": "Stairs",
+    "render": "ramp",
+    "transparent": null,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": true,
+    "walkable": false
+  },
+  "154": {
+    "id": 154,
+    "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
+    "rect": [
+      1280,
+      1152,
+      64,
+      64
+    ],
+    "alias": "stairs_plank2",
+    "name": "plank stairs",
+    "nameJP": "板の階段",
+    "mat": "oak",
+    "type": "Stairs",
+    "render": "ramp",
+    "transparent": null,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": true,
+    "walkable": false
+  },
+  "99": {
+    "id": 99,
+    "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
+    "rect": [
+      256,
+      1216,
+      64,
+      64
+    ],
+    "alias": "halfstairs1",
+    "name": "natural half-stairs",
+    "nameJP": "自然の半階段",
+    "mat": "soil",
+    "type": "StairsHalf",
+    "render": "ramp",
+    "transparent": null,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": true,
+    "walkable": false
+  },
+  "100": {
+    "id": 100,
+    "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
+    "rect": [
+      512,
+      1216,
+      64,
+      64
+    ],
+    "alias": "halfstairs2",
+    "name": "plank half-stairs",
+    "nameJP": "板の半階段",
+    "mat": "oak",
+    "type": "StairsHalf",
+    "render": "ramp",
+    "transparent": null,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": true,
+    "walkable": false
+  },
+  "101": {
+    "id": 101,
+    "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
+    "rect": [
+      768,
+      1216,
+      64,
+      64
+    ],
+    "alias": "halfstairs3",
+    "name": "plank half-stairs",
+    "nameJP": "板の半階段",
+    "mat": "oak",
+    "type": "StairsHalf",
+    "render": "ramp",
+    "transparent": null,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": true,
+    "walkable": false
+  },
+  "135": {
+    "id": 135,
+    "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
+    "rect": [
+      832,
+      1216,
+      64,
+      64
+    ],
+    "alias": "halfstairs5",
+    "name": "plank half-stairs",
+    "nameJP": "板の半階段",
+    "mat": "oak",
+    "type": "StairsHalf",
+    "render": "ramp",
+    "transparent": null,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": true,
+    "walkable": false
+  },
+  "107": {
+    "id": 107,
+    "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
+    "rect": [
+      1024,
+      1216,
+      64,
+      64
+    ],
+    "alias": "halfstairs4",
+    "name": "stone half-stairs",
+    "nameJP": "石の半階段",
+    "mat": "granite",
+    "type": "StairsHalf",
+    "render": "ramp",
+    "transparent": null,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": true,
+    "walkable": false
+  },
+  "155": {
+    "id": 155,
+    "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
+    "rect": [
+      1280,
+      1216,
+      64,
+      64
+    ],
+    "alias": "halfstairs5",
+    "name": "plank half-stairs",
+    "nameJP": "板の半階段",
+    "mat": "oak",
+    "type": "StairsHalf",
+    "render": "ramp",
+    "transparent": null,
+    "colorMod": null,
+    "colorType": null,
     "h": 1.0,
     "solid": true,
     "walkable": false
@@ -2755,6 +5716,10 @@ export const MAT = {
   "5": {
     "id": 5,
     "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
     "rect": [
       0,
       64,
@@ -2768,6 +5733,8 @@ export const MAT = {
     "type": "HalfBlock",
     "render": "halfblock",
     "transparent": null,
+    "colorMod": null,
+    "colorType": null,
     "h": 0.5,
     "solid": true,
     "walkable": false
@@ -2775,6 +5742,10 @@ export const MAT = {
   "11": {
     "id": 11,
     "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
     "rect": [
       128,
       64,
@@ -2788,13 +5759,2437 @@ export const MAT = {
     "type": "HalfBlock",
     "render": "halfblock",
     "transparent": null,
+    "colorMod": null,
+    "colorType": null,
     "h": 0.5,
     "solid": true,
+    "walkable": false
+  },
+  "60": {
+    "id": 60,
+    "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
+    "rect": [
+      512,
+      896,
+      64,
+      64
+    ],
+    "alias": "fence5",
+    "name": "sandbag fence",
+    "nameJP": "土嚢のフェンス",
+    "mat": "soil",
+    "type": "Fence",
+    "render": "fence",
+    "transparent": null,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": true,
+    "walkable": false
+  },
+  "93": {
+    "id": 93,
+    "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
+    "rect": [
+      576,
+      896,
+      64,
+      64
+    ],
+    "alias": "fence8",
+    "name": "grass fence",
+    "nameJP": "草のフェンス",
+    "mat": "grass",
+    "type": "FenceClosed",
+    "render": "fence",
+    "transparent": null,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": true,
+    "walkable": false
+  },
+  "94": {
+    "id": 94,
+    "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
+    "rect": [
+      640,
+      896,
+      64,
+      64
+    ],
+    "alias": "fence9",
+    "name": "grass fence",
+    "nameJP": "草のフェンス",
+    "mat": "grass",
+    "type": "FenceClosed",
+    "render": "fence",
+    "transparent": null,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": true,
+    "walkable": false
+  },
+  "95": {
+    "id": 95,
+    "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
+    "rect": [
+      704,
+      896,
+      64,
+      64
+    ],
+    "alias": "fence10",
+    "name": "stake fence",
+    "nameJP": "杭のフェンス",
+    "mat": "pine",
+    "type": "Fence",
+    "render": "fence",
+    "transparent": null,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": true,
+    "walkable": false
+  },
+  "2": {
+    "id": 2,
+    "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
+    "rect": [
+      0,
+      896,
+      64,
+      64
+    ],
+    "alias": "fence",
+    "name": "wooden fence",
+    "nameJP": "木のフェンス",
+    "mat": "pine",
+    "type": "Fence",
+    "render": "fence",
+    "transparent": null,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": true,
+    "walkable": false
+  },
+  "27": {
+    "id": 27,
+    "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
+    "rect": [
+      64,
+      896,
+      64,
+      64
+    ],
+    "alias": "fence_double",
+    "name": "wooden fence",
+    "nameJP": "木のフェンス",
+    "mat": "pine",
+    "type": "Fence",
+    "render": "fence",
+    "transparent": null,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": true,
+    "walkable": false
+  },
+  "42": {
+    "id": 42,
+    "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
+    "rect": [
+      128,
+      896,
+      64,
+      64
+    ],
+    "alias": "fence2",
+    "name": "wooden fence",
+    "nameJP": "木のフェンス",
+    "mat": "pine",
+    "type": "Fence",
+    "render": "fence",
+    "transparent": null,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": true,
+    "walkable": false
+  },
+  "43": {
+    "id": 43,
+    "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
+    "rect": [
+      256,
+      896,
+      64,
+      64
+    ],
+    "alias": "fence3",
+    "name": "metal fence",
+    "nameJP": "金属のフェンス",
+    "mat": "obsidian",
+    "type": "Fence",
+    "render": "fence",
+    "transparent": null,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": true,
+    "walkable": false
+  },
+  "44": {
+    "id": 44,
+    "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
+    "rect": [
+      192,
+      896,
+      64,
+      64
+    ],
+    "alias": "fence4",
+    "name": "wooden fence",
+    "nameJP": "木のフェンス",
+    "mat": "pine",
+    "type": "Fence",
+    "render": "fence",
+    "transparent": null,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": true,
+    "walkable": false
+  },
+  "65": {
+    "id": 65,
+    "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
+    "rect": [
+      384,
+      896,
+      64,
+      64
+    ],
+    "alias": "fence6",
+    "name": "wooden fence",
+    "nameJP": "木のフェンス",
+    "mat": "pine",
+    "type": "Fence",
+    "render": "fence",
+    "transparent": null,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": true,
+    "walkable": false
+  },
+  "66": {
+    "id": 66,
+    "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
+    "rect": [
+      448,
+      896,
+      64,
+      64
+    ],
+    "alias": "fence7",
+    "name": "wooden fence",
+    "nameJP": "木のフェンス",
+    "mat": "pine",
+    "type": "Fence",
+    "render": "fence",
+    "transparent": null,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": true,
+    "walkable": false
+  },
+  "185": {
+    "id": 185,
+    "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
+    "rect": [
+      896,
+      896,
+      64,
+      64
+    ],
+    "alias": "fence10",
+    "name": "wooden fence",
+    "nameJP": "木のフェンス",
+    "mat": "pine",
+    "type": "Fence",
+    "render": "fence",
+    "transparent": null,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": true,
+    "walkable": false
+  },
+  "153": {
+    "id": 153,
+    "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
+    "rect": [
+      768,
+      896,
+      64,
+      64
+    ],
+    "alias": "fence8",
+    "name": "metal fence",
+    "nameJP": "金属のフェンス",
+    "mat": "gold",
+    "type": "Fence",
+    "render": "fence",
+    "transparent": null,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": true,
+    "walkable": false
+  },
+  "162": {
+    "id": 162,
+    "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
+    "rect": [
+      832,
+      896,
+      64,
+      64
+    ],
+    "alias": "fence9",
+    "name": "gear fence",
+    "nameJP": "歯車のフェンス",
+    "mat": "gold",
+    "type": "Fence",
+    "render": "fence",
+    "transparent": null,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": true,
+    "walkable": false
+  },
+  "26": {
+    "id": 26,
+    "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
+    "rect": [
+      320,
+      896,
+      64,
+      64
+    ],
+    "alias": "fence_grate",
+    "name": "metal fence",
+    "nameJP": "金属のフェンス",
+    "mat": "iron",
+    "type": "Fence",
+    "render": "fence",
+    "transparent": null,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": true,
+    "walkable": false
+  },
+  "190": {
+    "id": 190,
+    "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
+    "rect": [
+      960,
+      896,
+      64,
+      64
+    ],
+    "alias": "fence11",
+    "name": "barbed wire fence",
+    "nameJP": "有刺鉄線のフェンス",
+    "mat": "oak",
+    "type": "Fence",
+    "render": "fence",
+    "transparent": null,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": true,
+    "walkable": false
+  },
+  "202": {
+    "id": 202,
+    "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
+    "rect": [
+      1024,
+      896,
+      64,
+      64
+    ],
+    "alias": "fence12",
+    "name": "wire mesh fence",
+    "nameJP": "金網のフェンス",
+    "mat": "iron",
+    "type": "Fence",
+    "render": "fence",
+    "transparent": null,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": true,
+    "walkable": false
+  },
+  "203": {
+    "id": 203,
+    "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
+    "rect": [
+      1088,
+      896,
+      64,
+      64
+    ],
+    "alias": "fence13",
+    "name": "wire mesh fence",
+    "nameJP": "金網のフェンス",
+    "mat": "iron",
+    "type": "Fence",
+    "render": "fence",
+    "transparent": null,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": true,
+    "walkable": false
+  },
+  "204": {
+    "id": 204,
+    "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
+    "rect": [
+      1152,
+      896,
+      64,
+      64
+    ],
+    "alias": "fence14",
+    "name": "stone fence",
+    "nameJP": "石のフェンス",
+    "mat": "granite",
+    "type": "Fence",
+    "render": "fence",
+    "transparent": null,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": true,
+    "walkable": false
+  },
+  "7": {
+    "id": 7,
+    "atlas": "roofs",
+    "cell": [
+      96,
+      80
+    ],
+    "rect": [
+      384,
+      80,
+      96,
+      80
+    ],
+    "alias": "rooftop",
+    "name": "rooftop",
+    "nameJP": "屋根トップ",
+    "mat": "mahogany",
+    "type": "Rooftop",
+    "render": "roof",
+    "transparent": null,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": true,
+    "walkable": false
+  },
+  "37": {
+    "id": 37,
+    "atlas": "roofs",
+    "cell": [
+      96,
+      80
+    ],
+    "rect": [
+      384,
+      160,
+      96,
+      80
+    ],
+    "alias": "rooftop2",
+    "name": "rooftop",
+    "nameJP": "屋根トップ",
+    "mat": "mahogany",
+    "type": "Rooftop",
+    "render": "roof",
+    "transparent": null,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": true,
+    "walkable": false
+  },
+  "38": {
+    "id": 38,
+    "atlas": "roofs",
+    "cell": [
+      96,
+      80
+    ],
+    "rect": [
+      384,
+      240,
+      96,
+      80
+    ],
+    "alias": "rooftop3",
+    "name": "rooftop",
+    "nameJP": "屋根トップ",
+    "mat": "mahogany",
+    "type": "Rooftop",
+    "render": "roof",
+    "transparent": null,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": true,
+    "walkable": false
+  },
+  "39": {
+    "id": 39,
+    "atlas": "roofs",
+    "cell": [
+      96,
+      80
+    ],
+    "rect": [
+      384,
+      320,
+      96,
+      80
+    ],
+    "alias": "rooftop4",
+    "name": "rooftop",
+    "nameJP": "屋根トップ",
+    "mat": "mahogany",
+    "type": "Rooftop",
+    "render": "roof",
+    "transparent": null,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": true,
+    "walkable": false
+  },
+  "40": {
+    "id": 40,
+    "atlas": "roofs",
+    "cell": [
+      96,
+      80
+    ],
+    "rect": [
+      384,
+      400,
+      96,
+      80
+    ],
+    "alias": "rooftop5",
+    "name": "rooftop",
+    "nameJP": "屋根トップ",
+    "mat": "mahogany",
+    "type": "Rooftop",
+    "render": "roof",
+    "transparent": null,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": true,
+    "walkable": false
+  },
+  "41": {
+    "id": 41,
+    "atlas": "roofs",
+    "cell": [
+      96,
+      80
+    ],
+    "rect": [
+      384,
+      480,
+      96,
+      80
+    ],
+    "alias": "rooftop6",
+    "name": "rooftop",
+    "nameJP": "屋根トップ",
+    "mat": "mahogany",
+    "type": "Rooftop",
+    "render": "roof",
+    "transparent": null,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": true,
+    "walkable": false
+  },
+  "126": {
+    "id": 126,
+    "atlas": "roofs",
+    "cell": [
+      96,
+      80
+    ],
+    "rect": [
+      384,
+      560,
+      96,
+      80
+    ],
+    "alias": "rooftop7",
+    "name": "rooftop",
+    "nameJP": "屋根トップ",
+    "mat": "mahogany",
+    "type": "Rooftop",
+    "render": "roof",
+    "transparent": null,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": true,
+    "walkable": false
+  },
+  "175": {
+    "id": 175,
+    "atlas": "roofs",
+    "cell": [
+      96,
+      80
+    ],
+    "rect": [
+      384,
+      640,
+      96,
+      80
+    ],
+    "alias": "rooftop8",
+    "name": "rooftop",
+    "nameJP": "屋根トップ",
+    "mat": "mahogany",
+    "type": "Rooftop",
+    "render": "roof",
+    "transparent": null,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": true,
+    "walkable": false
+  },
+  "176": {
+    "id": 176,
+    "atlas": "roofs",
+    "cell": [
+      96,
+      80
+    ],
+    "rect": [
+      384,
+      720,
+      96,
+      80
+    ],
+    "alias": "rooftop9",
+    "name": "rooftop",
+    "nameJP": "屋根トップ",
+    "mat": "mahogany",
+    "type": "Rooftop",
+    "render": "roof",
+    "transparent": null,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": true,
+    "walkable": false
+  },
+  "177": {
+    "id": 177,
+    "atlas": "roofs",
+    "cell": [
+      96,
+      80
+    ],
+    "rect": [
+      384,
+      800,
+      96,
+      80
+    ],
+    "alias": "rooftop10",
+    "name": "rooftop",
+    "nameJP": "屋根トップ",
+    "mat": "mahogany",
+    "type": "Rooftop",
+    "render": "roof",
+    "transparent": null,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": true,
+    "walkable": false
+  },
+  "178": {
+    "id": 178,
+    "atlas": "roofs",
+    "cell": [
+      96,
+      80
+    ],
+    "rect": [
+      384,
+      880,
+      96,
+      80
+    ],
+    "alias": "rooftop11",
+    "name": "rooftop",
+    "nameJP": "屋根トップ",
+    "mat": "mahogany",
+    "type": "Rooftop",
+    "render": "roof",
+    "transparent": null,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": true,
+    "walkable": false
+  },
+  "179": {
+    "id": 179,
+    "atlas": "roofs",
+    "cell": [
+      96,
+      80
+    ],
+    "rect": [
+      384,
+      960,
+      96,
+      80
+    ],
+    "alias": "rooftop12",
+    "name": "rooftop",
+    "nameJP": "屋根トップ",
+    "mat": "mahogany",
+    "type": "Rooftop",
+    "render": "roof",
+    "transparent": null,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": true,
+    "walkable": false
+  },
+  "180": {
+    "id": 180,
+    "atlas": "roofs",
+    "cell": [
+      96,
+      80
+    ],
+    "rect": [
+      384,
+      1040,
+      96,
+      80
+    ],
+    "alias": "rooftop13",
+    "name": "rooftop",
+    "nameJP": "屋根トップ",
+    "mat": "mahogany",
+    "type": "Rooftop",
+    "render": "roof",
+    "transparent": null,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": true,
+    "walkable": false
+  },
+  "181": {
+    "id": 181,
+    "atlas": "roofs",
+    "cell": [
+      96,
+      80
+    ],
+    "rect": [
+      384,
+      1120,
+      96,
+      80
+    ],
+    "alias": "rooftop14",
+    "name": "rooftop",
+    "nameJP": "屋根トップ",
+    "mat": "mahogany",
+    "type": "Rooftop",
+    "render": "roof",
+    "transparent": null,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": true,
+    "walkable": false
+  },
+  "182": {
+    "id": 182,
+    "atlas": "roofs",
+    "cell": [
+      96,
+      80
+    ],
+    "rect": [
+      384,
+      1200,
+      96,
+      80
+    ],
+    "alias": "rooftop15",
+    "name": "rooftop",
+    "nameJP": "屋根トップ",
+    "mat": "mahogany",
+    "type": "Rooftop",
+    "render": "roof",
+    "transparent": null,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": true,
+    "walkable": false
+  },
+  "183": {
+    "id": 183,
+    "atlas": "roofs",
+    "cell": [
+      96,
+      80
+    ],
+    "rect": [
+      384,
+      1280,
+      96,
+      80
+    ],
+    "alias": "rooftop16",
+    "name": "rooftop",
+    "nameJP": "屋根トップ",
+    "mat": "mahogany",
+    "type": "Rooftop",
+    "render": "roof",
+    "transparent": null,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": true,
+    "walkable": false
+  },
+  "184": {
+    "id": 184,
+    "atlas": "roofs",
+    "cell": [
+      96,
+      80
+    ],
+    "rect": [
+      384,
+      1360,
+      96,
+      80
+    ],
+    "alias": "rooftop17",
+    "name": "rooftop",
+    "nameJP": "屋根トップ",
+    "mat": "mahogany",
+    "type": "Rooftop",
+    "render": "roof",
+    "transparent": null,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": true,
+    "walkable": false
+  },
+  "98": {
+    "id": 98,
+    "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
+    "rect": [
+      1024,
+      1792,
+      64,
+      64
+    ],
+    "alias": "wall_sandbag",
+    "name": "sandbag wall",
+    "nameJP": "土嚢の壁",
+    "mat": "soil",
+    "type": "Wall",
+    "render": "block_thin",
+    "transparent": true,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": false,
+    "walkable": false
+  },
+  "54": {
+    "id": 54,
+    "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
+    "rect": [
+      384,
+      1792,
+      64,
+      64
+    ],
+    "alias": "wall_straw",
+    "name": "straw wall",
+    "nameJP": "藁の壁",
+    "mat": "straw",
+    "type": "Wall",
+    "render": "block_thin",
+    "transparent": true,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": false,
+    "walkable": false
+  },
+  "144": {
+    "id": 144,
+    "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
+    "rect": [
+      384,
+      1536,
+      64,
+      64
+    ],
+    "alias": "wall_natural",
+    "name": "grass wall",
+    "nameJP": "草の壁",
+    "mat": "grass",
+    "type": "Wall",
+    "render": "block_thin",
+    "transparent": true,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": false,
+    "walkable": false
+  },
+  "51": {
+    "id": 51,
+    "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
+    "rect": [
+      128,
+      1792,
+      64,
+      64
+    ],
+    "alias": "wall_log",
+    "name": "log wall",
+    "nameJP": "丸太の壁",
+    "mat": "oak",
+    "type": "Wall",
+    "render": "block_thin",
+    "transparent": true,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": false,
+    "walkable": false
+  },
+  "56": {
+    "id": 56,
+    "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
+    "rect": [
+      512,
+      1792,
+      64,
+      64
+    ],
+    "alias": "wall_plank2",
+    "name": "plank wall",
+    "nameJP": "板の壁",
+    "mat": "pine",
+    "type": "Wall",
+    "render": "block_thin",
+    "transparent": true,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": false,
+    "walkable": false
+  },
+  "92": {
+    "id": 92,
+    "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
+    "rect": [
+      960,
+      1792,
+      64,
+      64
+    ],
+    "alias": "wall_plank3",
+    "name": "plank wall",
+    "nameJP": "板の壁",
+    "mat": "oak",
+    "type": "Wall",
+    "render": "block_thin",
+    "transparent": true,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": false,
+    "walkable": false
+  },
+  "169": {
+    "id": 169,
+    "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
+    "rect": [
+      1344,
+      1536,
+      64,
+      64
+    ],
+    "alias": "wall_plank4",
+    "name": "plank wall",
+    "nameJP": "板の壁",
+    "mat": "oak",
+    "type": "Wall",
+    "render": "block_thin",
+    "transparent": true,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": false,
+    "walkable": false
+  },
+  "170": {
+    "id": 170,
+    "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
+    "rect": [
+      1408,
+      1536,
+      64,
+      64
+    ],
+    "alias": "wall_plank5",
+    "name": "plank wall",
+    "nameJP": "板の壁",
+    "mat": "oak",
+    "type": "Wall",
+    "render": "block_thin",
+    "transparent": true,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": false,
+    "walkable": false
+  },
+  "47": {
+    "id": 47,
+    "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
+    "rect": [
+      0,
+      1792,
+      64,
+      64
+    ],
+    "alias": "wall_plank",
+    "name": "thick plank wall",
+    "nameJP": "厚い板の壁",
+    "mat": "oak",
+    "type": "Wall",
+    "render": "block_thin",
+    "transparent": true,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": false,
+    "walkable": false
+  },
+  "89": {
+    "id": 89,
+    "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
+    "rect": [
+      320,
+      1792,
+      64,
+      64
+    ],
+    "alias": "wall_plank3",
+    "name": "thick plank wall",
+    "nameJP": "厚い板の壁",
+    "mat": "oak",
+    "type": "Wall",
+    "render": "block_thin",
+    "transparent": true,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": false,
+    "walkable": false
+  },
+  "90": {
+    "id": 90,
+    "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
+    "rect": [
+      832,
+      1792,
+      64,
+      64
+    ],
+    "alias": "wall_plank3",
+    "name": "thick plank wall",
+    "nameJP": "厚い板の壁",
+    "mat": "oak",
+    "type": "Wall",
+    "render": "block_thin",
+    "transparent": true,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": false,
+    "walkable": false
+  },
+  "91": {
+    "id": 91,
+    "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
+    "rect": [
+      896,
+      1792,
+      64,
+      64
+    ],
+    "alias": "wall_plank3",
+    "name": "lumiest wall",
+    "nameJP": "ルミエストの壁",
+    "mat": "cobalt",
+    "type": "Wall",
+    "render": "block_thin",
+    "transparent": true,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": false,
+    "walkable": false
+  },
+  "147": {
+    "id": 147,
+    "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
+    "rect": [
+      448,
+      1536,
+      64,
+      64
+    ],
+    "alias": "wall_plank4",
+    "name": "quality plank wall",
+    "nameJP": "上質板の壁",
+    "mat": "oak",
+    "type": "Wall",
+    "render": "block_thinEx",
+    "transparent": true,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": false,
+    "walkable": false
+  },
+  "166": {
+    "id": 166,
+    "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
+    "rect": [
+      1152,
+      1536,
+      64,
+      64
+    ],
+    "alias": "wall_window",
+    "name": "atrium wall",
+    "nameJP": "吹き抜けの壁",
+    "mat": "oak",
+    "type": "WallOpen",
+    "render": "block_thin",
+    "transparent": true,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": false,
+    "walkable": false
+  },
+  "186": {
+    "id": 186,
+    "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
+    "rect": [
+      1152,
+      1536,
+      64,
+      64
+    ],
+    "alias": "wall_window2",
+    "name": "fake wall(experimental)",
+    "nameJP": "飾りの壁(実験的)",
+    "mat": "oak",
+    "type": "WallFake",
+    "render": "block_thinFake",
+    "transparent": true,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": false,
+    "walkable": false
+  },
+  "195": {
+    "id": 195,
+    "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
+    "rect": [
+      1472,
+      1536,
+      64,
+      64
+    ],
+    "alias": "wall_chocolate",
+    "name": "chocolate wall",
+    "nameJP": "チョコレートの壁",
+    "mat": "mud",
+    "type": "Wall",
+    "render": "block_thin",
+    "transparent": true,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": false,
+    "walkable": false
+  },
+  "197": {
+    "id": 197,
+    "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
+    "rect": [
+      1536,
+      1536,
+      64,
+      64
+    ],
+    "alias": "wall_biscuit",
+    "name": "biscuit wall",
+    "nameJP": "ビスケットの壁",
+    "mat": "pine",
+    "type": "Wall",
+    "render": "block_thin",
+    "transparent": true,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": false,
+    "walkable": false
+  },
+  "208": {
+    "id": 208,
+    "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
+    "rect": [
+      1600,
+      1536,
+      64,
+      64
+    ],
+    "alias": "wall_alien",
+    "name": "alien wall",
+    "nameJP": "エイリアンの壁",
+    "mat": "diorite",
+    "type": "Wall",
+    "render": "block_thin",
+    "transparent": true,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": false,
+    "walkable": false
+  },
+  "209": {
+    "id": 209,
+    "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
+    "rect": [
+      1664,
+      1536,
+      64,
+      64
+    ],
+    "alias": "wall_alien2",
+    "name": "alien wall",
+    "nameJP": "エイリアンの壁",
+    "mat": "diorite",
+    "type": "Wall",
+    "render": "block_thin",
+    "transparent": true,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": false,
+    "walkable": false
+  },
+  "210": {
+    "id": 210,
+    "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
+    "rect": [
+      1728,
+      1536,
+      64,
+      64
+    ],
+    "alias": "wall_alien3",
+    "name": "alien wall",
+    "nameJP": "エイリアンの壁",
+    "mat": "diorite",
+    "type": "Wall",
+    "render": "block_thin",
+    "transparent": true,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": false,
+    "walkable": false
+  },
+  "137": {
+    "id": 137,
+    "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
+    "rect": [
+      64,
+      1536,
+      64,
+      64
+    ],
+    "alias": "wall_brick4",
+    "name": "brick wall",
+    "nameJP": "煉瓦の壁",
+    "mat": "soil",
+    "type": "Wall",
+    "render": "block_thin",
+    "transparent": true,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": false,
+    "walkable": false
+  },
+  "49": {
+    "id": 49,
+    "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
+    "rect": [
+      64,
+      1792,
+      64,
+      64
+    ],
+    "alias": "wall_brick",
+    "name": "brick wall",
+    "nameJP": "煉瓦の壁",
+    "mat": "soil",
+    "type": "Wall",
+    "render": "block_thin",
+    "transparent": true,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": false,
+    "walkable": false
+  },
+  "127": {
+    "id": 127,
+    "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
+    "rect": [
+      1280,
+      1536,
+      64,
+      64
+    ],
+    "alias": "wall_brick3",
+    "name": "brick wall",
+    "nameJP": "煉瓦の壁",
+    "mat": "soil",
+    "type": "Wall",
+    "render": "block_thin",
+    "transparent": true,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": false,
+    "walkable": false
+  },
+  "64": {
+    "id": 64,
+    "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
+    "rect": [
+      1280,
+      1792,
+      64,
+      64
+    ],
+    "alias": "wall_brick2",
+    "name": "brick wall",
+    "nameJP": "煉瓦の壁",
+    "mat": "soil",
+    "type": "Wall",
+    "render": "block_thin",
+    "transparent": true,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": false,
+    "walkable": false
+  },
+  "61": {
+    "id": 61,
+    "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
+    "rect": [
+      1088,
+      1792,
+      64,
+      64
+    ],
+    "alias": "wall_plain",
+    "name": "plain wall",
+    "nameJP": "漆喰の壁",
+    "mat": "granite",
+    "type": "Wall",
+    "render": "block_thin",
+    "transparent": true,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": false,
+    "walkable": false
+  },
+  "62": {
+    "id": 62,
+    "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
+    "rect": [
+      1152,
+      1792,
+      64,
+      64
+    ],
+    "alias": "wall_plain2",
+    "name": "plain wall",
+    "nameJP": "漆喰の壁",
+    "mat": "granite",
+    "type": "Wall",
+    "render": "block_thin",
+    "transparent": true,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": false,
+    "walkable": false
+  },
+  "63": {
+    "id": 63,
+    "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
+    "rect": [
+      1216,
+      1792,
+      64,
+      64
+    ],
+    "alias": "wall_plain3",
+    "name": "plain wall",
+    "nameJP": "漆喰の壁",
+    "mat": "granite",
+    "type": "Wall",
+    "render": "block_thin",
+    "transparent": true,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": false,
+    "walkable": false
+  },
+  "148": {
+    "id": 148,
+    "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
+    "rect": [
+      704,
+      1536,
+      64,
+      64
+    ],
+    "alias": "wall_plain4",
+    "name": "plain wall",
+    "nameJP": "漆喰の壁",
+    "mat": "granite",
+    "type": "Wall",
+    "render": "block_thin",
+    "transparent": true,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": false,
+    "walkable": false
+  },
+  "156": {
+    "id": 156,
+    "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
+    "rect": [
+      768,
+      1536,
+      64,
+      64
+    ],
+    "alias": "wall_plain5",
+    "name": "plain wall",
+    "nameJP": "漆喰の壁",
+    "mat": "granite",
+    "type": "Wall",
+    "render": "block_thin",
+    "transparent": true,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": false,
+    "walkable": false
+  },
+  "157": {
+    "id": 157,
+    "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
+    "rect": [
+      832,
+      1536,
+      64,
+      64
+    ],
+    "alias": "wall_plain6",
+    "name": "plain wall",
+    "nameJP": "漆喰の壁",
+    "mat": "granite",
+    "type": "Wall",
+    "render": "block_thin",
+    "transparent": true,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": false,
+    "walkable": false
+  },
+  "158": {
+    "id": 158,
+    "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
+    "rect": [
+      896,
+      1536,
+      64,
+      64
+    ],
+    "alias": "wall_plain7",
+    "name": "plain wall",
+    "nameJP": "漆喰の壁",
+    "mat": "granite",
+    "type": "Wall",
+    "render": "block_thin",
+    "transparent": true,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": false,
+    "walkable": false
+  },
+  "142": {
+    "id": 142,
+    "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
+    "rect": [
+      512,
+      1536,
+      64,
+      64
+    ],
+    "alias": "wall_rock4",
+    "name": "stone wall",
+    "nameJP": "石の壁",
+    "mat": "granite",
+    "type": "Wall",
+    "render": "block_thin",
+    "transparent": true,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": false,
+    "walkable": false
+  },
+  "139": {
+    "id": 139,
+    "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
+    "rect": [
+      576,
+      1536,
+      64,
+      64
+    ],
+    "alias": "wall_rock3",
+    "name": "stone wall",
+    "nameJP": "石の壁",
+    "mat": "granite",
+    "type": "Wall",
+    "render": "block_thin",
+    "transparent": true,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": false,
+    "walkable": false
+  },
+  "55": {
+    "id": 55,
+    "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
+    "rect": [
+      448,
+      1792,
+      64,
+      64
+    ],
+    "alias": "wall_rock2",
+    "name": "stone wall",
+    "nameJP": "石の壁",
+    "mat": "granite",
+    "type": "Wall",
+    "render": "block_thin",
+    "transparent": true,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": false,
+    "walkable": false
+  },
+  "48": {
+    "id": 48,
+    "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
+    "rect": [
+      576,
+      1792,
+      64,
+      64
+    ],
+    "alias": "wall_rock",
+    "name": "stone wall",
+    "nameJP": "石の壁",
+    "mat": "granite",
+    "type": "Wall",
+    "render": "block_thin",
+    "transparent": true,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": false,
+    "walkable": false
+  },
+  "57": {
+    "id": 57,
+    "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
+    "rect": [
+      640,
+      1792,
+      64,
+      64
+    ],
+    "alias": "wall_arch",
+    "name": "arch wall",
+    "nameJP": "アーチの壁",
+    "mat": "granite",
+    "type": "Wall",
+    "render": "block_thin",
+    "transparent": true,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": false,
+    "walkable": false
+  },
+  "58": {
+    "id": 58,
+    "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
+    "rect": [
+      704,
+      1792,
+      64,
+      64
+    ],
+    "alias": "wall_arch2",
+    "name": "arch wall",
+    "nameJP": "アーチの壁",
+    "mat": "granite",
+    "type": "Wall",
+    "render": "block_thin",
+    "transparent": true,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": false,
+    "walkable": false
+  },
+  "59": {
+    "id": 59,
+    "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
+    "rect": [
+      768,
+      1792,
+      64,
+      64
+    ],
+    "alias": "wall_arch3",
+    "name": "arch wall",
+    "nameJP": "アーチの壁",
+    "mat": "granite",
+    "type": "Wall",
+    "render": "block_thin",
+    "transparent": true,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": false,
+    "walkable": false
+  },
+  "115": {
+    "id": 115,
+    "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
+    "rect": [
+      1792,
+      1792,
+      64,
+      64
+    ],
+    "alias": "wall_palmia1",
+    "name": "palmian wall",
+    "nameJP": "王都の壁",
+    "mat": "silt",
+    "type": "Wall",
+    "render": "block_thin",
+    "transparent": true,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": false,
+    "walkable": false
+  },
+  "116": {
+    "id": 116,
+    "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
+    "rect": [
+      1856,
+      1792,
+      64,
+      64
+    ],
+    "alias": "wall_palmia2",
+    "name": "palmian wall",
+    "nameJP": "王都の壁",
+    "mat": "marble",
+    "type": "Wall",
+    "render": "block_thin",
+    "transparent": true,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": false,
+    "walkable": false
+  },
+  "117": {
+    "id": 117,
+    "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
+    "rect": [
+      1920,
+      1792,
+      64,
+      64
+    ],
+    "alias": "wall_palmia3",
+    "name": "palmian wall",
+    "nameJP": "王都の壁",
+    "mat": "marble",
+    "type": "Wall",
+    "render": "block_thin",
+    "transparent": true,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": false,
+    "walkable": false
+  },
+  "123": {
+    "id": 123,
+    "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
+    "rect": [
+      1984,
+      1792,
+      64,
+      64
+    ],
+    "alias": "wall_palmia4",
+    "name": "palmian wall",
+    "nameJP": "王都の壁",
+    "mat": "silt",
+    "type": "Wall",
+    "render": "block_thin",
+    "transparent": true,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": false,
+    "walkable": false
+  },
+  "112": {
+    "id": 112,
+    "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
+    "rect": [
+      1664,
+      1792,
+      64,
+      64
+    ],
+    "alias": "wall_tent",
+    "name": "tent wall",
+    "nameJP": "テントの壁",
+    "mat": "paper",
+    "type": "Wall",
+    "render": "block_thin",
+    "transparent": true,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": false,
+    "walkable": false
+  },
+  "113": {
+    "id": 113,
+    "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
+    "rect": [
+      1728,
+      1792,
+      64,
+      64
+    ],
+    "alias": "wall_tent2",
+    "name": "tent wall",
+    "nameJP": "テントの壁",
+    "mat": "paper",
+    "type": "Wall",
+    "render": "block_thin",
+    "transparent": true,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": false,
+    "walkable": false
+  },
+  "163": {
+    "id": 163,
+    "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
+    "rect": [
+      1024,
+      1536,
+      64,
+      64
+    ],
+    "alias": "wall_shoji",
+    "name": "paper wall",
+    "nameJP": "障子",
+    "mat": "cotton",
+    "type": "Wall",
+    "render": "block_thin",
+    "transparent": true,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": false,
+    "walkable": false
+  },
+  "164": {
+    "id": 164,
+    "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
+    "rect": [
+      1088,
+      1536,
+      64,
+      64
+    ],
+    "alias": "wall_shoji2",
+    "name": "paper wall",
+    "nameJP": "障子",
+    "mat": "cotton",
+    "type": "Wall",
+    "render": "block_thin",
+    "transparent": true,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": false,
+    "walkable": false
+  },
+  "88": {
+    "id": 88,
+    "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
+    "rect": [
+      256,
+      1792,
+      64,
+      64
+    ],
+    "alias": "wall_jail",
+    "name": "jail wall",
+    "nameJP": "牢屋の壁",
+    "mat": "iron",
+    "type": "WallOpen",
+    "render": "block_thin",
+    "transparent": true,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": false,
+    "walkable": false
+  },
+  "102": {
+    "id": 102,
+    "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
+    "rect": [
+      1344,
+      1792,
+      64,
+      64
+    ],
+    "alias": "wall_aquli1",
+    "name": "modern wall",
+    "nameJP": "モダンな壁",
+    "mat": "steel",
+    "type": "Wall",
+    "render": "block_thin",
+    "transparent": true,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": false,
+    "walkable": false
+  },
+  "103": {
+    "id": 103,
+    "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
+    "rect": [
+      1408,
+      1792,
+      64,
+      64
+    ],
+    "alias": "wall_aquli2",
+    "name": "modern wall",
+    "nameJP": "モダンな壁",
+    "mat": "steel",
+    "type": "Wall",
+    "render": "block_thin",
+    "transparent": true,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": false,
+    "walkable": false
+  },
+  "104": {
+    "id": 104,
+    "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
+    "rect": [
+      1472,
+      1792,
+      64,
+      64
+    ],
+    "alias": "wall_aquli3",
+    "name": "modern wall",
+    "nameJP": "モダンな壁",
+    "mat": "steel",
+    "type": "Wall",
+    "render": "block_thin",
+    "transparent": true,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": false,
+    "walkable": false
+  },
+  "105": {
+    "id": 105,
+    "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
+    "rect": [
+      1536,
+      1792,
+      64,
+      64
+    ],
+    "alias": "wall_aquli4",
+    "name": "modern wall",
+    "nameJP": "モダンな壁",
+    "mat": "steel",
+    "type": "Wall",
+    "render": "block_thin",
+    "transparent": true,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": false,
+    "walkable": false
+  },
+  "136": {
+    "id": 136,
+    "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
+    "rect": [
+      640,
+      1536,
+      64,
+      64
+    ],
+    "alias": "wall_deco1",
+    "name": "casino wall",
+    "nameJP": "カジノの壁",
+    "mat": "steel",
+    "type": "Wall",
+    "render": "block_thin",
+    "transparent": true,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": false,
+    "walkable": false
+  },
+  "161": {
+    "id": 161,
+    "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
+    "rect": [
+      960,
+      1536,
+      64,
+      64
+    ],
+    "alias": "wall_deco2",
+    "name": "casino wall",
+    "nameJP": "カジノの壁",
+    "mat": "steel",
+    "type": "Wall",
+    "render": "block_thin",
+    "transparent": true,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": false,
+    "walkable": false
+  },
+  "52": {
+    "id": 52,
+    "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
+    "rect": [
+      192,
+      1792,
+      64,
+      64
+    ],
+    "alias": "wall_thin5",
+    "name": "crystal wall",
+    "nameJP": "水晶の壁",
+    "mat": "emerald",
+    "type": "Wall",
+    "render": "block_thinEx",
+    "transparent": true,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": false,
+    "walkable": false
+  },
+  "130": {
+    "id": 130,
+    "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
+    "rect": [
+      256,
+      1536,
+      64,
+      64
+    ],
+    "alias": "wall_mirror",
+    "name": "mirror wall",
+    "nameJP": "鏡の壁",
+    "mat": "glass",
+    "type": "Wall",
+    "render": "block_thinEx",
+    "transparent": true,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": false,
+    "walkable": false
+  },
+  "131": {
+    "id": 131,
+    "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
+    "rect": [
+      192,
+      1536,
+      64,
+      64
+    ],
+    "alias": "wall_glass",
+    "name": "glass wall",
+    "nameJP": "硝子の壁",
+    "mat": "glass",
+    "type": "Wall",
+    "render": "block_thinEx",
+    "transparent": true,
+    "colorMod": null,
+    "colorType": null,
+    "h": 1.0,
+    "solid": false,
+    "walkable": false
+  },
+  "96": {
+    "id": 96,
+    "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
+    "rect": [
+      1984,
+      1536,
+      64,
+      64
+    ],
+    "alias": "wall_ash",
+    "name": "ash wall",
+    "nameJP": "焼け焦げた壁",
+    "mat": "oak",
+    "type": "Wall",
+    "render": "block_thin",
+    "transparent": true,
+    "colorMod": 0,
+    "colorType": null,
+    "h": 1.0,
+    "solid": false,
     "walkable": false
   },
   "67": {
     "id": 67,
     "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
     "rect": [
       0,
       1920,
@@ -2808,6 +8203,8 @@ export const MAT = {
     "type": "Pillar",
     "render": "pillar",
     "transparent": true,
+    "colorMod": null,
+    "colorType": null,
     "h": 1.0,
     "solid": false,
     "walkable": false
@@ -2815,6 +8212,10 @@ export const MAT = {
   "68": {
     "id": 68,
     "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
     "rect": [
       64,
       1920,
@@ -2828,6 +8229,8 @@ export const MAT = {
     "type": "Pillar",
     "render": "pillar",
     "transparent": true,
+    "colorMod": null,
+    "colorType": null,
     "h": 1.0,
     "solid": false,
     "walkable": false
@@ -2835,6 +8238,10 @@ export const MAT = {
   "69": {
     "id": 69,
     "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
     "rect": [
       128,
       1920,
@@ -2848,6 +8255,8 @@ export const MAT = {
     "type": "Pillar",
     "render": "pillar",
     "transparent": true,
+    "colorMod": null,
+    "colorType": null,
     "h": 1.0,
     "solid": false,
     "walkable": false
@@ -2855,6 +8264,10 @@ export const MAT = {
   "70": {
     "id": 70,
     "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
     "rect": [
       192,
       1920,
@@ -2868,6 +8281,8 @@ export const MAT = {
     "type": "Pillar",
     "render": "pillar",
     "transparent": true,
+    "colorMod": null,
+    "colorType": null,
     "h": 1.0,
     "solid": false,
     "walkable": false
@@ -2875,6 +8290,10 @@ export const MAT = {
   "71": {
     "id": 71,
     "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
     "rect": [
       256,
       1920,
@@ -2888,6 +8307,8 @@ export const MAT = {
     "type": "Pillar",
     "render": "pillar",
     "transparent": true,
+    "colorMod": null,
+    "colorType": null,
     "h": 1.0,
     "solid": false,
     "walkable": false
@@ -2895,6 +8316,10 @@ export const MAT = {
   "72": {
     "id": 72,
     "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
     "rect": [
       320,
       1920,
@@ -2908,6 +8333,8 @@ export const MAT = {
     "type": "Pillar",
     "render": "pillar",
     "transparent": true,
+    "colorMod": null,
+    "colorType": null,
     "h": 1.0,
     "solid": false,
     "walkable": false
@@ -2915,6 +8342,10 @@ export const MAT = {
   "73": {
     "id": 73,
     "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
     "rect": [
       384,
       1920,
@@ -2928,6 +8359,8 @@ export const MAT = {
     "type": "Pillar",
     "render": "pillar",
     "transparent": true,
+    "colorMod": null,
+    "colorType": null,
     "h": 1.0,
     "solid": false,
     "walkable": false
@@ -2935,6 +8368,10 @@ export const MAT = {
   "74": {
     "id": 74,
     "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
     "rect": [
       448,
       1920,
@@ -2948,6 +8385,8 @@ export const MAT = {
     "type": "Pillar",
     "render": "pillar",
     "transparent": true,
+    "colorMod": null,
+    "colorType": null,
     "h": 1.0,
     "solid": false,
     "walkable": false
@@ -2955,6 +8394,10 @@ export const MAT = {
   "75": {
     "id": 75,
     "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
     "rect": [
       512,
       1920,
@@ -2968,6 +8411,8 @@ export const MAT = {
     "type": "Pillar",
     "render": "pillar",
     "transparent": true,
+    "colorMod": null,
+    "colorType": null,
     "h": 1.0,
     "solid": false,
     "walkable": false
@@ -2975,6 +8420,10 @@ export const MAT = {
   "76": {
     "id": 76,
     "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
     "rect": [
       576,
       1920,
@@ -2988,6 +8437,8 @@ export const MAT = {
     "type": "Pillar",
     "render": "pillar",
     "transparent": true,
+    "colorMod": null,
+    "colorType": null,
     "h": 1.0,
     "solid": false,
     "walkable": false
@@ -2995,6 +8446,10 @@ export const MAT = {
   "77": {
     "id": 77,
     "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
     "rect": [
       640,
       1920,
@@ -3008,6 +8463,8 @@ export const MAT = {
     "type": "Pillar",
     "render": "pillar",
     "transparent": true,
+    "colorMod": null,
+    "colorType": null,
     "h": 1.0,
     "solid": false,
     "walkable": false
@@ -3015,6 +8472,10 @@ export const MAT = {
   "78": {
     "id": 78,
     "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
     "rect": [
       704,
       1920,
@@ -3028,6 +8489,8 @@ export const MAT = {
     "type": "Pillar",
     "render": "pillar",
     "transparent": true,
+    "colorMod": null,
+    "colorType": null,
     "h": 1.0,
     "solid": false,
     "walkable": false
@@ -3035,6 +8498,10 @@ export const MAT = {
   "79": {
     "id": 79,
     "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
     "rect": [
       768,
       1920,
@@ -3048,6 +8515,8 @@ export const MAT = {
     "type": "Pillar",
     "render": "pillar",
     "transparent": true,
+    "colorMod": null,
+    "colorType": null,
     "h": 1.0,
     "solid": false,
     "walkable": false
@@ -3055,6 +8524,10 @@ export const MAT = {
   "80": {
     "id": 80,
     "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
     "rect": [
       832,
       1920,
@@ -3068,6 +8541,8 @@ export const MAT = {
     "type": "Pillar",
     "render": "pillar",
     "transparent": true,
+    "colorMod": null,
+    "colorType": null,
     "h": 1.0,
     "solid": false,
     "walkable": false
@@ -3075,6 +8550,10 @@ export const MAT = {
   "81": {
     "id": 81,
     "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
     "rect": [
       896,
       1920,
@@ -3088,6 +8567,8 @@ export const MAT = {
     "type": "Pillar",
     "render": "pillar",
     "transparent": true,
+    "colorMod": null,
+    "colorType": null,
     "h": 1.0,
     "solid": false,
     "walkable": false
@@ -3095,6 +8576,10 @@ export const MAT = {
   "82": {
     "id": 82,
     "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
     "rect": [
       960,
       1920,
@@ -3108,6 +8593,8 @@ export const MAT = {
     "type": "Pillar",
     "render": "pillar",
     "transparent": true,
+    "colorMod": null,
+    "colorType": null,
     "h": 1.0,
     "solid": false,
     "walkable": false
@@ -3115,6 +8602,10 @@ export const MAT = {
   "83": {
     "id": 83,
     "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
     "rect": [
       1024,
       1920,
@@ -3128,6 +8619,8 @@ export const MAT = {
     "type": "Pillar",
     "render": "pillar",
     "transparent": true,
+    "colorMod": null,
+    "colorType": null,
     "h": 1.0,
     "solid": false,
     "walkable": false
@@ -3135,6 +8628,10 @@ export const MAT = {
   "84": {
     "id": 84,
     "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
     "rect": [
       1088,
       1920,
@@ -3148,6 +8645,8 @@ export const MAT = {
     "type": "Pillar",
     "render": "pillar",
     "transparent": true,
+    "colorMod": null,
+    "colorType": null,
     "h": 1.0,
     "solid": false,
     "walkable": false
@@ -3155,6 +8654,10 @@ export const MAT = {
   "85": {
     "id": 85,
     "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
     "rect": [
       1152,
       1920,
@@ -3168,6 +8671,8 @@ export const MAT = {
     "type": "Pillar",
     "render": "pillar",
     "transparent": true,
+    "colorMod": null,
+    "colorType": null,
     "h": 1.0,
     "solid": false,
     "walkable": false
@@ -3175,6 +8680,10 @@ export const MAT = {
   "86": {
     "id": 86,
     "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
     "rect": [
       1216,
       1920,
@@ -3188,6 +8697,8 @@ export const MAT = {
     "type": "Pillar",
     "render": "pillar",
     "transparent": true,
+    "colorMod": null,
+    "colorType": null,
     "h": 1.0,
     "solid": false,
     "walkable": false
@@ -3195,6 +8706,10 @@ export const MAT = {
   "87": {
     "id": 87,
     "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
     "rect": [
       1280,
       1920,
@@ -3208,6 +8723,8 @@ export const MAT = {
     "type": "Pillar",
     "render": "pillar",
     "transparent": true,
+    "colorMod": null,
+    "colorType": null,
     "h": 1.0,
     "solid": false,
     "walkable": false
@@ -3215,6 +8732,10 @@ export const MAT = {
   "108": {
     "id": 108,
     "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
     "rect": [
       1344,
       1920,
@@ -3228,6 +8749,8 @@ export const MAT = {
     "type": "Pillar",
     "render": "pillar",
     "transparent": true,
+    "colorMod": null,
+    "colorType": null,
     "h": 1.0,
     "solid": false,
     "walkable": false
@@ -3235,6 +8758,10 @@ export const MAT = {
   "109": {
     "id": 109,
     "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
     "rect": [
       1408,
       1920,
@@ -3248,6 +8775,8 @@ export const MAT = {
     "type": "Pillar",
     "render": "pillar",
     "transparent": true,
+    "colorMod": null,
+    "colorType": null,
     "h": 1.0,
     "solid": false,
     "walkable": false
@@ -3255,6 +8784,10 @@ export const MAT = {
   "110": {
     "id": 110,
     "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
     "rect": [
       1472,
       1920,
@@ -3268,6 +8801,8 @@ export const MAT = {
     "type": "Pillar",
     "render": "pillar",
     "transparent": true,
+    "colorMod": null,
+    "colorType": null,
     "h": 1.0,
     "solid": false,
     "walkable": false
@@ -3275,6 +8810,10 @@ export const MAT = {
   "111": {
     "id": 111,
     "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
     "rect": [
       1536,
       1920,
@@ -3288,6 +8827,8 @@ export const MAT = {
     "type": "Pillar",
     "render": "pillar",
     "transparent": true,
+    "colorMod": null,
+    "colorType": null,
     "h": 1.0,
     "solid": false,
     "walkable": false
@@ -3295,6 +8836,10 @@ export const MAT = {
   "118": {
     "id": 118,
     "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
     "rect": [
       1664,
       1920,
@@ -3308,6 +8853,8 @@ export const MAT = {
     "type": "Pillar",
     "render": "pillar",
     "transparent": true,
+    "colorMod": null,
+    "colorType": null,
     "h": 1.0,
     "solid": false,
     "walkable": false
@@ -3315,6 +8862,10 @@ export const MAT = {
   "119": {
     "id": 119,
     "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
     "rect": [
       1728,
       1920,
@@ -3328,6 +8879,8 @@ export const MAT = {
     "type": "Pillar",
     "render": "pillar",
     "transparent": true,
+    "colorMod": null,
+    "colorType": null,
     "h": 1.0,
     "solid": false,
     "walkable": false
@@ -3335,6 +8888,10 @@ export const MAT = {
   "120": {
     "id": 120,
     "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
     "rect": [
       1792,
       1920,
@@ -3348,6 +8905,8 @@ export const MAT = {
     "type": "Pillar",
     "render": "pillar",
     "transparent": true,
+    "colorMod": null,
+    "colorType": null,
     "h": 1.0,
     "solid": false,
     "walkable": false
@@ -3355,6 +8914,10 @@ export const MAT = {
   "121": {
     "id": 121,
     "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
     "rect": [
       1856,
       1920,
@@ -3368,6 +8931,8 @@ export const MAT = {
     "type": "Pillar",
     "render": "pillar",
     "transparent": true,
+    "colorMod": null,
+    "colorType": null,
     "h": 1.0,
     "solid": false,
     "walkable": false
@@ -3375,6 +8940,10 @@ export const MAT = {
   "122": {
     "id": 122,
     "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
     "rect": [
       1920,
       1920,
@@ -3388,6 +8957,8 @@ export const MAT = {
     "type": "Pillar",
     "render": "pillar",
     "transparent": true,
+    "colorMod": null,
+    "colorType": null,
     "h": 1.0,
     "solid": false,
     "walkable": false
@@ -3395,6 +8966,10 @@ export const MAT = {
   "125": {
     "id": 125,
     "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
     "rect": [
       1600,
       1920,
@@ -3408,6 +8983,8 @@ export const MAT = {
     "type": "Pillar",
     "render": "pillar",
     "transparent": true,
+    "colorMod": null,
+    "colorType": null,
     "h": 1.0,
     "solid": false,
     "walkable": false
@@ -3415,6 +8992,10 @@ export const MAT = {
   "160": {
     "id": 160,
     "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
     "rect": [
       832,
       448,
@@ -3428,6 +9009,8 @@ export const MAT = {
     "type": "Pillar",
     "render": "pillar",
     "transparent": true,
+    "colorMod": null,
+    "colorType": null,
     "h": 1.0,
     "solid": false,
     "walkable": false
@@ -3435,6 +9018,10 @@ export const MAT = {
   "198": {
     "id": 198,
     "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
     "rect": [
       1472,
       1664,
@@ -3448,6 +9035,8 @@ export const MAT = {
     "type": "Pillar",
     "render": "pillar",
     "transparent": true,
+    "colorMod": null,
+    "colorType": null,
     "h": 1.0,
     "solid": false,
     "walkable": false
@@ -3455,6 +9044,10 @@ export const MAT = {
   "199": {
     "id": 199,
     "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
     "rect": [
       1536,
       1664,
@@ -3468,6 +9061,8 @@ export const MAT = {
     "type": "Pillar",
     "render": "pillar",
     "transparent": true,
+    "colorMod": null,
+    "colorType": null,
     "h": 1.0,
     "solid": false,
     "walkable": false
@@ -3475,6 +9070,10 @@ export const MAT = {
   "200": {
     "id": 200,
     "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
     "rect": [
       320,
       1664,
@@ -3488,6 +9087,8 @@ export const MAT = {
     "type": "Pillar",
     "render": "pillar",
     "transparent": true,
+    "colorMod": null,
+    "colorType": null,
     "h": 1.0,
     "solid": false,
     "walkable": false
@@ -3495,6 +9096,10 @@ export const MAT = {
   "211": {
     "id": 211,
     "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
     "rect": [
       1600,
       1664,
@@ -3508,6 +9113,8 @@ export const MAT = {
     "type": "Pillar",
     "render": "pillar",
     "transparent": true,
+    "colorMod": null,
+    "colorType": null,
     "h": 1.0,
     "solid": false,
     "walkable": false
@@ -3515,6 +9122,10 @@ export const MAT = {
   "212": {
     "id": 212,
     "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
     "rect": [
       1664,
       1664,
@@ -3528,6 +9139,8 @@ export const MAT = {
     "type": "Pillar",
     "render": "pillar",
     "transparent": true,
+    "colorMod": null,
+    "colorType": null,
     "h": 1.0,
     "solid": false,
     "walkable": false
@@ -3535,6 +9148,10 @@ export const MAT = {
   "168": {
     "id": 168,
     "atlas": "blocks",
+    "cell": [
+      64,
+      64
+    ],
     "rect": [
       896,
       448,
@@ -3548,6 +9165,8 @@ export const MAT = {
     "type": "Waterfall",
     "render": "waterfall",
     "transparent": true,
+    "colorMod": null,
+    "colorType": null,
     "h": 1.0,
     "solid": false,
     "walkable": false
@@ -3573,7 +9192,9 @@ export const MAT = {
     "tag": [
       "crime"
     ],
-    "defMat": "silt"
+    "defMat": "silt",
+    "colorMod": null,
+    "colorType": null
   },
   "0": {
     "id": 0,
@@ -3593,6 +9214,8 @@ export const MAT = {
     "objType": null,
     "tag": null,
     "defMat": "grass",
+    "colorMod": 0,
+    "colorType": null,
     "tint": [
       205,
       70,
@@ -3619,7 +9242,9 @@ export const MAT = {
       "seed",
       "flower"
     ],
-    "defMat": "grass"
+    "defMat": "grass",
+    "colorMod": 0,
+    "colorType": null
   },
   "2": {
     "id": 2,
@@ -3641,7 +9266,9 @@ export const MAT = {
       "seed",
       "flower"
     ],
-    "defMat": "grass"
+    "defMat": "grass",
+    "colorMod": 0,
+    "colorType": null
   },
   "3": {
     "id": 3,
@@ -3664,6 +9291,8 @@ export const MAT = {
       "flower"
     ],
     "defMat": "grass",
+    "colorMod": 0,
+    "colorType": null,
     "tint": [
       238,
       208,
@@ -3690,7 +9319,9 @@ export const MAT = {
       "seed",
       "flower"
     ],
-    "defMat": "grass"
+    "defMat": "grass",
+    "colorMod": 0,
+    "colorType": null
   },
   "115": {
     "id": 115,
@@ -3712,7 +9343,9 @@ export const MAT = {
       "seed",
       "scale"
     ],
-    "defMat": "grass"
+    "defMat": "grass",
+    "colorMod": 0,
+    "colorType": null
   },
   "116": {
     "id": 116,
@@ -3734,7 +9367,9 @@ export const MAT = {
       "seed",
       "scale"
     ],
-    "defMat": "grass"
+    "defMat": "grass",
+    "colorMod": 0,
+    "colorType": null
   },
   "117": {
     "id": 117,
@@ -3756,7 +9391,9 @@ export const MAT = {
       "seed",
       "scale"
     ],
-    "defMat": "grass"
+    "defMat": "grass",
+    "colorMod": 0,
+    "colorType": null
   },
   "127": {
     "id": 127,
@@ -3778,7 +9415,9 @@ export const MAT = {
       "seed",
       "scale"
     ],
-    "defMat": "grass"
+    "defMat": "grass",
+    "colorMod": 0,
+    "colorType": null
   },
   "120": {
     "id": 120,
@@ -3800,7 +9439,9 @@ export const MAT = {
       "seed",
       "flower"
     ],
-    "defMat": "grass"
+    "defMat": "grass",
+    "colorMod": 0,
+    "colorType": null
   },
   "5": {
     "id": 5,
@@ -3821,7 +9462,9 @@ export const MAT = {
     "tag": [
       "seed"
     ],
-    "defMat": "grass"
+    "defMat": "grass",
+    "colorMod": 0,
+    "colorType": null
   },
   "6": {
     "id": 6,
@@ -3842,7 +9485,9 @@ export const MAT = {
     "tag": [
       "seed"
     ],
-    "defMat": "grass"
+    "defMat": "grass",
+    "colorMod": 0,
+    "colorType": null
   },
   "7": {
     "id": 7,
@@ -3862,6 +9507,8 @@ export const MAT = {
     "objType": "crop",
     "tag": null,
     "defMat": "grass",
+    "colorMod": null,
+    "colorType": null,
     "tint": [
       118,
       168,
@@ -3887,7 +9534,9 @@ export const MAT = {
     "tag": [
       "seed"
     ],
-    "defMat": "grass"
+    "defMat": "grass",
+    "colorMod": null,
+    "colorType": null
   },
   "121": {
     "id": 121,
@@ -3908,7 +9557,9 @@ export const MAT = {
     "tag": [
       "seed"
     ],
-    "defMat": "grass"
+    "defMat": "grass",
+    "colorMod": null,
+    "colorType": null
   },
   "8": {
     "id": 8,
@@ -3930,7 +9581,9 @@ export const MAT = {
       "seed",
       "flower"
     ],
-    "defMat": "grass"
+    "defMat": "grass",
+    "colorMod": 0,
+    "colorType": null
   },
   "9": {
     "id": 9,
@@ -3951,7 +9604,9 @@ export const MAT = {
     "tag": [
       "mat_name"
     ],
-    "defMat": "granite"
+    "defMat": "granite",
+    "colorMod": null,
+    "colorType": null
   },
   "48": {
     "id": 48,
@@ -3970,7 +9625,9 @@ export const MAT = {
     "render": "obj_S flat",
     "objType": null,
     "tag": null,
-    "defMat": "straw"
+    "defMat": "straw",
+    "colorMod": 0,
+    "colorType": null
   },
   "10": {
     "id": 10,
@@ -3991,7 +9648,9 @@ export const MAT = {
     "tag": [
       "mat_name"
     ],
-    "defMat": "mica"
+    "defMat": "mica",
+    "colorMod": null,
+    "colorType": null
   },
   "11": {
     "id": 11,
@@ -4012,7 +9671,9 @@ export const MAT = {
     "tag": [
       "mat_name"
     ],
-    "defMat": "granite"
+    "defMat": "granite",
+    "colorMod": null,
+    "colorType": null
   },
   "16": {
     "id": 16,
@@ -4033,7 +9694,9 @@ export const MAT = {
     "tag": [
       "seed"
     ],
-    "defMat": "oak"
+    "defMat": "oak",
+    "colorMod": 0,
+    "colorType": null
   },
   "90": {
     "id": 90,
@@ -4055,7 +9718,9 @@ export const MAT = {
       "seed",
       "rareSeed"
     ],
-    "defMat": "oak"
+    "defMat": "oak",
+    "colorMod": 0,
+    "colorType": null
   },
   "14": {
     "id": 14,
@@ -4077,7 +9742,9 @@ export const MAT = {
       "seed",
       "wild"
     ],
-    "defMat": "grass"
+    "defMat": "grass",
+    "colorMod": 0,
+    "colorType": null
   },
   "104": {
     "id": 104,
@@ -4099,7 +9766,9 @@ export const MAT = {
       "seed",
       "wild"
     ],
-    "defMat": "grass"
+    "defMat": "grass",
+    "colorMod": 0,
+    "colorType": null
   },
   "122": {
     "id": 122,
@@ -4120,7 +9789,9 @@ export const MAT = {
     "tag": [
       "seed"
     ],
-    "defMat": "grass"
+    "defMat": "grass",
+    "colorMod": 0,
+    "colorType": null
   },
   "50": {
     "id": 50,
@@ -4141,7 +9812,9 @@ export const MAT = {
     "tag": [
       "seed"
     ],
-    "defMat": "grass"
+    "defMat": "grass",
+    "colorMod": 0,
+    "colorType": null
   },
   "61": {
     "id": 61,
@@ -4160,7 +9833,9 @@ export const MAT = {
     "render": "obj_S",
     "objType": null,
     "tag": null,
-    "defMat": "grass"
+    "defMat": "grass",
+    "colorMod": 0,
+    "colorType": null
   },
   "73": {
     "id": 73,
@@ -4179,7 +9854,9 @@ export const MAT = {
     "render": "obj_S",
     "objType": null,
     "tag": null,
-    "defMat": "grass"
+    "defMat": "grass",
+    "colorMod": 0,
+    "colorType": null
   },
   "74": {
     "id": 74,
@@ -4198,7 +9875,9 @@ export const MAT = {
     "render": "obj_S flat",
     "objType": null,
     "tag": null,
-    "defMat": "bone"
+    "defMat": "bone",
+    "colorMod": 0,
+    "colorType": null
   },
   "75": {
     "id": 75,
@@ -4217,7 +9896,9 @@ export const MAT = {
     "render": "obj_S",
     "objType": null,
     "tag": null,
-    "defMat": "coral"
+    "defMat": "coral",
+    "colorMod": 0,
+    "colorType": null
   },
   "136": {
     "id": 136,
@@ -4236,7 +9917,9 @@ export const MAT = {
     "render": "obj",
     "objType": null,
     "tag": null,
-    "defMat": "coral"
+    "defMat": "coral",
+    "colorMod": 0,
+    "colorType": null
   },
   "12": {
     "id": 12,
@@ -4258,6 +9941,8 @@ export const MAT = {
       "seed"
     ],
     "defMat": "oak",
+    "colorMod": null,
+    "colorType": "alt",
     "tint": [
       205,
       95,
@@ -4284,6 +9969,8 @@ export const MAT = {
       "seed"
     ],
     "defMat": "pine",
+    "colorMod": null,
+    "colorType": "alt",
     "tint": [
       205,
       95,
@@ -4310,6 +9997,8 @@ export const MAT = {
       "seed"
     ],
     "defMat": "wood_acacia",
+    "colorMod": null,
+    "colorType": "alt",
     "tint": [
       205,
       95,
@@ -4336,7 +10025,14 @@ export const MAT = {
       "seed",
       "rareSeed"
     ],
-    "defMat": "feywood"
+    "defMat": "feywood",
+    "colorMod": null,
+    "colorType": "alt",
+    "tint": [
+      110,
+      200,
+      185
+    ]
   },
   "119": {
     "id": 119,
@@ -4358,7 +10054,14 @@ export const MAT = {
       "seed",
       "rareSeed"
     ],
-    "defMat": "coralwood"
+    "defMat": "coralwood",
+    "colorMod": null,
+    "colorType": "alt",
+    "tint": [
+      235,
+      150,
+      150
+    ]
   },
   "53": {
     "id": 53,
@@ -4379,7 +10082,14 @@ export const MAT = {
     "tag": [
       "seed"
     ],
-    "defMat": "rosewood"
+    "defMat": "rosewood",
+    "colorMod": null,
+    "colorType": "alt",
+    "tint": [
+      145,
+      180,
+      100
+    ]
   },
   "69": {
     "id": 69,
@@ -4400,7 +10110,9 @@ export const MAT = {
     "tag": [
       "seed"
     ],
-    "defMat": "mahogany"
+    "defMat": "mahogany",
+    "colorMod": null,
+    "colorType": "alt"
   },
   "70": {
     "id": 70,
@@ -4422,6 +10134,8 @@ export const MAT = {
       "seed"
     ],
     "defMat": "wood_acacia",
+    "colorMod": null,
+    "colorType": "alt",
     "tint": [
       138,
       172,
@@ -4447,7 +10161,14 @@ export const MAT = {
     "tag": [
       "seed"
     ],
-    "defMat": "fir"
+    "defMat": "fir",
+    "colorMod": null,
+    "colorType": "alt",
+    "tint": [
+      120,
+      180,
+      100
+    ]
   },
   "55": {
     "id": 55,
@@ -4468,7 +10189,14 @@ export const MAT = {
     "tag": [
       "seed"
     ],
-    "defMat": "cedar"
+    "defMat": "cedar",
+    "colorMod": null,
+    "colorType": "alt",
+    "tint": [
+      140,
+      185,
+      110
+    ]
   },
   "76": {
     "id": 76,
@@ -4490,6 +10218,8 @@ export const MAT = {
       "seed"
     ],
     "defMat": "willow",
+    "colorMod": null,
+    "colorType": "alt",
     "tint": [
       125,
       182,
@@ -4516,6 +10246,8 @@ export const MAT = {
       "seed"
     ],
     "defMat": "bamboo",
+    "colorMod": null,
+    "colorType": "alt",
     "tint": [
       128,
       178,
@@ -4541,7 +10273,14 @@ export const MAT = {
     "tag": [
       "seed"
     ],
-    "defMat": "cherryblossom"
+    "defMat": "cherryblossom",
+    "colorMod": null,
+    "colorType": "alt",
+    "tint": [
+      230,
+      150,
+      185
+    ]
   },
   "56": {
     "id": 56,
@@ -4563,6 +10302,8 @@ export const MAT = {
       "seed"
     ],
     "defMat": "wood_birch",
+    "colorMod": null,
+    "colorType": "alt",
     "tint": [
       120,
       178,
@@ -4589,6 +10330,8 @@ export const MAT = {
       "seed"
     ],
     "defMat": "pine",
+    "colorMod": null,
+    "colorType": "alt",
     "tint": [
       70,
       140,
@@ -4614,7 +10357,14 @@ export const MAT = {
     "tag": [
       "seed"
     ],
-    "defMat": "oak"
+    "defMat": "oak",
+    "colorMod": null,
+    "colorType": "alt",
+    "tint": [
+      150,
+      195,
+      105
+    ]
   },
   "17": {
     "id": 17,
@@ -4635,7 +10385,14 @@ export const MAT = {
     "tag": [
       "seed"
     ],
-    "defMat": "palm"
+    "defMat": "palm",
+    "colorMod": 0,
+    "colorType": null,
+    "tint": [
+      150,
+      200,
+      110
+    ]
   },
   "112": {
     "id": 112,
@@ -4656,7 +10413,14 @@ export const MAT = {
     "tag": [
       "seed"
     ],
-    "defMat": "palm"
+    "defMat": "palm",
+    "colorMod": 0,
+    "colorType": null,
+    "tint": [
+      150,
+      200,
+      100
+    ]
   },
   "13": {
     "id": 13,
@@ -4677,7 +10441,14 @@ export const MAT = {
     "tag": [
       "seed"
     ],
-    "defMat": "fir"
+    "defMat": "fir",
+    "colorMod": null,
+    "colorType": "alt",
+    "tint": [
+      110,
+      175,
+      110
+    ]
   },
   "49": {
     "id": 49,
@@ -4698,7 +10469,9 @@ export const MAT = {
     "tag": [
       "seed"
     ],
-    "defMat": "poplar"
+    "defMat": "poplar",
+    "colorMod": null,
+    "colorType": "alt"
   },
   "113": {
     "id": 113,
@@ -4719,7 +10492,9 @@ export const MAT = {
     "tag": [
       "seed"
     ],
-    "defMat": "poplar"
+    "defMat": "poplar",
+    "colorMod": null,
+    "colorType": "alt"
   },
   "114": {
     "id": 114,
@@ -4740,7 +10515,9 @@ export const MAT = {
     "tag": [
       "seed"
     ],
-    "defMat": "poplar"
+    "defMat": "poplar",
+    "colorMod": null,
+    "colorType": "alt"
   },
   "59": {
     "id": 59,
@@ -4759,7 +10536,14 @@ export const MAT = {
     "render": "obj_LV",
     "objType": null,
     "tag": null,
-    "defMat": "carbone"
+    "defMat": "carbone",
+    "colorMod": null,
+    "colorType": null,
+    "tint": [
+      65,
+      50,
+      38
+    ]
   },
   "18": {
     "id": 18,
@@ -4781,7 +10565,9 @@ export const MAT = {
       "mat_name",
       "crime"
     ],
-    "defMat": "iron"
+    "defMat": "iron",
+    "colorMod": null,
+    "colorType": null
   },
   "19": {
     "id": 19,
@@ -4803,7 +10589,9 @@ export const MAT = {
       "mat_name",
       "crime"
     ],
-    "defMat": "gold"
+    "defMat": "gold",
+    "colorMod": null,
+    "colorType": null
   },
   "20": {
     "id": 20,
@@ -4823,6 +10611,8 @@ export const MAT = {
     "objType": null,
     "tag": null,
     "defMat": "grass",
+    "colorMod": 0,
+    "colorType": null,
     "tint": [
       222,
       226,
@@ -4848,7 +10638,9 @@ export const MAT = {
     "tag": [
       "crime"
     ],
-    "defMat": "oak"
+    "defMat": "oak",
+    "colorMod": null,
+    "colorType": null
   },
   "23": {
     "id": 23,
@@ -4869,7 +10661,9 @@ export const MAT = {
     "tag": [
       "crime"
     ],
-    "defMat": "oak"
+    "defMat": "oak",
+    "colorMod": null,
+    "colorType": null
   },
   "24": {
     "id": 24,
@@ -4890,7 +10684,9 @@ export const MAT = {
     "tag": [
       "crime"
     ],
-    "defMat": "oak"
+    "defMat": "oak",
+    "colorMod": null,
+    "colorType": null
   },
   "101": {
     "id": 101,
@@ -4911,7 +10707,9 @@ export const MAT = {
     "tag": [
       "crime"
     ],
-    "defMat": "oak"
+    "defMat": "oak",
+    "colorMod": null,
+    "colorType": null
   },
   "106": {
     "id": 106,
@@ -4932,7 +10730,9 @@ export const MAT = {
     "tag": [
       "crime"
     ],
-    "defMat": "copper"
+    "defMat": "copper",
+    "colorMod": null,
+    "colorType": null
   },
   "25": {
     "id": 25,
@@ -4955,7 +10755,9 @@ export const MAT = {
       "rail",
       "crime"
     ],
-    "defMat": "granite"
+    "defMat": "granite",
+    "colorMod": null,
+    "colorType": null
   },
   "144": {
     "id": 144,
@@ -4978,7 +10780,9 @@ export const MAT = {
       "rail",
       "crime"
     ],
-    "defMat": "granite"
+    "defMat": "granite",
+    "colorMod": null,
+    "colorType": null
   },
   "71": {
     "id": 71,
@@ -4997,7 +10801,9 @@ export const MAT = {
     "render": "floor_obj",
     "objType": null,
     "tag": null,
-    "defMat": "soil"
+    "defMat": "soil",
+    "colorMod": null,
+    "colorType": null
   },
   "107": {
     "id": 107,
@@ -5016,7 +10822,9 @@ export const MAT = {
     "render": "floor_obj",
     "objType": null,
     "tag": null,
-    "defMat": "glass"
+    "defMat": "glass",
+    "colorMod": null,
+    "colorType": null
   },
   "109": {
     "id": 109,
@@ -5035,7 +10843,9 @@ export const MAT = {
     "render": "floor_obj",
     "objType": null,
     "tag": null,
-    "defMat": "iron"
+    "defMat": "iron",
+    "colorMod": null,
+    "colorType": null
   },
   "111": {
     "id": 111,
@@ -5054,7 +10864,9 @@ export const MAT = {
     "render": "floor_obj",
     "objType": null,
     "tag": null,
-    "defMat": "glass"
+    "defMat": "glass",
+    "colorMod": null,
+    "colorType": null
   },
   "22": {
     "id": 22,
@@ -5073,7 +10885,9 @@ export const MAT = {
     "render": "roof",
     "objType": null,
     "tag": null,
-    "defMat": "oak"
+    "defMat": "oak",
+    "colorMod": 60,
+    "colorType": null
   },
   "26": {
     "id": 26,
@@ -5092,7 +10906,9 @@ export const MAT = {
     "render": "roof",
     "objType": null,
     "tag": null,
-    "defMat": "oak"
+    "defMat": "oak",
+    "colorMod": 60,
+    "colorType": null
   },
   "27": {
     "id": 27,
@@ -5111,7 +10927,9 @@ export const MAT = {
     "render": "roof",
     "objType": null,
     "tag": null,
-    "defMat": "oak"
+    "defMat": "oak",
+    "colorMod": 60,
+    "colorType": null
   },
   "28": {
     "id": 28,
@@ -5130,7 +10948,9 @@ export const MAT = {
     "render": "roof",
     "objType": null,
     "tag": null,
-    "defMat": "oak"
+    "defMat": "oak",
+    "colorMod": 60,
+    "colorType": null
   },
   "29": {
     "id": 29,
@@ -5149,7 +10969,9 @@ export const MAT = {
     "render": "roof",
     "objType": null,
     "tag": null,
-    "defMat": "oak"
+    "defMat": "oak",
+    "colorMod": 60,
+    "colorType": null
   },
   "30": {
     "id": 30,
@@ -5168,7 +10990,9 @@ export const MAT = {
     "render": "roof",
     "objType": null,
     "tag": null,
-    "defMat": "oak"
+    "defMat": "oak",
+    "colorMod": 60,
+    "colorType": null
   },
   "67": {
     "id": 67,
@@ -5187,7 +11011,9 @@ export const MAT = {
     "render": "roof",
     "objType": null,
     "tag": null,
-    "defMat": "oak"
+    "defMat": "oak",
+    "colorMod": 60,
+    "colorType": null
   },
   "124": {
     "id": 124,
@@ -5206,7 +11032,9 @@ export const MAT = {
     "render": "roof",
     "objType": null,
     "tag": null,
-    "defMat": "oak"
+    "defMat": "oak",
+    "colorMod": 60,
+    "colorType": null
   },
   "125": {
     "id": 125,
@@ -5225,7 +11053,9 @@ export const MAT = {
     "render": "roof",
     "objType": null,
     "tag": null,
-    "defMat": "oak"
+    "defMat": "oak",
+    "colorMod": 60,
+    "colorType": null
   },
   "126": {
     "id": 126,
@@ -5244,7 +11074,9 @@ export const MAT = {
     "render": "roof",
     "objType": null,
     "tag": null,
-    "defMat": "oak"
+    "defMat": "oak",
+    "colorMod": 60,
+    "colorType": null
   },
   "128": {
     "id": 128,
@@ -5263,7 +11095,9 @@ export const MAT = {
     "render": "roof",
     "objType": null,
     "tag": null,
-    "defMat": "oak"
+    "defMat": "oak",
+    "colorMod": 60,
+    "colorType": null
   },
   "129": {
     "id": 129,
@@ -5282,7 +11116,9 @@ export const MAT = {
     "render": "roof",
     "objType": null,
     "tag": null,
-    "defMat": "oak"
+    "defMat": "oak",
+    "colorMod": 60,
+    "colorType": null
   },
   "130": {
     "id": 130,
@@ -5301,7 +11137,9 @@ export const MAT = {
     "render": "roof",
     "objType": null,
     "tag": null,
-    "defMat": "oak"
+    "defMat": "oak",
+    "colorMod": 60,
+    "colorType": null
   },
   "131": {
     "id": 131,
@@ -5320,7 +11158,9 @@ export const MAT = {
     "render": "roof",
     "objType": null,
     "tag": null,
-    "defMat": "oak"
+    "defMat": "oak",
+    "colorMod": 60,
+    "colorType": null
   },
   "132": {
     "id": 132,
@@ -5339,7 +11179,9 @@ export const MAT = {
     "render": "roof",
     "objType": null,
     "tag": null,
-    "defMat": "oak"
+    "defMat": "oak",
+    "colorMod": 60,
+    "colorType": null
   },
   "133": {
     "id": 133,
@@ -5358,7 +11200,9 @@ export const MAT = {
     "render": "roof",
     "objType": null,
     "tag": null,
-    "defMat": "oak"
+    "defMat": "oak",
+    "colorMod": 60,
+    "colorType": null
   },
   "134": {
     "id": 134,
@@ -5377,7 +11221,9 @@ export const MAT = {
     "render": "roof",
     "objType": null,
     "tag": null,
-    "defMat": "oak"
+    "defMat": "oak",
+    "colorMod": 60,
+    "colorType": null
   },
   "31": {
     "id": 31,
@@ -5400,7 +11246,9 @@ export const MAT = {
       "rail",
       "crime"
     ],
-    "defMat": "pine"
+    "defMat": "pine",
+    "colorMod": null,
+    "colorType": null
   },
   "110": {
     "id": 110,
@@ -5423,7 +11271,9 @@ export const MAT = {
       "rail",
       "crime"
     ],
-    "defMat": "chromite"
+    "defMat": "chromite",
+    "colorMod": null,
+    "colorType": null
   },
   "97": {
     "id": 97,
@@ -5445,7 +11295,9 @@ export const MAT = {
       "rail",
       "crime"
     ],
-    "defMat": "pine"
+    "defMat": "pine",
+    "colorMod": null,
+    "colorType": null
   },
   "98": {
     "id": 98,
@@ -5467,7 +11319,9 @@ export const MAT = {
       "rail",
       "crime"
     ],
-    "defMat": "pine"
+    "defMat": "pine",
+    "colorMod": null,
+    "colorType": null
   },
   "92": {
     "id": 92,
@@ -5488,7 +11342,9 @@ export const MAT = {
     "tag": [
       "autotile"
     ],
-    "defMat": "granite"
+    "defMat": "granite",
+    "colorMod": null,
+    "colorType": null
   },
   "32": {
     "id": 32,
@@ -5509,7 +11365,9 @@ export const MAT = {
     "tag": [
       "autotile"
     ],
-    "defMat": "granite"
+    "defMat": "granite",
+    "colorMod": null,
+    "colorType": null
   },
   "33": {
     "id": 33,
@@ -5533,7 +11391,9 @@ export const MAT = {
       "rail",
       "crime"
     ],
-    "defMat": "granite"
+    "defMat": "granite",
+    "colorMod": null,
+    "colorType": null
   },
   "34": {
     "id": 34,
@@ -5554,7 +11414,9 @@ export const MAT = {
     "tag": [
       "spot"
     ],
-    "defMat": "granite"
+    "defMat": "granite",
+    "colorMod": null,
+    "colorType": null
   },
   "85": {
     "id": 85,
@@ -5575,7 +11437,9 @@ export const MAT = {
     "tag": [
       "spot"
     ],
-    "defMat": "iron"
+    "defMat": "iron",
+    "colorMod": null,
+    "colorType": null
   },
   "86": {
     "id": 86,
@@ -5596,7 +11460,9 @@ export const MAT = {
     "tag": [
       "spot"
     ],
-    "defMat": "cotton"
+    "defMat": "cotton",
+    "colorMod": null,
+    "colorType": null
   },
   "87": {
     "id": 87,
@@ -5617,7 +11483,9 @@ export const MAT = {
     "tag": [
       "spot"
     ],
-    "defMat": "lapis"
+    "defMat": "lapis",
+    "colorMod": null,
+    "colorType": null
   },
   "105": {
     "id": 105,
@@ -5639,7 +11507,14 @@ export const MAT = {
       "crop",
       "seed"
     ],
-    "defMat": "grass"
+    "defMat": "grass",
+    "colorMod": 0,
+    "colorType": null,
+    "tint": [
+      118,
+      168,
+      88
+    ]
   },
   "108": {
     "id": 108,
@@ -5661,7 +11536,9 @@ export const MAT = {
       "crop",
       "seed"
     ],
-    "defMat": "grass"
+    "defMat": "grass",
+    "colorMod": 0,
+    "colorType": null
   },
   "139": {
     "id": 139,
@@ -5683,7 +11560,9 @@ export const MAT = {
       "seed",
       "flower"
     ],
-    "defMat": "grass"
+    "defMat": "grass",
+    "colorMod": 0,
+    "colorType": null
   },
   "140": {
     "id": 140,
@@ -5705,7 +11584,9 @@ export const MAT = {
       "seed",
       "flower"
     ],
-    "defMat": "grass"
+    "defMat": "grass",
+    "colorMod": 0,
+    "colorType": null
   },
   "137": {
     "id": 137,
@@ -5728,7 +11609,9 @@ export const MAT = {
       "seed",
       "undersea"
     ],
-    "defMat": "grass"
+    "defMat": "grass",
+    "colorMod": null,
+    "colorType": null
   },
   "35": {
     "id": 35,
@@ -5751,7 +11634,9 @@ export const MAT = {
       "seed",
       "flood"
     ],
-    "defMat": "grass"
+    "defMat": "grass",
+    "colorMod": 0,
+    "colorType": null
   },
   "88": {
     "id": 88,
@@ -5774,7 +11659,9 @@ export const MAT = {
       "seed",
       "flood"
     ],
-    "defMat": "grass"
+    "defMat": "grass",
+    "colorMod": 0,
+    "colorType": null
   },
   "36": {
     "id": 36,
@@ -5798,7 +11685,9 @@ export const MAT = {
       "harvest",
       "wild"
     ],
-    "defMat": "grass"
+    "defMat": "grass",
+    "colorMod": 0,
+    "colorType": null
   },
   "37": {
     "id": 37,
@@ -5817,7 +11706,9 @@ export const MAT = {
     "render": "obj wheat",
     "objType": null,
     "tag": null,
-    "defMat": "grass"
+    "defMat": "grass",
+    "colorMod": 0,
+    "colorType": null
   },
   "38": {
     "id": 38,
@@ -5841,7 +11732,9 @@ export const MAT = {
       "harvest",
       "wild"
     ],
-    "defMat": "grass"
+    "defMat": "grass",
+    "colorMod": 0,
+    "colorType": null
   },
   "138": {
     "id": 138,
@@ -5865,7 +11758,9 @@ export const MAT = {
       "harvest",
       "wild"
     ],
-    "defMat": "grass"
+    "defMat": "grass",
+    "colorMod": 0,
+    "colorType": null
   },
   "39": {
     "id": 39,
@@ -5888,7 +11783,9 @@ export const MAT = {
       "seed",
       "harvest"
     ],
-    "defMat": "grass"
+    "defMat": "grass",
+    "colorMod": 0,
+    "colorType": null
   },
   "141": {
     "id": 141,
@@ -5910,7 +11807,9 @@ export const MAT = {
       "crop",
       "seed"
     ],
-    "defMat": "grass"
+    "defMat": "grass",
+    "colorMod": 0,
+    "colorType": null
   },
   "40": {
     "id": 40,
@@ -5934,7 +11833,9 @@ export const MAT = {
       "harvest",
       "wild"
     ],
-    "defMat": "grass"
+    "defMat": "grass",
+    "colorMod": 0,
+    "colorType": null
   },
   "41": {
     "id": 41,
@@ -5958,7 +11859,9 @@ export const MAT = {
       "harvest",
       "wild"
     ],
-    "defMat": "grass"
+    "defMat": "grass",
+    "colorMod": 0,
+    "colorType": null
   },
   "123": {
     "id": 123,
@@ -5980,7 +11883,9 @@ export const MAT = {
       "crop",
       "seed"
     ],
-    "defMat": "grass"
+    "defMat": "grass",
+    "colorMod": 0,
+    "colorType": null
   },
   "42": {
     "id": 42,
@@ -6003,7 +11908,9 @@ export const MAT = {
       "seed",
       "harvest"
     ],
-    "defMat": "grass"
+    "defMat": "grass",
+    "colorMod": 0,
+    "colorType": null
   },
   "78": {
     "id": 78,
@@ -6026,7 +11933,9 @@ export const MAT = {
       "seed",
       "harvest"
     ],
-    "defMat": "grass"
+    "defMat": "grass",
+    "colorMod": 0,
+    "colorType": null
   },
   "81": {
     "id": 81,
@@ -6050,7 +11959,9 @@ export const MAT = {
       "flower",
       "wild"
     ],
-    "defMat": "grass"
+    "defMat": "grass",
+    "colorMod": 0,
+    "colorType": null
   },
   "43": {
     "id": 43,
@@ -6073,7 +11984,9 @@ export const MAT = {
       "rail",
       "crime"
     ],
-    "defMat": "soil"
+    "defMat": "soil",
+    "colorMod": null,
+    "colorType": null
   },
   "44": {
     "id": 44,
@@ -6096,7 +12009,9 @@ export const MAT = {
       "rail",
       "crime"
     ],
-    "defMat": "soil"
+    "defMat": "soil",
+    "colorMod": null,
+    "colorType": null
   },
   "89": {
     "id": 89,
@@ -6119,7 +12034,9 @@ export const MAT = {
       "rail",
       "crime"
     ],
-    "defMat": "sand_white"
+    "defMat": "sand_white",
+    "colorMod": null,
+    "colorType": null
   },
   "135": {
     "id": 135,
@@ -6142,7 +12059,9 @@ export const MAT = {
       "rail",
       "crime"
     ],
-    "defMat": "saphire"
+    "defMat": "saphire",
+    "colorMod": null,
+    "colorType": null
   },
   "45": {
     "id": 45,
@@ -6161,7 +12080,9 @@ export const MAT = {
     "render": "obj_S flat",
     "objType": null,
     "tag": null,
-    "defMat": "soil"
+    "defMat": "soil",
+    "colorMod": null,
+    "colorType": null
   },
   "84": {
     "id": 84,
@@ -6182,7 +12103,9 @@ export const MAT = {
     "tag": [
       "spot"
     ],
-    "defMat": "soil"
+    "defMat": "soil",
+    "colorMod": null,
+    "colorType": null
   },
   "46": {
     "id": 46,
@@ -6203,7 +12126,9 @@ export const MAT = {
     "tag": [
       "spot"
     ],
-    "defMat": "oak"
+    "defMat": "oak",
+    "colorMod": null,
+    "colorType": null
   },
   "51": {
     "id": 51,
@@ -6224,7 +12149,9 @@ export const MAT = {
     "tag": [
       "mat_name"
     ],
-    "defMat": "copper"
+    "defMat": "copper",
+    "colorMod": null,
+    "colorType": null
   },
   "100": {
     "id": 100,
@@ -6246,7 +12173,9 @@ export const MAT = {
       "hard",
       "mat_name"
     ],
-    "defMat": "granite"
+    "defMat": "granite",
+    "colorMod": null,
+    "colorType": null
   },
   "93": {
     "id": 93,
@@ -6267,7 +12196,9 @@ export const MAT = {
     "tag": [
       "mat_name"
     ],
-    "defMat": "granite"
+    "defMat": "granite",
+    "colorMod": null,
+    "colorType": null
   },
   "91": {
     "id": 91,
@@ -6286,7 +12217,9 @@ export const MAT = {
     "render": "obj_S flat",
     "objType": null,
     "tag": null,
-    "defMat": "limestone"
+    "defMat": "limestone",
+    "colorMod": null,
+    "colorType": null
   },
   "102": {
     "id": 102,
@@ -6305,7 +12238,9 @@ export const MAT = {
     "render": "obj_S flat",
     "objType": null,
     "tag": null,
-    "defMat": "silt"
+    "defMat": "silt",
+    "colorMod": 0,
+    "colorType": null
   },
   "52": {
     "id": 52,
@@ -6324,7 +12259,9 @@ export const MAT = {
     "render": "obj_S flat",
     "objType": null,
     "tag": null,
-    "defMat": "bone"
+    "defMat": "bone",
+    "colorMod": null,
+    "colorType": null
   },
   "142": {
     "id": 142,
@@ -6343,7 +12280,9 @@ export const MAT = {
     "render": "obj flat",
     "objType": null,
     "tag": null,
-    "defMat": "bone"
+    "defMat": "bone",
+    "colorMod": null,
+    "colorType": null
   },
   "62": {
     "id": 62,
@@ -6363,6 +12302,8 @@ export const MAT = {
     "objType": null,
     "tag": null,
     "defMat": "bone",
+    "colorMod": 0,
+    "colorType": null,
     "tint": [
       132,
       152,
@@ -6389,6 +12330,8 @@ export const MAT = {
       "crime"
     ],
     "defMat": "bone",
+    "colorMod": 0,
+    "colorType": null,
     "tint": [
       130,
       158,
@@ -6412,7 +12355,9 @@ export const MAT = {
     "render": "obj_LV",
     "objType": null,
     "tag": null,
-    "defMat": "bone"
+    "defMat": "bone",
+    "colorMod": 0,
+    "colorType": null
   },
   "60": {
     "id": 60,
@@ -6431,7 +12376,9 @@ export const MAT = {
     "render": "floor_obj",
     "objType": null,
     "tag": null,
-    "defMat": "grass"
+    "defMat": "grass",
+    "colorMod": 300,
+    "colorType": null
   },
   "79": {
     "id": 79,
@@ -6450,7 +12397,9 @@ export const MAT = {
     "render": "floor_obj",
     "objType": null,
     "tag": null,
-    "defMat": "cherryblossom"
+    "defMat": "cherryblossom",
+    "colorMod": null,
+    "colorType": "alt"
   },
   "65": {
     "id": 65,
@@ -6469,7 +12418,9 @@ export const MAT = {
     "render": "floor_obj",
     "objType": null,
     "tag": null,
-    "defMat": "bone"
+    "defMat": "bone",
+    "colorMod": 0,
+    "colorType": null
   },
   "66": {
     "id": 66,
@@ -6490,7 +12441,9 @@ export const MAT = {
     "tag": [
       "crime"
     ],
-    "defMat": "granite"
+    "defMat": "granite",
+    "colorMod": null,
+    "colorType": null
   },
   "68": {
     "id": 68,
@@ -6509,7 +12462,9 @@ export const MAT = {
     "render": "obj_S fish",
     "objType": null,
     "tag": null,
-    "defMat": "bone"
+    "defMat": "bone",
+    "colorMod": 0,
+    "colorType": null
   },
   "72": {
     "id": 72,
@@ -6528,7 +12483,14 @@ export const MAT = {
     "render": "obj_S flat",
     "objType": null,
     "tag": null,
-    "defMat": "oak"
+    "defMat": "oak",
+    "colorMod": null,
+    "colorType": null,
+    "tint": [
+      115,
+      85,
+      50
+    ]
   },
   "94": {
     "id": 94,
@@ -6548,6 +12510,8 @@ export const MAT = {
     "objType": null,
     "tag": null,
     "defMat": "oak",
+    "colorMod": null,
+    "colorType": null,
     "tint": [
       150,
       130,
@@ -6571,7 +12535,9 @@ export const MAT = {
     "render": "obj_S flat",
     "objType": null,
     "tag": null,
-    "defMat": "oak"
+    "defMat": "oak",
+    "colorMod": 0,
+    "colorType": null
   },
   "82": {
     "id": 82,
@@ -6590,7 +12556,9 @@ export const MAT = {
     "render": "obj",
     "objType": null,
     "tag": null,
-    "defMat": "bone"
+    "defMat": "bone",
+    "colorMod": null,
+    "colorType": null
   },
   "83": {
     "id": 83,
@@ -6611,7 +12579,9 @@ export const MAT = {
     "tag": [
       "spot"
     ],
-    "defMat": "bone"
+    "defMat": "bone",
+    "colorMod": null,
+    "colorType": null
   },
   "95": {
     "id": 95,
@@ -6630,7 +12600,9 @@ export const MAT = {
     "render": "block",
     "objType": null,
     "tag": null,
-    "defMat": "granite"
+    "defMat": "granite",
+    "colorMod": null,
+    "colorType": null
   },
   "96": {
     "id": 96,
@@ -6649,7 +12621,9 @@ export const MAT = {
     "render": "block",
     "objType": null,
     "tag": null,
-    "defMat": "granite"
+    "defMat": "granite",
+    "colorMod": null,
+    "colorType": null
   }
 },
 };
@@ -6659,8 +12633,13 @@ export const GROUPS = {
   "grass": [
     113,
     114,
+    34,
+    35,
+    42,
     75,
-    101
+    101,
+    93,
+    98
   ],
   "water_shallow": [
     73,
@@ -6676,15 +12655,18 @@ export const GROUPS = {
     33,
     122,
     74,
+    121,
     30
   ],
   "snow": [
-    39
+    39,
+    56
   ],
   "ice": [
     38
   ],
   "stone": [
+    54,
     104,
     131,
     134,
@@ -6705,8 +12687,10 @@ export const GROUPS = {
     106,
     108,
     109,
+    117,
     127,
     128,
+    129,
     7,
     25,
     139,
@@ -6714,19 +12698,43 @@ export const GROUPS = {
     80,
     81,
     23,
+    66,
+    69,
+    67,
+    70,
+    68,
+    91,
+    71,
+    137,
     138,
     140,
     107,
     110
   ],
   "wood": [
+    125,
     126,
+    21,
     41,
+    45,
     31,
+    46,
+    47,
+    55,
+    5,
+    57,
+    76,
+    82,
     94,
+    95,
     124,
     83,
-    88
+    84,
+    85,
+    86,
+    87,
+    88,
+    89
   ],
   "factory": [
     17,
@@ -6735,7 +12743,13 @@ export const GROUPS = {
     116,
     118,
     119,
-    96
+    120,
+    132,
+    133,
+    96,
+    97,
+    50,
+    51
   ],
   "undersea": [],
   "other": [
@@ -6745,18 +12759,26 @@ export const GROUPS = {
     77,
     2,
     3,
+    10,
     130,
+    112,
+    1,
+    40,
     99,
     100,
     37,
+    4,
     141,
     36,
     123,
     135,
     136,
+    27,
+    48,
     58,
     102,
     103,
+    9,
     24,
     26,
     60,
@@ -6766,6 +12788,7 @@ export const GROUPS = {
     8,
     105,
     78,
+    92,
     11,
     13,
     111,
@@ -6781,7 +12804,15 @@ export const GROUPS = {
     128,
     149,
     150,
+    13,
+    28,
+    45,
+    159,
+    1,
     205,
+    167,
+    114,
+    165,
     33,
     34,
     36,
@@ -6794,13 +12825,18 @@ export const GROUPS = {
     146,
     17,
     22,
+    187,
+    188,
+    189,
     9,
     143,
     16,
     19,
     20,
     21,
+    129,
     140,
+    171,
     124,
     141,
     10,
@@ -6814,14 +12850,127 @@ export const GROUPS = {
     191,
     192,
     196,
+    193,
     194,
     25,
+    206,
     207,
     138,
     50,
     151,
     152,
-    97
+    97,
+    132,
+    133,
+    134,
+    3,
+    6,
+    29,
+    4,
+    46,
+    106,
+    172,
+    173,
+    174,
+    154,
+    99,
+    100,
+    101,
+    135,
+    107,
+    155,
+    60,
+    93,
+    94,
+    95,
+    2,
+    27,
+    42,
+    43,
+    44,
+    65,
+    66,
+    185,
+    153,
+    162,
+    26,
+    190,
+    202,
+    203,
+    204,
+    7,
+    37,
+    38,
+    39,
+    40,
+    41,
+    126,
+    175,
+    176,
+    177,
+    178,
+    179,
+    180,
+    181,
+    182,
+    183,
+    184,
+    98,
+    54,
+    144,
+    51,
+    56,
+    92,
+    169,
+    170,
+    47,
+    89,
+    90,
+    91,
+    147,
+    166,
+    186,
+    195,
+    197,
+    208,
+    209,
+    210,
+    137,
+    49,
+    127,
+    64,
+    61,
+    62,
+    63,
+    148,
+    156,
+    157,
+    158,
+    142,
+    139,
+    55,
+    48,
+    57,
+    58,
+    59,
+    115,
+    116,
+    117,
+    123,
+    112,
+    113,
+    163,
+    164,
+    88,
+    102,
+    103,
+    104,
+    105,
+    136,
+    161,
+    130,
+    131,
+    96
   ],
   "pillar": [
     213,
@@ -6868,7 +13017,8 @@ export const GROUPS = {
     11
   ],
   "water": [
-    53
+    53,
+    52
   ],
   "waterfall": [
     168
@@ -7080,7 +13230,7 @@ export const BIOMES = {
     ]
   },
   "hill": {
-    "floor": 104,
+    "floor": 54,
     "block": 0,
     "objs": [
       9,
@@ -7089,7 +13239,7 @@ export const BIOMES = {
     ]
   },
   "mountain": {
-    "floor": 104,
+    "floor": 54,
     "block": 0,
     "objs": [
       9,
@@ -7110,7 +13260,7 @@ export const BIOMES = {
     ]
   },
   "road": {
-    "floor": 104,
+    "floor": 54,
     "block": 0,
     "objs": []
   },
@@ -7134,7 +13284,7 @@ export const BIOMES = {
     "objs": []
   },
   "dungeon": {
-    "floor": 104,
+    "floor": 54,
     "block": 0,
     "objs": [
       10,
@@ -7143,7 +13293,7 @@ export const BIOMES = {
     ]
   },
   "town": {
-    "floor": 104,
+    "floor": 54,
     "block": 0,
     "objs": [
       10

@@ -4,8 +4,8 @@
 构建 js/materials.js —— Elin 全量材质注册表（数据驱动，按原版维度分组）
 
 来源（均已像素验证 / 来自 Elin 源码）：
-  - floors_tile_rects.json  (95, 真实像素 rect + xlsx id)
-  - blocks_tile_rects.json  (88, 真实像素 rect + xlsx id)
+  - floors_tile_rects.json  (145, 网格 rect + xlsx id + 每 tile atlas)
+  - blocks_tile_rects.json  (215, 网格 rect + xlsx id + 每 tile atlas: roofs→roofs 等)
   - obj_id_rect.json        (145, 真实像素 rect + xlsx id)
   - sources.json            (Floor/Block/Obj 全字段: alias/name/name_JP/idBiome/defMat/_tileType/_idRenderData/category...)
 
@@ -59,6 +59,19 @@ OBJ_TINT = {
     47: [205, 95, 90],
     94: [150, 130, 95],   # decayed tree 枯树 → 褐
     62: [132, 152, 112],  # decayed fossil tree → 绿灰
+    # ---- 树(树干预着色+树叶灰遮罩的"混合"树, 选择性着色保留树干) ----
+    17: [150, 200, 110],  # palulu パルルの木 → 绿
+    54: [120, 180, 100],  # fir モミ → 深绿
+    55: [140, 185, 110],  # cedar 杉 → 绿
+    58: [150, 195, 105],  # oak オーク → 绿
+    112:[150, 200, 100],  # banana バナナ → 绿
+    118:[110, 200, 185],  # feywood フェイウッド → 青绿(魔法木)
+    119:[235, 150, 150],  # coralwood コーラルウッド → 珊瑚粉
+    13: [110, 175, 110],  # christmas クリスマスツリー → 绿
+    77: [230, 150, 185],  # cherry 桜 → 粉  (rect 碰撞已修, re-enable)
+    53: [145, 180, 100],  # rosewood ローズウッド → 绿(红木干+绿叶)
+    59: [65, 50, 38],     # burnt tree 焦黑树 → 炭黑
+    72: [115, 85, 50],    # stump 树桩 → 褐棕
     # ---- 花/草/苔藓/落叶 ----
     3:  [238, 208, 72],   # yellow flower 黄花
     7:  [118, 168, 88],   # weed 杂草 → 绿
@@ -66,6 +79,7 @@ OBJ_TINT = {
     # 60: [118, 168, 88],   # moss 苔藓 → 绿   ⚠ DISABLED: rect 碰撞(=家具桌), 待修复
     # 79: [208, 138, 58],   # pile of fallen leaves 落叶堆 → 橙  ⚠ DISABLED: rect 碰撞(=家具桌), 待修复
     103:[128, 178, 98],   # bamboo 竹 → 绿
+    105:[118, 168, 88],   # pasture 牧草 → 绿
 }
 
 floor_src = src['SourceBlock']['Floor']['byId']
@@ -84,7 +98,8 @@ for k, v in floor_src.items():
         continue
     MAT_floor[fid] = {
         'id': fid,
-        'atlas': 'floors',
+        'atlas': r.get('atlas', 'floors'),
+        'cell': [r['w'], r['h']],
         'rect': [r['x'], r['y'], r['w'], r['h']],
         'alias': v.get('alias'),
         'name': v.get('name'),
@@ -93,6 +108,8 @@ for k, v in floor_src.items():
         'mat': v.get('defMat'),
         'type': v.get('_tileType'),
         'render': v.get('_idRenderData'),
+        'colorMod': r.get('colorMod'),
+        'colorType': r.get('colorType'),
         'solid': False,
         'walkable': not ('water' in jp(v.get('nameJP')) or '水' in jp(v.get('nameJP')) or v.get('_tileType') in ('FloorWater','FloorWaterShallow','FloorWaterDeep')),
     }
@@ -112,7 +129,8 @@ for k, v in block_src.items():
     solid = not transparent
     MAT_block[bid] = {
         'id': bid,
-        'atlas': 'blocks',
+        'atlas': r.get('atlas', 'blocks'),
+        'cell': [r['w'], r['h']],
         'rect': [r['x'], r['y'], r['w'], r['h']],
         'alias': v.get('alias'),
         'name': v.get('name'),
@@ -121,6 +139,8 @@ for k, v in block_src.items():
         'type': ty,
         'render': v.get('_idRenderData'),
         'transparent': transparent,
+        'colorMod': r.get('colorMod'),
+        'colorType': r.get('colorType'),
         'h': h,
         'solid': solid,
         'walkable': False,
@@ -146,6 +166,10 @@ for k, v in obj_src.items():
         'objType': v.get('objType'),
         'tag': v.get('tag'),
         'defMat': v.get('defMat'),
+        # 程序化着色(Elin 忠实): 当 colorMod!=0 时该精灵是灰度遮罩, 需按材质 matColor 上色
+        # (例: roof 件 defMat=oak colorMod=60 → 橡木棕; grass obj defMat=grass colorMod=300 → 草绿)
+        'colorMod': v.get('colorMod'),
+        'colorType': v.get('colorType'),
     }
     if oid in OBJ_TINT:
         MAT_obj[oid]['tint'] = OBJ_TINT[oid]

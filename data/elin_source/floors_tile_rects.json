@@ -1,14 +1,14 @@
 {
  "atlas": "floors",
- "source": "assets/elin/floors.png",
- "decode": "col=tile%100, row=tile//100 (from Elin-Decompiled RenderData.ConvertTile); x=col*cellW, y=row*cellH",
+ "source": "sources.json + idRenderData_atlas.json (grid-rect from tile index)",
+ "decode": "tile=row*100+col; rect=[col*cw,row*ch,cw,ch]",
  "cellW": 64,
- "cellH": 48,
+ "cellH": 64,
  "cols": 32,
  "imageW": 2048,
  "imageH": 1920,
- "verified": "pixel row-boundary transparency test + source code",
- "count": 95,
+ "verified": true,
+ "count": 145,
  "tiles": [
   {
    "id": 143,
@@ -18,7 +18,13 @@
    "x": 0,
    "y": 0,
    "w": 64,
-   "h": 48
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": 100,
+   "colorType": null,
+   "_idRenderData": null,
+   "_tileType": "Floor"
   },
   {
    "id": 0,
@@ -28,7 +34,13 @@
    "x": 384,
    "y": 0,
    "w": 64,
-   "h": 48
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": null,
+   "_tileType": "None"
   },
   {
    "id": 90,
@@ -38,7 +50,13 @@
    "x": 704,
    "y": 0,
    "w": 64,
-   "h": 48
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": null,
+   "_tileType": "Sky"
   },
   {
    "id": 77,
@@ -48,7 +66,13 @@
    "x": 576,
    "y": 0,
    "w": 64,
-   "h": 48
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": null,
+   "_tileType": "InvisiBlock"
   },
   {
    "id": 2,
@@ -58,7 +82,13 @@
    "x": 512,
    "y": 0,
    "w": 64,
-   "h": 48
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": null,
+   "_tileType": "InvisiBlock"
   },
   {
    "id": 3,
@@ -68,7 +98,45 @@
    "x": 448,
    "y": 0,
    "w": 64,
-   "h": 48
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": null,
+   "_tileType": null
+  },
+  {
+   "id": 10,
+   "tile": 907,
+   "col": 7,
+   "row": 9,
+   "x": 448,
+   "y": 432,
+   "w": 64,
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": null,
+   "_tileType": "FloorScaffold"
+  },
+  {
+   "id": 125,
+   "tile": 911,
+   "col": 11,
+   "row": 9,
+   "x": 704,
+   "y": 432,
+   "w": 64,
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": null,
+   "_tileType": null
   },
   {
    "id": 126,
@@ -78,7 +146,13 @@
    "x": 832,
    "y": 432,
    "w": 64,
-   "h": 48
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": null,
+   "_tileType": null
   },
   {
    "id": 130,
@@ -88,7 +162,29 @@
    "x": 704,
    "y": 528,
    "w": 64,
-   "h": 48
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": null,
+   "_tileType": null
+  },
+  {
+   "id": 54,
+   "tile": 3300,
+   "col": 0,
+   "row": 33,
+   "x": 0,
+   "y": 1056,
+   "w": 32,
+   "h": 32,
+   "atlas": "objs_S",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": "obj_S platform",
+   "_tileType": "BridgeDeco"
   },
   {
    "id": 104,
@@ -98,7 +194,61 @@
    "x": 576,
    "y": 432,
    "w": 64,
-   "h": 48
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": null,
+   "_tileType": "BridgeDeco"
+  },
+  {
+   "id": 112,
+   "tile": 910,
+   "col": 10,
+   "row": 9,
+   "x": 640,
+   "y": 432,
+   "w": 64,
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": null,
+   "_tileType": null
+  },
+  {
+   "id": 1,
+   "tile": 200,
+   "col": 0,
+   "row": 2,
+   "x": 0,
+   "y": 96,
+   "w": 64,
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": null,
+   "_tileType": null
+  },
+  {
+   "id": 40,
+   "tile": 301,
+   "col": 1,
+   "row": 3,
+   "x": 64,
+   "y": 144,
+   "w": 64,
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": null,
+   "_tileType": null
   },
   {
    "id": 99,
@@ -108,7 +258,13 @@
    "x": 128,
    "y": 96,
    "w": 64,
-   "h": 48
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": null,
+   "_tileType": null
   },
   {
    "id": 100,
@@ -118,7 +274,13 @@
    "x": 192,
    "y": 96,
    "w": 64,
-   "h": 48
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": null,
+   "_tileType": null
   },
   {
    "id": 37,
@@ -128,7 +290,29 @@
    "x": 128,
    "y": 144,
    "w": 64,
-   "h": 48
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": null,
+   "_tileType": null
+  },
+  {
+   "id": 4,
+   "tile": 700,
+   "col": 0,
+   "row": 7,
+   "x": 0,
+   "y": 336,
+   "w": 64,
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": null,
+   "_tileType": null
   },
   {
    "id": 141,
@@ -138,7 +322,13 @@
    "x": 320,
    "y": 336,
    "w": 64,
-   "h": 48
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": null,
+   "_tileType": null
   },
   {
    "id": 33,
@@ -148,7 +338,13 @@
    "x": 0,
    "y": 144,
    "w": 64,
-   "h": 48
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": null,
+   "_tileType": null
   },
   {
    "id": 122,
@@ -158,7 +354,13 @@
    "x": 0,
    "y": 144,
    "w": 64,
-   "h": 48
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": null,
+   "_tileType": null
   },
   {
    "id": 74,
@@ -168,7 +370,29 @@
    "x": 192,
    "y": 144,
    "w": 64,
-   "h": 48
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": null,
+   "_tileType": null
+  },
+  {
+   "id": 121,
+   "tile": 310,
+   "col": 10,
+   "row": 3,
+   "x": 640,
+   "y": 144,
+   "w": 64,
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": null,
+   "_tileType": null
   },
   {
    "id": 113,
@@ -178,7 +402,13 @@
    "x": 1024,
    "y": 48,
    "w": 64,
-   "h": 48
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": null,
+   "_tileType": null
   },
   {
    "id": 114,
@@ -188,7 +418,61 @@
    "x": 896,
    "y": 48,
    "w": 64,
-   "h": 48
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": null,
+   "_tileType": null
+  },
+  {
+   "id": 34,
+   "tile": 100,
+   "col": 0,
+   "row": 1,
+   "x": 0,
+   "y": 48,
+   "w": 64,
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": null,
+   "_tileType": null
+  },
+  {
+   "id": 35,
+   "tile": 400,
+   "col": 0,
+   "row": 4,
+   "x": 0,
+   "y": 192,
+   "w": 64,
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": null,
+   "_tileType": null
+  },
+  {
+   "id": 42,
+   "tile": 404,
+   "col": 4,
+   "row": 4,
+   "x": 256,
+   "y": 192,
+   "w": 64,
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": null,
+   "_tileType": null
   },
   {
    "id": 36,
@@ -198,7 +482,13 @@
    "x": 384,
    "y": 336,
    "w": 64,
-   "h": 48
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": null,
+   "_tileType": null
   },
   {
    "id": 75,
@@ -208,7 +498,13 @@
    "x": 448,
    "y": 336,
    "w": 64,
-   "h": 48
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": null,
+   "_tileType": null
   },
   {
    "id": 101,
@@ -218,7 +514,13 @@
    "x": 64,
    "y": 96,
    "w": 64,
-   "h": 48
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": null,
+   "_tileType": null
   },
   {
    "id": 39,
@@ -228,7 +530,29 @@
    "x": 640,
    "y": 336,
    "w": 64,
-   "h": 48
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": null,
+   "_tileType": null
+  },
+  {
+   "id": 56,
+   "tile": 710,
+   "col": 10,
+   "row": 7,
+   "x": 640,
+   "y": 336,
+   "w": 64,
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": null,
+   "_tileType": null
   },
   {
    "id": 38,
@@ -238,7 +562,29 @@
    "x": 448,
    "y": 384,
    "w": 64,
-   "h": 48
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": "floorEx",
+   "_tileType": null
+  },
+  {
+   "id": 21,
+   "tile": 605,
+   "col": 5,
+   "row": 6,
+   "x": 320,
+   "y": 288,
+   "w": 64,
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": null,
+   "_tileType": null
   },
   {
    "id": 41,
@@ -248,7 +594,29 @@
    "x": 384,
    "y": 288,
    "w": 64,
-   "h": 48
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": null,
+   "_tileType": null
+  },
+  {
+   "id": 45,
+   "tile": 607,
+   "col": 7,
+   "row": 6,
+   "x": 448,
+   "y": 288,
+   "w": 64,
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": null,
+   "_tileType": null
   },
   {
    "id": 31,
@@ -258,7 +626,125 @@
    "x": 256,
    "y": 288,
    "w": 64,
-   "h": 48
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": null,
+   "_tileType": null
+  },
+  {
+   "id": 46,
+   "tile": 602,
+   "col": 2,
+   "row": 6,
+   "x": 128,
+   "y": 288,
+   "w": 64,
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": null,
+   "_tileType": null
+  },
+  {
+   "id": 47,
+   "tile": 603,
+   "col": 3,
+   "row": 6,
+   "x": 192,
+   "y": 288,
+   "w": 64,
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": null,
+   "_tileType": null
+  },
+  {
+   "id": 55,
+   "tile": 900,
+   "col": 0,
+   "row": 9,
+   "x": 0,
+   "y": 432,
+   "w": 64,
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": null,
+   "_tileType": null
+  },
+  {
+   "id": 5,
+   "tile": 601,
+   "col": 1,
+   "row": 6,
+   "x": 64,
+   "y": 288,
+   "w": 64,
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": null,
+   "_tileType": null
+  },
+  {
+   "id": 57,
+   "tile": 600,
+   "col": 0,
+   "row": 6,
+   "x": 0,
+   "y": 288,
+   "w": 64,
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": null,
+   "_tileType": null
+  },
+  {
+   "id": 76,
+   "tile": 904,
+   "col": 4,
+   "row": 9,
+   "x": 256,
+   "y": 432,
+   "w": 64,
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": "floorEx",
+   "_tileType": null
+  },
+  {
+   "id": 82,
+   "tile": 416,
+   "col": 16,
+   "row": 4,
+   "x": 1024,
+   "y": 192,
+   "w": 64,
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": null,
+   "_tileType": null
   },
   {
    "id": 94,
@@ -268,7 +754,29 @@
    "x": 1088,
    "y": 288,
    "w": 64,
-   "h": 48
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": null,
+   "_tileType": null
+  },
+  {
+   "id": 95,
+   "tile": 618,
+   "col": 18,
+   "row": 6,
+   "x": 1152,
+   "y": 288,
+   "w": 64,
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": null,
+   "_tileType": null
   },
   {
    "id": 123,
@@ -278,7 +786,13 @@
    "x": 1088,
    "y": 336,
    "w": 64,
-   "h": 48
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": null,
+   "_tileType": null
   },
   {
    "id": 124,
@@ -288,7 +802,13 @@
    "x": 1152,
    "y": 336,
    "w": 64,
-   "h": 48
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": null,
+   "_tileType": null
   },
   {
    "id": 131,
@@ -298,7 +818,13 @@
    "x": 1216,
    "y": 336,
    "w": 64,
-   "h": 48
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": null,
+   "_tileType": null
   },
   {
    "id": 134,
@@ -308,7 +834,13 @@
    "x": 1280,
    "y": 336,
    "w": 64,
-   "h": 48
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": null,
+   "_tileType": null
   },
   {
    "id": 135,
@@ -318,7 +850,13 @@
    "x": 1344,
    "y": 336,
    "w": 64,
-   "h": 48
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": null,
+   "_tileType": null
   },
   {
    "id": 136,
@@ -328,7 +866,13 @@
    "x": 1408,
    "y": 336,
    "w": 64,
-   "h": 48
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": null,
+   "_tileType": null
   },
   {
    "id": 83,
@@ -338,7 +882,77 @@
    "x": 1088,
    "y": 192,
    "w": 64,
-   "h": 48
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": null,
+   "_tileType": null
+  },
+  {
+   "id": 84,
+   "tile": 418,
+   "col": 18,
+   "row": 4,
+   "x": 1152,
+   "y": 192,
+   "w": 64,
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": null,
+   "_tileType": null
+  },
+  {
+   "id": 85,
+   "tile": 420,
+   "col": 20,
+   "row": 4,
+   "x": 1280,
+   "y": 192,
+   "w": 64,
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": null,
+   "_tileType": null
+  },
+  {
+   "id": 86,
+   "tile": 422,
+   "col": 22,
+   "row": 4,
+   "x": 1408,
+   "y": 192,
+   "w": 64,
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": null,
+   "_tileType": null
+  },
+  {
+   "id": 87,
+   "tile": 424,
+   "col": 24,
+   "row": 4,
+   "x": 1536,
+   "y": 192,
+   "w": 64,
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": null,
+   "_tileType": null
   },
   {
    "id": 88,
@@ -348,7 +962,29 @@
    "x": 1664,
    "y": 192,
    "w": 64,
-   "h": 48
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": null,
+   "_tileType": null
+  },
+  {
+   "id": 89,
+   "tile": 427,
+   "col": 27,
+   "row": 4,
+   "x": 1728,
+   "y": 192,
+   "w": 64,
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": null,
+   "_tileType": null
   },
   {
    "id": 30,
@@ -358,7 +994,45 @@
    "x": 512,
    "y": 384,
    "w": 64,
-   "h": 48
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": null,
+   "_tileType": null
+  },
+  {
+   "id": 27,
+   "tile": 508,
+   "col": 8,
+   "row": 5,
+   "x": 512,
+   "y": 240,
+   "w": 64,
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": null,
+   "_tileType": null
+  },
+  {
+   "id": 48,
+   "tile": 608,
+   "col": 8,
+   "row": 6,
+   "x": 512,
+   "y": 288,
+   "w": 64,
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": null,
+   "_tileType": null
   },
   {
    "id": 58,
@@ -368,7 +1042,13 @@
    "x": 832,
    "y": 240,
    "w": 64,
-   "h": 48
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": null,
+   "_tileType": null
   },
   {
    "id": 102,
@@ -378,7 +1058,13 @@
    "x": 832,
    "y": 288,
    "w": 64,
-   "h": 48
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": null,
+   "_tileType": null
   },
   {
    "id": 103,
@@ -388,7 +1074,13 @@
    "x": 1088,
    "y": 240,
    "w": 64,
-   "h": 48
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": null,
+   "_tileType": null
   },
   {
    "id": 6,
@@ -398,7 +1090,13 @@
    "x": 64,
    "y": 240,
    "w": 64,
-   "h": 48
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": 250,
+   "colorType": null,
+   "_idRenderData": null,
+   "_tileType": null
   },
   {
    "id": 15,
@@ -408,7 +1106,13 @@
    "x": 192,
    "y": 240,
    "w": 64,
-   "h": 48
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": null,
+   "_tileType": null
   },
   {
    "id": 14,
@@ -418,7 +1122,13 @@
    "x": 128,
    "y": 240,
    "w": 64,
-   "h": 48
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": null,
+   "_tileType": null
   },
   {
    "id": 29,
@@ -428,7 +1138,13 @@
    "x": 64,
    "y": 336,
    "w": 64,
-   "h": 48
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": null,
+   "_tileType": null
   },
   {
    "id": 16,
@@ -438,7 +1154,13 @@
    "x": 256,
    "y": 240,
    "w": 64,
-   "h": 48
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": null,
+   "_tileType": null
   },
   {
    "id": 32,
@@ -448,7 +1170,13 @@
    "x": 704,
    "y": 240,
    "w": 64,
-   "h": 48
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": null,
+   "_tileType": null
   },
   {
    "id": 19,
@@ -458,7 +1186,13 @@
    "x": 448,
    "y": 240,
    "w": 64,
-   "h": 48
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": null,
+   "_tileType": null
   },
   {
    "id": 28,
@@ -468,7 +1202,13 @@
    "x": 640,
    "y": 240,
    "w": 64,
-   "h": 48
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": null,
+   "_tileType": null
   },
   {
    "id": 59,
@@ -478,7 +1218,13 @@
    "x": 896,
    "y": 240,
    "w": 64,
-   "h": 48
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": null,
+   "_tileType": null
   },
   {
    "id": 64,
@@ -488,7 +1234,13 @@
    "x": 1216,
    "y": 240,
    "w": 64,
-   "h": 48
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": null,
+   "_tileType": null
   },
   {
    "id": 61,
@@ -498,7 +1250,13 @@
    "x": 896,
    "y": 192,
    "w": 64,
-   "h": 48
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": null,
+   "_tileType": null
   },
   {
    "id": 12,
@@ -508,7 +1266,13 @@
    "x": 320,
    "y": 384,
    "w": 64,
-   "h": 48
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": null,
+   "_tileType": null
   },
   {
    "id": 52,
@@ -518,7 +1282,13 @@
    "x": 320,
    "y": 432,
    "w": 64,
-   "h": 48
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": "floorEx",
+   "_tileType": null
   },
   {
    "id": 53,
@@ -528,7 +1298,13 @@
    "x": 384,
    "y": 432,
    "w": 64,
-   "h": 48
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": null,
+   "_tileType": null
   },
   {
    "id": 106,
@@ -538,7 +1314,13 @@
    "x": 1152,
    "y": 240,
    "w": 64,
-   "h": 48
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": null,
+   "_tileType": null
   },
   {
    "id": 108,
@@ -548,7 +1330,13 @@
    "x": 1344,
    "y": 240,
    "w": 64,
-   "h": 48
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": null,
+   "_tileType": null
   },
   {
    "id": 109,
@@ -558,7 +1346,29 @@
    "x": 1408,
    "y": 240,
    "w": 64,
-   "h": 48
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": null,
+   "_tileType": null
+  },
+  {
+   "id": 117,
+   "tile": 523,
+   "col": 23,
+   "row": 5,
+   "x": 1472,
+   "y": 240,
+   "w": 64,
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": 20,
+   "colorType": null,
+   "_idRenderData": null,
+   "_tileType": null
   },
   {
    "id": 127,
@@ -568,7 +1378,13 @@
    "x": 1600,
    "y": 240,
    "w": 64,
-   "h": 48
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": 20,
+   "colorType": null,
+   "_idRenderData": null,
+   "_tileType": null
   },
   {
    "id": 128,
@@ -578,7 +1394,29 @@
    "x": 1600,
    "y": 192,
    "w": 64,
-   "h": 48
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": 20,
+   "colorType": null,
+   "_idRenderData": null,
+   "_tileType": null
+  },
+  {
+   "id": 129,
+   "tile": 526,
+   "col": 26,
+   "row": 5,
+   "x": 1664,
+   "y": 240,
+   "w": 64,
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": 20,
+   "colorType": null,
+   "_idRenderData": null,
+   "_tileType": null
   },
   {
    "id": 17,
@@ -588,7 +1426,13 @@
    "x": 320,
    "y": 240,
    "w": 64,
-   "h": 48
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": 250,
+   "colorType": null,
+   "_idRenderData": null,
+   "_tileType": null
   },
   {
    "id": 18,
@@ -598,7 +1442,13 @@
    "x": 384,
    "y": 240,
    "w": 64,
-   "h": 48
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": 250,
+   "colorType": null,
+   "_idRenderData": "floorEx",
+   "_tileType": null
   },
   {
    "id": 115,
@@ -608,7 +1458,13 @@
    "x": 1472,
    "y": 288,
    "w": 64,
-   "h": 48
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": 250,
+   "colorType": null,
+   "_idRenderData": "floorEx",
+   "_tileType": null
   },
   {
    "id": 116,
@@ -618,7 +1474,13 @@
    "x": 1536,
    "y": 288,
    "w": 64,
-   "h": 48
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": 250,
+   "colorType": null,
+   "_idRenderData": "floorEx",
+   "_tileType": null
   },
   {
    "id": 118,
@@ -628,7 +1490,13 @@
    "x": 1600,
    "y": 288,
    "w": 64,
-   "h": 48
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": "floorEx",
+   "_tileType": null
   },
   {
    "id": 119,
@@ -638,7 +1506,61 @@
    "x": 1664,
    "y": 288,
    "w": 64,
-   "h": 48
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": "floorEx",
+   "_tileType": null
+  },
+  {
+   "id": 120,
+   "tile": 627,
+   "col": 27,
+   "row": 6,
+   "x": 1728,
+   "y": 288,
+   "w": 64,
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": "floorEx",
+   "_tileType": null
+  },
+  {
+   "id": 132,
+   "tile": 629,
+   "col": 29,
+   "row": 6,
+   "x": 1856,
+   "y": 288,
+   "w": 64,
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": "floorEx",
+   "_tileType": null
+  },
+  {
+   "id": 133,
+   "tile": 729,
+   "col": 29,
+   "row": 7,
+   "x": 1856,
+   "y": 336,
+   "w": 64,
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": "floorEx",
+   "_tileType": null
   },
   {
    "id": 96,
@@ -648,7 +1570,29 @@
    "x": 1280,
    "y": 288,
    "w": 64,
-   "h": 48
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": "floorEx",
+   "_tileType": null
+  },
+  {
+   "id": 97,
+   "tile": 621,
+   "col": 21,
+   "row": 6,
+   "x": 1344,
+   "y": 288,
+   "w": 64,
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": "floorEx",
+   "_tileType": null
   },
   {
    "id": 7,
@@ -658,7 +1602,29 @@
    "x": 64,
    "y": 384,
    "w": 64,
-   "h": 48
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": null,
+   "_tileType": null
+  },
+  {
+   "id": 9,
+   "tile": 903,
+   "col": 3,
+   "row": 9,
+   "x": 192,
+   "y": 432,
+   "w": 64,
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": null,
+   "_tileType": null
   },
   {
    "id": 24,
@@ -668,7 +1634,13 @@
    "x": 0,
    "y": 384,
    "w": 64,
-   "h": 48
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": null,
+   "_tileType": null
   },
   {
    "id": 25,
@@ -678,7 +1650,13 @@
    "x": 128,
    "y": 384,
    "w": 64,
-   "h": 48
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": null,
+   "_tileType": null
   },
   {
    "id": 26,
@@ -688,7 +1666,13 @@
    "x": 128,
    "y": 432,
    "w": 64,
-   "h": 48
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": null,
+   "_tileType": null
   },
   {
    "id": 60,
@@ -698,7 +1682,13 @@
    "x": 960,
    "y": 240,
    "w": 64,
-   "h": 48
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": null,
+   "_tileType": null
   },
   {
    "id": 65,
@@ -708,7 +1698,13 @@
    "x": 1024,
    "y": 240,
    "w": 64,
-   "h": 48
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": null,
+   "_tileType": null
   },
   {
    "id": 62,
@@ -718,7 +1714,13 @@
    "x": 960,
    "y": 192,
    "w": 64,
-   "h": 48
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": null,
+   "_tileType": null
   },
   {
    "id": 63,
@@ -728,7 +1730,13 @@
    "x": 832,
    "y": 192,
    "w": 64,
-   "h": 48
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": null,
+   "_tileType": null
   },
   {
    "id": 139,
@@ -738,7 +1746,13 @@
    "x": 320,
    "y": 624,
    "w": 64,
-   "h": 48
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": null,
+   "_tileType": null
   },
   {
    "id": 8,
@@ -748,7 +1762,13 @@
    "x": 64,
    "y": 432,
    "w": 64,
-   "h": 48
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": null,
+   "_tileType": null
   },
   {
    "id": 105,
@@ -758,7 +1778,13 @@
    "x": 1856,
    "y": 384,
    "w": 64,
-   "h": 48
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": null,
+   "_tileType": null
   },
   {
    "id": 78,
@@ -768,7 +1794,13 @@
    "x": 960,
    "y": 384,
    "w": 64,
-   "h": 48
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": null,
+   "_tileType": null
   },
   {
    "id": 79,
@@ -778,7 +1810,13 @@
    "x": 1024,
    "y": 384,
    "w": 64,
-   "h": 48
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": null,
+   "_tileType": null
   },
   {
    "id": 80,
@@ -788,7 +1826,13 @@
    "x": 1088,
    "y": 384,
    "w": 64,
-   "h": 48
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": null,
+   "_tileType": null
   },
   {
    "id": 81,
@@ -798,7 +1842,61 @@
    "x": 1152,
    "y": 384,
    "w": 64,
-   "h": 48
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": null,
+   "_tileType": null
+  },
+  {
+   "id": 92,
+   "tile": 819,
+   "col": 19,
+   "row": 8,
+   "x": 1216,
+   "y": 384,
+   "w": 64,
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": null,
+   "_tileType": null
+  },
+  {
+   "id": 93,
+   "tile": 822,
+   "col": 22,
+   "row": 8,
+   "x": 1408,
+   "y": 384,
+   "w": 64,
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": null,
+   "_tileType": null
+  },
+  {
+   "id": 98,
+   "tile": 825,
+   "col": 25,
+   "row": 8,
+   "x": 1600,
+   "y": 384,
+   "w": 64,
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": null,
+   "_tileType": null
   },
   {
    "id": 11,
@@ -808,7 +1906,13 @@
    "x": 256,
    "y": 384,
    "w": 64,
-   "h": 48
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": "floorEx",
+   "_tileType": null
   },
   {
    "id": 13,
@@ -818,7 +1922,13 @@
    "x": 384,
    "y": 384,
    "w": 64,
-   "h": 48
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": "floorEx",
+   "_tileType": null
   },
   {
    "id": 23,
@@ -828,7 +1938,141 @@
    "x": 192,
    "y": 336,
    "w": 64,
-   "h": 48
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": null,
+   "_tileType": null
+  },
+  {
+   "id": 66,
+   "tile": 1224,
+   "col": 24,
+   "row": 12,
+   "x": 1536,
+   "y": 576,
+   "w": 64,
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": "floorEx",
+   "_tileType": null
+  },
+  {
+   "id": 69,
+   "tile": 1216,
+   "col": 16,
+   "row": 12,
+   "x": 1024,
+   "y": 576,
+   "w": 64,
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": null,
+   "_tileType": null
+  },
+  {
+   "id": 67,
+   "tile": 1200,
+   "col": 0,
+   "row": 12,
+   "x": 0,
+   "y": 576,
+   "w": 64,
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": null,
+   "_tileType": null
+  },
+  {
+   "id": 70,
+   "tile": 1300,
+   "col": 0,
+   "row": 13,
+   "x": 0,
+   "y": 624,
+   "w": 64,
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": null,
+   "_tileType": null
+  },
+  {
+   "id": 68,
+   "tile": 1208,
+   "col": 8,
+   "row": 12,
+   "x": 512,
+   "y": 576,
+   "w": 64,
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": null,
+   "_tileType": null
+  },
+  {
+   "id": 91,
+   "tile": 1212,
+   "col": 12,
+   "row": 12,
+   "x": 768,
+   "y": 576,
+   "w": 64,
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": "floorEx",
+   "_tileType": null
+  },
+  {
+   "id": 71,
+   "tile": 1308,
+   "col": 8,
+   "row": 13,
+   "x": 512,
+   "y": 624,
+   "w": 64,
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": null,
+   "_tileType": null
+  },
+  {
+   "id": 137,
+   "tile": 1312,
+   "col": 12,
+   "row": 13,
+   "x": 768,
+   "y": 624,
+   "w": 64,
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": null,
+   "_tileType": null
   },
   {
    "id": 138,
@@ -838,7 +2082,13 @@
    "x": 448,
    "y": 576,
    "w": 64,
-   "h": 48
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": null,
+   "_tileType": null
   },
   {
    "id": 140,
@@ -848,7 +2098,13 @@
    "x": 384,
    "y": 624,
    "w": 64,
-   "h": 48
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": null,
+   "_tileType": null
   },
   {
    "id": 107,
@@ -858,7 +2114,13 @@
    "x": 1280,
    "y": 240,
    "w": 64,
-   "h": 48
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": null,
+   "_tileType": null
   },
   {
    "id": 110,
@@ -868,7 +2130,13 @@
    "x": 1920,
    "y": 384,
    "w": 64,
-   "h": 48
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": null,
+   "_tileType": null
   },
   {
    "id": 111,
@@ -878,7 +2146,13 @@
    "x": 1984,
    "y": 384,
    "w": 64,
-   "h": 48
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": null,
+   "_tileType": null
   },
   {
    "id": 142,
@@ -888,7 +2162,61 @@
    "x": 1600,
    "y": 336,
    "w": 64,
-   "h": 48
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": null,
+   "_tileType": null
+  },
+  {
+   "id": 143,
+   "tile": 726,
+   "col": 26,
+   "row": 7,
+   "x": 1664,
+   "y": 336,
+   "w": 64,
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": null,
+   "_tileType": null
+  },
+  {
+   "id": 50,
+   "tile": 809,
+   "col": 9,
+   "row": 8,
+   "x": 576,
+   "y": 384,
+   "w": 64,
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": null,
+   "_tileType": null
+  },
+  {
+   "id": 51,
+   "tile": 810,
+   "col": 10,
+   "row": 8,
+   "x": 640,
+   "y": 384,
+   "w": 64,
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": null,
+   "_tileType": null
   },
   {
    "id": 22,
@@ -898,7 +2226,13 @@
    "x": 128,
    "y": 336,
    "w": 64,
-   "h": 48
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": "floorEx",
+   "_tileType": null
   },
   {
    "id": 49,
@@ -908,7 +2242,13 @@
    "x": 576,
    "y": 336,
    "w": 64,
-   "h": 48
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": 0,
+   "colorType": null,
+   "_idRenderData": null,
+   "_tileType": null
   },
   {
    "id": 73,
@@ -918,7 +2258,13 @@
    "x": 576,
    "y": 144,
    "w": 64,
-   "h": 48
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": "floorWater",
+   "_tileType": "FloorWaterShallow"
   },
   {
    "id": 44,
@@ -928,7 +2274,13 @@
    "x": 512,
    "y": 144,
    "w": 64,
-   "h": 48
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": "floorWater",
+   "_tileType": "FloorWaterShallow"
   },
   {
    "id": 43,
@@ -938,7 +2290,13 @@
    "x": 448,
    "y": 144,
    "w": 64,
-   "h": 48
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": "floorWater",
+   "_tileType": "FloorWater"
   },
   {
    "id": 72,
@@ -948,7 +2306,13 @@
    "x": 384,
    "y": 144,
    "w": 64,
-   "h": 48
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": "floorWater",
+   "_tileType": "FloorWaterDeep"
   },
   {
    "id": 20,
@@ -958,7 +2322,13 @@
    "x": 0,
    "y": 1056,
    "w": 64,
-   "h": 48
+   "h": 48,
+   "atlas": "floors",
+   "flip": false,
+   "colorMod": null,
+   "colorType": null,
+   "_idRenderData": null,
+   "_tileType": null
   }
  ]
 }

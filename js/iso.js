@@ -562,30 +562,38 @@ export class IsoRenderer{
     cv.width = sw; cv.height = sh;
     const cx = cv.getContext('2d');
     if(mode === 'colorize'){
-      // 按遮罩灰度着色：保留精灵内部明暗(不变成纯色块)
-      // 1) 先画原灰度遮罩(含 alpha)
+      // 逐像素灰度门控着色（统一处理所有精灵类型，无需整块分类）：
+      //   对每个像素单独判断“是否为中性灰(R≈G≈B)”：
+      //     · 中性灰像素(通道差<=THRESH) → multiply 上色 = 原灰度 × tint/255
+      //       保留亮度纹理(树皮纹路/叶脉/明暗)，仅偏移色调。适用：灰遮罩树叶/草/花。
+      //     · 彩色像素(通道差>THRESH)     → 保留原色。适用：预着色树干/花蕊/果实。
+      //     · 透明像素(alpha==0)         → 跳过，保持透明(不会产生纯色块)。
+      //   忠实 Elin RenderDataObj.Draw 的 matColor multiply，但仅作用于中性像素，
+      //   从而兼容“树干预着色 + 树叶灰遮罩”的导出不一致精灵。
       cx.drawImage(atlas, sx, sy, sw, sh, 0, 0, sw, sh);
-      // 2) 逐像素：以遮罩亮度归一化后乘 tint，亮部满色、暗部留底色 → 有立体感的着色树/花
       const img = cx.getImageData(0, 0, sw, sh);
       const d = img.data;
       const tr = tint[0], tg = tint[1], tb = tint[2];
-      let maxL = 1;
+      // 通道差阈值：<=中性(染色) / >已预着色(保留)。
+      // 取 8 的依据(实测 objs.png 通道差直方图)：白桦的叶(cd<8)与干(cd 8~12)正好以 8 为断崖，
+      // THRESH=8 可完美分隔(叶染色/干保留灰白)；橡树 97.6% 像素 cd<8、樱/苹果的彩色像素 cd>16 均不受影响。
+      const THRESH = 8;
+      let painted = false;
       for(let i = 0; i < d.length; i += 4){
-        if(d[i+3] > 0){
-          const lum = 0.299*d[i] + 0.587*d[i+1] + 0.114*d[i+2];
-          if(lum > maxL) maxL = lum;
+        if(d[i+3] === 0) continue;   // 透明 → 保持透明
+        const cd = Math.max(Math.abs(d[i]-d[i+1]), Math.abs(d[i+1]-d[i+2]), Math.abs(d[i]-d[i+2]));
+        if(cd <= THRESH){
+          d[i]   = d[i]   * tr / 255;   // multiply：保留灰度明暗
+          d[i+1] = d[i+1] * tg / 255;
+          d[i+2] = d[i+2] * tb / 255;
+          painted = true;
         }
+        // else 彩色像素保留原样
       }
-      const inv = 255 / maxL;
-      for(let i = 0; i < d.length; i += 4){
-        if(d[i+3] > 0){
-          const lum = (0.299*d[i] + 0.587*d[i+1] + 0.114*d[i+2]) * inv; // → 0..255
-          const f = 0.30 + 0.70 * (lum / 255);   // 暗部保留 30% 底色，亮部满色
-          d[i]   = Math.min(255, tr * f);
-          d[i+1] = Math.min(255, tg * f);
-          d[i+2] = Math.min(255, tb * f);
-          // alpha 保留
-        }
+      if(!painted){
+        // 全彩预着色精灵：无中性像素，不着色 → 直接用原图
+        this._tintCache[ck] = null;
+        return null;
       }
       cx.putImageData(img, 0, 0);
     } else {
@@ -617,17 +625,26 @@ export class IsoRenderer{
   drawFloorAtlas(gx, gy, floorId, visible, explored, hover){
     const m = MAT.floor[floorId];
     if(!m) return false;
-    const atlas = this.elinAtlases?.['floors'];
+    const atlas = this.elinAtlases?.[m.atlas] || this.elinAtlases['floors'];
     if(!atlas || !atlas.complete || atlas.naturalWidth === 0) return false;
 
     const ctx = this.ctx;
     const p = gridToScreen(gx, gy);
     const dim = !visible && explored;
-    const srcCellW = 64;  // floors.png cell width
-    const srcCellH = 48;  // floors.png cell height
+    const srcCellW = m.cell ? m.cell[0] : 64;  // 图集 cell 宽
+    const srcCellH = m.cell ? m.cell[1] : 48;  // 图集 cell 高
 
-    const srcC = Math.floor(m.rect[0] / 64);
-    const srcR = Math.floor(m.rect[1] / 48);
+    const srcC = Math.floor(m.rect[0] / srcCellW);
+    const srcR = Math.floor(m.rect[1] / srcCellH);
+
+    // 非 floors 图集(如 objs_S 平台地板)用简单方块绘制，不走菱形几何
+    if(m.atlas !== 'floors'){
+      const tint = tintForMat(m.mat);
+      const tt = this._getTintedTile(m.atlas, floorId, atlas, srcC*srcCellW, srcR*srcCellH, srcCellW, srcCellH, tint);
+      if(tt) ctx.drawImage(tt, p.x - 32, p.y - 16, 64, 32);
+      else ctx.drawImage(atlas, srcC*srcCellW, srcR*srcCellH, srcCellW, srcCellH, p.x - 32, p.y - 16, 64, 32);
+      return true;
+    }
 
     // 调试截取偏移
     const dsx = this._debugSrcOff?.x || 0;
@@ -687,31 +704,31 @@ export class IsoRenderer{
     const p = gridToScreen(gx, gy);
     if(!visible && !explored) return 0;
 
-    const atlas = this.elinAtlases?.['blocks'];
-    if(!atlas || !atlas.complete || atlas.naturalWidth === 0) return 0;
-
-    const tilePx = 64;
-    const spriteSize = 64;
     let accumH = 0;
-
     ctx.save();
 
     for(let i = 0; i < blockIds.length; i++){
       const bt = MAT.block[blockIds[i]];
       if(!bt) continue;
 
+      // 支持异尺寸图集：roof 块 atlas='roofs' cell=[96,80]，其余 'blocks' cell=[64,64]
+      const cellPx = bt.cell || [64, 64];
+      const tilePx = cellPx[0];
+      const atlas = this.elinAtlases?.[bt.atlas] || this.elinAtlases['blocks'];
+      if(!atlas || !atlas.complete || atlas.naturalWidth === 0) continue;
+
       const col = Math.floor(bt.rect[0] / tilePx);
       const row = Math.floor(bt.rect[1] / tilePx);
       const drawY = p.y - 48 - accumH;
       const tint = tintForMat(bt.mat);
-      const tt = this._getTintedTile('blocks', blockIds[i], atlas,
-        col * tilePx, row * tilePx, tilePx, tilePx, tint);
+      const tt = this._getTintedTile(bt.atlas, blockIds[i], atlas,
+        col * tilePx, row * tilePx, tilePx, cellPx[1], tint);
       if(tt){
-        ctx.drawImage(tt, p.x - 32, drawY, spriteSize, spriteSize);
+        ctx.drawImage(tt, p.x - tilePx / 2, drawY, tilePx, cellPx[1]);
       } else {
         ctx.drawImage(atlas,
-          col * tilePx, row * tilePx, tilePx, tilePx,
-          p.x - 32, drawY, spriteSize, spriteSize
+          col * tilePx, row * tilePx, tilePx, cellPx[1],
+          p.x - tilePx / 2, drawY, tilePx, cellPx[1]
         );
       }
 
@@ -1050,8 +1067,12 @@ export class IsoRenderer{
     if(atlas && atlas.complete && atlas.naturalWidth > 0){
       const sw = def.rect[2], sh = def.rect[3];
       const dw = sw * s, dh = sh * s;
-      const tint = def.tint;
-      // 程序化着色(obj 灰度遮罩 → 实色, 见 material-tints / build_materials OBJ_TINT)
+      // 程序化着色(Elin 忠实模型, 见 BaseTileMap.GetColorInt):
+      //   1) 落叶/花等 foliage 走硬编码 OBJ_TINT(def.tint) —— 近似季节色
+      //   2) 其余 obj 若 colorMod!=0(灰度遮罩, 如 roof 件/grass), 按材质 defMat 的 matColor 上色
+      //      (roof→oak 棕, grass→grass 绿); 预着色精灵(colorMod==0 且无 tint)保持原色
+      let tint = def.tint;
+      if(!tint && def.colorMod){ tint = tintForMat(def.defMat || def.mat); }
       if(tint){
         const tt = this._getTintedTile('obj_' + def.atlas, String(decor.type), atlas,
           def.rect[0], def.rect[1], sw, sh, tint, 'colorize');

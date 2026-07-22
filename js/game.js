@@ -8,6 +8,7 @@ import { makeItem, itemName } from './item.js';
 import { attack, castSpell, applyDamage, tickStatusEffects, regenEntity } from './combat.js';
 import { RACES, CLASSES, SPELLS, ITEMS, GODS, SKILLS, ATTRS, SEASONS, getSeason, WEATHER_EFFECTS } from './data.js?v=43';
 import { MAT, GROUPS, BIOMES } from './materials.js';
+import { tintForMat } from './material-tints.js';
 import { UI } from './ui.js';
 import { findPath, smoothPath } from './pathfind.js?v=2';
 import { AI_PACKAGES, getNPCPackage, getNPCDialogue, getTimePhase, RelationManager, ShopManager, DIALOGUE_TOPICS, getTopicResponse, FACTIONS, getNPCTopics } from './npc.js?v=43';
@@ -3347,7 +3348,7 @@ class Game{
     c.width = 48; c.height = 48;
     c.style.width = '100%'; c.style.height = '100%';
     c.style.imageRendering = 'pixelated';
-    this._drawBuildIcon(c, cat, it.def);
+    this._drawBuildIcon(c, cat, it.def, it.id);
     iconDiv.appendChild(c);
 
     const nameDiv = document.createElement('div');
@@ -3456,31 +3457,54 @@ class Game{
     if(el) el.classList.add('hidden');
   }
 
-  _drawBuildIcon(canvas, cat, def){
+  _drawBuildIcon(canvas, cat, def, id){
     const ctx = canvas.getContext('2d');
     ctx.imageSmoothingEnabled = false;
-    const atlas = this.renderer?.elinAtlases;
-    if(!atlas || !def) return;
+    const atlases = this.renderer?.elinAtlases;
+    if(!atlases || !def) return;
+    const r = this.renderer;
 
     if(cat === 'decor'){
-      const img = atlas[def.atlas];
+      const img = atlases[def.atlas];
       if(img && img.complete && img.naturalWidth > 0){
+        // 程序化着色（与 drawDecoration 一致）：folioage 走 OBJ_TINT，其余按材质色
+        let tint = def.tint;
+        if(!tint && def.colorMod){ tint = tintForMat(def.defMat || def.mat); }
+        if(tint && r){
+          const tt = r._getTintedTile('obj_'+def.atlas, String(id), img,
+            def.rect[0], def.rect[1], def.rect[2], def.rect[3], tint, 'colorize');
+          if(tt){ ctx.drawImage(tt, 0, 0, 48, 48); return; }
+        }
         ctx.drawImage(img, def.rect[0], def.rect[1], def.rect[2], def.rect[3], 0, 0, 48, 48);
         return;
       }
     } else if(cat === 'wall'){
-      const img = atlas['blocks'];
+      const img = atlases[def.atlas] || atlases['blocks'];
       if(img && img.complete && img.naturalWidth > 0){
-        const tilePx = 64;
+        const cellPx = def.cell || [64, 64];
+        const tilePx = cellPx[0];
         const col = Math.floor(def.rect[0]/tilePx), row = Math.floor(def.rect[1]/tilePx);
+        const tint = tintForMat(def.mat);
+        if(r){
+          const tt = r._getTintedTile('icon_'+def.atlas, String(id), img,
+            col*tilePx, row*tilePx, tilePx, tilePx, tint);
+          if(tt){ ctx.drawImage(tt, 0, 0, 48, 48); return; }
+        }
         ctx.drawImage(img, col*tilePx, row*tilePx, tilePx, tilePx, 0, 0, 48, 48);
         return;
       }
     } else if(cat === 'floor'){
-      const img = atlas['floors'];
+      const img = atlases[def.atlas] || atlases['floors'];
       if(img && img.complete && img.naturalWidth > 0){
-        const cellW = 64, cellH = 48;
+        const cellPx = def.cell || [64, 48];
+        const cellW = cellPx[0], cellH = cellPx[1];
         const col = Math.floor(def.rect[0]/cellW), row = Math.floor(def.rect[1]/cellH);
+        const tint = tintForMat(def.mat);
+        if(r){
+          const tt = r._getTintedTile('icon_'+def.atlas, String(id), img,
+            col*cellW, row*cellH, cellW, cellH, tint);
+          if(tt){ ctx.drawImage(tt, 0, 0, 48, 48); return; }
+        }
         ctx.drawImage(img, col*cellW, row*cellH, cellW, cellH, 0, 0, 48, 48);
         return;
       }
