@@ -696,10 +696,11 @@ export class IsoRenderer{
 
 
   // ---- 绘制堆叠方块 (blocks.png, 64px tiles, 支持无限高度堆叠) ----
-  // blockIds: 从底到顶的方块类型ID数组
+  // blockIds: 从底到顶的方块条目数组，每项为 { id, axis? } 或兼容旧格式 number
+  //   axis='y' 时对 Wall 类型块应用水平翻转（ctx.scale(-1,1)），获得垂直轴向墙体
   // 返回总高度(像素)，用于深度排序
-  drawBlockStack(gx, gy, blockIds, visible, explored, hover){
-    if(!blockIds || blockIds.length === 0) return 0;
+  drawBlockStack(gx, gy, blockEntries, visible, explored, hover){
+    if(!blockEntries || blockEntries.length === 0) return 0;
     const ctx = this.ctx;
     const p = gridToScreen(gx, gy);
     if(!visible && !explored) return 0;
@@ -707,10 +708,18 @@ export class IsoRenderer{
     let accumH = 0;
     ctx.save();
 
-    for(let i = 0; i < blockIds.length; i++){
-      const bt = MAT.block[blockIds[i]];
-      if(!bt) continue;
+    // 归一化为 {id, axis}
+    const norm = blockEntries.map(e => ({
+      id: (typeof e === 'object') ? e.id : e,
+      axis: (typeof e === 'object') ? e.axis : 'x'
+    }));
+    const isWallOf = (id) => { const bt = MAT.block[id]; return bt && bt.type === 'Wall'; };
 
+    // 1) 非墙 block：按原序正常绘制并累加高度
+    for(const entry of norm){
+      if(isWallOf(entry.id)) continue;
+      const bt = MAT.block[entry.id];
+      if(!bt) continue;
       // 支持异尺寸图集：roof 块 atlas='roofs' cell=[96,80]，其余 'blocks' cell=[64,64]
       const cellPx = bt.cell || [64, 64];
       const tilePx = cellPx[0];
@@ -721,8 +730,9 @@ export class IsoRenderer{
       const row = Math.floor(bt.rect[1] / tilePx);
       const drawY = p.y - 48 - accumH;
       const tint = tintForMat(bt.mat);
-      const tt = this._getTintedTile(bt.atlas, blockIds[i], atlas,
+      const tt = this._getTintedTile(bt.atlas, String(entry.id), atlas,
         col * tilePx, row * tilePx, tilePx, cellPx[1], tint);
+
       if(tt){
         ctx.drawImage(tt, p.x - tilePx / 2, drawY, tilePx, cellPx[1]);
       } else {
@@ -731,9 +741,60 @@ export class IsoRenderer{
           p.x - tilePx / 2, drawY, tilePx, cellPx[1]
         );
       }
-
       accumH += (bt.h || 1) * WALL_H;
     }
+
+    // 2) 墙体：双边缘系统（仅 se/sw 两条菱形下缘边）。
+    //    se=下右(SE, 东邻)、sw=下左(SW, 南邻)。sw 用 se 精灵水平翻转。
+    //    瘦墙厚度是视觉感受，未实际定义，故不做上缘 ne/nw。
+    //    向后兼容：旧存档 'x'→'se', 'y'→'sw'。
+    const wallAxisSeen = new Set();
+    let anyWall = false;
+    for(const entry of norm){
+      if(!isWallOf(entry.id)) continue;
+      // 归一化轴向（旧存档兼容 + 上缘回落 se）
+      let ax = entry.axis;
+      if(ax === 'x' || ax === 'ne' || ax === 'nw') ax = 'se';
+      else if(ax === 'y') ax = 'sw';
+      if(wallAxisSeen.has(ax)) continue;
+      wallAxisSeen.add(ax);
+      anyWall = true;
+      const bt = MAT.block[entry.id];
+      const cellPx = bt.cell || [64, 64];
+      const tilePx = cellPx[0];
+      const atlas = this.elinAtlases?.[bt.atlas] || this.elinAtlases['blocks'];
+      if(!atlas || !atlas.complete || atlas.naturalWidth === 0) continue;
+
+      const col = Math.floor(bt.rect[0] / tilePx);
+      const row = Math.floor(bt.rect[1] / tilePx);
+      // se(下右)=原精灵；sw(下左)=水平翻转（绕中心 centerX）
+      const centerX = p.x;
+      const drawY = p.y - 48 - accumH;
+      const tint = tintForMat(bt.mat);
+      const tt = this._getTintedTile(bt.atlas, String(entry.id), atlas,
+        col * tilePx, row * tilePx, tilePx, cellPx[1], tint);
+
+      // sw 用 se 精灵水平翻转（绕中心 centerX）
+      const needsFlip = (ax === 'sw');
+      if(needsFlip){
+        ctx.save();
+        ctx.translate(centerX, 0);
+        ctx.scale(-1, 1);
+        ctx.translate(-centerX, 0);
+      }
+
+      if(tt){
+        ctx.drawImage(tt, centerX - tilePx / 2, drawY, tilePx, cellPx[1]);
+      } else {
+        ctx.drawImage(atlas,
+          col * tilePx, row * tilePx, tilePx, cellPx[1],
+          centerX - tilePx / 2, drawY, tilePx, cellPx[1]
+        );
+      }
+
+      if(needsFlip) ctx.restore();
+    }
+    if(anyWall) accumH += WALL_H;
 
     ctx.restore();
 

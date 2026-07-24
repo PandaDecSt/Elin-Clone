@@ -7,7 +7,13 @@
   - **objs.png**=4096² cell **64×64**(tiling64×64) / **objs_S.png**=2048² cell **32×32**(64×64) / **objs_L.png**=1920×2048 cell **80×64**(24×32，⚠️此前记 80×32 是错的，自相关被子图案误导) / **blocks.png**=2048² cell **64×64**(32×32) / **floors.png**=2048×1920 cell **64×48**(32×40) / **roofs.png**=1152×2000 cell **96×80**(12×25)。
   - **objs_C/objs_CL/objs_CLL 是角色贴图集(pass chara/charaL/charaLW/charaLL)，不是 obj 着色遮罩**：objs_C=4096² **128×128**; objs_CL=4096² **128×256**(charaL) 另有 charaLW **256×256** 变体共用同图; objs_CLL=2048² **256×256**(此前记 32×32 错误)。
   - **objs_SS.png**=512²：游戏无任何 pass 引用，legacy/未用，cell 未知（暂沿用 32×32 猜测）。雪变体(objs_snow/objs_S_snow/objs_L_snow/blocks_snow/floors_snow)同各自基底 cell。
-  - 权威 pixel rect 备用来源：**游戏内 `Esc > 工具 > 纹理查看器`**。
+  - **Wall type block 双轴向→双边缘系统**：MAT.block 中 `type:'Wall'` 的条目（214个，如 log/plank/sandbag）。block 存储格式为 `[{id, axis}]`（world.js `_normBlockEntry` 兼容旧 number 格式）。
+    - **渲染/自动衔接用 2 边缘（金刚石下缘）**：`se`(下右)邻接【东(E)】邻、`sw`(下左)邻接【南(S)】邻；`sw` 是 `se` 精灵 `ctx.scale(-1,1)` 水平翻转。
+    - **轴归一化**：存储轴 `x`→`se`、`y`→`sw`；旧存档 `nw`/`ne` 已废弃→回落 `se`。
+    - **R 键**在 `se`/`sw` 间循环；孤立墙显示当前选定单面，不自动补双面。
+    - **放置/拆除**走 `game.js::_reconcileWallAt`（按四邻自动补/拆对应边缘，拆一边自愈），`_detectWallAxis` 已废弃（死代码）。
+    - ⚠️ **2026-07-23 用户要求删除左上(nw)/右上(ne)上边缘墙**，仅保留 se/sw。西/北邻居不再有对应墙边（墙仍是实心阻挡，只是不显示上缘墙）。
+    - Elin 源码对应 `cell.blockDir`(0/1) 选 `_tiles[]` 变体。
 - **公开映射数据（两层）**：
   1. 逻辑层 SourceBlock!Floor/Block/Obj/Deco（本地 `data/sources/SourceBlock.xlsx`）→ `id→tile序号`+`_idRenderData`(纹理键)。已解析为 data/elin_source/{floor,block,obj,deco}_map.json。
   2. 像素层：tile→rect 由 `build_objs_rects.py` 从 PNG 连通域+网格对齐生成。
@@ -62,3 +68,15 @@
 ### 语法检查约定
 - **禁止** `node --check "$f" | head -1 && echo OK` 形式（管道吞 exit code）。
 - 正确形式：`if ! node --check "$f" 2>/dev/null; then echo FAIL: $f; fi`
+
+### ⚠️ 墙体系统铁律：永远只做 se/sw 双边缘，禁止加回四边缘(ne/nw)
+- **用户明确决策（2026-07-23 两次强调）**：不要四边缘墙系统。原因是瘦墙厚度是**画出来的视觉感受，并未实际定义**，实现上缘 ne/nw 衔接太麻烦且容易算错。
+- **惨痛教训**：曾自作主张把四边缘加回（TRIG/NEIGHBOR_OFF/ADJ 那套 + iso.js 上缘垂直翻转渲染），用户明确反对"加不来为什么要加"。**已撤销**：game.js/iso.js 全部回到 se/sw 双边缘；R 键 cycle 回到 `['se','sw']`；预览/面板标签去掉 ne/nw。
+- **当前正确模型**：原生墙固定 + 仅增量补/删 `auto` 面。
+  - 菱形地格四边各接一个网格邻居（iso 投影 `x:(gx-gy)*W/2, y:(gx+gy)*H/2`）：se(下右)=东邻(gx+1,gy)、sw(下左)=南邻(gx,gy+1)、ne(上右)=北邻(gx,gy-1)、nw(上左)=西邻(gx-1,gy)。墙只连 se/sw 两下缘边（无 ne/nw 精灵）。
+  - 原生 `se`(东臂) → 仅当【东邻(gx+1,gy)原生是 `sw`】才补 `sw`（A 南臂与东邻南臂接成连续水平墙）。
+  - 原生 `sw`(南臂) → 仅当【北邻(gx,gy-1)原生是 `se`】才补 `se`（A 东臂与北邻东臂接成连续竖直墙）。
+  - 反向(南邻 se / 西邻 sw)不补：避免把邻居墙方向延长成 T 形（用户 ABC 场景1 明确禁止）；平行/同向绝不补。
+  - ⚠️ **触发方向曾写反**（误写成 se→南邻sw、sw→东邻se），2026-07-23 用户用 ABC 菱形边澄清后改为正确方向（se→东邻、sw→北邻）。
+  - 验证：`test_wall_abc.mjs`（Edge@8123）11/11 PASS（S1 A=[sw]不误补、S2 A=[sw,se]/B=[se]、同向行全单轴、拐角[sw,se]、拆墙自愈[sw]），仅 favicon 404。
+- 若未来用户自己要求加四边缘，先确认瘦墙厚度来源（需定义实际几何），再动手。

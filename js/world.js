@@ -207,6 +207,10 @@ export class GameMap{
     this.special[x + ',' + y] = kind;
   }
   // ---- 方块堆叠系统 ----
+  // block 条目格式：{ id: number, axis?: 'x'|'y' }
+  //   axis='x'(默认)：墙沿世界X轴（SE方向），原始精灵朝向
+  //   axis='y'：墙沿世界Y轴（SW方向），水平翻转（ctx.scale(-1,1)）
+  //   非Wall类型block忽略axis字段
   hasBlocks(x,y){
     if(x<0||y<0||x>=this.w||y>=this.h) return false;
     const b = this.blocks[y][x];
@@ -216,9 +220,14 @@ export class GameMap{
     if(x<0||y<0||x>=this.w||y>=this.h) return null;
     return this.blocks[y][x];
   }
+  /** 规范化block条目：number → {id, axis:'x'}，对象原样返回 */
+  _normBlockEntry(e){
+    if(typeof e === 'number' || typeof e === 'string') return { id: resolveBlockId(e), axis: 'x' };
+    return e; // 已是 {id, axis} 格式
+  }
   setBlocks(x,y,blockIds){
     if(x<0||y<0||x>=this.w||y>=this.h) return;
-    this.blocks[y][x] = (blockIds && blockIds.length > 0) ? blockIds.map(resolveBlockId) : null;
+    this.blocks[y][x] = (blockIds && blockIds.length > 0) ? blockIds.map(e => this._normBlockEntry(e)) : null;
   }
   clearBlocks(x,y){
     if(x<0||y<0||x>=this.w||y>=this.h) return;
@@ -228,14 +237,14 @@ export class GameMap{
     if(x<0||y<0||x>=this.w||y>=this.h) return true;
     const b = this.blocks[y][x];
     if(!b) return false;
-    return b.some(id => { const bt = MAT.block[id]; return bt && bt.solid; });
+    return b.some(entry => { const id = (typeof entry === 'object') ? entry.id : entry; const bt = MAT.block[id]; return bt && bt.solid; });
   }
   blockHeightAt(x,y){
     if(x<0||y<0||x>=this.w||y>=this.h) return 0;
     const b = this.blocks[y][x];
     if(!b) return 0;
     let h = 0;
-    for(const id of b){ const bt = MAT.block[id]; if(bt) h += bt.h; }
+    for(const entry of b){ const id = (typeof entry === 'object') ? entry.id : entry; const bt = MAT.block[id]; if(bt) h += bt.h; }
     return h;
   }
   isSolid(x,y){
@@ -1718,7 +1727,8 @@ export function computeFOV3D(map, ox, oy, radius){
       const stackH = b ? b.length : 0;
       let mask = 1;
       for(let z = 1; z <= stackH; z++){
-        const belowBt = MAT.block[b[z-1]];
+        const belowEntry = b[z-1];
+        const belowBt = MAT.block[(typeof belowEntry === 'object') ? belowEntry.id : belowEntry];
         if(belowBt && belowBt.solid){
           mask |= (1 << z);
           break;

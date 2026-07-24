@@ -2667,24 +2667,49 @@ class Game{
       ctx.closePath();
       ctx.fill();
       ctx.stroke();
-      // 方块放置预览：画半透明墙体轮廓
-      if(bm.cat === 'wall' && MAT.block[bm.selected]){
+      // 方块放置预览：画半透明墙体精灵 + 轮廓（双边缘 se/sw 系统）
+      if((bm.cat === 'wall' || bm.cat === 'structure') && MAT.block[bm.selected]){
         const bt = MAT.block[bm.selected];
         const stackH = this.map.blockHeightAt(gx, gy);
         const previewH = bt.h * WALL_H;
-        const topY = p.y - 48 - stackH - previewH + 16;
-        ctx.strokeStyle = color;
-        ctx.lineWidth = 1/r.cam.zoom;
-        ctx.beginPath();
-        ctx.moveTo(p.x, topY - hh);
-        ctx.lineTo(p.x + hw, topY);
-        ctx.lineTo(p.x + hw, p.y - 32 - stackH);
-        ctx.lineTo(p.x, p.y + hh - 64 - stackH + 32);
-        ctx.lineTo(p.x - hw, p.y - 32 - stackH);
-        ctx.lineTo(p.x - hw, topY);
-        ctx.closePath();
-        ctx.globalAlpha = 0.3;
-        ctx.stroke();
+        const isWallType = bt.type === 'Wall';
+        const axis = isWallType ? (this.buildMode.wallAxis || 'se') : 'x';
+        // 仅 se(下右)/sw(下左) 两条菱形下缘边；sw 用 se 精灵水平翻转
+        const needsFlip = isWallType && axis === 'sw';
+
+        // 绘制带方向的墙精灵预览
+        const atlas = r.elinAtlases?.[bt.atlas] || r.elinAtlases['blocks'];
+        if(atlas && atlas.complete && atlas.naturalWidth > 0){
+          const cellPx = bt.cell || [64, 64];
+          const tilePx = cellPx[0];
+          const col = Math.floor(bt.rect[0] / tilePx);
+          const row = Math.floor(bt.rect[1] / tilePx);
+          // se/sw 均贴菱形下缘(dy=0)，无上缘边
+          const centerX = p.x;
+          const drawY = p.y - 48 - stackH - previewH + (bt.h || 1) * WALL_H;
+          ctx.save();
+          ctx.globalAlpha = 0.45;
+          if(needsFlip){
+            ctx.translate(centerX, 0); ctx.scale(-1, 1); ctx.translate(-centerX, 0);
+          }
+          ctx.drawImage(atlas,
+            col * tilePx, row * tilePx, tilePx, cellPx[1],
+            centerX - tilePx / 2, drawY, tilePx, cellPx[1]
+          );
+          ctx.restore();
+        }
+
+        // 方向指示器（仅 Wall 类型显示 se/sw 标签）
+        if(isWallType){
+          ctx.save();
+          ctx.globalAlpha = 0.7;
+          const edgeLabels = { se:'↘', sw:'↙' };
+          ctx.fillStyle = '#7fd1c4';
+          ctx.font = `${10/r.cam.zoom}px monospace`;
+          ctx.textAlign = 'center';
+          ctx.fillText(edgeLabels[axis] || axis, p.x, p.y - 50 - stackH);
+          ctx.restore();
+        }
       }
     }
     ctx.restore();
@@ -2772,6 +2797,14 @@ class Game{
       else if(k === 't' || k === 'T'){ this._interactNPC(); }
       else if(k === 'b' || k === 'B'){ this._toggleBuildMode(); }
       else if(k === 'Tab'){ e.preventDefault(); this._toggleCombatMode(); }
+      else if((k === 'r' || k === 'R') && this.buildMode && (this.buildMode.cat === 'wall' || this.buildMode.cat === 'structure')){
+        // 建造模式+墙体/结构分类：R键切换墙体边缘朝向（双边缘 se/sw 循环）
+        const cycle = ['se','sw'];
+        const labels = { se:'↘ 下右(SE)', sw:'↙ 下左(SW)' };
+        const cur = cycle.indexOf(this.buildMode.wallAxis || 'se');
+        this.buildMode.wallAxis = cycle[(cur + 1) % cycle.length];
+        this.log(`墙体朝向: ${labels[this.buildMode.wallAxis]}`, 'info');
+      }
       else if(k === 'r' || k === 'R'){ if(this.tb.active && this.tb.isMyTurn(this.player)) this._tbDash(); }
       else if(k === 'q' || k === 'Q'){ if(this.tb.active && this.tb.isMyTurn(this.player)) this._tbQuickHeal(); }
       else if(k === 'Escape'){
@@ -3216,7 +3249,7 @@ class Game{
       this.log('退出建造模式', 'info');
     } else {
       // 打开
-      this.buildMode = {cat:'decor', tool:'place', selected:null};
+      this.buildMode = {cat:'decor', tool:'place', selected:null, wallAxis:'se'};
       this._showBuildPanel();
       this.log('进入建造模式 — 左键放置 · 右键拆除', 'info');
     }
@@ -3230,7 +3263,8 @@ class Game{
     // 分类标签计数
     const setCount = (id, n) => { const el = document.getElementById(id); if(el) el.textContent = '(' + n + ')'; };
     setCount('tabn-decor', Object.keys(MAT.obj).length);
-    setCount('tabn-wall', Object.keys(MAT.block).length);
+    setCount('tabn-wall', Object.values(MAT.block).filter(d => d && d.type === 'Wall').length);
+    setCount('tabn-structure', Object.values(MAT.block).filter(d => d && d.type !== 'Wall').length);
     setCount('tabn-floor', Object.keys(MAT.floor).length);
     // tab 切换
     panel.querySelectorAll('.build-tab').forEach(tab => {
@@ -3281,10 +3315,16 @@ class Game{
 
     // 收集当前分类的全部元素（不再只取每组代表）
     let all = [];
-    const table = cat === 'decor' ? MAT.obj : cat === 'wall' ? MAT.block : MAT.floor;
+    const table = cat === 'decor' ? MAT.obj
+               : cat === 'wall' || cat === 'structure' ? MAT.block
+               : MAT.floor;
     for(const id in table){
       const def = table[id];
       if(!def) continue;
+      // 墙壁分类只显示真正的墙（type==='Wall'），避免与普通方块/柱子/屋顶混淆误选
+      if(cat === 'wall' && def.type !== 'Wall') continue;
+      // 结构分类只显示非墙的可放置方块（普通方块/柱子/屋顶/楼梯等）
+      if(cat === 'structure' && def.type === 'Wall') continue;
       all.push({ id: +id, def, cat });
     }
 
@@ -3437,6 +3477,14 @@ class Game{
     html += row('实心 solid', this._esc(String(d.solid ?? '-')));
     html += row('可走 walkable', this._esc(String(d.walkable ?? '-')));
     html += row('渲染 render', this._esc(String(d.render ?? '-')));
+    // Wall 类型：显示双轴放置提示
+    if(d.type === 'Wall'){
+      const ax = this.buildMode?.wallAxis || 'se';
+      const labels4 = { se:'↘下右(SE)', sw:'↙下左(SW)' };
+      const axisLabel = labels4[ax] || ax;
+      html += `<div class="bt-row"><span class="bt-k">轴向</span><span class="bt-v" style="color:#7fd1c4">${axisLabel}</span></div>`;
+      html += `<div class="bt-row" style="opacity:0.6;font-size:11px"><span class="bt-k">操作</span><span class="bt-v">R键切换方向 · 自动对齐邻居</span></div>`;
+    }
     el.innerHTML = html;
     el.classList.remove('hidden');
   }
@@ -3478,7 +3526,7 @@ class Game{
         ctx.drawImage(img, def.rect[0], def.rect[1], def.rect[2], def.rect[3], 0, 0, 48, 48);
         return;
       }
-    } else if(cat === 'wall'){
+    } else if(cat === 'wall' || cat === 'structure'){
       const img = atlases[def.atlas] || atlases['blocks'];
       if(img && img.complete && img.naturalWidth > 0){
         const cellPx = def.cell || [64, 64];
@@ -3488,9 +3536,18 @@ class Game{
         if(r){
           const tt = r._getTintedTile('icon_'+def.atlas, String(id), img,
             col*tilePx, row*tilePx, tilePx, tilePx, tint);
-          if(tt){ ctx.drawImage(tt, 0, 0, 48, 48); return; }
+          if(tt){ ctx.drawImage(tt, 0, 0, 48, 48); }
+          else { ctx.drawImage(img, col*tilePx, row*tilePx, tilePx, tilePx, 0, 0, 48, 48); }
+        } else {
+          ctx.drawImage(img, col*tilePx, row*tilePx, tilePx, tilePx, 0, 0, 48, 48);
         }
-        ctx.drawImage(img, col*tilePx, row*tilePx, tilePx, tilePx, 0, 0, 48, 48);
+        // Wall 类型：显示双轴方向提示角标
+        if(def.type === 'Wall'){
+          ctx.fillStyle = 'rgba(127,209,196,0.85)';
+          ctx.font = 'bold 9px monospace';
+          ctx.textAlign = 'right';
+          ctx.fillText('↔↕', 46, 11);
+        }
         return;
       }
     } else if(cat === 'floor'){
@@ -3537,18 +3594,30 @@ class Game{
       // 地面装饰物（Elin objs 图集均为地面物件）
       this.map.addDecoration(gx, gy, id, null);
       this.log(`放置 ${this._decorName(id)}`, 'info');
-    } else if(cat === 'wall' || cat === 'floor'){
+    } else if(cat === 'wall' || cat === 'structure' || cat === 'floor'){
       // 不能覆盖特殊瓦片（楼梯/门/祭坛/宝箱）
       if(this.map.specialAt(gx, gy)){ this.log('不能覆盖特殊瓦片', 'warn'); return; }
-      if(cat === 'wall'){
-        // 放置方块：堆叠到现有方块上方
+      if(cat === 'wall' || cat === 'structure'){
+        // 放置方块：堆叠到现有方块上方（墙壁与结构均走此分支）
         const ent = this.map.entityAt(gx, gy);
         if(ent){ this.log('该位置有生物', 'warn'); return; }
         const bt = MAT.block[id];
         if(bt){
           const existing = this.map.getBlocks(gx, gy) || [];
-          this.map.setBlocks(gx, gy, [...existing, id]);
-          this.log(`放置 ${bt.name || id}（高度${existing.length + 1}）`, 'info');
+          if(bt.type === 'Wall'){
+            // 墙体：依据四邻墙块自动衔接（拐角处自动补一块相反方向的墙）
+            const blocks = this._reconcileWallAt(gx, gy, id);
+            this.map.setBlocks(gx, gy, blocks);
+            const axes = blocks
+              .filter(b => { const bid = (typeof b==='object')? b.id : b; return MAT.block[bid] && MAT.block[bid].type === 'Wall'; })
+              .map(b => (typeof b==='object')? b.axis : 'x').join('+');
+            this.log(`放置 ${bt.name || id} [${axes}]（高度${existing.length + 1}）`, 'info');
+            // 双向衔接：让四邻墙也接上本格
+            this._reconcileNeighbors(gx, gy);
+          } else {
+            this.map.setBlocks(gx, gy, [...existing, { id, axis: 'x' }]);
+            this.log(`放置 ${bt.name || id}（高度${existing.length + 1}）`, 'info');
+          }
         }
       } else {
         // 放置地板
@@ -3557,6 +3626,144 @@ class Game{
       }
     }
   }
+
+  /** 检测墙体应使用的轴向：根据4邻格已有墙块自动对齐 */
+  _detectWallAxis(gx, gy){
+    // 检查4个网格方向是否有墙类型block（type==='Wall'）
+    const isWallAt = (x, y) => {
+      const blocks = this.map.getBlocks(x, y);
+      if(!blocks || blocks.length === 0) return false;
+      const top = blocks[blocks.length - 1];
+      const tid = (typeof top === 'object') ? top.id : top;
+      const tbt = MAT.block[tid];
+      return tbt && tbt.type === 'Wall';
+    };
+    const ew = isWallAt(gx-1, gy) || isWallAt(gx+1, gy);  // 东西向有墙 → X轴
+    const ns = isWallAt(gx, gy-1) || isWallAt(gx, gy+1);  // 南北向有墙 → Y轴
+    if(ew && !ns) return 'x';
+    if(ns && !ew) return 'y';
+    if(ew && ns){
+      // 两方向都有墙：取数量多的方向；平分则默认X轴
+      let ewCount=0, nsCount=0;
+      if(isWallAt(gx-1,gy)) ewCount++;
+      if(isWallAt(gx+1,gy)) ewCount++;
+      if(isWallAt(gx,gy-1)) nsCount++;
+      if(isWallAt(gx,gy+1)) nsCount++;
+      return nsCount > ewCount ? 'y' : 'x';
+    }
+    // 无邻居：使用建造模式当前手动选择的轴向（默认'x'，R键切换）
+    return this.buildMode.wallAxis || 'x';
+  }
+
+  /**
+   * 让格 (gx,gy) 的墙体与相邻墙块自动衔接（双边缘 se/sw 系统，原生固定 + 增量补/删）。
+   *
+   * 仅两条菱形下缘边（瘦墙厚度是画出来的视觉感受，未实际定义，故不做上缘 ne/nw）：
+   *   'se' = 下右(SE)边 ↔ 东邻 (gx+1, gy)，共享边 = 对方 sw
+   *   'sw' = 下左(SW)边 ↔ 南邻 (gx, gy+1)，共享边 = 对方 se
+   *
+   * 模型（用户定义）：
+   *   1. 原生墙(original)：放置时 R 键选定方向(se/sw)，永不改变。
+   *   2. 拐弯 = 在缺口边增量补(auto)一面墙。只在垂直邻居确实提供对接时才补。
+   *      - 原生 se(东臂) → 仅当【东邻原生是 sw】才补 sw；
+   *      - 原生 sw(南臂) → 仅当【北邻原生是 se】才补 se。
+   *   3. 补墙只增不删原生；拆墙只删 auto 面。
+   *   4. 一排平行/同向墙不触发补墙（无拐角需求）；北/西邻居不反向长边。
+   */
+  _reconcileWallAt(gx, gy, forceId){
+    const blocks = this.map.getBlocks(gx, gy) || [];
+    const isWall = (b) => {
+      const bid = (typeof b === 'object') ? b.id : b;
+      const bt = MAT.block[bid];
+      return bt && bt.type === 'Wall';
+    };
+    const axisOf = (b) => {
+      const ax = (typeof b === 'object') ? b.axis : 'x';
+      if(ax === 'x') return 'se'; if(ax === 'y') return 'sw';
+      return ax;
+    };
+    const kept = blocks.filter(b => !isWall(b));
+    const wallList = blocks.filter(isWall);
+
+    // ---- 双边缘系统：仅 se(东邻) / sw(南邻) 两条下缘边 ----
+    // 瘦墙厚度是画出来的视觉感受，未实际定义，故不做上缘 ne/nw。
+
+    // 原生墙 = 非 auto 的墙条目
+    const originals = wallList.filter(w => (typeof w === 'object') ? !w.auto : true);
+    const repId = originals.length
+      ? ((typeof originals[0] === 'object') ? originals[0].id : originals[0])
+      : forceId;
+    if(repId == null) return blocks;
+
+    // 新建格：用 R 键朝向生成原生墙
+    if(originals.length === 0){
+      originals.push({ id: repId, axis: this.buildMode?.wallAxis || 'se' });
+    }
+    const origAxis = axisOf(originals[0]);
+    if(origAxis !== 'se' && origAxis !== 'sw'){
+      originals[0].axis = 'se'; // 兜底非法值
+    }
+
+    // 增量补墙规则（双边缘，原生墙固定，auto 面增量补/删）：
+    //   菱形地格四边各接一个网格邻居：se(下右)=东邻(gx+1,gy)、sw(下左)=南邻(gx,gy+1)、
+    //   ne(上右)=北邻(gx,gy-1)、nw(上左)=西邻(gx-1,gy)。墙只连 se/sw 两下缘边。
+    //   · 原生 se(东臂) → 仅当【东邻(gx+1,gy)原生是 sw】才补 sw：A 南臂与东邻南臂接成连续水平墙。
+    //   · 原生 sw(南臂) → 仅当【北邻(gx,gy-1)原生是 se】才补 se：A 东臂与北邻东臂接成连续竖直墙。
+    //   反向(南邻 se / 西邻 sw)不补，避免把邻居墙方向延长成 T 形；平行同向绝不补。
+    const nativeAxisAt = (nx, ny) => {
+      const nb = this.map.getBlocks(nx, ny);
+      if(!nb || !nb.length) return null;
+      for(const e of nb){
+        const isAuto = (typeof e === 'object') ? !!e.auto : false;
+        if(isAuto) continue; // 只看原生墙，auto 补面不触发二次补
+        const id = (typeof e === 'object') ? e.id : e;
+        if(MAT.block[id]?.type === 'Wall') return axisOf(e);
+      }
+      return null;
+    };
+    const needAuto = new Set();
+    if(origAxis === 'se'){
+      // 东臂：仅当【东邻(gx+1,gy)原生是 sw】才补南臂，使 A 的南臂与东邻南臂接成连续水平墙
+      if(nativeAxisAt(gx + 1, gy) === 'sw') needAuto.add('sw');
+    } else if(origAxis === 'sw'){
+      // 南臂：仅当【北邻(gx,gy-1)原生是 se】才补东臂，使 A 的东臂与北邻东臂接成连续竖直墙
+      if(nativeAxisAt(gx, gy - 1) === 'se') needAuto.add('se');
+    }
+
+    // 复用已有 auto 条目
+    const existingAuto = new Map();
+    for(const w of wallList){
+      if(typeof w === 'object' && w.auto){
+        const ax = axisOf(w);
+        if(!existingAuto.has(ax)) existingAuto.set(ax, w);
+      }
+    }
+
+    // 组装：非墙 + 原生(不变) + 需要的补充面
+    const result = [...kept];
+    for(const o of originals) result.push(o);
+    for(const ax of needAuto){
+      if(originals.some(o => axisOf(o) === ax)) continue;
+      result.push(existingAuto.get(ax) || { id: repId, axis: ax, auto: true });
+    }
+    return result;
+  }
+
+  /** 让本格与四邻全部重新对齐墙轴（放置/拆除后调用，使衔接自愈） */
+  _reconcileNeighbors(gx, gy){
+    const cells = [[gx, gy], [gx - 1, gy], [gx + 1, gy], [gx, gy - 1], [gx, gy + 1]];
+    for(const [x, y] of cells){
+      const b = this.map.getBlocks(x, y);
+      if(b && b.length && b.some(e => {
+        const id = (typeof e === 'object') ? e.id : e;
+        const bt = MAT.block[id];
+        return bt && bt.type === 'Wall';
+      })){
+        this.map.setBlocks(x, y, this._reconcileWallAt(x, y));
+      }
+    }
+  }
+
 
   _buildRemove(gx, gy){
     if(gx < 0 || gy < 0 || gx >= this.map.w || gy >= this.map.h) return;
@@ -3569,10 +3776,14 @@ class Game{
     // 尝试拆除方块（从顶往下拆）
     if(this.map.hasBlocks(gx, gy)){
       const blocks = this.map.getBlocks(gx, gy);
-      const lastId = blocks[blocks.length - 1];
+      const lastEntry = blocks[blocks.length - 1];
+      const lastId = (typeof lastEntry === 'object') ? lastEntry.id : lastEntry;
       const bt = MAT.block[lastId];
+      const wasWall = bt && bt.type === 'Wall';
       this.map.setBlocks(gx, gy, blocks.slice(0, -1));
       this.log(`拆除 ${bt?.name || '方块'}（剩余${Math.max(0, blocks.length-1)}层）`, 'info');
+      // 拆墙后自愈衔接：本格与四邻重新对齐墙轴
+      if(wasWall) this._reconcileNeighbors(gx, gy);
       return;
     }
     // 没有方块，尝试拆除特殊地板（恢复为默认 floor）
