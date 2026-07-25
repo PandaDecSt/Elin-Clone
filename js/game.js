@@ -2674,8 +2674,8 @@ class Game{
         const previewH = bt.h * WALL_H;
         const isWallType = bt.type === 'Wall';
         const axis = isWallType ? (this.buildMode.wallAxis || 'se') : 'x';
-        // 仅 se(下右)/sw(下左) 两条菱形下缘边；sw 用 se 精灵水平翻转
-        const needsFlip = isWallType && axis === 'sw';
+        // 仅 se(下右)/sw(下左) 两条菱形下缘边；原精灵画的是下左(SW)，故 se 水平翻转
+        const needsFlip = isWallType && axis === 'se';
 
         // 绘制带方向的墙精灵预览
         const atlas = r.elinAtlases?.[bt.atlas] || r.elinAtlases['blocks'];
@@ -3250,6 +3250,7 @@ class Game{
     } else {
       // 打开
       this.buildMode = {cat:'decor', tool:'place', selected:null, wallAxis:'se'};
+      this._wallDbgA = null;
       this._showBuildPanel();
       this.log('进入建造模式 — 左键放置 · 右键拆除', 'info');
     }
@@ -3605,6 +3606,11 @@ class Game{
         if(bt){
           const existing = this.map.getBlocks(gx, gy) || [];
           if(bt.type === 'Wall'){
+            if(!this._wallDbgA){
+              this._wallDbgA = {x:gx, y:gy};
+              console.log(`[墙调试] 定义 A格=(${gx},${gy})；B格=右上(${gx},${gy-1})[A.ne=B.sw]，C格=左下(${gx},${gy+1})[A.sw=C.ne]`);
+            }
+            console.log(`[墙调试] 放置 ${this._wallDbgLabel(gx,gy)}格(${gx},${gy}) 的 ${this.buildMode.wallAxis} 边墙(原生)`);
             // 墙体：依据四邻墙块自动衔接（拐角处自动补一块相反方向的墙）
             const blocks = this._reconcileWallAt(gx, gy, id);
             this.map.setBlocks(gx, gy, blocks);
@@ -3614,6 +3620,8 @@ class Game{
             this.log(`放置 ${bt.name || id} [${axes}]（高度${existing.length + 1}）`, 'info');
             // 双向衔接：让四邻墙也接上本格
             this._reconcileNeighbors(gx, gy);
+            const A = this._wallDbgA;
+            console.log(`[墙调试] 结果 A:${this._wallDbgState(A.x,A.y)} | B:${this._wallDbgState(A.x,A.y-1)} | C:${this._wallDbgState(A.x,A.y+1)}`);
           } else {
             this.map.setBlocks(gx, gy, [...existing, { id, axis: 'x' }]);
             this.log(`放置 ${bt.name || id}（高度${existing.length + 1}）`, 'info');
@@ -3655,20 +3663,42 @@ class Game{
     return this.buildMode.wallAxis || 'x';
   }
 
+  _wallDbgLabel(gx, gy){
+    const A = this._wallDbgA;
+    if(!A) return `(${gx},${gy})`;
+    if(gx === A.x && gy === A.y) return 'A';
+    if(gx === A.x && gy === A.y - 1) return 'B';
+    if(gx === A.x && gy === A.y + 1) return 'C';
+    return `(${gx},${gy})`;
+  }
+
+  _wallDbgState(gx, gy){
+    const b = this.map.getBlocks(gx, gy);
+    if(!b || !b.length) return '空';
+    const walls = b.filter(e => { const id = (typeof e === 'object') ? e.id : e; return MAT.block[id] && MAT.block[id].type === 'Wall'; });
+    if(!walls.length) return '无墙';
+    return walls.map(e => {
+      let ax = (typeof e === 'object') ? e.axis : 'x';
+      if(ax === 'x') ax = 'se'; else if(ax === 'y') ax = 'sw';
+      const auto = (typeof e === 'object') && e.auto;
+      return ax + (auto ? '(补)' : '');
+    }).join('+');
+  }
+
   /**
    * 让格 (gx,gy) 的墙体与相邻墙块自动衔接（双边缘 se/sw 系统，原生固定 + 增量补/删）。
    *
    * 仅两条菱形下缘边（瘦墙厚度是画出来的视觉感受，未实际定义，故不做上缘 ne/nw）：
-   *   'se' = 下右(SE)边 ↔ 东邻 (gx+1, gy)，共享边 = 对方 sw
-   *   'sw' = 下左(SW)边 ↔ 南邻 (gx, gy+1)，共享边 = 对方 se
+   *   'se' = 下右(SE)边 ↔ 东南邻 (gx+1, gy)，共享边 = 对方 nw
+   *   'sw' = 下左(SW)边 ↔ 西南邻 (gx, gy+1)，共享边 = 对方 ne
    *
    * 模型（用户定义）：
    *   1. 原生墙(original)：放置时 R 键选定方向(se/sw)，永不改变。
-   *   2. 拐弯 = 在缺口边增量补(auto)一面墙。只在垂直邻居确实提供对接时才补。
-   *      - 原生 se(东臂) → 仅当【东邻原生是 sw】才补 sw；
-   *      - 原生 sw(南臂) → 仅当【北邻原生是 se】才补 se。
+   *   2. 拐弯 = 在缺口边增量补(auto)一面墙。只在「上缘邻居」与补墙同向、能接成连续墙时才补：
+   *      - 原生 se(东臂) → 仅当【西北邻(gx-1,gy)原生是 sw】才补 sw；
+   *      - 原生 sw(南臂) → 仅当【东北邻(gx,gy-1)原生是 se】才补 se。
    *   3. 补墙只增不删原生；拆墙只删 auto 面。
-   *   4. 一排平行/同向墙不触发补墙（无拐角需求）；北/西邻居不反向长边。
+   *   4. 下缘邻居(东南邻 gx+1,gy / 西南邻 gx,gy+1)与本格原生墙已成拐弯，绝不补，避免延长成 T 形；平行同向绝不补。
    */
   _reconcileWallAt(gx, gy, forceId){
     const blocks = this.map.getBlocks(gx, gy) || [];
@@ -3685,7 +3715,7 @@ class Game{
     const kept = blocks.filter(b => !isWall(b));
     const wallList = blocks.filter(isWall);
 
-    // ---- 双边缘系统：仅 se(东邻) / sw(南邻) 两条下缘边 ----
+    // ---- 双边缘系统：仅 se(东南邻) / sw(西南邻) 两条下缘边 ----
     // 瘦墙厚度是画出来的视觉感受，未实际定义，故不做上缘 ne/nw。
 
     // 原生墙 = 非 auto 的墙条目
@@ -3705,11 +3735,12 @@ class Game{
     }
 
     // 增量补墙规则（双边缘，原生墙固定，auto 面增量补/删）：
-    //   菱形地格四边各接一个网格邻居：se(下右)=东邻(gx+1,gy)、sw(下左)=南邻(gx,gy+1)、
-    //   ne(上右)=北邻(gx,gy-1)、nw(上左)=西邻(gx-1,gy)。墙只连 se/sw 两下缘边。
-    //   · 原生 se(东臂) → 仅当【东邻(gx+1,gy)原生是 sw】才补 sw：A 南臂与东邻南臂接成连续水平墙。
-    //   · 原生 sw(南臂) → 仅当【北邻(gx,gy-1)原生是 se】才补 se：A 东臂与北邻东臂接成连续竖直墙。
-    //   反向(南邻 se / 西邻 sw)不补，避免把邻居墙方向延长成 T 形；平行同向绝不补。
+    //   菱形地格四边各接一个网格邻居：se(下右)=东南邻(gx+1,gy)、sw(下左)=西南邻(gx,gy+1)、
+    //   ne(上右)=东北邻(gx,gy-1)、nw(上左)=西北邻(gx-1,gy)。墙只画 se/sw 两下缘边。
+    //   补墙只发生在【上缘邻居】提供同向对接、形成拐角时：
+    //   · 原生 se(东臂) → 仅当【西北邻(gx-1,gy)原生是 sw】才补 sw：A 南臂与西邻南臂接成拐角连续墙。
+    //   · 原生 sw(南臂) → 仅当【东北邻(gx,gy-1)原生是 se】才补 se：A 东臂与北邻东臂接成拐角连续墙。
+    //   下缘邻居(东南邻 se / 西南邻 sw)本身已与本格原生墙成拐弯，绝不补，避免延长成 T 形；平行同向绝不补。
     const nativeAxisAt = (nx, ny) => {
       const nb = this.map.getBlocks(nx, ny);
       if(!nb || !nb.length) return null;
@@ -3723,11 +3754,15 @@ class Game{
     };
     const needAuto = new Set();
     if(origAxis === 'se'){
-      // 东臂：仅当【东邻(gx+1,gy)原生是 sw】才补南臂，使 A 的南臂与东邻南臂接成连续水平墙
-      if(nativeAxisAt(gx + 1, gy) === 'sw') needAuto.add('sw');
+      const nax = nativeAxisAt(gx - 1, gy);
+      if(this._wallDbgA) console.log(`[墙调试] reconcile ${this._wallDbgLabel(gx,gy)}格(${gx},${gy}) 原生=se → 查NW邻(${gx-1},${gy})=${this._wallDbgLabel(gx-1,gy)} 原生=${nax||'无'} ${nax==='sw'?'⇒补sw':'⇒不补'}`);
+      // 东臂：仅当【西邻(gx-1,gy)原生是 sw】才补南臂，使 A 的南臂与西邻南臂在上缘接成拐角连续墙
+      if(nax === 'sw') needAuto.add('sw');
     } else if(origAxis === 'sw'){
-      // 南臂：仅当【北邻(gx,gy-1)原生是 se】才补东臂，使 A 的东臂与北邻东臂接成连续竖直墙
-      if(nativeAxisAt(gx, gy - 1) === 'se') needAuto.add('se');
+      const nax = nativeAxisAt(gx, gy - 1);
+      if(this._wallDbgA) console.log(`[墙调试] reconcile ${this._wallDbgLabel(gx,gy)}格(${gx},${gy}) 原生=sw → 查NE邻(${gx},${gy-1})=${this._wallDbgLabel(gx,gy-1)} 原生=${nax||'无'} ${nax==='se'?'⇒补se':'⇒不补'}`);
+      // 南臂：仅当【北邻(gx,gy-1)原生是 se】才补东臂，使 A 的东臂与北邻东臂在上缘接成拐角连续墙
+      if(nax === 'se') needAuto.add('se');
     }
 
     // 复用已有 auto 条目

@@ -208,8 +208,8 @@ export class GameMap{
   }
   // ---- 方块堆叠系统 ----
   // block 条目格式：{ id: number, axis?: 'x'|'y' }
-  //   axis='x'(默认)：墙沿世界X轴（SE方向），原始精灵朝向
-  //   axis='y'：墙沿世界Y轴（SW方向），水平翻转（ctx.scale(-1,1)）
+  //   axis='x'(默认, se下右)：水平翻转（ctx.scale(-1,1)），因原始精灵画的是下左(sw)边
+  //   axis='y'(sw下左)：原始精灵朝向
   //   非Wall类型block忽略axis字段
   hasBlocks(x,y){
     if(x<0||y<0||x>=this.w||y>=this.h) return false;

@@ -697,7 +697,7 @@ export class IsoRenderer{
 
   // ---- 绘制堆叠方块 (blocks.png, 64px tiles, 支持无限高度堆叠) ----
   // blockIds: 从底到顶的方块条目数组，每项为 { id, axis? } 或兼容旧格式 number
-  //   axis='y' 时对 Wall 类型块应用水平翻转（ctx.scale(-1,1)），获得垂直轴向墙体
+  //   axis='x'(se,下右) 时对 Wall 类型块应用水平翻转（ctx.scale(-1,1)）；原始精灵画的是下左(sw)边
   // 返回总高度(像素)，用于深度排序
   drawBlockStack(gx, gy, blockEntries, visible, explored, hover){
     if(!blockEntries || blockEntries.length === 0) return 0;
@@ -745,7 +745,7 @@ export class IsoRenderer{
     }
 
     // 2) 墙体：双边缘系统（仅 se/sw 两条菱形下缘边）。
-    //    se=下右(SE, 东邻)、sw=下左(SW, 南邻)。sw 用 se 精灵水平翻转。
+    //    se=下右(SE, 东邻)、sw=下左(SW, 南邻)。原精灵画的是下左(SW)边，故 se 水平翻转、sw 用原图。
     //    瘦墙厚度是视觉感受，未实际定义，故不做上缘 ne/nw。
     //    向后兼容：旧存档 'x'→'se', 'y'→'sw'。
     const wallAxisSeen = new Set();
@@ -767,15 +767,15 @@ export class IsoRenderer{
 
       const col = Math.floor(bt.rect[0] / tilePx);
       const row = Math.floor(bt.rect[1] / tilePx);
-      // se(下右)=原精灵；sw(下左)=水平翻转（绕中心 centerX）
+      // se(下右)=水平翻转；sw(下左)=原精灵（原精灵本身画的是下左SW边）
       const centerX = p.x;
       const drawY = p.y - 48 - accumH;
       const tint = tintForMat(bt.mat);
       const tt = this._getTintedTile(bt.atlas, String(entry.id), atlas,
         col * tilePx, row * tilePx, tilePx, cellPx[1], tint);
 
-      // sw 用 se 精灵水平翻转（绕中心 centerX）
-      const needsFlip = (ax === 'sw');
+      // se 用下左(SW)精灵水平翻转成下右(SE)（绕中心 centerX）
+      const needsFlip = (ax === 'se');
       if(needsFlip){
         ctx.save();
         ctx.translate(centerX, 0);
