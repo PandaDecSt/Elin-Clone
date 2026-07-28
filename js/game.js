@@ -2056,6 +2056,7 @@ class Game{
 
     // 战争迷雾颜色常量（供地板迷雾和方块/物品迷雾共用）
     const FOG_R=10, FOG_G=12, FOG_B=20;
+    const FOG_FILL = `rgb(${FOG_R},${FOG_G},${FOG_B})`;
 
     // ===== 战争迷雾（地板之后、方块/实体之前绘制，确保墙体在雾之上）=====
     // 改进: 平滑衰减、边缘渐变过渡、多光源支持、高度遮挡
@@ -2081,7 +2082,8 @@ class Game{
 
       // 计算某格的综合光照值 (0=完全照亮, 1=完全黑暗)
       const fogGradientOn = this.ui.settings.fogGradient;
-      this._computeFogAlpha = (gx, gy) => {
+      const fogCache = new Map();
+      const computeFog = (gx, gy) => {
         // 建造模式：去除迷雾 / 显示未探索 → 完全照亮
         if(this.fogNoFog || this.fogReveal) return 0;
         // 已探索但不在视野内: 已探索迷雾
@@ -2142,6 +2144,14 @@ class Game{
 
         return Math.max(0, Math.min(1, minFog));
       };
+      this._computeFogAlpha = (gx, gy) => {
+        const k = gx * 65536 + gy;
+        const cached = fogCache.get(k);
+        if(cached !== undefined) return cached;
+        const v = computeFog(gx, gy);
+        fogCache.set(k, v);
+        return v;
+      };
 
       r.ctx.save();
       for(let gy = gmMinY; gy < gmMaxY; gy++){
@@ -2153,7 +2163,7 @@ class Game{
           const fogAlpha = this._computeFogAlpha(gx, gy);
           if(fogAlpha > 0.01){
             r.ctx.globalAlpha = fogAlpha;
-            r.ctx.fillStyle = `rgb(${FOG_R},${FOG_G},${FOG_B})`;
+            r.ctx.fillStyle = FOG_FILL;
             r.ctx.beginPath();
             r.ctx.moveTo(sp.x, sp.y - TILE_H/2);
             r.ctx.lineTo(sp.x + TILE_W/2, sp.y);
@@ -2260,13 +2270,13 @@ class Game{
           const fogA = this._computeFogAlpha(d.gx, d.gy);
           if(fogA > 0.02){
             const bp = gridToScreen(d.gx, d.gy);
-            const accumH = this.map.blockHeightAt(d.gx, d.gy) * WALL_H;
+            const curH = this.map.blockHeightAt(d.gx, d.gy);
+            const accumH = curH * WALL_H;
             const hw = TILE_W / 2, hh = TILE_H / 2;
             r.ctx.save();
             r.ctx.globalAlpha = fogA;
-            r.ctx.fillStyle = `rgb(${FOG_R},${FOG_G},${FOG_B})`;
+            r.ctx.fillStyle = FOG_FILL;
             // 邻接剔除：判断相邻方块高度，跳过不可见面（仅已探索邻格参与剔除）
-            const curH = this.map.blockHeightAt(d.gx, d.gy);
             const nbSExplored = this.map.explored[d.gy + 1]?.[d.gx];
             const nbEExplored = this.map.explored[d.gy]?.[d.gx + 1];
             const nbS = nbSExplored ? this.map.blockHeightAt(d.gx, d.gy + 1) : 0;
@@ -2325,7 +2335,7 @@ class Game{
             const ip = gridToScreen(d.x, d.y);
             r.ctx.save();
             r.ctx.globalAlpha = fogA;
-            r.ctx.fillStyle = `rgb(${FOG_R},${FOG_G},${FOG_B})`;
+            r.ctx.fillStyle = FOG_FILL;
             r.ctx.beginPath();
             r.ctx.moveTo(ip.x, ip.y - TILE_H/2);
             r.ctx.lineTo(ip.x + TILE_W/2, ip.y);
